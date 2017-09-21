@@ -20,7 +20,7 @@ SIGN_UP:{screen:SignUp}
 },{
 headerMode: 'none',
  mode:'modal',
-  initialRouteName:'LOG_IN'
+  initialRouteName:'SIGN_UP'
 
   });
 };

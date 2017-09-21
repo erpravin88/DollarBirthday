@@ -95,7 +95,7 @@ secureTextEntry = {true} multiline = {false} maxLength = {100}
 <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
 <Text style = {styles.signInButton}>Sign Up</Text>
 </TouchableOpacity>
-<Text style = {styles.term_service}>By signing up, you agree to   ; Terms of Service and Privacy Policy.</Text>
+<Text style = {styles.term_service}>By signing up, you agree to Terms of Service and Privacy Policy.</Text>
 
 </View>
 

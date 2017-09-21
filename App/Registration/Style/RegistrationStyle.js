@@ -26,7 +26,7 @@ import {
     width: 185,
     height: 103,
     resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '6%' : '6%',
+    marginTop: (Platform.OS === 'ios')? '4%' : '6%',
 
 
   },
@@ -41,25 +41,26 @@ import {
 
    titleTextFirst: {
      fontSize: 25,
-     color:'#efd7fe'
-
+     color:'#efd7fe',
+    fontFamily:'OpenSans-Semibold'
    },
 
    titleTextSecond: {
      fontSize: 30,
      fontWeight: 'bold',
-     color:'#ffffff'
-
+     color:'#ffffff',
+     fontFamily:'OpenSans-Semibold'
    },
 
    TextInputStyle: {
 
     width: '100%',
     height: 40,
-    fontSize:25,
+    fontSize:22,
     paddingBottom:0,
     paddingBottom:5,
     paddingRight:22,
+    fontFamily:'Open Sans'
   },
 
   TextInputContainer: {
@@ -67,13 +68,15 @@ import {
    width: '85%',
    alignSelf: 'center',
 
+
   },
 
   EmailTextInputContainer: {
 
    width: '85%',
    alignSelf: 'center',
-   paddingTop:'15%'
+   paddingTop:'15%',
+   fontFamily:'Open Sans'
  },
 
 
@@ -135,7 +138,7 @@ import {
 
    fontSize: 25,
    color:'#ffffff',
-
+   fontFamily:'Open Sans'
  },
 
  dob_label: {
@@ -144,6 +147,7 @@ import {
    color:'#000000',
    marginTop:10,
    backgroundColor:'transparent',
+   fontFamily:'Open Sans'
  },
 
  date_picker:{
@@ -151,7 +155,7 @@ import {
    alignSelf: 'center',
    backgroundColor:'transparent',
    marginBottom:5,
-
+   fontFamily:'Open Sans'
    },
 
  orDivider: {
@@ -161,15 +165,17 @@ import {
    alignSelf:'center',
    marginTop:20,
    backgroundColor:'transparent',
+   fontFamily:'Open Sans'
  },
 
  term_service: {
 
    fontSize: 16,
    color:'#b7b7b7',
-
+   fontFamily:'Open Sans',
    marginTop:10,
    backgroundColor:'transparent',
+   fontFamily:'Open Sans'
  },
 
  facebookButton:{

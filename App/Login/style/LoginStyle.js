@@ -47,7 +47,6 @@ import {
 
   titleTextSecond: {
     fontSize: 30,
-
     color:'#ffffff',
     fontFamily:'OpenSans-Semibold'
   },
@@ -63,7 +62,7 @@ import {
 
    width: '100%',
    height: 40,
-   fontSize:25,
+   fontSize:22,
    paddingBottom:0,
    paddingBottom:5,
    paddingRight:22,
@@ -159,7 +158,8 @@ borderBottomColor: '#e0e0e0'
 
     fontSize: 25,
     color:'#ffffff',
-fontFamily:'Open Sans'
+    fontFamily:'Open Sans'
+
   },
 
   orDivider: {
@@ -169,14 +169,14 @@ fontFamily:'Open Sans'
     alignSelf:'center',
     marginTop:20,
     backgroundColor:'transparent',
-    fontFamily:'Open-Sans'
+    fontFamily:'Open Sans'
   },
 
   facebookButton:{
     width:'100%',
     height:'100%',
     resizeMode:'contain',
-    fontFamily:'Open-Sans'
+    fontFamily:'Open Sans'
   },
 
 
