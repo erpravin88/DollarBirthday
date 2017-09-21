@@ -13,11 +13,14 @@ import {
 } from 'react-native';
 
 import Test from './App/Dummy/Test';
+import {screenRoute} from './App/ScreenNavigation/Router';
 
 export default class DollarBirthday extends Component {
   render() {
+
+    const T = screenRoute();
     return (
-      <Test/>
+      <T/>
     );
   }
 }

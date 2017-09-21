@@ -6,7 +6,7 @@
 	<dict>
 		<key>Base.lproj/LaunchScreen.nib</key>
 		<data>
-		uMOlYurZaFIb4gcsPhOIALCwtzg=
+		9Dzf8eqdZUV3ZmRrL/anQN1WClc=
 		</data>
 		<key>Frameworks/IDEBundleInjection.framework/IDEBundleInjection</key>
 		<data>
@@ -203,7 +203,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		EibSXZPVrM3JivA5l2TXxcVBU0E=
+		09TDSsGVmVcMB0LlcsPD14KFR4g=
+		</data>
+		<key>OpenSans-Regular.ttf</key>
+		<data>
+		NWTtC1Nj31zyd8FuDGvtxaaCIX8=
+		</data>
+		<key>OpenSans-Semibold.ttf</key>
+		<data>
+		8e56nG0T7i1kKoBsCec3J15hN5I=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -211,7 +219,7 @@
 		</data>
 		<key>PlugIns/DollarBirthdayTests.xctest/DollarBirthdayTests</key>
 		<data>
-		0gSmIj/XZyczXGfyf8EihjgafvU=
+		yq0CoAXonDCOexyrzXo0qJEGCis=
 		</data>
 		<key>PlugIns/DollarBirthdayTests.xctest/Info.plist</key>
 		<data>
@@ -221,6 +229,14 @@
 		<data>
 		cTZuVeG63ApT8ztfgwEWlGBDgF0=
 		</data>
+		<key>splash@2x.png</key>
+		<data>
+		xzo0y3tZx9VJhP/Ijznqg8Co1JU=
+		</data>
+		<key>splash@3x.png</key>
+		<data>
+		eLqs9nlqDRltvi/YW9zMamUBa+Q=
+		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -228,11 +244,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			uMOlYurZaFIb4gcsPhOIALCwtzg=
+			9Dzf8eqdZUV3ZmRrL/anQN1WClc=
 			</data>
 			<key>hash2</key>
 			<data>
-			lPES9BOaJHy79WUhWyylz7uKI64hSqUIELZ69mwccB0=
+			G7nvZ80FqZb8oHYJtzu6qhuOexHhHA9UXN9qkz2vRbs=
 			</data>
 		</dict>
 		<key>Frameworks/IDEBundleInjection.framework/IDEBundleInjection</key>
@@ -759,15 +775,37 @@
 			XRZO/3nFAFuEpuQhJ/4JH9jjJ2U6V1MEfx3btzABLQ8=
 			</data>
 		</dict>
+		<key>OpenSans-Regular.ttf</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NWTtC1Nj31zyd8FuDGvtxaaCIX8=
+			</data>
+			<key>hash2</key>
+			<data>
+			5k5QiyqiiA+QfkcMRVCYDsTAaU0QOkPzYVCsP5MYm+4=
+			</data>
+		</dict>
+		<key>OpenSans-Semibold.ttf</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8e56nG0T7i1kKoBsCec3J15hN5I=
+			</data>
+			<key>hash2</key>
+			<data>
+			qjsO9T2xLj1FCUAwysDmnThORMxZeGQ91DkAQcrVRuI=
+			</data>
+		</dict>
 		<key>PlugIns/DollarBirthdayTests.xctest/DollarBirthdayTests</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			0gSmIj/XZyczXGfyf8EihjgafvU=
+			yq0CoAXonDCOexyrzXo0qJEGCis=
 			</data>
 			<key>hash2</key>
 			<data>
-			bVj3H9Me1Q5q0ge0Nldx2wiXUgyaipNovj5DRqEvPnI=
+			+ul2UemRdsJODyh2pJqcZKmtui0qqMtqjIlTbdpRWEo=
 			</data>
 		</dict>
 		<key>PlugIns/DollarBirthdayTests.xctest/Info.plist</key>
@@ -790,6 +828,28 @@
 			<key>hash2</key>
 			<data>
 			MIn79Cq5seey7wT/iTqPvzTG0vXcn7A76KgZNSrRKL4=
+			</data>
+		</dict>
+		<key>splash@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xzo0y3tZx9VJhP/Ijznqg8Co1JU=
+			</data>
+			<key>hash2</key>
+			<data>
+			vr/KuTcblc6c34ZjTFYqsKp8ZOAO4DQcCHg9WD7fPRg=
+			</data>
+		</dict>
+		<key>splash@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eLqs9nlqDRltvi/YW9zMamUBa+Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			uR91EMJ7c/bfl7cRxe4Ue5K8N/RT3s2F05bqBu5eW8c=
 			</data>
 		</dict>
 	</dict>

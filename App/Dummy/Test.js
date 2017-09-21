@@ -16,16 +16,22 @@ import {
 import {callPostApi} from '../Service/WebServiceHandler';
 
 
+
 export default class Test extends Component {
 
 constructor(props) {
   super(props);
 
 this.handleSubmit = this.handleSubmit.bind(this);
+
+
 }
 
 
 render(){
+
+
+const {pm} = this.props.navigation.state.params.abc;
 
 return(
 
@@ -34,7 +40,7 @@ style={styles.viewStyle}
 >
   <TouchableOpacity
   onPress={() => this.handleSubmit(this)}>
-     <Text style={styles.titleText}>SIGN UP</Text>
+     <Text style={styles.titleText}>{pm.name}</Text>
  </TouchableOpacity>
  </View>
 );
@@ -45,19 +51,24 @@ style={styles.viewStyle}
 
 handleSubmit() {
 
+
+
+this.props.navigation.goBack(null);
+
+/*
 console.log('button working')
 
-callPostApi('api/login', {'user_type':'O','email': 'abhay.agrawal@classicinformatics.com',
- 'password': '12345',
- 'device_id' : '123',
- 'device_type' : 'abc'
+callPostApi('login', {'login_type':'dbc','email': 'cipliphone@classicinformatics.com',
+ 'password': '12345678',
+ 'device_id' : '0987654321',
+ 'device_type' : 'android'
 }).then((response) =>{
 
 //var a=JSON.parse(response._bodyInit);
 console.log(response);
 
 })
-.catch(error =>{console.log(error)})
+.catch(error =>{console.log(error)})*/
 
 }
 

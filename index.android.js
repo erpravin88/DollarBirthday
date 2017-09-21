@@ -12,21 +12,29 @@ import {
   View
 } from 'react-native';
 
+import Test from './App/Dummy/Test';
+import SplashScreen from 'react-native-smart-splash-screen';
+
+import {screenRoute} from './App/ScreenNavigation/Router';
+
 export default class DollarBirthday extends Component {
+
+  componentDidMount () {
+       SplashScreen.close({
+          animationType: SplashScreen.animationType.scale,
+          duration: 2000,
+          delay: 500,
+       });
+  }
+
   render() {
+
+   const T = screenRoute();
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+
+
+      <T/>
     );
   }
 }
