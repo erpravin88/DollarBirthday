@@ -26,7 +26,7 @@ import {
     width: 185,
     height: 103,
     resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '4%' : '6%',
+    marginTop: (Platform.OS === 'ios')? '4%' : '1%',
 
 
   },
@@ -75,7 +75,7 @@ import {
 
    width: '85%',
    alignSelf: 'center',
-   paddingTop:'15%',
+   paddingTop:'10%',
    fontFamily:'Open Sans'
  },
 
