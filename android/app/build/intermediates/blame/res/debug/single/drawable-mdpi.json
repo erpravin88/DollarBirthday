@@ -154,5 +154,9 @@
     {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable-mdpi/abc_btn_switch_to_on_mtrl_00001.9.png",
         "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/drawable-mdpi/abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable-mdpi/splash.png",
+        "source": "/Users/amit/Desktop/DollarBirthday/android/app/src/main/res/drawable-mdpi/splash.png"
     }
 ]
