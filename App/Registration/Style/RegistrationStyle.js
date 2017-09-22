@@ -26,7 +26,7 @@ import {
     width: 185,
     height: 103,
     resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '4%' : '1%',
+    marginTop: (Platform.OS === 'ios')? '8%' : '1%',
 
 
   },
@@ -40,13 +40,13 @@ import {
    },
 
    titleTextFirst: {
-     fontSize: 25,
+     fontSize: 18,
      color:'#efd7fe',
     fontFamily:'OpenSans-Semibold'
    },
 
    titleTextSecond: {
-     fontSize: 30,
+     fontSize: 25,
      fontWeight: 'bold',
      color:'#ffffff',
      fontFamily:'OpenSans-Semibold'
@@ -56,7 +56,7 @@ import {
 
     width: '100%',
     height: 40,
-    fontSize:22,
+    fontSize:18,
     paddingBottom:0,
     paddingBottom:5,
     paddingRight:22,
@@ -76,7 +76,7 @@ import {
    width: '85%',
    alignSelf: 'center',
    paddingTop:'10%',
-   fontFamily:'Open Sans'
+
  },
 
 
@@ -89,7 +89,7 @@ import {
    position:'absolute',
    zIndex: 99,
    right:0,
-   top:72,
+   top:55,
   },
 
   TextInputPasswordIcon: {
@@ -101,7 +101,7 @@ import {
    position:'absolute',
    zIndex: 99,
    right:0,
-   top:17,
+   top:18,
   },
 
 
@@ -131,19 +131,19 @@ import {
    backgroundColor:'#426cb1',
    justifyContent:'center',
    alignItems:'center',
-
+   marginBottom:20,
  },
 
  signInButton: {
 
-   fontSize: 25,
+   fontSize: 18,
    color:'#ffffff',
-   fontFamily:'Open Sans'
+   fontFamily:'OpenSans-Semibold'
  },
 
  dob_label: {
 
-   fontSize: 16,
+   fontSize: 14,
    color:'#000000',
    marginTop:10,
    backgroundColor:'transparent',
@@ -154,26 +154,26 @@ import {
    width: '100%',
    alignSelf: 'center',
    backgroundColor:'transparent',
-   marginBottom:5,
+   marginBottom:1,
    fontFamily:'Open Sans'
    },
 
  orDivider: {
 
-   fontSize: 20,
+   fontSize: 16,
    color:'#000000',
    alignSelf:'center',
    marginTop:20,
    backgroundColor:'transparent',
-   fontFamily:'Open Sans'
+   fontStyle: 'italic'
  },
 
  term_service: {
 
-   fontSize: 16,
+   fontSize: 14,
    color:'#b7b7b7',
    fontFamily:'Open Sans',
-   marginTop:10,
+   marginTop:5,
    backgroundColor:'transparent',
    fontFamily:'Open Sans'
  },
@@ -184,6 +184,22 @@ import {
    resizeMode:'contain'
  },
 
+ dateInput:{
+      alignItems : 'flex-start',
+      padding : 5,
+      borderWidth : 0,
+      borderBottomColor : '#e0e0e0',
+      borderBottomWidth : 1,
+
+    },
+    dateIcon:{
+       position: 'absolute',
+       right: -5,
+       top:15,
+       width: 22,
+       height: 22,
+       marginLeft: 0
+    },
 
   });
 

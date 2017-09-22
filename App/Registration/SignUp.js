@@ -39,7 +39,7 @@ export default class SignUp extends Component {
 
 </View>
 
-<ScrollView>
+<ScrollView style = {{paddingBottom :20}}>
 
 <View style = {styles.EmailTextInputContainer}>
 <TextInput style = {styles.TextInputStyle} keyboardType = 'email-address'
@@ -75,7 +75,12 @@ format = "YYYY-MM-DD"
 maxDate = {this.state.date}
 confirmBtnText = "Confirm"
 cancelBtnText = "Cancel"
+iconSource = {images.dropdownArrow}
 onDateChange = {(date) => {this.setState({date:date})}}
+customStyles={{
+                 dateInput: styles.dateInput,
+                 dateIcon: styles.dateIcon,
+               }}
 />
 </View>
 

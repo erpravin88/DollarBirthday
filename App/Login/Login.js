@@ -43,7 +43,7 @@ return(
 
 
 
-<ScrollView>
+
 
 
 <View style = {styles.titleContainer}>
@@ -52,7 +52,7 @@ return(
 <Image style = {styles.logo} source = {images.baseLogo}/>
 </View>
 
-
+<ScrollView>
 
 <View style = {styles.EmailTextInputContainer}>
 <TextInput style = {styles.TextInputStyle} keyboardType = 'email-address'
@@ -93,6 +93,12 @@ onChangeText = {
 <View style = {styles.TextInputContainer}>
 <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
 <Text style = {styles.signInButton}>Sign In</Text>
+</TouchableOpacity>
+</View>
+
+<View style = {styles.TextInputContainer}>
+<TouchableOpacity>
+<Text style = {styles.forgot}>Don't have account? Sign Up</Text>
 </TouchableOpacity>
 </View>
 
