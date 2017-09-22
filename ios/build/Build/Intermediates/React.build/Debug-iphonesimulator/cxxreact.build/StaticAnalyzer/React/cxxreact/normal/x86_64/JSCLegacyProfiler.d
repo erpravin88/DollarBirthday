@@ -1,2 +1,2 @@
 dependencies: \
-  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/ReactCommon/cxxreact/JSCLegacyProfiler.cpp
+  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/ReactCommon/cxxreact/JSCLegacyProfiler.cpp
