@@ -17,6 +17,8 @@ const images = {
     settingsIcon: require('../images/dashboard-screen-settings-tab.png'),
     addfriendIcon: require('../images/dashboard-screen-add-friends-tab.png'),
     logoutIcon: require('../images/dashboard-screen-logout-tab.png'),
+    dropdownArrow: require('../images/dropdown-arrow.png'),
+
 }
 
 export default images

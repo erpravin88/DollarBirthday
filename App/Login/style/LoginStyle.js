@@ -26,7 +26,7 @@ import {
    width: 185,
    height: 103,
    resizeMode: 'contain',
-   marginTop: (Platform.OS === 'ios')? '10%' : '6%',
+   marginTop: (Platform.OS === 'ios')? '13%' : '6%',
 
 
  },
@@ -39,14 +39,14 @@ import {
   },
 
   titleTextFirst: {
-    fontSize: 25,
+    fontSize: 18,
     color:'#efd7fe',
     fontFamily:'OpenSans-Semibold'
 
   },
 
   titleTextSecond: {
-    fontSize: 30,
+    fontSize: 25,
     color:'#ffffff',
     fontFamily:'OpenSans-Semibold'
   },
@@ -62,7 +62,7 @@ import {
 
    width: '100%',
    height: 40,
-   fontSize:22,
+   fontSize:18,
    paddingBottom:0,
    paddingBottom:5,
    paddingRight:22,
@@ -125,9 +125,9 @@ borderBottomColor: '#e0e0e0'
 
   forgot: {
 
-    fontSize: 20,
+    fontSize: 16,
     color:'#5e3a93',
-    marginTop: 10,
+    marginTop: 5,
     alignSelf:'flex-end',
     backgroundColor:'transparent',
     fontFamily:'Open Sans'
@@ -156,20 +156,19 @@ borderBottomColor: '#e0e0e0'
 
   signInButton: {
 
-    fontSize: 25,
+    fontSize: 18,
     color:'#ffffff',
-    fontFamily:'Open Sans'
-
+    fontFamily:'OpenSans-Semibold'
   },
 
   orDivider: {
 
-    fontSize: 20,
+    fontSize: 16,
     color:'#000000',
     alignSelf:'center',
     marginTop:20,
     backgroundColor:'transparent',
-    fontFamily:'Open Sans'
+    fontStyle: 'italic'
   },
 
   facebookButton:{

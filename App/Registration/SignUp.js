@@ -39,7 +39,7 @@ export default class SignUp extends Component {
 
 </View>
 
-<ScrollView>
+<ScrollView style = {{paddingBottom :20}}>
 
 <View style = {styles.EmailTextInputContainer}>
 <TextInput style = {styles.TextInputStyle} keyboardType = 'email-address'
@@ -75,7 +75,14 @@ format = "YYYY-MM-DD"
 maxDate = {this.state.date}
 confirmBtnText = "Confirm"
 cancelBtnText = "Cancel"
+iconSource = {images.dropdownArrow}
 onDateChange = {(date) => {this.setState({date:date})}}
+
+customStyles={{
+                 dateInput: styles.dateInput,
+                 dateIcon: styles.dateIcon,
+
+               }}
 />
 </View>
 
@@ -95,7 +102,10 @@ secureTextEntry = {true} multiline = {false} maxLength = {100}
 <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
 <Text style = {styles.signInButton}>Sign Up</Text>
 </TouchableOpacity>
+
+<TouchableOpacity>
 <Text style = {styles.term_service}>By signing up, you agree to Terms of Service and Privacy Policy.</Text>
+</TouchableOpacity>
 
 </View>
 
@@ -113,7 +123,6 @@ secureTextEntry = {true} multiline = {false} maxLength = {100}
 </View>
 
 </ScrollView>
-
 
 </Image>
 
