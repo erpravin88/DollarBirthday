@@ -194,10 +194,10 @@ import {
     },
     dateIcon:{
        position: 'absolute',
-       right: -5,
-       top:15,
-       width: 22,
-       height: 22,
+       right: 0,
+       top:20,
+       width: 12,
+       height: 12,
        marginLeft: 0
     },
 
