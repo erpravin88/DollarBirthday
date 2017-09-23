@@ -20,7 +20,7 @@ CHARITY:{screen:Charity}
 },{
 headerMode: 'none',
  mode:'modal',
-  initialRouteName:'CHARITY'
+  initialRouteName:'SIGN_UP'
 
   });
 };
