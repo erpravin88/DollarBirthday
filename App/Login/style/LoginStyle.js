@@ -175,8 +175,17 @@ borderBottomColor: '#e0e0e0'
     width:'100%',
     height:'100%',
     resizeMode:'contain',
-    fontFamily:'Open Sans'
   },
+  activityloder:{
+  position:'absolute',
+  flex:1,
+  width:width,
+  height:height,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 999,
+},
 
 
 });

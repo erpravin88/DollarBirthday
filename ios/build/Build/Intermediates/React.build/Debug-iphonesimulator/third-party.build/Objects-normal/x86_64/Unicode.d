@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/third-party/folly-2016.09.26.00/folly/Unicode.cpp \
-  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Unicode.h
+  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/third-party/folly-2016.09.26.00/folly/Unicode.cpp \
+  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Unicode.h
