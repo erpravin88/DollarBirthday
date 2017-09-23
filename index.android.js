@@ -15,7 +15,7 @@ import {
 
 import Test from './App/Dummy/Test';
 import SplashScreen from 'react-native-smart-splash-screen';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY } from './App/Constant/Auth';
 import {screenRoute} from './App/ScreenNavigation/Router';
 
 export default class DollarBirthday extends Component {

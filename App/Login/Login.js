@@ -108,16 +108,16 @@ render(){
     <View><ActivityIndicator animating={true} size="large" /></View>
   </View>): (<View></View>);
 return(
+  <ScrollView keyboardShouldPersistTaps="always">
 <Image style = {styles.backgroundImage} source = {images.loginbackground} >
 {activityind}
-  <View style = {styles.titleContainer}>
+  <View style = {[styles.titleContainer]}>
     <Text style = {styles.titleTextFirst}>Join the</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
     <Image style = {styles.logo} source = {images.baseLogo}/>
   </View>
 
-  <ScrollView>
-    <View style = {styles.EmailTextInputContainer}>
+    <View style = {[styles.EmailTextInputContainer]}>
       <TextInput style = {styles.TextInputStyle}
         keyboardType = 'email-address'
         placeholderTextColor = "#b7b7b7"
@@ -151,7 +151,7 @@ return(
         onChangeText = {(val) => {this.setState({password: val});}}
       />
       <Text style = {styles.TextInputLine} />
-      <Image style = {styles.TextInputPasswordIcon} source = {images.password}/>
+      <Image style = {styles.TextInputIcon} source = {images.password}/>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
     </View>
     <View style = {styles.TextInputContainer}>
@@ -177,6 +177,6 @@ return(
         <Image style = {styles.facebookButton} source = {images.facebookButton}/>
       </TouchableOpacity>
     </View>
-  </ScrollView>
-</Image> ); }
+</Image>
+</ScrollView> ); }
 }
