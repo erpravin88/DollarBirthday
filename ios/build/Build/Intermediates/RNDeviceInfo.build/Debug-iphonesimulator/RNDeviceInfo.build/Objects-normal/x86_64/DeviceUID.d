@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native-device-info/RNDeviceInfo/DeviceUID.m \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native-device-info/RNDeviceInfo/DeviceUID.h
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native-device-info/RNDeviceInfo/DeviceUID.m \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native-device-info/RNDeviceInfo/DeviceUID.h

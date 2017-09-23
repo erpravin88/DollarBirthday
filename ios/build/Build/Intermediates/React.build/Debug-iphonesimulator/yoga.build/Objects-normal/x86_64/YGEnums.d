@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.c \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.c \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h

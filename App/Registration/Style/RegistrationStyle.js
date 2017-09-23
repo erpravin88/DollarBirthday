@@ -155,8 +155,15 @@ import {
    alignSelf: 'center',
    backgroundColor:'transparent',
    marginBottom:1,
-   fontFamily:'Open Sans'
+
    },
+
+   errorMsg: {
+
+    backgroundColor: 'transparent',
+    color:'#ff0000',
+    fontSize: 16,
+  },
 
  orDivider: {
 
@@ -200,6 +207,28 @@ import {
        height: 12,
        marginLeft: 0
     },
+
+    login_button: {
+
+      fontSize: 16,
+      color:'#5e3a93',
+      marginTop: 5,
+      alignSelf:'flex-end',
+      backgroundColor:'transparent',
+      fontFamily:'Open Sans'
+    },
+
+    activityloder:{
+    position:'absolute',
+    flex:1,
+    width:width,
+    height:height,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
+    },
+
 
   });
 

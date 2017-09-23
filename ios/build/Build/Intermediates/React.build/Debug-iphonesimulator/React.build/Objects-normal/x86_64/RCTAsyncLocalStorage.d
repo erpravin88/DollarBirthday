@@ -1,17 +1,17 @@
 dependencies: \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Modules/RCTAsyncLocalStorage.m \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Modules/RCTAsyncLocalStorage.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTBridgeModule.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTDefines.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTInvalidating.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTConvert.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Views/RCTAnimationType.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Views/RCTBorderStyle.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTLog.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTAssert.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Base/RCTUtils.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Views/RCTPointerEvents.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
-  /Users/amit/Desktop/DollarBirthday/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
-  /Users/amit/Desktop/DollarBirthday/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
-  /Users/amit/Desktop/DollarBirthday/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Modules/RCTAsyncLocalStorage.m \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Modules/RCTAsyncLocalStorage.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h

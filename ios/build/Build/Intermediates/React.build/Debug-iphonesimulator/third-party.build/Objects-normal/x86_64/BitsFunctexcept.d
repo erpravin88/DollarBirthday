@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/third-party/folly-2016.09.26.00/folly/portability/BitsFunctexcept.cpp \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/BitsFunctexcept.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/Config.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Portability.h \
-  /Users/amit/Desktop/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/CPortability.h
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/third-party/folly-2016.09.26.00/folly/portability/BitsFunctexcept.cpp \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/BitsFunctexcept.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/Config.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Portability.h \
+  /Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/CPortability.h

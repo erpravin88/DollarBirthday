@@ -159,6 +159,18 @@ marginFix2:{
   marginTop: '2%',
   marginBottom:'12%',
 },
+
+activityloder:{
+position:'absolute',
+flex:1,
+width:width,
+height:height,
+backgroundColor: 'rgba(0, 0, 0, 0.5)',
+alignItems: 'center',
+justifyContent: 'center',
+zIndex: 999,
+},
+
   });
 
   export default styles;
