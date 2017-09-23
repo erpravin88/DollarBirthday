@@ -11,22 +11,14 @@ export default class MyActivityIndicator extends Component {
 
   constructor(props){
 
-   super(props);
+     super(props);
 
- }
+   }
 
-render(){
+  render(){
 
-return(
+  return( <ActivityIndicator animating = {true} size = 'large' style = {{width:80}} /> );
 
-  <ActivityIndicator
-   animating = {this.props.show}
-
-   size = 'large'
-   style = {{width:80}}
-  />
-);
-
-}
+  }
 
 }

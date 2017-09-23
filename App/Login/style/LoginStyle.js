@@ -176,6 +176,16 @@ borderBottomColor: '#e0e0e0'
     height:'100%',
     resizeMode:'contain',
   },
+  activityloder:{
+  position:'absolute',
+  flex:1,
+  width:width,
+  height:height,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 999,
+},
 
 
 });

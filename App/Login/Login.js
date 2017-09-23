@@ -11,7 +11,8 @@ import {
   Alert,
   Image,ScrollView,
   ImageBackground,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import settings from '../Constant/UrlConstant';
@@ -33,7 +34,7 @@ export default class Login extends Component {
                 device_type:'',
                 login_type:'dbc',
                 errorMsg:{"emailMsg":'', "passwordMsg":''},
-                showProgress: true
+                showProgress: false,
               };
   }
   componentWillMount(){
@@ -50,6 +51,7 @@ console.log(this.state);
     })
   }
   onLoginClick(){
+
     let error = this.state.errorMsg;
     error.passwordMsg = '';
     error.emailMsg = '';
@@ -68,6 +70,7 @@ console.log(this.state);
     if(flag != ''){
       this.setState({errorMsg: error});
     }else{
+      this.setState({showProgress : true});
       console.log(this.state);  // Add your logic for the transition
         callApiWithoutAuth('login','POST', {"email":this.state.email,
           "password":this.state.password,
@@ -82,9 +85,9 @@ console.log(this.state);
              afterSignIn(responseobject.data.authToken);
              setUserDetails(responseobject.data);
              this.props.navigation.navigate('DASHBOARD',{name: this.state.email});
+             this.setState({showProgress : false});
           console.log(responseobject);
           });
-          this.setState({showProgress : false});
           Toast.show('Login Successfull');
         }else if (response.status === 404) {
           this.setState({showProgress : false});
@@ -100,8 +103,13 @@ console.log(this.state);
     }
   }
 render(){
+  let activityind =(this.state.showProgress) ? (
+  <View style={styles.activityloder}>
+    <View><ActivityIndicator animating={true} size="large" /></View>
+  </View>): (<View></View>);
 return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground} >
+{activityind}
   <View style = {styles.titleContainer}>
     <Text style = {styles.titleTextFirst}>Join the</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
