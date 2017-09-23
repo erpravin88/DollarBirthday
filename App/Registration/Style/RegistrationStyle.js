@@ -210,13 +210,15 @@ import {
 
     login_button: {
 
-      fontSize: 16,
+      fontSize: 14,
       color:'#5e3a93',
       marginTop: 5,
       alignSelf:'flex-end',
       backgroundColor:'transparent',
       fontFamily:'Open Sans'
     },
+
+
 
     activityloder:{
     position:'absolute',

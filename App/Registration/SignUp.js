@@ -104,7 +104,7 @@ console.log(this.state.date);
   {
   //  this.setState({showProgress : true});
 
-  this.props.navigation.navigate('FETCH_FRIEND',{user_data: this.state});
+  this.props.navigation.navigate('PAYPAL',{user_data: this.state});
 
   /*  console.log(this.state);  // Add your logic for the transition
       callApiWithoutAuth('register','POST', {"email":this.state.email,
@@ -163,7 +163,7 @@ console.log(this.state.date);
 
 </View>
 
-<ScrollView style = {{paddingBottom :20}}>
+<ScrollView style = {{paddingBottom :20}} keyboardShouldPersistTaps="always">
 
 <View style = {styles.EmailTextInputContainer}>
 <TextInput style = {styles.TextInputStyle} keyboardType = 'default'

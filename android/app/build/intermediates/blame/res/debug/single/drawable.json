@@ -48,8 +48,20 @@
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
     {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light_normal.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_light_normal.xml"
+    },
+    {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.0.4/res/drawable/common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_dark.xml"
     },
     {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_full_material.xml",
@@ -92,6 +104,10 @@
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_btn_default_mtrl_shape.xml"
     },
     {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light_normal.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_light_normal.xml"
+    },
+    {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
         "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_btn_colored_material.xml"
     },
@@ -104,12 +120,20 @@
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_tab_indicator_material.xml"
     },
     {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_btn_borderless_material.xml"
     },
     {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark_focused.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_dark_focused.xml"
     },
     {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
@@ -126,6 +150,10 @@
     {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light_focused.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_light_focused.xml"
     },
     {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
@@ -180,6 +208,10 @@
         "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_ratingbar_small_material.xml"
     },
     {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_disabled.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_disabled.xml"
+    },
+    {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_list_selector_holo_dark.xml"
     },
@@ -198,6 +230,14 @@
     {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light_focused.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_light_focused.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
@@ -254,6 +294,22 @@
     {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
         "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark_focused.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_dark_focused.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_disabled.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_disabled.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
+        "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark_normal.xml",
+        "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/res/drawable/common_google_signin_btn_icon_dark_normal.xml"
     },
     {
         "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",

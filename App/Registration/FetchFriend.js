@@ -26,8 +26,9 @@ export default class FetchFriend extends Component {
    this.onGetStartedClick = this.onGetStartedClick.bind(this);
    this.state = {
                  'date': new Date(Date.now()),
-                  'showProgress': false};
-                 }
+                  'showProgress': false
+                };
+               }
 
 
     onGetStartedClick(){
@@ -57,7 +58,7 @@ export default class FetchFriend extends Component {
          this.setState({showProgress : false});
       console.log(responseobject);
       });
-      
+
     }else if (response.status === 404) {
       this.setState({showProgress : false});
     }else if (response.status === 406) {

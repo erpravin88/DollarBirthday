@@ -155,7 +155,9 @@ return(
       <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
     </View>
     <View style = {styles.TextInputContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity
+      onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}
+      >
       <Text style = {styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
     </View>

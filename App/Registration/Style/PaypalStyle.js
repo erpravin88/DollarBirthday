@@ -106,7 +106,7 @@ TextInputLine: {
 
  term_service: {
    flex:1,
-   fontSize: 11.5,
+   fontSize: 14,
    color:'#b7b7b7',
    fontFamily:'Open Sans',
    marginTop:10,
@@ -160,6 +160,13 @@ signupPaypal:{
   color:'#449FD8',
   fontWeight:'600'
 },
+errorMsg: {
+
+ backgroundColor: 'transparent',
+ color:'#ff0000',
+ fontSize: 16,
+},
+
   });
 
   export default styles;

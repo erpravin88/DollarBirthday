@@ -104,7 +104,7 @@ borderBottomColor: '#e0e0e0'
 
   forgot: {
 
-    fontSize: 16,
+    fontSize: 14,
     color:'#5e3a93',
     marginTop: 5,
     alignSelf:'flex-end',

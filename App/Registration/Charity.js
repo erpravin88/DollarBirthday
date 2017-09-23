@@ -22,17 +22,26 @@ export default class SignUp extends Component {
 
    super(props);
 
-   this.state = {'date': new Date(Date.now())};
+   this.onCharityClick = this.onCharityClick.bind(this);
+
  }
+
+
+onCharityClick(){
+
+  let userData = this.props.navigation.state.params.user_data;
+  this.props.navigation.navigate('FETCH_FRIEND',{user_data: userData});
+
+}
 
 
   render(){
     let data = [{
-      value: 'Banana',
+      value: 'Epilepsy Association of Central Florida',
     }, {
-      value: 'Mango',
+      value: 'Feeding America',
     }, {
-      value: 'Pear',
+      value: 'I Do Not Wish To Donate at This Time',
     }];
 
   return(
@@ -75,7 +84,7 @@ export default class SignUp extends Component {
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}
-    onPress = {this.onLoginClick}>
+    onPress = {this.onCharityClick}>
       <Text style = {styles.signInButton}>Save Charity</Text>
     </TouchableOpacity>
     <Text style = {styles.term_service}>Edit this charity default at anytime in the setting panel</Text>

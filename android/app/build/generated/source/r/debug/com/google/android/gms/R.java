@@ -77,8 +77,6 @@ public final class R {
 	}
 	public static final class layout {
 	}
-	public static final class raw {
-	}
 	public static final class string {
 		public static final int common_google_play_services_enable_button = 0x7f070013;
 		public static final int common_google_play_services_enable_text = 0x7f070014;
