@@ -21,8 +21,61 @@ export default class SignUp extends Component {
 
    super(props);
 
-   this.state = {'date': new Date(Date.now())};
+   this.onSignUpClick = this.onSignUpClick.bind(this);
+   this.state = {
+     date: new Date(Date.now()),
+     email:'',
+     password:'',
+     fullName:'',
+     dob:'',
+     errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "dob":''},
+     showProgress: true
+
+ };
+
  }
+
+
+
+onSignUpClick(userData){
+
+  let error = this.state.errorMsg;
+  error.passwordMsg = '';
+  error.emailMsg = '';
+  error.dob = '';
+  error.fullName = '';
+  let flag = '';
+
+
+
+  if(this.state.fullName == '')
+  {
+
+  flag = '0';
+  error.emailMsg = 'Please enter fullname.';
+
+  }
+  else if(this.state.email == '')
+  {
+  flag = '0';
+  error.emailMsg = 'Please enter email.';
+
+  }
+  else if(!re.test(this.state.email))
+  {
+
+  console.log('validdat')
+    flag = '0';
+    error.emailMsg = 'Please enter valid email.';
+
+  }
+  else if(this.state.password == '')
+  {
+    flag = '1';
+    error.passwordMsg = 'Please enter password.';
+  }
+
+}
 
 
   render(){
@@ -60,7 +113,7 @@ secureTextEntry = {true} multiline = {false} maxLength = {100}
 />
 <Text style = {styles.TextInputLine} />
 <Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
-
+<Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
 </View>
 
 
@@ -91,11 +144,10 @@ customStyles={{
 <TextInput style = {styles.TextInputStyle} keyboardType = 'default'
 placeholderTextColor = "#b7b7b7" placeholder = 'Password' underlineColorAndroid = 'transparent'
 secureTextEntry = {true} multiline = {false} maxLength = {100}
-
 />
 <Text style = {styles.TextInputLine} />
 <Image style = {styles.TextInputPasswordIcon} source = {images.password}/>
-
+<Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
 </View>
 
 <View style = {styles.TextInputContainer}>

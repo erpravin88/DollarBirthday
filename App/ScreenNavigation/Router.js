@@ -24,7 +24,8 @@ DASHBOARD:{screen: Dashboard}
 },{
 headerMode: 'none',
  mode:'modal',
-  initialRouteName: SignIn ? 'DASHBOARD':'LOG_IN'
+initialRouteName: SignIn ? 'DASHBOARD':'LOG_IN'
+
 
   });
 };
