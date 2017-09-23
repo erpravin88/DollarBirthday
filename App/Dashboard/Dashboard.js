@@ -68,7 +68,7 @@ export default class SignUp extends Component {
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
     <Image style = {styles.logo} source = {images.dbtoplogo}/>
   </View>
-    <View style={styles.iconContainer}>
+    <View style={[styles.iconContainer,styles.iconContainerfix1]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress = {this.onLoginClick}>
@@ -85,7 +85,7 @@ export default class SignUp extends Component {
       <Image style = {styles.full} source = {images.colenderIcon}/>
       </TouchableOpacity>
     </View>
-    <View style={styles.iconContainer}>
+    <View style={[styles.iconContainer,styles.iconContainerfix2]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress = {this.onLoginClick}>
@@ -102,7 +102,7 @@ export default class SignUp extends Component {
       <Image style = {styles.full} source = {images.settingsIcon}/>
       </TouchableOpacity>
     </View>
-    <View style = {[styles.iconContainer]}>
+    <View style = {[styles.iconContainer,styles.iconContainerfix3]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress = {this.onLoginClick}>

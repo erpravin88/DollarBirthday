@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>LastAccessedDate</key>
+<<<<<<< HEAD
 	<date>2017-09-23T07:59:51Z</date>
+=======
+	<date>2017-09-23T10:44:31Z</date>
+>>>>>>> 1a003740c33dd89b24b53aee73fb10602645d0f5
 	<key>WorkspacePath</key>
 	<string>/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/ios/DollarBirthday.xcodeproj</string>
 </dict>

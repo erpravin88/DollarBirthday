@@ -18,6 +18,7 @@ const images = {
     addfriendIcon: require('../images/dashboard-screen-add-friends-tab.png'),
     logoutIcon: require('../images/dashboard-screen-logout-tab.png'),
     dropdownArrow: require('../images/dropdown-arrow.png'),
+    payPalBtn: require('../images/link-with-paypal-button.png'),
 
 }
 

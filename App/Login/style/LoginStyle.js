@@ -8,18 +8,10 @@ import {
 
  const styles = StyleSheet.create({
    backgroundImage: {
-
     flex:1,
-    width:  '100%',
-    height: '100%',
-    resizeMode: 'stretch'
-  },
-
-   baseContainer: {
-
-    width: width,
+    width:  width,
     height: height,
-
+    resizeMode:'stretch',
   },
 
   logo: {
@@ -77,10 +69,9 @@ import {
  },
 
  EmailTextInputContainer: {
-
   width: '85%',
   alignSelf: 'center',
-  paddingTop:'15%'
+  marginTop:'5%'
 },
 
 
@@ -93,19 +84,7 @@ import {
   position:'absolute',
   zIndex: 99,
   right:0,
-  top:72,
- },
-
- TextInputPasswordIcon: {
-
-  width: 18,
-  height: 18,
-  borderBottomWidth: 1,
-  resizeMode:'contain',
-  position:'absolute',
-  zIndex: 99,
-  right:0,
-  top:17,
+  top:13,
  },
 
 
@@ -181,7 +160,7 @@ borderBottomColor: '#e0e0e0'
   flex:1,
   width:width,
   height:height,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  backgroundColor: 'rgba(112, 79, 108, 0.5)',
   alignItems: 'center',
   justifyContent: 'center',
   zIndex: 999,
