@@ -9,16 +9,42 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 import Test from './App/Dummy/Test';
+import SplashScreen from 'react-native-smart-splash-screen';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from './App/Constant/Auth';
 import {screenRoute} from './App/ScreenNavigation/Router';
 
 export default class DollarBirthday extends Component {
+    constructor(props){
+     super(props);
+     this.state = {
+                SignIn: false,
+                };
+    }
+  componentDidMount () {
+       SplashScreen.close({
+          animationType: SplashScreen.animationType.scale,
+          duration: 2000,
+          delay: 500,
+       });
+       AsyncStorage.getItem(USER_KEY).then(
+       (res) => {
+         if(res==null){
+           this.setState({ SignIn: false});
+                }else{
+                    this.setState({ SignIn: true });
+                }
+        });
+  }
+
   render() {
 
-    const T = screenRoute();
+   const T = screenRoute(this.state.SignIn);
+
     return (
       <T/>
     );

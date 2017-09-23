@@ -165,7 +165,7 @@ return(
       </TouchableOpacity>
     </View>
     <View style = {styles.TextInputContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{this.props.navigation.navigate('SIGN_UP')}}>
       <Text style = {styles.forgot}>Don't have account? Sign Up</Text>
       </TouchableOpacity>
     </View>

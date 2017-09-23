@@ -10,7 +10,7 @@ import FetchFriend from '../Registration/FetchFriend';
 import Dashboard from '../Dashboard/Dashboard';
 
 // register all screens of the app (including internal ones)
-export const screenRoute = () => {
+export const screenRoute = (SignIn = false) => {
 
   return StackNavigator({
 
@@ -24,7 +24,7 @@ DASHBOARD:{screen: Dashboard}
 },{
 headerMode: 'none',
  mode:'modal',
-  initialRouteName:'LOG_IN'
+  initialRouteName: SignIn ? 'DASHBOARD':'LOG_IN'
 
   });
 };
