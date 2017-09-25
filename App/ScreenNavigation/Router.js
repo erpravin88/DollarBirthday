@@ -23,6 +23,6 @@ export const screenRoute = (SignIn) => {
     },{
     headerMode: 'none',
     mode:'modal',
-    initialRouteName: SignIn ? 'DASHBOARD':'CHARITY'
+    initialRouteName: SignIn ? 'DASHBOARD':'LOG_IN'
   });
 };
