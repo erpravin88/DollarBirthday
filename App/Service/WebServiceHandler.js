@@ -29,7 +29,7 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        'Authorization': "Bearer "+auth_token
+                        'Authorization': auth_token
                     },
                     body: JSON.stringify(params)
                 })

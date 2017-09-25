@@ -33,11 +33,11 @@ export default class DollarBirthday extends Component {
        });
        AsyncStorage.getItem(USER_KEY).then(
        (res) => {
-         if(res==null){
-           this.setState({ SignIn: false});
-                }else{
-                    this.setState({ SignIn: true });
-                }
+           if(res==null){
+            this.setState({ SignIn: false});
+          }else{
+            this.setState({ SignIn: true });
+          }
         });
   }
 

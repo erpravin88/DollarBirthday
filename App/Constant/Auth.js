@@ -13,7 +13,8 @@ export const USER_DETAILS = "user-data"
 
 export const onSignIn = () => {
 
-      AsyncStorage.setItem(USER_KEY, "true");
+     AsyncStorage.setItem(USER_KEY, "true");
+      //AsyncStorage.getItem(USER_KEY).then((res)=>{console.log(res+"set and fetch");});
 }
 export const afterSignIn = (token) => {
     AsyncStorage.setItem(AUTH_TOKEN, token);

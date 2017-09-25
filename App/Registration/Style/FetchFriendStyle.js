@@ -170,7 +170,21 @@ alignItems: 'center',
 justifyContent: 'center',
 zIndex: 999,
 },
-
+skip:{
+  fontSize: 14,
+  color:'#000000',
+  fontFamily:'Open Sans',
+  backgroundColor:'transparent',
+  fontFamily:'Open Sans',
+  alignSelf:'center',
+  justifyContent:'center',
+},
+skipContainer:{
+  width:'20%',
+  marginTop:'9%',
+  alignSelf:'center',
+  justifyContent:'center',
+}
   });
 
   export default styles;

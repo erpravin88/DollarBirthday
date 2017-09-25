@@ -16,9 +16,15 @@ import images from '../Constant/Images';
 import styles from './Style/RegistrationStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
-import {callPostApi, callApiWithoutAuth} from '../Service/WebServiceHandler';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import {callApiWithoutAuth} from '../Service/WebServiceHandler';
+import MyActivityIndicator from '../Component/MyActivityIndicator';
+import { NavigationActions } from 'react-navigation';
 const date = new Date(Date.now());
-
+const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'PAYPAL' })],
+    });
 export default class SignUp extends Component {
 
 
@@ -35,8 +41,8 @@ export default class SignUp extends Component {
      email:'',
      password:'',
      fullName:'',
-     device_id:'',
-     device_type:'',
+     device_id:settings.DEVICE_ID,
+     device_type:settings.DEVICE_NAME,
      dob:'',
      paypal:'abc@gmail.com',
      errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "dob":''},
@@ -47,8 +53,6 @@ export default class SignUp extends Component {
  }
 
  componentWillMount(){
-   let that = this;
-   this.setState({device_id : settings.DEVICE_ID , device_type : settings.DEVICE_NAME});
  }
 
 
@@ -102,155 +106,153 @@ console.log(this.state.date);
   }
   else
   {
-  //  this.setState({showProgress : true});
-
-  this.props.navigation.navigate('PAYPAL',{user_data: this.state});
-
-  /*  console.log(this.state);  // Add your logic for the transition
+    this.setState({showProgress : true});
       callApiWithoutAuth('register','POST', {"email":this.state.email,
         "password":this.state.password,
         "device_id":this.state.device_id,
         "device_type":this.state.device_type,
-        "paypal":this.state.paypal,
+        "paypal":this.state.email,
         "full_name":this.state.fullName,
         "birth_date": this.state.date }
       ).then((response) => {
-        console.log(response);
+        // response.json().then((responseobject) => {
+        // console.log(responseobject);});
         if(response.status === 201){
         response.json().then((responseobject) => {
           console.log(responseobject);
            onSignIn();
            afterSignIn(responseobject.data.authToken);
            setUserDetails(responseobject.data);
-           this.props.navigation.navigate('DASHBOARD',{name: this.state.email});
+           this.props.navigation.dispatch(resetAction);
            this.setState({showProgress : false});
         console.log(responseobject);
         });
-        Toast.show('Login Successfull');
+        Toast.show('Registration Successfull');
       }else if (response.status === 404) {
         this.setState({showProgress : false});
+        Toast.show('Page not Found.');
       }else if (response.status === 406) {
-        console.log(responseobject);
-        this.setState({showProgress : false});
-        Toast.show('User email  already registered.');
+        response.json().then((responseobject) => {
+          this.setState({showProgress : false});
+          Toast.show(responseobject.error_messages);
+        });
       }else if (response.status === 500) {
         this.setState({showProgress : false});
         Toast.show('Unsuccessfull error:500');
         }
-      }).catch((error) => {console.log(error); });*/
+      }).catch((error) => {console.log(error); });
 
   }
 
 }
-
+hideErrors(){
+  let error = this.state.errorMsg;
+  error.passwordMsg = '';
+  error.emailMsg = '';
+  error.dob = '';
+  error.fullName = '';
+  this.setState({errorMsg: error});
+}
 
   render(){
 
-    let activityind =(this.state.showProgress) ? (
-    <View style={styles.activityloder}>
-      <View><ActivityIndicator animating={true} size="large" /></View>
-    </View>): (<View></View>);
-
   return(
-
-
+<ScrollView  keyboardShouldPersistTaps="always">
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
-{activityind}
-<View style = {styles.titleContainer}>
-<Text style = {styles.titleTextFirst}>Join the</Text>
-<Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-<Image style = {styles.logo} source = {images.baseLogo}/>
-
-</View>
-
-<ScrollView style = {{paddingBottom :20}} keyboardShouldPersistTaps="always">
-
-<View style = {styles.EmailTextInputContainer}>
-<TextInput style = {styles.TextInputStyle} keyboardType = 'default'
-placeholderTextColor = "#b7b7b7" placeholder = 'Full Name' underlineColorAndroid = 'transparent'
-multiline = {false} maxLength = {100}
-onChangeText = {(val) => {this.setState({fullName: val});}}
-/>
-<Text style = {styles.TextInputLine}/>
-<Image style = {styles.TextInputIcon} source = {images.fullName}/>
-<Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
-</View>
-
-<View style = {styles.TextInputContainer}>
-<TextInput style = {styles.TextInputStyle} keyboardType = 'email-address'
-placeholderTextColor = "#b7b7b7" placeholder = 'Email Id' underlineColorAndroid = 'transparent'
-multiline = {false} maxLength = {100}
-onChangeText = {(val) => {this.setState({email: val});}}
-/>
-<Text style = {styles.TextInputLine} />
-<Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
-<Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-</View>
-
-
-
-
-<View style = {styles.TextInputContainer}>
-<Text style = {styles.dob_label}>Birthday</Text>
-<DatePicker
-style = {styles.date_picker}
-date = {this.state.date}
-format = "YYYY-MM-DD"
-maxDate = {this.state.date}
-confirmBtnText = "Confirm"
-cancelBtnText = "Cancel"
-iconSource = {images.dropdownArrow}
-onDateChange = {(date) => {this.setState({date:date})}}
-
-customStyles={{
-                 dateInput: styles.dateInput,
-                 dateIcon: styles.dateIcon,
-
-               }}
-/>
-</View>
-
-
-<View style = {styles.TextInputContainer}>
-<TextInput style = {styles.TextInputStyle} keyboardType = 'default'
-placeholderTextColor = "#b7b7b7" placeholder = 'Password' underlineColorAndroid = 'transparent'
-secureTextEntry = {true} multiline = {false} maxLength = {100}
-onChangeText = {(val) => {this.setState({password: val});}}
-/>
-<Text style = {styles.TextInputLine} />
-<Image style = {styles.TextInputPasswordIcon} source = {images.password}/>
-<Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
-</View>
-
-<View style = {styles.TextInputContainer}>
-<TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
-<Text style = {styles.signInButton}>Sign Up</Text>
-</TouchableOpacity>
-
-<TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
-<Text style = {styles.login_button}>Already have account? Sign In</Text>
-</TouchableOpacity>
-
-</View>
-
-
-<View style = {styles.TextInputContainer}>
-<Text style = {styles.orDivider}>- or -</Text>
-</View>
-
-<View style = {styles.TextInputContainer}>
-<TouchableOpacity style = {styles.facebookButtonContainer}>
-
-
-<Image style = {styles.facebookButton} source = {images.facebookButton}/>
-</TouchableOpacity>
-</View>
-
-</ScrollView>
-
-</Image>
-
-  );
-
+  <MyActivityIndicator progress={this.state.showProgress} />
+  <View style = {styles.titleContainer}>
+    <Text style = {styles.titleTextFirst}>Join the</Text>
+    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    <Image style = {styles.logo} source = {images.baseLogo}/>
+  </View>
+    <View style = {styles.EmailTextInputContainer}>
+      <TextInput style = {styles.TextInputStyle}
+        keyboardType = 'default'
+        placeholderTextColor = "#b7b7b7"
+        placeholder = 'Full Name'
+        underlineColorAndroid = 'transparent'
+        multiline = {false}
+        maxLength = {100}
+        returnKeyType="next"
+        autoCorrect={false}
+        onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
+        onChangeText = {(val) => {this.setState({fullName: val});this.hideErrors();}}
+      />
+      <Text style = {styles.TextInputLine}/>
+      <Image style = {styles.TextInputIcon} source = {images.fullName}/>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
+    </View>
+    <View style = {styles.TextInputContainer}>
+      <TextInput
+        style = {styles.TextInputStyle}
+        ref='secondInput'
+        keyboardType = 'email-address'
+        placeholderTextColor = "#b7b7b7"
+        placeholder = 'Email Id'
+        underlineColorAndroid = 'transparent'
+        multiline = {false}
+        maxLength = {100}
+        returnKeyType="next"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
+      />
+      <Text style = {styles.TextInputLine} />
+      <Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+    </View>
+    <View style = {styles.TextInputContainer}>
+      <Text style = {styles.dob_label}>Birthday</Text>
+      <DatePicker
+        style = {styles.date_picker}
+        date = {this.state.date}
+        format = "YYYY-MM-DD"
+        maxDate = {this.state.date}
+        confirmBtnText = "Confirm"
+        cancelBtnText = "Cancel"
+        iconSource = {images.dropdownArrow}
+        onDateChange = {(date) => {this.setState({date:date})}}
+        customStyles={{dateInput: styles.dateInput,
+                      dateIcon: styles.dateIcon,}}
+      />
+    </View>
+    <View style = {styles.TextInputContainer}>
+      <TextInput
+        style = {styles.TextInputStyle}
+        keyboardType = 'default'
+        placeholderTextColor = "#b7b7b7"
+        placeholder = 'Password'
+        underlineColorAndroid = 'transparent'
+        secureTextEntry = {true}
+        multiline = {false}
+        maxLength = {100}
+        returnKeyType="send"
+        autoCorrect={false}
+        onSubmitEditing={this.onSignUpClick}
+        onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
+      />
+      <Text style = {styles.TextInputLine} />
+      <Image style = {styles.TextInputPasswordIcon} source = {images.password}/>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
+    </View>
+    <View style = {styles.TextInputContainer}>
+      <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
+        <Text style = {styles.signInButton}>Sign Up</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
+        <Text style = {styles.login_button}>Already have account? Sign In</Text>
+      </TouchableOpacity>
+    </View>
+    <View style = {styles.TextInputContainer}>
+      <Text style = {styles.orDivider}>- or -</Text>
+    </View>
+    <View style = {styles.TextInputContainer}>
+      <TouchableOpacity style = {styles.facebookButtonContainer}>
+        <Image style = {styles.facebookButton} source = {images.facebookButton}/>
+      </TouchableOpacity>
+    </View>
+  </Image>
+</ScrollView>);
   }
 }

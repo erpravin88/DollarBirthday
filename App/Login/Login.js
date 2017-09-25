@@ -18,10 +18,14 @@ import Toast from 'react-native-simple-toast';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import images from '../Constant/Images';
-import MyActivityIndicator from '../ActivityIndicator/MyActivityIndicator';
+import MyActivityIndicator from '../Component/MyActivityIndicator';
 import styles from './style/LoginStyle';
-import {callPostApi, callApiWithoutAuth} from '../Service/WebServiceHandler';
-
+import {callApiWithoutAuth} from '../Service/WebServiceHandler';
+import { NavigationActions } from 'react-navigation';
+const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
+    });
 export default class Login extends Component {
 
   constructor(props){
@@ -30,28 +34,21 @@ export default class Login extends Component {
    this.state = {
                 email:'',
                 password:'',
-                device_id:'',
-                device_type:'',
+                device_id:settings.DEVICE_ID,
+                device_type:settings.DEVICE_NAME,
                 login_type:'dbc',
                 errorMsg:{"emailMsg":'', "passwordMsg":''},
                 showProgress: false,
               };
   }
   componentWillMount(){
-    let that = this;
-      //this.props.navigation.navigate('DASHBOARD',{name: this.state.email});
-    this.setState({device_id : settings.DEVICE_ID , device_type : settings.DEVICE_NAME});
-    AsyncStorage.getItem(USER_KEY).then((key) => {
-      console.log(key);
-console.log(this.state);
+  AsyncStorage.getItem(USER_KEY).then((key) => {
       if(key){
-        console.log('in');
-        this.props.navigation.navigate('DASHBOARD',{name: this.state.email});
+        this.props.navigation.navigate('DASHBOARD');
       }
     })
   }
   onLoginClick(){
-
     let error = this.state.errorMsg;
     error.passwordMsg = '';
     error.emailMsg = '';
@@ -66,6 +63,15 @@ console.log(this.state);
     }else if(this.state.password == ''){
       flag = '1';
       error.passwordMsg = 'Please enter password.';
+    } else if(this.state.password == '')
+    {
+      flag = '1';
+      error.passwordMsg = 'Please enter password.';
+    }
+    else if(this.state.password.length < 8)
+    {
+      flag = '1';
+      error.passwordMsg = 'Minimum 8 character required.';
     }
     if(flag != ''){
       this.setState({errorMsg: error});
@@ -84,9 +90,8 @@ console.log(this.state);
              onSignIn();
              afterSignIn(responseobject.data.authToken);
              setUserDetails(responseobject.data);
-             this.props.navigation.navigate('DASHBOARD',{name: this.state.email});
+             this.props.navigation.dispatch(resetAction);
              this.setState({showProgress : false});
-          console.log(responseobject);
           });
           Toast.show('Login Successfull');
         }else if (response.status === 404) {
@@ -102,15 +107,17 @@ console.log(this.state);
 
     }
   }
+  hideErrors(){
+    let error = this.state.errorMsg;
+    error.passwordMsg = '';
+    error.emailMsg = '';
+    this.setState({errorMsg: error});
+  }
 render(){
-  let activityind =(this.state.showProgress) ? (
-  <View style={styles.activityloder}>
-    <View><ActivityIndicator animating={true} size="large" /></View>
-  </View>): (<View></View>);
 return(
   <ScrollView keyboardShouldPersistTaps="always">
 <Image style = {styles.backgroundImage} source = {images.loginbackground} >
-{activityind}
+<MyActivityIndicator progress={this.state.showProgress} />
   <View style = {[styles.titleContainer]}>
     <Text style = {styles.titleTextFirst}>Join the</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
@@ -130,7 +137,7 @@ return(
         onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
         multiline = {false}
         maxLength = {100}
-        onChangeText = {(val) => {this.setState({email: val});}}
+        onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
       />
       <Text style = {styles.TextInputLine}/>
       <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
@@ -148,7 +155,7 @@ return(
         maxLength = {100}
         returnKeyType="go"
         onSubmitEditing={()=>{this.onLoginClick();}}
-        onChangeText = {(val) => {this.setState({password: val});}}
+        onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
       />
       <Text style = {styles.TextInputLine} />
       <Image style = {styles.TextInputIcon} source = {images.password}/>

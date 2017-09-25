@@ -14,18 +14,60 @@ import images from '../Constant/Images';
 import styles from './Style/ForgetPasswordStyle';
 import settings from '../Constant/UrlConstant';
 import Comunication from '../Constant/ConstantFunction';
+import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 
 export default class ForgetPassword extends Component {
-
-
   constructor(props){
+     super(props);
+     this.onSubmitClick = this.onSubmitClick.bind(this);
+     this.state = {
+                   email: '',
+                   errorMsg:{"emailMsg":''}
+                  };
+  }
+  onSubmitClick(){
+     let error = this.state.errorMsg;
+     error.emailMsg = '';
+     let flag = '';
+     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if(this.state.email == ''){
+     flag = '0';
+     error.emailMsg = 'Please enter email.';
+     }else if(!re.test(this.state.email)){
+       flag = '0';
+       error.emailMsg = 'Please enter valid email.';
+     }
+     if(flag != ''){
+       this.setState({errorMsg: error});
+     }else{
+       callApiWithoutAuth('forgotPassword','POST', {"email":this.state.email}).then((response) => {
+         if(response.status === 201){
+         response.json().then((responseobject) => {
+           console.log(responseobject);
+            this.props.navigation.goBack(null);
+            this.setState({showProgress : false});
+         });
+         Toast.show('Password Send Successfully');
+       }else if (response.status === 404) {
+         this.setState({showProgress : false});
+         Toast.show('Email is not registered');
+       }else if (response.status === 406) {
+         this.setState({showProgress : false});
+         Toast.show('Email is Invalid');
+       }else if (response.status === 500) {
+         this.setState({showProgress : false});
+         Toast.show('Unsuccessfull error:500');
+         }
+       }).catch((error) => {console.log(error); });
 
-   super(props);
-
-     this.state = {'date': new Date(Date.now())};
-   }
-
-
+    }
+  }
+  hideErrors(){
+    let error = this.state.errorMsg;
+    error.passwordMsg = '';
+    error.emailMsg = '';
+    this.setState({errorMsg: error});
+  }
   render(){
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
@@ -47,16 +89,24 @@ export default class ForgetPassword extends Component {
     keyboardType = 'default'
     placeholderTextColor = "#b7b7b7"
     placeholder = 'Email Id'
+    keyboardType = 'email-address'
     underlineColorAndroid = 'transparent'
     multiline = {false} maxLength = {100}
+    returnKeyType="send"
+    keyboardType="email-address"
+    autoCapitalize="none"
+    autoCorrect={false}
+    onSubmitEditing={this.onSubmitClick}
+    onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
     />
     <Text style = {styles.TextInputLine} />
     <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
+    <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
   </View>
   <View style = {styles.TextInputContainer}>
   <TouchableOpacity
   style = {[styles.signInButtonContainer,{backgroundColor:'#6A4A9A'}]}
-  onPress = {this.onLoginClick}>
+  onPress = {this.onSubmitClick}>
     <Text style = {styles.signInButton}>Send</Text>
   </TouchableOpacity>
   </View>

@@ -5,17 +5,10 @@ const { width, height } = Dimensions.get('window');
 
     backgroundImage: {
      flex:1,
-     width:  '100%',
-     height: '100%',
+     width:  width,
+     height: height,
      resizeMode:'stretch'
     },
-    baseContainer: {
-
-     width: width,
-     height: height,
-
-   },
-
    logo: {
     width: 185,
     height: 103,
@@ -105,11 +98,10 @@ TextInputLine: {
  },
 
  term_service: {
-   flex:1,
+   marginTop:'1%',
    fontSize: 14,
    color:'#b7b7b7',
    fontFamily:'Open Sans',
-   marginTop:10,
    backgroundColor:'transparent',
    fontFamily:'Open Sans',
    alignSelf:'center',
@@ -137,7 +129,7 @@ TextInputLine: {
 
    width: '100%',
    height:50,
-   marginTop: 20,
+   marginTop: '3%',
    backgroundColor:'#449FD8',
    justifyContent:'center',
    alignItems:'center',
@@ -166,7 +158,21 @@ errorMsg: {
  color:'#ff0000',
  fontSize: 16,
 },
-
+skip:{
+  fontSize: 14,
+  color:'#000000',
+  fontFamily:'Open Sans',
+  backgroundColor:'transparent',
+  fontFamily:'Open Sans',
+  alignSelf:'center',
+  justifyContent:'center',
+},
+skipContainer:{
+  width:'20%',
+  marginTop:'9%',
+  alignSelf:'center',
+  justifyContent:'center',
+}
   });
 
   export default styles;

@@ -24,7 +24,7 @@ export default class SignUp extends Component {
   componentWillMount(){
   //this.setState({name: this.props.navigation.state.params.name});
       AsyncStorage.getItem(USER_KEY).then((key)=>{
-        this.setState({user_key: key});
+        //this.setState({user_key: key});
       }).catch((err)=>{
         Toast.show(err);
       });
@@ -52,7 +52,7 @@ export default class SignUp extends Component {
       });
       AsyncStorage.getItem(USER_DETAILS).then((details)=>{
         details = JSON.parse(details);
-        this.setState({user_details: details});
+        //this.setState({user_details: details});
       }).catch((err)=>{
         Toast.show(err);
       });

@@ -160,6 +160,12 @@ signupPaypal:{
   color:'#449FD8',
   fontWeight:'600'
 },
+errorMsg: {
+ backgroundColor: 'transparent',
+ color:'#ff0000',
+ fontSize: 16,
+},
   });
+
 
   export default styles;
