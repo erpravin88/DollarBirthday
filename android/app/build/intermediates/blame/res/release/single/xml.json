@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/release/xml/preferences.xml",
+        "source": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.47.1/res/xml/preferences.xml"
+    },
+    {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/release/xml/preferences.xml",
         "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.47.1/res/xml/preferences.xml"
     }

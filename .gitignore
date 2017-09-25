@@ -22,7 +22,7 @@ DerivedData
 project.xcworkspace
 
 # Gradle
-/build/
+ios/build/
 /RNTester/android/app/build/
 /RNTester/android/app/gradle/
 /RNTester/android/app/gradlew
@@ -53,7 +53,7 @@ node_modules
 .DS_Store
 
 # ios
-/build/
+android/build/
 
 
 # Test generated files

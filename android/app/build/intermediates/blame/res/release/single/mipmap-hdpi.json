@@ -2,5 +2,9 @@
     {
         "merged": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/build/intermediates/res/merged/release/mipmap-hdpi/ic_launcher.png",
         "source": "/Users/classic/Desktop/SHAHZAD/React_Project/DollarBirthday/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/res/merged/release/mipmap-hdpi/ic_launcher.png",
+        "source": "/Users/amit/Desktop/DollarBirthday/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
     }
 ]
