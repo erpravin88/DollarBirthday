@@ -134,7 +134,6 @@ hideErrors(){
     <MyActivityIndicator progress={this.state.showProgress} />
     <View style = {styles.titleContainer}>
       <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-      <Image style = {styles.logo} source = {images.baseLogo}/>
     </View>
     <View style = {[styles.TextInputContainer]}>
       <Text style = {styles.heading1}>Thanks for joining!</Text>

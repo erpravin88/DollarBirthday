@@ -129,7 +129,6 @@ onCharityClick(){
 <View style = {styles.titleContainer}>
   <Text style = {styles.titleTextFirst}>Join the</Text>
   <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-  <Image style = {styles.logo} source = {images.baseLogo}/>
 </View>
 <View style = {[styles.TextInputContainer]}>
   <Text style = {styles.heading1}>Giving is Living</Text>
@@ -143,7 +142,7 @@ onCharityClick(){
     <Dropdown
           label='Choose a Charity'
           style = {styles.TextInputStyle}
-          containerStyle ={{marginTop:-30}}
+          containerStyle ={{marginTop:-40}}
           baseColor = '#B3B3B3'
           data={data}
           onChangeText = {(value,index,data)=>{console.log(data[index]);}}

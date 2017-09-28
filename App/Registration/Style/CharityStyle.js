@@ -1,74 +1,55 @@
 import {Dimensions , StyleSheet,  Platform} from 'react-native';
 const { width, height } = Dimensions.get('window');
 
-  const styles = StyleSheet.create({
-
-    backgroundImage: {
+const styles = StyleSheet.create({
+  backgroundImage: {
      flex:1,
      width:  '100%',
      height: '100%',
      resizeMode:'stretch'
     },
     baseContainer: {
-
      width: width,
      height: height,
-
    },
-
-   logo: {
-    width: 185,
-    height: 103,
-    resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '7%' : '1%',
-
-
+  titleContainer: {
+      width: width,
+      marginTop: 40,
+      alignItems: 'center',
+      backgroundColor:'transparent',
+      height:'36%',
   },
-
-   titleContainer: {
-     width: width,
-     paddingTop: 20,
-     alignItems: 'center',
-     backgroundColor:'transparent',
-     marginTop: 20
-   },
-
-   titleTextFirst: {
+  titleTextFirst: {
      fontSize: 18,
      color:'#efd7fe',
-    fontFamily:'OpenSans-Semibold'
+     fontFamily:'OpenSans-Semibold'
    },
-
    titleTextSecond: {
      fontSize: 25,
      fontWeight: 'bold',
      color:'#ffffff',
      fontFamily:'OpenSans-Semibold'
    },
-
    TextInputStyle: {
-
-    width: '100%',
-    height: 40,
-    fontSize:16,
-    paddingBottom:0,
-    paddingBottom:5,
-    paddingRight:22,
-    fontFamily:'Open Sans'
+      width: '100%',
+      height: 40,
+      fontSize:16,
+      paddingBottom:0,
+      paddingBottom:5,
+      paddingRight:22,
+      fontFamily:'Open Sans'
   },
-
   TextInputContainer: {
-   width: '85%',
-   alignSelf: 'center',
+     width: '85%',
+     alignSelf: 'center',
   },
 
   EmailTextInputContainer: {
-   width: '85%',
-   alignSelf: 'center',
-   paddingTop:'10%',
+     width: '85%',
+     alignSelf: 'center',
+     paddingTop:'10%',
  },
-  TextInputIcon: {
-
+TextInputIcon: {
    width: 18,
    height: 18,
    borderBottomWidth: 1,
@@ -84,9 +65,7 @@ TextInputLine: {
    borderBottomWidth: 1,
    borderBottomColor: '#e0e0e0'
  },
-
  signInButtonContainer: {
-
    width: '100%',
    height:50,
    marginTop: 30,
@@ -95,13 +74,11 @@ TextInputLine: {
    alignItems:'center',
  },
  signInButton: {
-
    fontSize: 18,
    color:'#ffffff',
    fontFamily:'OpenSans-Semibold'
  },
  orDivider: {
-
    fontSize: 20,
    color:'#000000',
    alignSelf:'center',
@@ -109,10 +86,9 @@ TextInputLine: {
    backgroundColor:'transparent',
    fontFamily:'Open Sans'
  },
-
  term_service: {
    flex:1,
-   fontSize: 14,
+   fontSize: 10,
    color:'#b7b7b7',
    fontFamily:'Open Sans',
    marginTop:10,
@@ -151,6 +127,5 @@ TextInputLine: {
    alignSelf:'center',
    justifyContent:'center',
  }
-  });
-
-  export default styles;
+});
+export default styles;
