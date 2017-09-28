@@ -7,8 +7,10 @@ import {
   Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground,
-  ActivityIndicator
+  Image,ScrollView,
+  ImageBackground,
+  ActivityIndicator,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -157,15 +159,14 @@ hideErrors(){
   render(){
 
   return(
-<ScrollView  keyboardShouldPersistTaps="always">
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <MyActivityIndicator progress={this.state.showProgress} />
   <View style = {styles.titleContainer}>
     <Text style = {styles.titleTextFirst}>Join the</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-    <Image style = {styles.logo} source = {images.baseLogo}/>
   </View>
-    <View style = {styles.EmailTextInputContainer}>
+  <ScrollView  keyboardShouldPersistTaps="always">
+    <View style = {styles.TextInputContainer}>
       <TextInput style = {styles.TextInputStyle}
         keyboardType = 'default'
         placeholderTextColor = "#b7b7b7"
@@ -199,7 +200,7 @@ hideErrors(){
         onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
       />
       <Text style = {styles.TextInputLine} />
-      <Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
+      <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
     </View>
     <View style = {styles.TextInputContainer}>
@@ -233,7 +234,7 @@ hideErrors(){
         onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
       />
       <Text style = {styles.TextInputLine} />
-      <Image style = {styles.TextInputPasswordIcon} source = {images.password}/>
+      <Image style = {styles.TextInputIcon} source = {images.password}/>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
     </View>
     <View style = {styles.TextInputContainer}>
@@ -252,7 +253,7 @@ hideErrors(){
         <Image style = {styles.facebookButton} source = {images.facebookButton}/>
       </TouchableOpacity>
     </View>
-  </Image>
-</ScrollView>);
+  </ScrollView>
+  </Image>);
   }
 }

@@ -23,14 +23,13 @@ const { width, height } = Dimensions.get('window');
     marginTop: (Platform.OS === 'ios')? '16%' : '10%',
 
 
-  },
-
-   titleContainer: {
-     width: width,
-     alignItems: 'center',
-     backgroundColor:'transparent',
-     marginTop: 40
-   },
+  },  titleContainer: {
+      width: width,
+      marginTop: 40,
+      alignItems: 'center',
+      backgroundColor:'transparent',
+      height:'36%',
+    },
 
    titleTextFirst: {
      fontSize: 18,

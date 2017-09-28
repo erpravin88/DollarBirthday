@@ -121,7 +121,7 @@ return(
   <View style = {[styles.titleContainer]}>
     <Text style = {styles.titleTextFirst}>Join the</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-    <Image style = {styles.logo} source = {images.baseLogo}/>
+    <Image style = {[styles.logo, {display:'none'}]} source = {images.baseLogo}/>
   </View>
 
     <View style = {[styles.EmailTextInputContainer]}>

@@ -89,7 +89,6 @@ export default class FetchFriend extends Component {
 <View style = {styles.titleContainer}>
   <Text style = {styles.titleTextFirst}></Text>
   <Text style = {[styles.titleTextSecond,styles.marginFix1]}>Dollar Birthday Club!</Text>
-  <Image style = {styles.logo} source = {images.baseLogo}/>
 </View>
 <View style = {[styles.TextInputContainer]}>
   <Text style = {styles.heading1}>Life's better with friends.</Text>
@@ -109,7 +108,7 @@ export default class FetchFriend extends Component {
   </View>
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity
-    style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}
+    style = {[styles.signInButtonContainer,{borderRadius:3}]}
     onPress = {this.onLoginClick}>
       <Text style = {styles.signInButton}>Import Manually</Text>
     </TouchableOpacity>

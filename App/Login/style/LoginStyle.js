@@ -25,9 +25,10 @@ import {
 
   titleContainer: {
     width: width,
-    paddingTop: 20,
+    marginTop: 40,
     alignItems: 'center',
     backgroundColor:'transparent',
+    height:'36%',
   },
 
   titleTextFirst: {

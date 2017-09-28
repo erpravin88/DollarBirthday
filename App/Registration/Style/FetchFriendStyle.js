@@ -15,24 +15,13 @@ const { width, height } = Dimensions.get('window');
      height: height,
 
    },
-
-   logo: {
-    width: 185,
-    height: 103,
-    resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '6%' : '1%',
-
-
+  titleContainer: {
+      width: width,
+      marginTop: 40,
+      alignItems: 'center',
+      backgroundColor:'transparent',
+      height:'36%',
   },
-
-   titleContainer: {
-     width: width,
-     paddingTop: 20,
-     alignItems: 'center',
-     backgroundColor:'transparent',
-     marginTop: 20
-   },
-
    titleTextFirst: {
      fontSize: 18,
      color:'#efd7fe',
@@ -90,7 +79,7 @@ TextInputLine: {
    width: '100%',
    height:50,
    marginTop: 30,
-   backgroundColor:'#84ce6f',
+   backgroundColor:'#DC6966',
    justifyContent:'center',
    alignItems:'center',
  },
@@ -141,7 +130,7 @@ TextInputLine: {
 
    width: '100%',
    height:50,
-   marginTop: 20,
+   marginTop: 5,
    backgroundColor:'#426cb1',
    justifyContent:'center',
    alignItems:'center',

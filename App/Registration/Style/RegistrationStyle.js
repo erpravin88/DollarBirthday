@@ -9,11 +9,10 @@ import {
   const styles = StyleSheet.create({
 
     backgroundImage: {
-
-     flex:1,
-     width:  '100%',
-     height: '100%',
-     resizeMode:'stretch'
+     flex: 1,
+     width:  width,
+     height: height,
+     resizeMode: 'stretch'
     },
     baseContainer: {
 
@@ -21,23 +20,13 @@ import {
      height: height,
 
    },
-
-   logo: {
-    width: 185,
-    height: 103,
-    resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '8%' : '1%',
-
-
+  titleContainer: {
+    width: width,
+    marginTop: 40,
+    alignItems: 'center',
+    backgroundColor:'transparent',
+    height:'36%',
   },
-
-   titleContainer: {
-     width: width,
-     paddingTop: 20,
-     alignItems: 'center',
-     backgroundColor:'transparent',
-     marginTop: 20
-   },
 
    titleTextFirst: {
      fontSize: 18,
@@ -52,7 +41,7 @@ import {
      fontFamily:'OpenSans-Semibold'
    },
 
-   TextInputStyle: {
+TextInputStyle: {
 
     width: '100%',
     height: 40,
@@ -62,37 +51,11 @@ import {
     paddingRight:22,
     fontFamily:'Open Sans'
   },
-
-  TextInputContainer: {
-
+TextInputContainer: {
    width: '85%',
    alignSelf: 'center',
-
-
   },
-
-  EmailTextInputContainer: {
-
-   width: '85%',
-   alignSelf: 'center',
-   paddingTop:'10%',
-
- },
-
-
-  TextInputIcon: {
-
-   width: 18,
-   height: 18,
-   borderBottomWidth: 1,
-   resizeMode:'contain',
-   position:'absolute',
-   zIndex: 99,
-   right:0,
-   top:55,
-  },
-
-  TextInputPasswordIcon: {
+TextInputIcon: {
 
    width: 18,
    height: 18,
@@ -102,15 +65,12 @@ import {
    zIndex: 99,
    right:0,
    top:18,
-  },
-
-
-  TextInputLine: {
-
+ },
+TextInputLine: {
    width: '100%',
    height:0,
    borderBottomWidth: 1,
- borderBottomColor: '#e0e0e0'
+   borderBottomColor: '#e0e0e0'
  },
 
  signInButtonContainer: {
