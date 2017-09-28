@@ -1,4 +1,5 @@
 const images = {
+    background: require('../images/background.png'),
     loginbackground: require('../images/base.png'),
     baseLogo: require('../images/base-logo.png'),
     emailIcon: require('../images/email-icon.png'),
@@ -19,7 +20,7 @@ const images = {
     logoutIcon: require('../images/dashboard-screen-logout-tab.png'),
     dropdownArrow: require('../images/dropdown-arrow.png'),
     payPalBtn: require('../images/link-with-paypal-button.png'),
+    addBtn: require('../images/settings-screen-friends-tab-plus-icon.png'),
 
 }
-
 export default images

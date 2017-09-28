@@ -9,6 +9,7 @@ import FetchFriend from '../Registration/FetchFriend';
 import Dashboard from '../Dashboard/Dashboard';
 import Paypal from '../Registration/Paypal';
 import ForgetPassword from '../Registration/ForgetPassword';
+import AddFriend from '../AddFriend/AddFriend';
 
 // register all screens of the app (including internal ones)
 export const screenRoute = (SignIn) => {
@@ -19,7 +20,8 @@ export const screenRoute = (SignIn) => {
     FETCH_FRIEND:{screen:FetchFriend},
     DASHBOARD:{screen: Dashboard},
     PAYPAL:{screen: Paypal},
-    FPASSWORD:{screen: ForgetPassword}
+    FPASSWORD:{screen: ForgetPassword},
+    ADDFRIEND:{screen: AddFriend}
     },{
     headerMode: 'none',
     mode:'modal',
