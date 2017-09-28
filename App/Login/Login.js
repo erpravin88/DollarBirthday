@@ -115,7 +115,7 @@ export default class Login extends Component {
   }
 render(){
 return(
-  <ScrollView keyboardShouldPersistTaps="always">
+
 <Image style = {styles.backgroundImage} source = {images.loginbackground} >
 <MyActivityIndicator progress={this.state.showProgress} />
   <View style = {[styles.titleContainer]}>
@@ -123,69 +123,72 @@ return(
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
     <Image style = {[styles.logo, {display:'none'}]} source = {images.baseLogo}/>
   </View>
-
-    <View style = {[styles.EmailTextInputContainer]}>
-      <TextInput style = {styles.TextInputStyle}
-        keyboardType = 'email-address'
-        placeholderTextColor = "#b7b7b7"
-        placeholder = 'Email Id'
-        underlineColorAndroid = 'transparent'
-        returnKeyType="next"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
-        multiline = {false}
-        maxLength = {100}
-        onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
-      />
-      <Text style = {styles.TextInputLine}/>
-      <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TextInput style = {styles.TextInputStyle}
-        ref='secondInput'
-        keyboardType = 'default'
-        placeholderTextColor = "#b7b7b7"
-        placeholder = 'Password'
-        underlineColorAndroid = 'transparent'
-        secureTextEntry = {true}
-        multiline = {false}
-        maxLength = {100}
-        returnKeyType="go"
-        onSubmitEditing={()=>{this.onLoginClick();}}
-        onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
-      />
-      <Text style = {styles.TextInputLine} />
-      <Image style = {styles.TextInputIcon} source = {images.password}/>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TouchableOpacity
-      onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}
-      >
-      <Text style = {styles.forgot}>Forgot Password?</Text>
-      </TouchableOpacity>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
-        <Text style = {styles.signInButton}>Sign In</Text>
-      </TouchableOpacity>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TouchableOpacity onPress={()=>{this.props.navigation.navigate('SIGN_UP')}}>
-      <Text style = {styles.forgot}>Don't have account? Sign Up</Text>
-      </TouchableOpacity>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <Text style = {styles.orDivider}>- or -</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TouchableOpacity style = {styles.facebookButtonContainer}>
-        <Image style = {styles.facebookButton} source = {images.facebookButton}/>
-      </TouchableOpacity>
-    </View>
+  <View style = {[styles.formgroup]}>
+  <ScrollView keyboardShouldPersistTaps="always">
+        <View style = {[styles.TextInputContainer]}>
+        <TextInput style = {styles.TextInputStyle}
+          keyboardType = 'email-address'
+          placeholderTextColor = "#b7b7b7"
+          placeholder = 'Email Id'
+          underlineColorAndroid = 'transparent'
+          returnKeyType="next"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
+          multiline = {false}
+          maxLength = {100}
+          onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
+        />
+        <Text style = {styles.TextInputLine}/>
+        <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
+        <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TextInput style = {styles.TextInputStyle}
+          ref='secondInput'
+          keyboardType = 'default'
+          placeholderTextColor = "#b7b7b7"
+          placeholder = 'Password'
+          underlineColorAndroid = 'transparent'
+          secureTextEntry = {true}
+          multiline = {false}
+          maxLength = {100}
+          returnKeyType="go"
+          onSubmitEditing={()=>{this.onLoginClick();}}
+          onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
+        />
+        <Text style = {styles.TextInputLine} />
+        <Image style = {styles.TextInputIcon} source = {images.password}/>
+        <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TouchableOpacity
+        onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}
+        >
+        <Text style = {styles.forgot}>Forgot Password?</Text>
+        </TouchableOpacity>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
+          <Text style = {styles.signInButton}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('SIGN_UP')}}>
+        <Text style = {styles.forgot}>Don't have account? Sign Up</Text>
+        </TouchableOpacity>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <Text style = {styles.orDivider}>- or -</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TouchableOpacity style = {styles.facebookButtonContainer}>
+          <Image style = {styles.facebookButton} source = {images.facebookButton}/>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  </View>
 </Image>
-</ScrollView> ); }
+ ); }
 }

@@ -52,8 +52,9 @@ TextInputStyle: {
     fontFamily:'Open Sans'
   },
 TextInputContainer: {
-   width: '85%',
+   width: '88%',
    alignSelf: 'center',
+
   },
 TextInputIcon: {
 
@@ -150,7 +151,6 @@ TextInputLine: {
    height:'100%',
    resizeMode:'contain'
  },
-
  dateInput:{
       alignItems : 'flex-start',
       padding : 5,
@@ -159,7 +159,7 @@ TextInputLine: {
       borderBottomWidth : 1,
 
     },
-    dateIcon:{
+dateIcon:{
        position: 'absolute',
        right: 0,
        top:20,
@@ -168,7 +168,7 @@ TextInputLine: {
        marginLeft: 0
     },
 
-    login_button: {
+login_button: {
 
       fontSize: 14,
       color:'#5e3a93',
@@ -177,10 +177,7 @@ TextInputLine: {
       backgroundColor:'transparent',
       fontFamily:'Open Sans'
     },
-
-
-
-    activityloder:{
+activityloder:{
     position:'absolute',
     flex:1,
     width:width,
@@ -190,7 +187,13 @@ TextInputLine: {
     justifyContent: 'center',
     zIndex: 999,
     },
-
+    formgroup:{
+      backgroundColor:'transparent',
+      height:'54%',
+      overflow:'hidden',
+      width: '98%',
+      marginLeft:'1%',
+    }
 
   });
 

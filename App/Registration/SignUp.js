@@ -165,95 +165,97 @@ hideErrors(){
     <Text style = {styles.titleTextFirst}>Join the</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
-  <ScrollView  keyboardShouldPersistTaps="always">
-    <View style = {styles.TextInputContainer}>
-      <TextInput style = {styles.TextInputStyle}
-        keyboardType = 'default'
-        placeholderTextColor = "#b7b7b7"
-        placeholder = 'Full Name'
-        underlineColorAndroid = 'transparent'
-        multiline = {false}
-        maxLength = {100}
-        returnKeyType="next"
-        autoCorrect={false}
-        onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
-        onChangeText = {(val) => {this.setState({fullName: val});this.hideErrors();}}
-      />
-      <Text style = {styles.TextInputLine}/>
-      <Image style = {styles.TextInputIcon} source = {images.fullName}/>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TextInput
-        style = {styles.TextInputStyle}
-        ref='secondInput'
-        keyboardType = 'email-address'
-        placeholderTextColor = "#b7b7b7"
-        placeholder = 'Email Id'
-        underlineColorAndroid = 'transparent'
-        multiline = {false}
-        maxLength = {100}
-        returnKeyType="next"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
-      />
-      <Text style = {styles.TextInputLine} />
-      <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <Text style = {styles.dob_label}>Birthday</Text>
-      <DatePicker
-        style = {styles.date_picker}
-        date = {this.state.date}
-        format = "YYYY-MM-DD"
-        maxDate = {this.state.date}
-        confirmBtnText = "Confirm"
-        cancelBtnText = "Cancel"
-        iconSource = {images.dropdownArrow}
-        onDateChange = {(date) => {this.setState({date:date})}}
-        customStyles={{dateInput: styles.dateInput,
-                      dateIcon: styles.dateIcon,}}
-      />
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TextInput
-        style = {styles.TextInputStyle}
-        keyboardType = 'default'
-        placeholderTextColor = "#b7b7b7"
-        placeholder = 'Password'
-        underlineColorAndroid = 'transparent'
-        secureTextEntry = {true}
-        multiline = {false}
-        maxLength = {100}
-        returnKeyType="send"
-        autoCorrect={false}
-        onSubmitEditing={this.onSignUpClick}
-        onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
-      />
-      <Text style = {styles.TextInputLine} />
-      <Image style = {styles.TextInputIcon} source = {images.password}/>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
-        <Text style = {styles.signInButton}>Sign Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
-        <Text style = {styles.login_button}>Already have account? Sign In</Text>
-      </TouchableOpacity>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <Text style = {styles.orDivider}>- or -</Text>
-    </View>
-    <View style = {styles.TextInputContainer}>
-      <TouchableOpacity style = {styles.facebookButtonContainer}>
-        <Image style = {styles.facebookButton} source = {images.facebookButton}/>
-      </TouchableOpacity>
-    </View>
-  </ScrollView>
+  <View style = {[styles.formgroup]}>
+    <ScrollView  keyboardShouldPersistTaps="always">
+      <View style = {styles.TextInputContainer}>
+        <TextInput style = {styles.TextInputStyle}
+          keyboardType = 'default'
+          placeholderTextColor = "#b7b7b7"
+          placeholder = 'Full Name'
+          underlineColorAndroid = 'transparent'
+          multiline = {false}
+          maxLength = {100}
+          returnKeyType="next"
+          autoCorrect={false}
+          onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
+          onChangeText = {(val) => {this.setState({fullName: val});this.hideErrors();}}
+        />
+        <Text style = {styles.TextInputLine}/>
+        <Image style = {styles.TextInputIcon} source = {images.fullName}/>
+        <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TextInput
+          style = {styles.TextInputStyle}
+          ref='secondInput'
+          keyboardType = 'email-address'
+          placeholderTextColor = "#b7b7b7"
+          placeholder = 'Email Id'
+          underlineColorAndroid = 'transparent'
+          multiline = {false}
+          maxLength = {100}
+          returnKeyType="next"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
+        />
+        <Text style = {styles.TextInputLine} />
+        <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
+        <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <Text style = {styles.dob_label}>Birthday</Text>
+        <DatePicker
+          style = {styles.date_picker}
+          date = {this.state.date}
+          format = "YYYY-MM-DD"
+          maxDate = {this.state.date}
+          confirmBtnText = "Confirm"
+          cancelBtnText = "Cancel"
+          iconSource = {images.dropdownArrow}
+          onDateChange = {(date) => {this.setState({date:date})}}
+          customStyles={{dateInput: styles.dateInput,
+                        dateIcon: styles.dateIcon,}}
+        />
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TextInput
+          style = {styles.TextInputStyle}
+          keyboardType = 'default'
+          placeholderTextColor = "#b7b7b7"
+          placeholder = 'Password'
+          underlineColorAndroid = 'transparent'
+          secureTextEntry = {true}
+          multiline = {false}
+          maxLength = {100}
+          returnKeyType="send"
+          autoCorrect={false}
+          onSubmitEditing={this.onSignUpClick}
+          onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
+        />
+        <Text style = {styles.TextInputLine} />
+        <Image style = {styles.TextInputIcon} source = {images.password}/>
+        <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
+          <Text style = {styles.signInButton}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
+          <Text style = {styles.login_button}>Already have account? Sign In</Text>
+        </TouchableOpacity>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <Text style = {styles.orDivider}>- or -</Text>
+      </View>
+      <View style = {styles.TextInputContainer}>
+        <TouchableOpacity style = {styles.facebookButtonContainer}>
+          <Image style = {styles.facebookButton} source = {images.facebookButton}/>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  </View>
   </Image>);
   }
 }

@@ -13,16 +13,6 @@ import {
     height: height,
     resizeMode:'stretch',
   },
-
-  logo: {
-   width: 185,
-   height: 103,
-   resizeMode: 'contain',
-   marginTop: (Platform.OS === 'ios')? '13%' : '6%',
-
-
- },
-
   titleContainer: {
     width: width,
     marginTop: 40,
@@ -64,17 +54,10 @@ import {
 
  TextInputContainer: {
 
-  width: '85%',
+  width: '88%',
   alignSelf: 'center',
 
  },
-
- EmailTextInputContainer: {
-  width: '85%',
-  alignSelf: 'center',
-  marginTop:'5%'
-},
-
 
  TextInputIcon: {
 
@@ -166,7 +149,13 @@ borderBottomColor: '#e0e0e0'
   justifyContent: 'center',
   zIndex: 999,
 },
-
+formgroup:{
+  backgroundColor:'transparent',
+  height:'54%',
+  overflow:'hidden',
+  width: '98%',
+  marginLeft:'1%',
+}
 
 });
 
