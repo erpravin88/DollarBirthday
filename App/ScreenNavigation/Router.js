@@ -10,6 +10,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import Paypal from '../Registration/Paypal';
 import ForgetPassword from '../Registration/ForgetPassword';
 import AddFriend from '../AddFriend/AddFriend';
+import Calendar from '../Calendar/Calendar';
 
 // register all screens of the app (including internal ones)
 export const screenRoute = (SignIn) => {
@@ -21,7 +22,8 @@ export const screenRoute = (SignIn) => {
     DASHBOARD:{screen: Dashboard},
     PAYPAL:{screen: Paypal},
     FPASSWORD:{screen: ForgetPassword},
-    ADDFRIEND:{screen: AddFriend}
+    ADDFRIEND:{screen: AddFriend},
+    CALENDAR: {screen:Calendar}
     },{
     headerMode: 'none',
     mode:'modal',

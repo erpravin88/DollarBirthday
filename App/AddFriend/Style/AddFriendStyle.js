@@ -8,6 +8,14 @@ import {
   
     const styles = StyleSheet.create({
   
+      backlogo:{
+        height: 15,
+        width:15,
+        zIndex:99,
+        marginTop:'7.5%',
+        marginLeft: '7.5%'
+      
+      },
       backgroundImage: {
   
        flex:1,
@@ -41,10 +49,8 @@ import {
   
      titleContainer: {
        width: width,
-       paddingTop: 20,
        alignItems: 'center',
        backgroundColor:'transparent',
-       marginTop: 20
      },
   
      titleTextFirst: {
