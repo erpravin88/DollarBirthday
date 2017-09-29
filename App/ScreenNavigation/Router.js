@@ -10,6 +10,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import Paypal from '../Registration/Paypal';
 import ForgetPassword from '../Registration/ForgetPassword';
 import AddFriend from '../AddFriend/AddFriend';
+<<<<<<< HEAD
 import Upcomings from '../Upcomings/Upcomings';
 const Routes =   {
   RECECNT: { screen : Upcomings,navigationOptions: {
@@ -22,6 +23,7 @@ const Routes =   {
       tabBarLabel: "Upcoming Birthays"
     }},
 };
+import Calendar from '../Calendar/Calendar';
 
 const TabConfig = {
   stateName: 'MainNavigation',
@@ -52,6 +54,7 @@ export const screenRoute = (SignIn) => {
     FPASSWORD:{screen: ForgetPassword},
     ADDFRIEND:{screen: AddFriend},
     UPCOMINGS : {screen :TabNavigator(Routes, TabConfig)},
+    CALENDAR: {screen:Calendar}
     },{
     headerMode: 'none',
     mode:'modal',

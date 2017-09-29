@@ -108,7 +108,7 @@ console.log(this.state.f_list);
   <MyActivityIndicator progress={this.state.showProgress} />
   <View style = {styles.titleContainer}>
   <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
-    <Image style={styles.img} source = {images.dbIcon}/>
+    <Image style={styles.img} source = {images.dashboardIcon}/>
   </TouchableOpacity>
     <Text style = {styles.titleTextFirst}>Upcomings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>

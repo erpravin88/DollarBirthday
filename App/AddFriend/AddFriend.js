@@ -163,6 +163,7 @@ render(){
         <ScrollView keyboardShouldPersistTaps="always">
             <Image style = {styles.backgroundImage} source = {images.background}>
                 <MyActivityIndicator progress={this.state.showProgress} />
+                <Image style = {styles.backlogo} source = {images.backIcon} onPress={()=>{this.props.navigation.goBack('DASHBOARD')}}></Image>
                 <View style = {styles.titleContainer}>
                     <Text style = {styles.titleTextFirst}>Add Friend</Text>
                     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
