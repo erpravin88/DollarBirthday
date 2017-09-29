@@ -21,6 +21,7 @@ const images = {
     dropdownArrow: require('../images/dropdown-arrow.png'),
     payPalBtn: require('../images/link-with-paypal-button.png'),
     addBtn: require('../images/settings-screen-friends-tab-plus-icon.png'),
+    dbIcon: require('../images/dashboard-icon.png'),
 
 }
 export default images

@@ -14,13 +14,13 @@ import {
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
+import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
 import styles from './Style/RegistrationStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
-import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { NavigationActions } from 'react-navigation';
 const date = new Date(Date.now());
 const resetAction = NavigationActions.reset({
