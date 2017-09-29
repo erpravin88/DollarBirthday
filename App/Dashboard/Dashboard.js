@@ -76,7 +76,7 @@ export default class SignUp extends Component {
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {this.onLoginClick}>
+      onPress={()=>{this.props.navigation.navigate('UPCOMINGS');}}>
       <Image style = {styles.full} source = {images.upcomingIcon}/>
       </TouchableOpacity>
       <TouchableOpacity

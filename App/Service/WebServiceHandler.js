@@ -24,6 +24,8 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
             console.log(settings.API_URL);
         console.log(urlStr);
         console.log(params);
+        console.log(auth_token);
+        console.log(method);
             return fetch(settings.API_URL+urlStr, {
                     method: method,
                     headers: {

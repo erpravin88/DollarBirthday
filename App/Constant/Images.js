@@ -23,6 +23,5 @@ const images = {
     addBtn: require('../images/settings-screen-friends-tab-plus-icon.png'),
     dashboardIcon: require('../images/dashboard-icon.png'),
     backIcon: require('../images/back-icon.png'),
-
 }
 export default images
