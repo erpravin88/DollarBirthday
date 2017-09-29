@@ -1,10 +1,28 @@
 'use strict';
-
+import React, { Component } from 'react';
 import {
 	Linking,
 	Platform,
+	NetInfo,
 } from 'react-native';
+export const netinfo = function() {
+	NetInfo.isConnected.fetch().then(isConnected => {
+  console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+});
+function handleFirstConnectivityChange(isConnected) {
+  console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
 
+  NetInfo.isConnected.removeEventListener(
+    'change',
+    handleFirstConnectivityChange
+  );
+	return isConnected;
+}
+NetInfo.isConnected.addEventListener(
+  'change',
+  handleFirstConnectivityChange
+);
+}
 export const phonecall = function(phoneNumber, prompt) {
 	if(arguments.length !== 2) {
 			console.log('you must supply exactly 2 arguments');
@@ -218,4 +236,4 @@ const isCorrectType = function(expected, actual) {
 	return Object.prototype.toString.call(actual).slice(8, -1) === expected;
 };
 
-export default { phonecall, text, textWithoutEncoding, email, web }
+export default { phonecall, text, textWithoutEncoding, email, web, netinfo }

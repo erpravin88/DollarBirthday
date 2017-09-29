@@ -14,16 +14,7 @@ const { width, height } = Dimensions.get('window');
      width: width,
      height: height,
 
-   },
-
-   logo: {
-    width: 185,
-    height: 103,
-    resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '16%' : '10%',
-
-
-  },  titleContainer: {
+   },  titleContainer: {
       width: width,
       marginTop: 40,
       alignItems: 'center',

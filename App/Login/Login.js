@@ -76,6 +76,9 @@ export default class Login extends Component {
     if(flag != ''){
       this.setState({errorMsg: error});
     }else{
+      if(netinfo){
+
+
       this.setState({showProgress : true});
       console.log(this.state);  // Add your logic for the transition
         callApiWithoutAuth('login','POST', {"email":this.state.email,
@@ -104,7 +107,9 @@ export default class Login extends Component {
           Toast.show('Unsuccessfull error:500');
           }
         }).catch((error) => {console.log(error); });
-
+}else {
+  Toast.show('No Network Connection');
+}
     }
   }
   hideErrors(){

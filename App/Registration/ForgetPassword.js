@@ -15,6 +15,7 @@ import styles from './Style/ForgetPasswordStyle';
 import settings from '../Constant/UrlConstant';
 import Comunication from '../Constant/ConstantFunction';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
+import MyActivityIndicator from '../Component/MyActivityIndicator';
 
 export default class ForgetPassword extends Component {
   constructor(props){
@@ -22,7 +23,8 @@ export default class ForgetPassword extends Component {
      this.onSubmitClick = this.onSubmitClick.bind(this);
      this.state = {
                    email: '',
-                   errorMsg:{"emailMsg":''}
+                   errorMsg:{"emailMsg":''},
+                   showProgress: false,
                   };
   }
   onSubmitClick(){
@@ -40,6 +42,7 @@ export default class ForgetPassword extends Component {
      if(flag != ''){
        this.setState({errorMsg: error});
      }else{
+       this.setState({showProgress : true});
        callApiWithoutAuth('forgotPassword','POST', {"email":this.state.email}).then((response) => {
          if(response.status === 201){
          response.json().then((responseobject) => {
@@ -71,18 +74,19 @@ export default class ForgetPassword extends Component {
   render(){
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+<MyActivityIndicator progress={this.state.showProgress} />
 <View style = {styles.titleContainer}>
   <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-  <Image style = {styles.logo} source = {images.baseLogo}/>
 </View>
+<ScrollView keyboardShouldPersistTaps="always">
 <View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.heading1}>Forget Password</Text>
+  <Text style = {styles.heading1}>Forgot Password</Text>
 </View>
 <View style = {[styles.TextInputContainer]}>
   <Text style = {styles.subhead1}>Please enter your email id below to</Text>
   <Text style = {styles.subhead1}>generate a new password</Text>
 </View>
-<ScrollView keyboardShouldPersistTaps="always">
+
   <View style = {[styles.TextInputContainer,styles.marginFix1]}>
     <TextInput
     style = {styles.TextInputStyle}
