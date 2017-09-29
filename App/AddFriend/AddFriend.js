@@ -160,93 +160,98 @@ componentWillMount(){
 
 render(){
     return(
-        <ScrollView keyboardShouldPersistTaps="always">
-            <Image style = {styles.backgroundImage} source = {images.background}>
-                <MyActivityIndicator progress={this.state.showProgress} />
-                <Image style = {styles.backlogo} source = {images.backIcon} onPress={()=>{this.props.navigation.goBack('DASHBOARD')}}></Image>
-                <View style = {styles.titleContainer}>
-                    <Text style = {styles.titleTextFirst}>Add Friend</Text>
-                    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-                </View>
-                <View style = {styles.EmailTextInputContainer}>
-                    <TextInput style = {styles.TextInputStyle}
-                        keyboardType = 'default'
-                        placeholderTextColor = "#b7b7b7"
-                        placeholder = 'First Name'
-                        underlineColorAndroid = 'transparent'
-                        multiline = {false}
-                        maxLength = {100}
-                        returnKeyType="next"
-                        autoCorrect={false}
-                        onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
-                        onChangeText = {(val) => {this.setState({firstName: val});this.hideErrors();}}
-                    />
-                    <Text style = {styles.TextInputLine}/>
-                    <Image style = {styles.TextInputIcon} source = {images.fullName}/>
-                    <Text style = {styles.errorMsg}>{this.state.errorMsg['firstName']}</Text>
-                </View>
-                <View style = {styles.TextInputContainer}>
-                    <TextInput style = {styles.TextInputStyle}
-                        keyboardType = 'default'
-                        placeholderTextColor = "#b7b7b7"
-                        placeholder = 'Last Name'
-                        underlineColorAndroid = 'transparent'
-                        multiline = {false}
-                        maxLength = {100}
-                        returnKeyType="next"
-                        autoCorrect={false}
-                        onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
-                        onChangeText = {(val) => {this.setState({lastName: val});this.hideErrors();}}
-                    />
-                    <Text style = {styles.TextInputLine}/>
-                    <Image style = {styles.TextInputPasswordIcon} source = {images.fullName}/>
-                    <Text style = {styles.errorMsg}>{this.state.errorMsg['lastName']}</Text>
-                </View>
-                <View style = {styles.TextInputContainer}>
-                    <TextInput
-                        style = {styles.TextInputStyle}
-                        ref='secondInput'
-                        keyboardType = 'email-address'
-                        placeholderTextColor = "#b7b7b7"
-                        placeholder = 'PayPal Email Id'
-                        underlineColorAndroid = 'transparent'
-                        multiline = {false}
-                        maxLength = {100}
-                        returnKeyType="next"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
-                    />
-                    <Text style = {styles.TextInputLine} />
-                    <Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
-                    <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-                </View>
-                <View style = {styles.TextInputContainer}>
-                    <Text style = {styles.dob_label}>Birthday</Text>
-                    <DatePicker
-                        style = {styles.date_picker}
-                        date = {this.state.date}
-                        format = "YYYY-MM-DD"
-                        maxDate = {this.state.date}
-                        confirmBtnText = "Confirm"
-                        cancelBtnText = "Cancel"
-                        iconSource = {images.dropdownArrow}
-                        onDateChange = {(date) => {this.setState({date:date})}}
-                        customStyles={{dateInput: styles.dateInput,
-                                    dateIcon: styles.dateIcon,}}
-                    />
-                </View>
-                <View style = {styles.TextInputContainer}>
-                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
-                        
-                        <Text style = {styles.signInButton}>
-                            <Image style = {styles.addBtn} source = {images.addBtn}/>
-                            Add Friend
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </Image>
-        </ScrollView>);
+        <Image style = {styles.backgroundImage} source = {images.background}>
+            <MyActivityIndicator progress={this.state.showProgress} />
+            <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
+                <Image style = {styles.backlogo} source = {images.backIcon}></Image>
+            </TouchableOpacity>
+            <View style = {styles.titleContainer}>
+                <Text style = {styles.titleTextFirst}>Add Friend</Text>
+                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+            </View>
+            <View style = {[styles.formgroup]}>
+                <ScrollView keyboardShouldPersistTaps="always">
+                    <View style = {styles.EmailTextInputContainer}>
+                        <TextInput style = {styles.TextInputStyle}
+                            keyboardType = 'default'
+                            placeholderTextColor = "#b7b7b7"
+                            placeholder = 'First Name'
+                            underlineColorAndroid = 'transparent'
+                            multiline = {false}
+                            maxLength = {100}
+                            returnKeyType="next"
+                            autoCorrect={false}
+                            onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
+                            onChangeText = {(val) => {this.setState({firstName: val});this.hideErrors();}}
+                        />
+                        <Text style = {styles.TextInputLine}/>
+                        <Image style = {styles.TextInputIcon} source = {images.fullName}/>
+                        <Text style = {styles.errorMsg}>{this.state.errorMsg['firstName']}</Text>
+                    </View>
+                    <View style = {styles.TextInputContainer}>
+                        <TextInput style = {styles.TextInputStyle}
+                            keyboardType = 'default'
+                            placeholderTextColor = "#b7b7b7"
+                            placeholder = 'Last Name'
+                            underlineColorAndroid = 'transparent'
+                            multiline = {false}
+                            maxLength = {100}
+                            returnKeyType="next"
+                            autoCorrect={false}
+                            onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
+                            onChangeText = {(val) => {this.setState({lastName: val});this.hideErrors();}}
+                        />
+                        <Text style = {styles.TextInputLine}/>
+                        <Image style = {styles.TextInputPasswordIcon} source = {images.fullName}/>
+                        <Text style = {styles.errorMsg}>{this.state.errorMsg['lastName']}</Text>
+                    </View>
+                    <View style = {styles.TextInputContainer}>
+                        <TextInput
+                            style = {styles.TextInputStyle}
+                            ref='secondInput'
+                            keyboardType = 'email-address'
+                            placeholderTextColor = "#b7b7b7"
+                            placeholder = 'PayPal Email Id'
+                            underlineColorAndroid = 'transparent'
+                            multiline = {false}
+                            maxLength = {100}
+                            returnKeyType="next"
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
+                        />
+                        <Text style = {styles.TextInputLine} />
+                        <Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
+                        <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+                    </View>
+                    <View style = {styles.TextInputContainer}>
+                        <Text style = {styles.dob_label}>Birthday</Text>
+                        <DatePicker
+                            style = {styles.date_picker}
+                            date = {this.state.date}
+                            format = "YYYY-MM-DD"
+                            maxDate = {this.state.date}
+                            confirmBtnText = "Confirm"
+                            cancelBtnText = "Cancel"
+                            iconSource = {images.dropdownArrow}
+                            onDateChange = {(date) => {this.setState({date:date})}}
+                            customStyles={{dateInput: styles.dateInput,
+                                        dateIcon: styles.dateIcon,}}
+                        />
+                    </View>
+                    <View style = {styles.TextInputContainer}>
+                        <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
+                            
+                            <Text style = {styles.signInButton}>
+                                <Image style = {styles.addBtn} source = {images.addBtn}/>
+                                Add Friend
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </View>
+        </Image>
+        );
     }
 }

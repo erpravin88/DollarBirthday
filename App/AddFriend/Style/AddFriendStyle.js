@@ -16,6 +16,15 @@ import {
         marginLeft: '7.5%'
       
       },
+      formgroup:{
+        
+        marginTop: 130, 
+        backgroundColor:'transparent',
+        height:'54%',
+        overflow:'hidden',
+        width: '98%',
+        marginLeft:'1%',
+      },
       backgroundImage: {
   
        flex:1,
@@ -86,7 +95,6 @@ import {
     },
   
     EmailTextInputContainer: {
-     marginTop: 103, 
      width: '85%',
      alignSelf: 'center',
      paddingTop:'10%',

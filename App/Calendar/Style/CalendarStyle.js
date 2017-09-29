@@ -8,6 +8,35 @@ import {
   
     const styles = StyleSheet.create({
 
+      modaldata:{
+        height:'60%',
+        width:'85%',
+        backgroundColor:'#5a3b4a',
+        alignItems: 'center',
+      },
+
+      modalparentview:{
+        flex: 1,
+        backgroundColor:'rgba(0,0,0,0.5)',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+
+      },
+
+      CalendarContainer:{
+        flex:1,
+        marginBottom:'7.5%'
+
+      },
+
+      calendar:{
+        marginTop:153,
+        width:'85%',
+        marginLeft:'7.5%'
+
+      },
+
       dashlogo:{
         height: 15,
         width:15,

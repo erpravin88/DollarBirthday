@@ -9,27 +9,36 @@ import {
   Alert,
   Image,ScrollView, ImageBackground,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/CalendarStyle';
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
-export default class Calendar extends Component {
+export default class Calendars extends Component {
 
 constructor(props){
     super(props);
     this.state = {
         Friends:[],
         auth_token: '',
-        showProgress: false
+        friends_date:{},
+        showProgress: false,
+        modalVisible: false
     };
 }
+
+setModalVisible(visible) { 
+    this.setState({modalVisible: visible}); 
+} 
 
 componentWillMount(){
     //this.setState({name: this.props.navigation.state.params.name});
@@ -44,7 +53,9 @@ componentWillMount(){
                 if(response.status === 200){
                   response.json().then((responseobject) => {
                     this.setState({ Friends: responseobject.data });
-                    console.log(responseobject);
+                    for (let friend of this.state.Friends) {
+                        this.state.friends_date[friend.birth_date]={marked: true};
+                    }
                   });
                   this.setState({showProgress : false});
                   //Toast.show('Task fetched');
@@ -78,8 +89,33 @@ render(){
                     <Text style = {styles.titleTextFirst}>Birthday Calendar</Text>
                     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
                 </View>
-                
-            </Image>
+                <View style = {styles.CalendarContainer}>
+                    <Calendar
+                    // Specify style for calendar container element. Default = {}
+                    style = {styles.calendar}
+                    monthFormat={'MMM yyyy'}
+                    markedDates={this.state.friends_date}
+                    onDayPress={(day) => {this.setModalVisible(true) }}
+                    // Specify theme properties to override specific styles for calendar parts. Default = {}
+                    
+                    />
+                </View>
+                <Modal 
+                    animationType="slide" 
+                    transparent={true} 
+                    visible={this.state.modalVisible} 
+                    onRequestClose={() => {this.setModalVisible(false) }} 
+                > 
+                    <View style={styles.modalparentview}> 
+                        <View style={styles.modaldata}>
+                            <Text>Hello World!</Text>
+                            <TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}> 
+                                <Text>Hide Modal</Text> 
+                            </TouchableHighlight>
+                        </View> 
+                    </View> 
+                </Modal>    
+            </Image>            
         </ScrollView>);
     }
 }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { TabNavigator ,StackNavigator ,NavigationActions} from 'react-navigation';
-
-
 import Login from '../Login/Login';
 import SignUp from '../Registration/SignUp';
 import Charity from '../Registration/Charity';
@@ -11,6 +9,7 @@ import Paypal from '../Registration/Paypal';
 import ForgetPassword from '../Registration/ForgetPassword';
 import AddFriend from '../AddFriend/AddFriend';
 import Upcomings from '../Upcomings/Upcomings';
+import Calendars from '../Calendar/Calendar'
 const Routes =   {
   RECECNT: { screen : Upcomings,navigationOptions: {
       tabBarLabel: 'Recent Birthdays'
@@ -23,7 +22,6 @@ const Routes =   {
     }},
 };
 import Calendar from '../Calendar/Calendar';
-
 const TabConfig = {
   stateName: 'MainNavigation',
   tabBarPosition: 'top',
@@ -53,7 +51,7 @@ export const screenRoute = (SignIn) => {
     FPASSWORD:{screen: ForgetPassword},
     ADDFRIEND:{screen: AddFriend},
     UPCOMINGS : {screen :TabNavigator(Routes, TabConfig)},
-    CALENDAR: {screen:Calendar}
+    CALENDAR: {screen:Calendars}
     },{
     headerMode: 'none',
     mode:'modal',
