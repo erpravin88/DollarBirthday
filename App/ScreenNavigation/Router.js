@@ -41,6 +41,7 @@ const TabConfig = {
 };
 // register all screens of the app (including internal ones)
 export const screenRoute = (SignIn) => {
+
   return StackNavigator({
     LOG_IN:{screen:Login},
     SIGN_UP:{screen:SignUp},

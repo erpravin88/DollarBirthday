@@ -12,7 +12,8 @@ import {
   Image,ScrollView,
   ImageBackground,
   AsyncStorage,
-  ActivityIndicator
+  ActivityIndicator,
+  NetInfo,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import settings from '../Constant/UrlConstant';
@@ -31,6 +32,7 @@ export default class Login extends Component {
   constructor(props){
    super(props);
    this.onLoginClick = this.onLoginClick.bind(this);
+   this._handleConnectionInfoChange = this._handleConnectionInfoChange.bind(this);
    this.state = {
                 email:'',
                 password:'',
@@ -39,6 +41,7 @@ export default class Login extends Component {
                 login_type:'dbc',
                 errorMsg:{"emailMsg":'', "passwordMsg":''},
                 showProgress: false,
+                Connected: false,
               };
   }
   componentWillMount(){
@@ -46,8 +49,29 @@ export default class Login extends Component {
       if(key){
         this.props.navigation.navigate('DASHBOARD');
       }
-    })
+    });
+
   }
+  componentDidMount(){
+    NetInfo.addEventListener(
+        'change',
+        this._handleConnectionInfoChange
+    );
+
+  }
+  componentWillUnmount(){
+
+    NetInfo.removeEventListener(
+        'change',
+        this._handleConnectionInfoChange
+    );
+  }
+  _handleConnectionInfoChange(connectionInfo){
+console.log(connectionInfo);
+     this.setState({
+       Connected:connectionInfo
+     });
+ }
   onLoginClick(){
     let error = this.state.errorMsg;
     error.passwordMsg = '';
@@ -75,10 +99,8 @@ export default class Login extends Component {
     }
     if(flag != ''){
       this.setState({errorMsg: error});
-    }else{
-      if(netinfo){
-
-
+    }else{ console.log('in'+this.state.Connected);
+if(this.state.Connected){
       this.setState({showProgress : true});
       console.log(this.state);  // Add your logic for the transition
         callApiWithoutAuth('login','POST', {"email":this.state.email,
@@ -107,8 +129,8 @@ export default class Login extends Component {
           Toast.show('Unsuccessfull error:500');
           }
         }).catch((error) => {console.log(error); });
-}else {
-  Toast.show('No Network Connection');
+}else{
+  Toast.show('Please check your internet connection.');
 }
     }
   }
@@ -119,6 +141,7 @@ export default class Login extends Component {
     this.setState({errorMsg: error});
   }
 render(){
+  console.log("render"+this.state.Connected);
 return(
 
 <Image style = {styles.backgroundImage} source = {images.loginbackground} >

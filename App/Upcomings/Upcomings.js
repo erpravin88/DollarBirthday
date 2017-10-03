@@ -114,7 +114,7 @@ console.log(this.state.f_list);
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
     <View style={[styles.iconContainer]}>
-      <ScrollView style={{height:'50%',overflow:'hidden'}}>
+      <ScrollView style={{height:'80%',overflow:'hidden'}}>
           <ListView
             dataSource={ds.cloneWithRows(this.state.f_list)}
             renderRow={(data) => this.renderRow(data)}

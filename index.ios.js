@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  AsyncStorage
+  AsyncStorage,
+  NetInfo
 } from 'react-native';
 
 import Test from './App/Dummy/Test';
@@ -39,8 +40,15 @@ export default class DollarBirthday extends Component {
             this.setState({ SignIn: true });
           }
         });
-  }
+const dispatchConnected = isConnected => console.log(isConnected);
 
+NetInfo.isConnected.fetch().then().done(() => {
+  NetInfo.isConnected.addEventListener('change', dispatchConnected);
+});
+  }
+componentWillUnmount(){
+  NetInfo.isConnected.removeEventListener('change', dispatchConnected);
+}
   render() {
 
    const T = screenRoute(this.state.SignIn);

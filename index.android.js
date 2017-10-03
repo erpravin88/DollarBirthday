@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  AsyncStorage
+  AsyncStorage,
+  NetInfo
 } from 'react-native';
 
 import Test from './App/Dummy/Test';
@@ -39,14 +40,14 @@ export default class DollarBirthday extends Component {
             this.setState({ SignIn: true });
           }
         });
+
   }
 
   render() {
-
    const T = screenRoute(this.state.SignIn);
 
     return (
-      <T/>
+    <T/>
     );
   }
 }
