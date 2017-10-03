@@ -55,7 +55,7 @@ export default class Login extends Component {
   componentDidMount(){
     NetInfo.addEventListener(
         'change',
-        this._handleConnectionInfoChange
+        (connectionInfo)=>{this.setState({Connected:connectionInfo})}
     );
 
   }
@@ -63,7 +63,7 @@ export default class Login extends Component {
 
     NetInfo.removeEventListener(
         'change',
-        this._handleConnectionInfoChange
+      (connectionInfo)=>{this.setState({Connected:connectionInfo})}
     );
   }
   _handleConnectionInfoChange(connectionInfo){
@@ -99,8 +99,7 @@ console.log(connectionInfo);
     }
     if(flag != ''){
       this.setState({errorMsg: error});
-    }else{ console.log('in'+this.state.Connected);
-if(this.state.Connected){
+    }else{
       this.setState({showProgress : true});
       console.log(this.state);  // Add your logic for the transition
         callApiWithoutAuth('login','POST', {"email":this.state.email,
@@ -129,9 +128,7 @@ if(this.state.Connected){
           Toast.show('Unsuccessfull error:500');
           }
         }).catch((error) => {console.log(error); });
-}else{
-  Toast.show('Please check your internet connection.');
-}
+
     }
   }
   hideErrors(){
