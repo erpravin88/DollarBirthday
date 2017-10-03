@@ -27,10 +27,13 @@ export default class Calendars extends Component {
 
 constructor(props){
     super(props);
+    this.displaybirthdays = this.displaybirthdays.bind(this);
     this.state = {
         Friends:[],
         auth_token: '',
         friends_date:{},
+        Birthdays:[],
+        dateSelected:'',
         showProgress: false,
         modalVisible: false
     };
@@ -39,6 +42,20 @@ constructor(props){
 setModalVisible(visible) { 
     this.setState({modalVisible: visible}); 
 } 
+
+displaybirthdays(selectedDate){
+    this.state.Birthdays = this.state.Friends.map((friend) => {
+        const date = new Date(friend.birth_date);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        if(day == selectedDate.day && month == selectedDate.month){
+            return (
+                <View><Text>Test data</Text></View>
+            )
+        }
+    });
+    this.setModalVisible(true);
+}
 
 componentWillMount(){
     //this.setState({name: this.props.navigation.state.params.name});
@@ -84,7 +101,10 @@ render(){
         <ScrollView keyboardShouldPersistTaps="always">
             <Image style = {styles.backgroundImage} source = {images.background}>
                 <MyActivityIndicator progress={this.state.showProgress} />
-                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+                
+                <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
+                    <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+                </TouchableOpacity>
                 <View style = {styles.titleContainer}>
                     <Text style = {styles.titleTextFirst}>Birthday Calendar</Text>
                     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
@@ -95,7 +115,7 @@ render(){
                     style = {styles.calendar}
                     monthFormat={'MMM yyyy'}
                     markedDates={this.state.friends_date}
-                    onDayPress={(day) => {this.setModalVisible(true) }}
+                    onDayPress={(day) => {this.displaybirthdays(day) }}
                     // Specify theme properties to override specific styles for calendar parts. Default = {}
                     
                     />
@@ -108,10 +128,13 @@ render(){
                 > 
                     <View style={styles.modalparentview}> 
                         <View style={styles.modaldata}>
-                            <Text>Hello World!</Text>
-                            <TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}> 
-                                <Text>Hide Modal</Text> 
-                            </TouchableHighlight>
+                            <Text style={styles.modalheader}>Birthdays on {this.state.dateSelected}</Text>
+                            <ScrollView style={styles.modalcontent}>
+                                <Text>{this.state.Birthdays}</Text>
+                            </ScrollView>
+                            <TouchableOpacity style={styles.modalfooter} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+                                <Text style={styles.modalfootertext}>Close</Text> 
+                            </TouchableOpacity>
                         </View> 
                     </View> 
                 </Modal>    

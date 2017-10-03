@@ -134,6 +134,7 @@ componentWillMount(){
                    this.setState({showProgress : false});
                 });
                 Toast.show('Friend Added');
+                this.props.navigation.goBack();
               }else if (response.status === 401) {
                 this.setState({showProgress : false});
                 Toast.show('Unauthorized');
