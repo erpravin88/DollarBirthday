@@ -33,8 +33,8 @@ export default class Charity extends Component {
 
    this.onCharityClick = this.onCharityClick.bind(this);
    this.state={
-     charity_list:'',
-     donation_list:'',
+     charity_list:[],
+     donation_list:[],
      showProgress : false,
    }
 
@@ -70,10 +70,10 @@ export default class Charity extends Component {
             });
             console.log(charityList);
             list1 = charityList;
-            // this.setState({
-            //   showProgress : false,
-            //   charity_list : charityList,
-            // });
+            this.setState({
+              showProgress : false,
+              charity_list : charityList,
+            });
             console.log(list1);
          });
        }else if (response.status === 401) {
@@ -92,10 +92,10 @@ export default class Charity extends Component {
 
            });
            console.log(donationList);
-          //  this.setState({
-          //    showProgress : false,
-          //    donation_list : donationList,
-          //  });
+           this.setState({
+             showProgress : false,
+             donation_list : donationList,
+           });
           list2 = donationList;
            console.log(list2);
             });
@@ -117,13 +117,13 @@ onCharityClick(){
 
 
   render(){
-    let data = [{
-      value: 'Epilepsy Association of Central Florida',index:'1'
-    }, {
-      value: 'Feeding America',index:'2'
-    }, {
-      value: 'I Do Not Wish To Donate at This Time',index:'3'
-    }];
+    // let data = [{
+    //   value: 'Epilepsy Association of Central Florida',index:'1'
+    // }, {
+    //   value: 'Feeding America',index:'2'
+    // }, {
+    //   value: 'I Do Not Wish To Donate at This Time',index:'3'
+    // }];
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <View style = {styles.titleContainer}>
@@ -144,21 +144,19 @@ onCharityClick(){
           style = {styles.TextInputStyle}
           containerStyle ={{marginTop:-40}}
           baseColor = '#B3B3B3'
-          data={data}
+          data={this.state.charity_list}
           onChangeText = {(value,index,data)=>{console.log(data[index]);}}
         />
   </View>
   <View style = {styles.TextInputContainer}>
-    <TextInput
-    style = {styles.TextInputStyle}
-    keyboardType = 'default'
-    placeholderTextColor = "#b7b7b7"
-    placeholder = 'Donation Value'
-    underlineColorAndroid = 'transparent'
-    multiline = {false} maxLength = {100}
-    />
-    <Text style = {styles.TextInputLine} />
-    <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+  <Dropdown
+        label='Donation Value'
+        style = {styles.TextInputStyle}
+        containerStyle ={{marginTop:-20}}
+        baseColor = '#B3B3B3'
+        data={this.state.donation_list}
+        onChangeText = {(value,index,data)=>{console.log(data[index]);}}
+      />
   </View>
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity

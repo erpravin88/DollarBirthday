@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import images from '../Constant/Images';
-import styles from './Style/ForgetPasswordStyle';
+import styles from './Style/ForgotPasswordStyle';
 import settings from '../Constant/UrlConstant';
 import Comunication from '../Constant/ConstantFunction';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
@@ -78,7 +78,8 @@ export default class ForgetPassword extends Component {
 <View style = {styles.titleContainer}>
   <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
 </View>
-<ScrollView keyboardShouldPersistTaps="always">
+<View style={{height:'56%',overflow:'hidden'}}>
+<ScrollView  keyboardShouldPersistTaps="always">
 <View style = {[styles.TextInputContainer]}>
   <Text style = {styles.heading1}>Forgot Password</Text>
 </View>
@@ -115,10 +116,11 @@ export default class ForgetPassword extends Component {
   </TouchableOpacity>
   </View>
   <TouchableOpacity>
-  <View style = {[styles.TextInputContainer]}>
+  <View style = {[styles.TextInputContainer,{marginBottom:'30%'}]}>
         <Text style = {styles.term_service}>Remember password? <Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>Sign in now</Text></Text>
   </View></TouchableOpacity>
-</ScrollView>
+  </ScrollView>
+  </View>
 </Image>);
 
   }

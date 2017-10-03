@@ -16,21 +16,28 @@ export default class ConnectionCheck extends Component {
      this.state = {
                 Connected: false,
                 };
+   this._handleConnectionInfoChange = this._handleConnectionInfoChange.bind(this);
    }
-componentDidMount(){
-  const dispatchConnected = (isConnected) => { check = isConnected; this.setState({ Connected: isConnected })};
+   componentDidMount(){
+     NetInfo.addEventListener(
+         'change',
+         this._handleConnectionInfoChange
+     );
 
-  NetInfo.isConnected.fetch().then().done(() => {
-    NetInfo.isConnected.addEventListener('change', dispatchConnected);
-  });
-  NetInfo.isConnected.addEventListener('change', dispatchConnected);
-}
-componentWillUnmount(){
-  NetInfo.isConnected.removeEventListener('change', dispatchConnected);
-}
-isConnectednow(){
-  return this.state.Connected;
-}
+   }
+   componentWillUnmount(){
+
+     NetInfo.removeEventListener(
+         'change',
+         this._handleConnectionInfoChange
+     );
+   }
+   _handleConnectionInfoChange(isConnected){
+ console.log(isConnected);
+      this.setState({
+        Connected:isConnected
+      });
+  }
   render(){
 
   return( (this.state.Connected) ?  (<View></View>):(<View style={styles.activityloder}>

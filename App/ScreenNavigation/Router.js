@@ -6,7 +6,7 @@ import Charity from '../Registration/Charity';
 import FetchFriend from '../Registration/FetchFriend';
 import Dashboard from '../Dashboard/Dashboard';
 import Paypal from '../Registration/Paypal';
-import ForgetPassword from '../Registration/ForgetPassword';
+import ForgotPassword from '../Registration/ForgotPassword';
 import AddFriend from '../AddFriend/AddFriend';
 import Upcomings from '../Upcomings/Upcomings';
 import Calendars from '../Calendar/Calendar'
@@ -49,7 +49,7 @@ export const screenRoute = (SignIn) => {
     FETCH_FRIEND:{screen:FetchFriend},
     DASHBOARD:{screen: Dashboard},
     PAYPAL:{screen: Paypal},
-    FPASSWORD:{screen: ForgetPassword},
+    FPASSWORD:{screen: ForgotPassword},
     ADDFRIEND:{screen: AddFriend},
     UPCOMINGS : {screen :TabNavigator(Routes, TabConfig)},
     CALENDAR: {screen:Calendars}

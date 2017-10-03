@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Alert,
   Image,ScrollView, ImageBackground,Linking,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
@@ -135,6 +136,8 @@ hideErrors(){
     <View style = {styles.titleContainer}>
       <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
     </View>
+    <View style={{height:'56%',overflow:'hidden'}}>
+    <ScrollView  keyboardShouldPersistTaps="always">
     <View style = {[styles.TextInputContainer]}>
       <Text style = {styles.heading1}>Thanks for joining!</Text>
     </View>
@@ -177,6 +180,8 @@ hideErrors(){
             <Text style = {styles.skip}>Skip >></Text>
       </View>
     </TouchableOpacity>
+    </ScrollView>
+    </View>
   </Image>
 );
 

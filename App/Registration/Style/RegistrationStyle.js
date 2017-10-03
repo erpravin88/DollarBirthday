@@ -176,7 +176,17 @@ login_button: {
       alignSelf:'flex-end',
       backgroundColor:'transparent',
       fontFamily:'Open Sans'
+    },button_below:{
+      fontSize: 9,
+      color:'#C2C2C2',
+      marginTop: 5,
+      alignSelf:'center',
+      backgroundColor:'transparent',
+      fontFamily:'Open Sans'
     },
+linkColor:{
+    color:'#5e3a93',
+  },
 activityloder:{
     position:'absolute',
     flex:1,

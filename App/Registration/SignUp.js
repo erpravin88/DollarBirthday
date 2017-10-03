@@ -242,8 +242,11 @@ hideErrors(){
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
           <Text style = {styles.signInButton}>Sign Up</Text>
         </TouchableOpacity>
+        <TouchableOpacity >
+          <Text style = {styles.button_below}>By signing up, you agree to the <Text style={styles.linkColor}>Terms of Services</Text> and <Text style={styles.linkColor}>Privacy Policy</Text></Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
-          <Text style = {styles.login_button}>Already have account? Sign In</Text>
+          <Text style = {styles.login_button}>Already have account?<Text style={styles.linkColor}> Sign In</Text></Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.TextInputContainer}>

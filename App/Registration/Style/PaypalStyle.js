@@ -5,8 +5,8 @@ const { width, height } = Dimensions.get('window');
 
     backgroundImage: {
      flex:1,
-     width:  width,
-     height: height,
+     width:  '100%',
+     height: '100%',
      resizeMode:'stretch'
     },
   titleContainer: {
@@ -161,9 +161,10 @@ skip:{
 },
 skipContainer:{
   width:'20%',
-  marginTop:'9%',
+  marginTop:'4%',
   alignSelf:'center',
   justifyContent:'center',
+  marginBottom:'30%',
 }
   });
 

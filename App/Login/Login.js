@@ -32,7 +32,6 @@ export default class Login extends Component {
   constructor(props){
    super(props);
    this.onLoginClick = this.onLoginClick.bind(this);
-   this._handleConnectionInfoChange = this._handleConnectionInfoChange.bind(this);
    this.state = {
                 email:'',
                 password:'',
@@ -52,26 +51,7 @@ export default class Login extends Component {
     });
 
   }
-  componentDidMount(){
-    NetInfo.addEventListener(
-        'change',
-        (connectionInfo)=>{this.setState({Connected:connectionInfo})}
-    );
 
-  }
-  componentWillUnmount(){
-
-    NetInfo.removeEventListener(
-        'change',
-      (connectionInfo)=>{this.setState({Connected:connectionInfo})}
-    );
-  }
-  _handleConnectionInfoChange(connectionInfo){
-console.log(connectionInfo);
-     this.setState({
-       Connected:connectionInfo
-     });
- }
   onLoginClick(){
     let error = this.state.errorMsg;
     error.passwordMsg = '';
