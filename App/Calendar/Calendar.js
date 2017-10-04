@@ -28,14 +28,17 @@ export default class Calendars extends Component {
 constructor(props){
     super(props);
     this.displaybirthdays = this.displaybirthdays.bind(this);
+    this.modalOpen = this.modalOpen.bind(this);
+    this.checkyear = this.checkyear.bind(this);
     this.state = {
         Friends:[],
         auth_token: '',
         friends_date:{},
-        Birthdays:[],
-        dateSelected:'',
+        dateSelected:{},
         showProgress: false,
-        modalVisible: false
+        modalVisible: false,
+        calendaryear:'',
+        monthshort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     };
 }
 
@@ -43,18 +46,51 @@ setModalVisible(visible) {
     this.setState({modalVisible: visible}); 
 } 
 
-displaybirthdays(selectedDate){
-    this.state.Birthdays = this.state.Friends.map((friend) => {
-        const date = new Date(friend.birth_date);
+displaybirthdays(){
+    return this.state.Friends.map((friend) => {
+        var date = new Date(friend.birth_date);
         var day = date.getDate();
         var month = date.getMonth() + 1;
-        if(day == selectedDate.day && month == selectedDate.month){
+        if(day == this.state.dateSelected.day && month == this.state.dateSelected.month){
             return (
-                <View><Text>Test data</Text></View>
+                <View style={styles.listview}>
+                    <Image style = {styles.userImage} source = {friend.picture}></Image>
+                    <Text style = {styles.username}>{friend.full_name}</Text>
+                    <Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text>
+                    <TouchableOpacity>
+                        <View >
+                            <Text>Send Gift</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             )
         }
     });
+}
+
+modalOpen(selectedDate){
+    this.state.dateSelected = selectedDate;
     this.setModalVisible(true);
+}
+
+checkyear(month){
+    if(this.state.calendaryear != month.year){
+        this.state.calendaryear = month.year;
+        friends_date:{};
+        for (let friend of this.state.Friends) {
+            var temp = new Date(friend.birth_date);
+            var tempday = temp.getDate();
+            if(tempday < 10){
+                tempday = "0"+tempday;
+            }
+            var tempmonth = temp.getMonth() + 1;
+            if(tempmonth < 10){
+                tempmonth = "0"+tempmonth;
+            }
+            var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
+            this.state.friends_date[date]={marked: true};
+        }
+    }
 }
 
 componentWillMount(){
@@ -69,9 +105,20 @@ componentWillMount(){
              callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
                 if(response.status === 200){
                   response.json().then((responseobject) => {
-                    this.setState({ Friends: responseobject.data });
+                    this.setState({ Friends: responseobject.data });                 
+                    this.state.calendaryear = (new Date()).getFullYear();
                     for (let friend of this.state.Friends) {
-                        this.state.friends_date[friend.birth_date]={marked: true};
+                        var temp = new Date(friend.birth_date);
+                        var tempday = temp.getDate();
+                        if(tempday < 10){
+                            tempday = "0"+tempday;
+                        }
+                        var tempmonth = temp.getMonth() + 1;
+                        if(tempmonth < 10){
+                            tempmonth = "0"+tempmonth;
+                        }
+                        var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
+                        this.state.friends_date[date]={marked: true};
                     }
                   });
                   this.setState({showProgress : false});
@@ -98,47 +145,49 @@ componentWillMount(){
 
 render(){
     return(
-        <ScrollView keyboardShouldPersistTaps="always">
-            <Image style = {styles.backgroundImage} source = {images.background}>
-                <MyActivityIndicator progress={this.state.showProgress} />
-                
-                <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
-                    <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
-                </TouchableOpacity>
-                <View style = {styles.titleContainer}>
-                    <Text style = {styles.titleTextFirst}>Birthday Calendar</Text>
-                    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-                </View>
-                <View style = {styles.CalendarContainer}>
+        <Image style = {styles.backgroundImage} source = {images.background}>
+            <MyActivityIndicator progress={this.state.showProgress} />
+            <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
+                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+            </TouchableOpacity>
+            <View style = {styles.titleContainer}>
+                <Text style = {styles.titleTextFirst}>Birthday Calendar</Text>
+                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+            </View>
+            <View style = {styles.CalendarContainer}>
+                <ScrollView keyboardShouldPersistTaps="always">
                     <Calendar
                     // Specify style for calendar container element. Default = {}
                     style = {styles.calendar}
                     monthFormat={'MMM yyyy'}
+                    onMonthChange={(month) => {this.checkyear(month)}}
                     markedDates={this.state.friends_date}
-                    onDayPress={(day) => {this.displaybirthdays(day) }}
+                    onDayPress={(day) => {this.modalOpen(day) }}
                     // Specify theme properties to override specific styles for calendar parts. Default = {}
                     
                     />
-                </View>
-                <Modal 
-                    animationType="slide" 
-                    transparent={true} 
-                    visible={this.state.modalVisible} 
-                    onRequestClose={() => {this.setModalVisible(false) }} 
-                > 
-                    <View style={styles.modalparentview}> 
-                        <View style={styles.modaldata}>
-                            <Text style={styles.modalheader}>Birthdays on {this.state.dateSelected}</Text>
-                            <ScrollView style={styles.modalcontent}>
-                                <Text>{this.state.Birthdays}</Text>
-                            </ScrollView>
-                            <TouchableOpacity style={styles.modalfooter} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-                                <Text style={styles.modalfootertext}>Close</Text> 
-                            </TouchableOpacity>
+                </ScrollView>
+            </View>
+            <Modal 
+                animationType="slide" 
+                transparent={true} 
+                visible={this.state.modalVisible} 
+                onRequestClose={() => {this.setModalVisible(false) }} 
+            > 
+                <View style={styles.modalparentview}> 
+                    <View style={styles.modaldata}>
+                        <Text style={styles.modalheader}>Birthdays on {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
+                        <ScrollView style={styles.modalcontent}>
+                            {this.displaybirthdays()}
+                        </ScrollView>
+                        <TouchableOpacity style={styles.modalfooter} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+                            <Text style={styles.modalfootertext}>Close</Text> 
+                        </TouchableOpacity>
                         </View> 
-                    </View> 
-                </Modal>    
-            </Image>            
-        </ScrollView>);
+                </View> 
+            </Modal>    
+        </Image>  
+        );          
+        
     }
 }
