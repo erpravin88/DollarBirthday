@@ -20,7 +20,6 @@ import styles from './Style/UpcomingsStyle';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
-import MaterialTabs from 'react-native-material-tabs';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -32,12 +31,11 @@ export default class upcomings extends Component {
   constructor(props){
    super(props);
    this.state = {
-     f_list:{recent:[],up_next:[],up_coming:[]},
+     f_list:[],
      auth_token:'',
      user_key:false,
      showProgress:false,
      user_details:[],
-     selectedTab:0,
    };
   }
   componentDidMount(){
@@ -53,8 +51,7 @@ export default class upcomings extends Component {
 
              if(response.status === 201){
                response.json().then((responseobject) => {
-                 console.log(responseobject.data);
-                 this.setState({ f_list: responseobject.data,showProgress : false });
+                 this.setState({ f_list: responseobject.data.recent,showProgress : false });
                  console.log(responseobject.data);
                });
                Toast.show('Friend list fetched');
@@ -106,8 +103,6 @@ export default class upcomings extends Component {
      }
   render(){
 console.log(this.state.f_list);
-let data = this .state.selectedTab == 0 ? this.state.f_list.recent:(this .state.selectedTab == 1? this.state.f_list.up_next:(this .state.selectedTab == 2? this.state.f_list.up_comming:[]))
-console.log(data);
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <MyActivityIndicator progress={this.state.showProgress} />
@@ -118,25 +113,10 @@ console.log(data);
     <Text style = {styles.titleTextFirst}>Upcomings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
-  <View style = {[styles.TextInputContainer,{marginLeft:'3.4%',width:'93.2%',justifyContent:'center'},{
-        shadowOpacity: 0.75,
-        shadowRadius: 5,
-        shadowColor: '#cccccc',
-        shadowOffset: { height: 0, width: 0 },
-      }]}>
-  <MaterialTabs
-  items={['Recent Birthdays', 'Up Next', 'Upcoming Birthdays']}
-  barColor="#FFFFFF"
-  indicatorColor='#DC6865'
-  activeTextColor='#DC6865'
-  inactiveTextColor= '#3B3B3A'
-  selectedIndex={this.state.selectedTab}
-  onChange={(index) => this.setState({selectedTab: index})}/>
-  </View>
-    <View style={[styles.iconContainer,{height:'52%'}]}>
-      <ScrollView >
+    <View style={[styles.iconContainer]}>
+      <ScrollView style={{height:'80%',overflow:'hidden'}}>
           <ListView
-            dataSource={ds.cloneWithRows(data)}
+            dataSource={ds.cloneWithRows(this.state.f_list)}
             renderRow={(data) => this.renderRow(data)}
             enableEmptySections={true}
           />

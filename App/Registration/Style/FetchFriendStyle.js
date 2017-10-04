@@ -170,7 +170,7 @@ skip:{
 },
 skipContainer:{
   width:'20%',
-  marginTop:'9%',
+  marginTop:'2%',
   alignSelf:'center',
   justifyContent:'center',
 }
