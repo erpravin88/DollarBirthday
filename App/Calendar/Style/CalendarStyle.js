@@ -8,6 +8,30 @@ import {
 
   const styles = StyleSheet.create({
 
+    username:{
+      fontWeight:'bold',
+      fontSize:18,
+      paddingTop:3,
+      paddingLeft:5
+    },
+
+    userbirthdate:{
+      fontSize:18,
+      paddingTop:3,
+      paddingLeft:5
+    },
+
+    userImage:{
+      height:30,
+      width:30,
+    },
+
+    listview:{
+      flex: 1, 
+      flexDirection: 'row',
+      marginTop:10
+    },
+
     modalfootertext:{
       
       color:'#ffffff',
@@ -52,13 +76,13 @@ import {
     },
 
     CalendarContainer:{
+      marginTop:153,
       flex:1,
       marginBottom:'7.5%'
 
     },
 
     calendar:{
-      marginTop:153,
       width:'85%',
       marginLeft:'7.5%'
 
