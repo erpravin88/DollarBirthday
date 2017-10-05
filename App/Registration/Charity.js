@@ -189,7 +189,7 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
           <Text style = {styles.TextInputLine} />
           <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
           <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
-        </View>) : (<Text ></Text>);
+        </View>) : (<Text style={{height:0}}></Text>);
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <View style = {styles.titleContainer}>

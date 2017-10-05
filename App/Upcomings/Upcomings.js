@@ -88,6 +88,7 @@ export default class upcomings extends Component {
       }).catch((err)=>{
         Toast.show(err);
       });
+      this.setState({showProgress : true});
   }
   renderRow(data) {
     console.log(data);
@@ -111,18 +112,25 @@ console.log(data);
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <MyActivityIndicator progress={this.state.showProgress} />
-  <View style = {styles.titleContainer}>
-  <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+    <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
     <Image style={styles.img} source = {images.dashboardIcon}/>
   </TouchableOpacity>
+  <View style = {styles.titleContainer}>
     <Text style = {styles.titleTextFirst}>Upcomings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
-  <View style = {[styles.TextInputContainer,{marginLeft:'3.4%',width:'93.2%',justifyContent:'center'},{
+  <View style = {[styles.TextInputContainer,{marginLeft:'3%',width:'94%',justifyContent:'center'},{
         shadowOpacity: 0.75,
         shadowRadius: 5,
         shadowColor: '#cccccc',
         shadowOffset: { height: 0, width: 0 },
+        elevation:3,
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: '#ddd',
+        borderBottomWidth: 0,
+        marginBottom:'2%',
+        zIndex:-999,
       }]}>
   <MaterialTabs
   items={['Recent Birthdays', 'Up Next', 'Upcoming Birthdays']}

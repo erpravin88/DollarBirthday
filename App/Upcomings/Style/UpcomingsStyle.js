@@ -87,7 +87,7 @@ dashboardIconw:{
   width:25,
   height:25,
   left:'5.5%',
-  top:'.01%',
+  top:'3.5%',
 },img:{
   width:'100%',
   height:'100%',
