@@ -23,7 +23,10 @@ import {callApiWithAuth} from '../Service/WebServiceHandler';
 import DatePicker from 'react-native-datepicker';
 import { NavigationActions } from 'react-navigation';
 import MaterialTabs from 'react-native-material-tabs';
-import SignUp from '../Registration/SignUp'
+import General from './General'
+import Paypal from './Paypal'
+import Charity from './Charity'
+//import General from './General'
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -150,17 +153,18 @@ export default class upcomings extends Component {
         borderBottomWidth: 0,
       }]}>
   <MaterialTabs
-  items={['General', 'Payment', 'Notifications','Friends']}
+  items={['General', 'Payment','Charity', 'Notifications','Friends']}
   barColor="#FFFFFF"
   indicatorColor='#DC6865'
   activeTextColor='#DC6865'
   inactiveTextColor= '#3B3B3A'
+  scrollable = {false}
   selectedIndex={this.state.selectedTab}
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>
     <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
       <ScrollView >
-      {this.state.selectedTab == 0 ? (<SignUp />):(this .state.selectedTab == 1? (<Text>Payment</Text>):(this .state.selectedTab == 2? (<Text>notification</Text>):(<Text>Friends</Text>)))}
+      {this.state.selectedTab == 0 ? (<General />):(this .state.selectedTab == 1? (<Paypal />):(this .state.selectedTab == 2? (<Charity/>):(<Text>Friends</Text>)))}
       </ScrollView>
     </View>
 </Image>);

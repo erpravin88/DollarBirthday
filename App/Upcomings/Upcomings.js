@@ -135,6 +135,7 @@ console.log(data);
   indicatorColor='#DC6865'
   activeTextColor='#DC6865'
   inactiveTextColor= '#3B3B3A'
+  scrollable = {true}
   selectedIndex={this.state.selectedTab}
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>
