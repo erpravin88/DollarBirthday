@@ -11,7 +11,8 @@ import AddFriend from '../AddFriend/AddFriend';
 // import Recent from '../Upcomings/Recent';
 // import Upnext from '../Upcomings/Upnext';
 import Upcoming from '../Upcomings/Upcomings';
-import Calendars from '../Calendar/Calendar'
+import Calendars from '../Calendar/Calendar';
+import SendGift from '../SendGift/SendGift';
 // const Routes =   {
 //   RECECNT: { screen : Recent,navigationOptions: {
 //       tabBarLabel: 'Recent Birthdays'
@@ -23,7 +24,6 @@ import Calendars from '../Calendar/Calendar'
 //       tabBarLabel: "Upcoming Birthays"
 //     }},
 // };
-import Calendar from '../Calendar/Calendar';
 // const TabConfig = {
 //   stateName: 'MainNavigation',
 //   tabBarPosition: 'top',
@@ -44,7 +44,6 @@ import Calendar from '../Calendar/Calendar';
 // };
 // register all screens of the app (including internal ones)
 export const screenRoute = (SignIn) => {
-
   return StackNavigator({
     LOG_IN:{screen:Login},
     SIGN_UP:{screen:SignUp},
@@ -55,7 +54,8 @@ export const screenRoute = (SignIn) => {
     FPASSWORD:{screen: ForgotPassword},
     ADDFRIEND:{screen: AddFriend},
     UPCOMINGS : {screen : Upcoming},
-    CALENDAR: {screen:Calendars}
+    CALENDAR: {screen:Calendars},
+    SEND_GIFT: {screen:SendGift},
     },{
     headerMode: 'none',
     mode:'modal',
