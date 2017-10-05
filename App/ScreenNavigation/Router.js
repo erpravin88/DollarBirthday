@@ -11,6 +11,7 @@ import AddFriend from '../AddFriend/AddFriend';
 import Upcoming from '../Upcomings/Upcomings';
 import Calendars from '../Calendar/Calendar';
 import SendGift from '../SendGift/SendGift';
+import Setting from '../Settings/Settings';
 
 export const screenRoute = (SignIn) => {
   return StackNavigator({
@@ -25,6 +26,7 @@ export const screenRoute = (SignIn) => {
     UPCOMINGS : {screen : Upcoming},
     CALENDAR: {screen:Calendars},
     SEND_GIFT: {screen:SendGift},
+    SETTING: {screen:Setting},
     },{
     headerMode: 'none',
     mode:'modal',

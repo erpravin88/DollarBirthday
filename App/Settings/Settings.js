@@ -16,28 +16,41 @@ import {
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
-import styles from './Style/UpcomingsStyle';
+import styles from './Style/SettingsStyle';
+import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
+import DatePicker from 'react-native-datepicker';
 import { NavigationActions } from 'react-navigation';
 import MaterialTabs from 'react-native-material-tabs';
+import SignUp from '../Registration/SignUp'
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
-const monthNames = [ "January", "February", "March", "April", "May", "June",
-"July", "August", "September", "October", "November", "December" ];
+const date = new Date(Date.now());
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class upcomings extends Component {
   constructor(props){
    super(props);
+   let month = (date.getMonth()+1).toString();
+   month = month.length>1?month:'0'+month;
    this.state = {
-     f_list:{recent:[],up_next:[],up_coming:[]},
      auth_token:'',
      user_key:false,
      showProgress:false,
      user_details:[],
      selectedTab:0,
+     date: date.getFullYear()+'-'+month+'-'+date.getDate(),
+     email:'',
+     password:'',
+     fullName:'',
+     device_id:settings.DEVICE_ID,
+     device_type:settings.DEVICE_NAME,
+     dob:'',
+     paypal:'abc@gmail.com',
+     errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "dob":''},
+     showProgress: false
    };
   }
   componentDidMount(){
@@ -48,35 +61,35 @@ export default class upcomings extends Component {
         Toast.show(err);
       });
       AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-        this.setState({auth_token: token,showProgress : true}); console.log(this.state);
-          callApiWithAuth('user/upcoming','GET', this.state.auth_token).then((response) => {
-
-             if(response.status === 201){
-               response.json().then((responseobject) => {
-                 console.log(responseobject.data);
-                 this.setState({ f_list: responseobject.data,showProgress : false });
-                 console.log(responseobject.data);
-               });
-               Toast.show('Friend list fetched');
-             }else if (response.status === 401) {
-               response.json().then((responseobject) => {
-                 //this.setState({ f_list: responseobject.data.recent,showProgress : false });
-                 console.log(responseobject);
-               });
-               console.log(this.state);
-                this.setState({showProgress : false});
-                Toast.show('Unauthorized');
-             }else if (response.status === 404) {
-                this.setState({showProgress : false});
-                Toast.show('No Friend found');
-             }else if (response.status === 406) {
-                this.setState({showProgress : false});
-                Toast.show('Invalid Data found');
-             }else if (response.status === 500) {
-                this.setState({showProgress : false});
-                Toast.show('Task not fetched:500');
-             }
-          }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+        // this.setState({auth_token: token,showProgress : true}); console.log(this.state);
+        //   callApiWithAuth('user/upcoming','GET', this.state.auth_token).then((response) => {
+        //
+        //      if(response.status === 201){
+        //        response.json().then((responseobject) => {
+        //          console.log(responseobject.data);
+        //          this.setState({ f_list: responseobject.data,showProgress : false });
+        //          console.log(responseobject.data);
+        //        });
+        //        Toast.show('Friend list fetched');
+        //      }else if (response.status === 401) {
+        //        response.json().then((responseobject) => {
+        //          //this.setState({ f_list: responseobject.data.recent,showProgress : false });
+        //          console.log(responseobject);
+        //        });
+        //        console.log(this.state);
+        //         this.setState({showProgress : false});
+        //         Toast.show('Unauthorized');
+        //      }else if (response.status === 404) {
+        //         this.setState({showProgress : false});
+        //         Toast.show('No Friend found');
+        //      }else if (response.status === 406) {
+        //         this.setState({showProgress : false});
+        //         Toast.show('Invalid Data found');
+        //      }else if (response.status === 500) {
+        //         this.setState({showProgress : false});
+        //         Toast.show('Task not fetched:500');
+        //      }
+        //   }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
       }).catch((err)=>{
         onSignOut;
         console.log(err);
@@ -104,10 +117,17 @@ export default class upcomings extends Component {
         </View>
        );
      }
+     hideErrors(){
+       let error = this.state.errorMsg;
+       error.passwordMsg = '';
+       error.emailMsg = '';
+       error.dob = '';
+       error.fullName = '';
+       this.setState({errorMsg: error});
+     }
+
   render(){
-console.log(this.state.f_list);
-let data = this .state.selectedTab == 0 ? this.state.f_list.recent:(this .state.selectedTab == 1? this.state.f_list.up_next:(this .state.selectedTab == 2? this.state.f_list.up_comming:[]))
-console.log(data);
+
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <MyActivityIndicator progress={this.state.showProgress} />
@@ -115,7 +135,7 @@ console.log(data);
     <Image style={styles.img} source = {images.dashboardIcon}/>
   </TouchableOpacity>
   <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>Upcomings</Text>
+    <Text style = {styles.titleTextFirst}>Settings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
   <View style = {[styles.TextInputContainer,{marginLeft:'3%',width:'94%',justifyContent:'center'},{
@@ -130,7 +150,7 @@ console.log(data);
         borderBottomWidth: 0,
       }]}>
   <MaterialTabs
-  items={['Recent Birthdays', 'Up Next', 'Upcoming Birthdays']}
+  items={['General', 'Payment', 'Notifications','Friends']}
   barColor="#FFFFFF"
   indicatorColor='#DC6865'
   activeTextColor='#DC6865'
@@ -140,11 +160,7 @@ console.log(data);
   </View>
     <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
       <ScrollView >
-          <ListView
-            dataSource={ds.cloneWithRows(data)}
-            renderRow={(data) => this.renderRow(data)}
-            enableEmptySections={true}
-          />
+      {this.state.selectedTab == 0 ? (<SignUp />):(this .state.selectedTab == 1? (<Text>Payment</Text>):(this .state.selectedTab == 2? (<Text>notification</Text>):(<Text>Friends</Text>)))}
       </ScrollView>
     </View>
 </Image>);
