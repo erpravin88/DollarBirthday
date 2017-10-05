@@ -45,6 +45,8 @@ constructor(props){
 
 navigatetoSendGift(friend){
     this.setModalVisible(false);
+    friend.monthshort = this.state.monthshort[this.state.dateSelected.month-1];
+    friend.day = this.state.dateSelected.day;
     this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
 }
 
@@ -101,6 +103,7 @@ checkyear(month){
 
 componentWillMount(){
     //this.setState({name: this.props.navigation.state.params.name});
+    this.setState({showProgress : true});
         AsyncStorage.getItem(USER_KEY).then((key)=>{
           //this.setState({user_key: key});
         }).catch((err)=>{

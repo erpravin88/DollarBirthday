@@ -30,7 +30,7 @@ const resetAction = NavigationActions.reset({
     });
 const date = new Date(Date.now());
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-export default class upcomings extends Component {
+export default class Settings extends Component {
   constructor(props){
    super(props);
    let month = (date.getMonth()+1).toString();
