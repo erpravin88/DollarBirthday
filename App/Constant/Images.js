@@ -23,5 +23,7 @@ const images = {
     addBtn: require('../images/settings-screen-friends-tab-plus-icon.png'),
     dashboardIcon: require('../images/dashboard-icon.png'),
     backIcon: require('../images/back-icon.png'),
+    checkedcheckbox: require('../images/donate-screen-checkbox.png'),
+    uncheckedcheckbox: require('../images/donate-screen-uncheckbox.png'),
 }
 export default images
