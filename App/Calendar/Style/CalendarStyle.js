@@ -8,16 +8,29 @@ import {
 
   const styles = StyleSheet.create({
 
+    usertext:{
+      flex:0.6,
+      paddingTop:3,
+      
+    },
+
+    sendgiftbtn:{
+      flex:0.2,
+      backgroundColor:'#77b780',
+      width:'100%',
+      paddingLeft:5,
+      paddingRight:5,
+      height:30
+    },
+
     username:{
       fontWeight:'bold',
       fontSize:18,
-      paddingTop:3,
       paddingLeft:5
     },
 
     userbirthdate:{
       fontSize:18,
-      paddingTop:3,
       paddingLeft:5
     },
 

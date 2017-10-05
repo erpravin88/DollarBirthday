@@ -30,6 +30,7 @@ constructor(props){
     this.displaybirthdays = this.displaybirthdays.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
     this.checkyear = this.checkyear.bind(this);
+    this.navigatetoSendGift = this.navigatetoSendGift.bind(this);
     this.state = {
         Friends:[],
         auth_token: '',
@@ -42,10 +43,15 @@ constructor(props){
     };
 }
 
+navigatetoSendGift(friend){
+    this.setModalVisible(false);
+    this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+}
+
 setModalVisible(visible) { 
     this.setState({modalVisible: visible}); 
 } 
-
+//friend.picture
 displaybirthdays(){
     return this.state.Friends.map((friend) => {
         var date = new Date(friend.birth_date);
@@ -54,11 +60,11 @@ displaybirthdays(){
         if(day == this.state.dateSelected.day && month == this.state.dateSelected.month){
             return (
                 <View style={styles.listview}>
-                    <Image style = {styles.userImage} source = {friend.picture}></Image>
+                    <Image style = {styles.userImage} source = {images.background}></Image>
                     <Text style = {styles.username}>{friend.full_name}</Text>
                     <Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text>
-                    <TouchableOpacity>
-                        <View >
+                    <TouchableOpacity onPress={()=>{this.navigatetoSendGift(friend)}}>
+                        <View style = {styles.sendgiftbtn}>
                             <Text>Send Gift</Text>
                         </View>
                     </TouchableOpacity>
