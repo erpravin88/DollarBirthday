@@ -83,42 +83,42 @@ componentWillMount(){
           error.lastName = '';
           let flag = '';
           var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        
-        
-        
+
+
+
           if(this.state.firstName == '')
           {
         console.log(this.state.date);
           flag = '0';
-          error.firstName = 'Please enter firstName.';
-        
+          error.firstName = 'Please enter first Name.';
+
           }else if(this.state.lastName == '')
           {
           flag = '0';
-          error.lastName = 'Please enter lastName.';
-        
+          error.lastName = 'Please enter last Name.';
+
           }
           else if(this.state.email == '')
           {
           flag = '0';
           error.emailMsg = 'Please enter email.';
-        
+
           }
           else if(!re.test(this.state.email))
           {
-        
+
           console.log('validdat')
             flag = '0';
             error.emailMsg = 'Please enter valid email.';
-        
+
           }
-        
-        
+
+
           if(flag != ''){
             this.setState({errorMsg: error});
           }
           else
-          { 
+          {
             //API Call
             this.setState({showProgress : true});
             callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
@@ -149,7 +149,7 @@ componentWillMount(){
                 }
             }).catch((error) => {console.log(error); });
           }
-        
+
         }
         hideErrors(){
           let error = this.state.errorMsg;
@@ -172,7 +172,7 @@ render(){
             </View>
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="always">
-                    <View style = {styles.EmailTextInputContainer}>
+                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
                         <TextInput style = {styles.TextInputStyle}
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
@@ -185,11 +185,10 @@ render(){
                             onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
                             onChangeText = {(val) => {this.setState({firstName: val});this.hideErrors();}}
                         />
-                        <Text style = {styles.TextInputLine}/>
                         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
-                        <Text style = {styles.errorMsg}>{this.state.errorMsg['firstName']}</Text>
                     </View>
-                    <View style = {styles.TextInputContainer}>
+                    <Text style = {styles.errorMsg}>{this.state.errorMsg['firstName']}</Text>
+                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
                         <TextInput style = {styles.TextInputStyle}
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
@@ -202,13 +201,12 @@ render(){
                             onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
                             onChangeText = {(val) => {this.setState({lastName: val});this.hideErrors();}}
                         />
-                        <Text style = {styles.TextInputLine}/>
-                        <Image style = {styles.TextInputPasswordIcon} source = {images.fullName}/>
-                        <Text style = {styles.errorMsg}>{this.state.errorMsg['lastName']}</Text>
+                        <Image style = {styles.TextInputIcon} source = {images.fullName}/>
                     </View>
-                    <View style = {styles.TextInputContainer}>
+                    <Text style = {styles.errorMsg}>{this.state.errorMsg['lastName']}</Text>
+                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
                         <TextInput
-                            style = {styles.TextInputStyle}
+                            style = {[styles.TextInputStyle]}
                             ref='secondInput'
                             keyboardType = 'email-address'
                             placeholderTextColor = "#b7b7b7"
@@ -222,11 +220,10 @@ render(){
                             autoCorrect={false}
                             onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
                         />
-                        <Text style = {styles.TextInputLine} />
-                        <Image style = {styles.TextInputPasswordIcon} source = {images.emailIcon}/>
-                        <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+                        <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
                     </View>
-                    <View style = {styles.TextInputContainer}>
+                    <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+                    <View style = {[styles.TextInputContainer]}>
                         <Text style = {styles.dob_label}>Birthday</Text>
                         <DatePicker
                             style = {styles.date_picker}
@@ -243,7 +240,7 @@ render(){
                     </View>
                     <View style = {styles.TextInputContainer}>
                         <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
-                            
+
                             <Text style = {styles.signInButton}>
                                 <Image style = {styles.addBtn} source = {images.addBtn}/>
                                 Add Friend

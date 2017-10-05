@@ -51,8 +51,9 @@ TextInputStyle: {
     paddingRight:22,
     fontFamily:'Open Sans'
   },
-TextInputContainer: {
-   width: '88%',
+  TextInputContainer: {
+
+   width:'88%',
    alignSelf: 'center',
 
   },
@@ -116,14 +117,31 @@ TextInputLine: {
    alignSelf: 'center',
    backgroundColor:'transparent',
    marginBottom:1,
-
    },
 
+   dateInput:{
+        alignItems : 'flex-start',
+        padding : 5,
+        borderWidth : 0,
+        borderBottomColor : '#e0e0e0',
+        borderBottomWidth : 1,
+
+      },
+   dateIcon:{
+         position: 'absolute',
+         right: 0,
+         top:20,
+         width: 12,
+         height: 12,
+         marginLeft: 0
+      },
    errorMsg: {
 
     backgroundColor: 'transparent',
     color:'#ff0000',
     fontSize: 16,
+    width:'88%',
+    alignSelf:'center',
   },
 
  orDivider: {
@@ -151,22 +169,6 @@ TextInputLine: {
    height:'100%',
    resizeMode:'contain'
  },
- dateInput:{
-      alignItems : 'flex-start',
-      padding : 5,
-      borderWidth : 0,
-      borderBottomColor : '#e0e0e0',
-      borderBottomWidth : 1,
-
-    },
-dateIcon:{
-       position: 'absolute',
-       right: 0,
-       top:20,
-       width: 12,
-       height: 12,
-       marginLeft: 0
-    },
 
 login_button: {
 
@@ -201,9 +203,11 @@ activityloder:{
       backgroundColor:'transparent',
       height:'54%',
       overflow:'hidden',
-      width: '98%',
-      marginLeft:'1%',
-    }
+      width: '100%',
+    },inputBorderBottom: {
+      borderBottomWidth: 1,
+      borderBottomColor: '#e0e0e0'
+      },
 
   });
 

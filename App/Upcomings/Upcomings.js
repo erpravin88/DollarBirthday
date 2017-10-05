@@ -129,8 +129,6 @@ console.log(data);
         borderRadius: 2,
         borderColor: '#ddd',
         borderBottomWidth: 0,
-        marginBottom:'2%',
-        zIndex:-999,
       }]}>
   <MaterialTabs
   items={['Recent Birthdays', 'Up Next', 'Upcoming Birthdays']}
@@ -141,7 +139,7 @@ console.log(data);
   selectedIndex={this.state.selectedTab}
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>
-    <View style={[styles.iconContainer,{height:'52%'}]}>
+    <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
       <ScrollView >
           <ListView
             dataSource={ds.cloneWithRows(data)}

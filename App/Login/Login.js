@@ -130,12 +130,12 @@ return(
   </View>
   <View style = {[styles.formgroup]}>
   <ScrollView keyboardShouldPersistTaps="always">
-        <View style = {[styles.TextInputContainer]}>
+        <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {styles.TextInputStyle}
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
           placeholder = 'Email Id'
-          underlineColorAndroid = 'transparent'
+          underlineColorAndroid = '#e0e0e0'
           returnKeyType="next"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -145,11 +145,9 @@ return(
           maxLength = {100}
           onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
         />
-        <Text style = {styles.TextInputLine}/>
         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-      </View>
-      <View style = {styles.TextInputContainer}>
+      </View><Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {styles.TextInputStyle}
           ref='secondInput'
           keyboardType = 'default'
@@ -163,10 +161,9 @@ return(
           onSubmitEditing={()=>{this.onLoginClick();}}
           onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
         />
-        <Text style = {styles.TextInputLine} />
         <Image style = {styles.TextInputIcon} source = {images.password}/>
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
       </View>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity
         onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}

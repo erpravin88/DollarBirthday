@@ -19,14 +19,23 @@ export const onSignIn = () => {
 export const afterSignIn = (token) => {
     AsyncStorage.setItem(AUTH_TOKEN, token);
   }
+  export const Logout = (that) =>{
 
+    let keys = ['auth-demo-key', 'user-type','auth-token','user-data'];
+    AsyncStorage.multiRemove(keys, (err) => {
+     var c= AsyncStorage.getItem('auth-token');
+     alert("cc"+JSON.stringify(c));
+
+    that.props.navigation.dispatch(resetAction);
+
+    });
+    }
 export const onSignOut = (that) => {
-    AsyncStorage.removeItem(USER_KEY);
-    AsyncStorage.removeItem(AUTH_TOKEN);
-    AsyncStorage.removeItem(USER_DETAILS).then(()=>{
+    let keys = [USER_KEY,AUTH_TOKEN,USER_DETAILS];
+    AsyncStorage.multiRemove(keys).then(()=>{
       that.props.navigation.dispatch(resetAction);
     }).catch((err)=>{
-      //Toast.show(err);
+      Toast.show(JSON.stringify(err));
     });
 }
 

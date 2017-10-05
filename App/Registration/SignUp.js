@@ -74,7 +74,7 @@ onSignUpClick(userData){
   {
 console.log(this.state.date);
   flag = '0';
-  error.fullName = 'Please enter fullname.';
+  error.fullName = 'Please enter full name.';
 
   }
   else if(this.state.email == '')
@@ -167,7 +167,7 @@ hideErrors(){
   </View>
   <View style = {[styles.formgroup]}>
     <ScrollView  keyboardShouldPersistTaps="always">
-      <View style = {styles.TextInputContainer}>
+      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {styles.TextInputStyle}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
@@ -180,11 +180,10 @@ hideErrors(){
           onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
           onChangeText = {(val) => {this.setState({fullName: val});this.hideErrors();}}
         />
-        <Text style = {styles.TextInputLine}/>
         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
       </View>
-      <View style = {styles.TextInputContainer}>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
+      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput
           style = {styles.TextInputStyle}
           ref='secondInput'
@@ -200,10 +199,9 @@ hideErrors(){
           autoCorrect={false}
           onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
         />
-        <Text style = {styles.TextInputLine} />
         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
       </View>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <Text style = {styles.dob_label}>Birthday</Text>
         <DatePicker
@@ -219,7 +217,7 @@ hideErrors(){
                         dateIcon: styles.dateIcon,}}
         />
       </View>
-      <View style = {styles.TextInputContainer}>
+      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput
           style = {styles.TextInputStyle}
           keyboardType = 'default'
@@ -234,10 +232,9 @@ hideErrors(){
           onSubmitEditing={this.onSignUpClick}
           onChangeText = {(val) => {this.setState({password: val});this.hideErrors();}}
         />
-        <Text style = {styles.TextInputLine} />
         <Image style = {styles.TextInputIcon} source = {images.password}/>
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
       </View>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
           <Text style = {styles.signInButton}>Sign Up</Text>

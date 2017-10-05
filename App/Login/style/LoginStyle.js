@@ -39,24 +39,17 @@ import {
    backgroundColor: 'transparent',
    color:'#ff0000',
    fontSize: 16,
+   width:'88%',
+   alignSelf:'center',
  },
-
   TextInputStyle: {
 
    width: '100%',
    height: 40,
    fontSize:18,
    paddingBottom:0,
-   paddingBottom:5,
    paddingRight:22,
    fontFamily:'Open Sans'
- },
-
- TextInputContainer: {
-
-  width: '88%',
-  alignSelf: 'center',
-
  },
 
  TextInputIcon: {
@@ -70,20 +63,21 @@ import {
   right:0,
   top:13,
  },
+  TextInputContainer: {
 
+   width:'88%',
+   alignSelf: 'center',
 
- TextInputLine: {
+  },
 
-  width: '100%',
-  height:0,
+inputBorderBottom: {
   borderBottomWidth: 1,
-borderBottomColor: '#e0e0e0'
-},
-
-  viewStyle: {
+  borderBottomColor: '#e0e0e0'
+  },
+viewStyle: {
     flexDirection: 'row',
-     flex:1,
-     alignItems:'center',
+    flex:1,
+    alignItems:'center',
   },
 
   forgot: {
@@ -100,7 +94,7 @@ borderBottomColor: '#e0e0e0'
 
     width: '100%',
     height:50,
-    marginTop: 30,
+    marginTop: 10,
     backgroundColor:'#84ce6f',
     justifyContent:'center',
     alignItems:'center'
@@ -129,7 +123,7 @@ borderBottomColor: '#e0e0e0'
     fontSize: 16,
     color:'#000000',
     alignSelf:'center',
-    marginTop:20,
+    marginTop:10,
     backgroundColor:'transparent',
     fontStyle: 'italic'
   },
@@ -153,8 +147,7 @@ formgroup:{
   backgroundColor:'transparent',
   height:'54%',
   overflow:'hidden',
-  width: '98%',
-  marginLeft:'1%',
+  width: '100%',
 }
 
 });
