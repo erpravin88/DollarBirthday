@@ -20,8 +20,8 @@ console.log(JSON.stringify(params));
 }
 
 export function callApiWithAuth(urlStr, method, auth_token, params) {
-            //alert("paramss++"+JSON.stringify(params));
-            console.log(settings.API_URL);
+        console.log("paramss++"+JSON.stringify(params));
+        console.log(settings.API_URL);
         console.log(urlStr);
         console.log(params);
         console.log(auth_token);

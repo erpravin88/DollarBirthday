@@ -68,7 +68,7 @@ TextInputLine: {
  signInButtonContainer: {
    width: '100%',
    height:50,
-   marginTop: 30,
+   marginTop: 15,
    backgroundColor:'#84ce6f',
    justifyContent:'center',
    alignItems:'center',
@@ -123,9 +123,16 @@ TextInputLine: {
  },
  skipContainer:{
    width:'20%',
-   marginTop:'9%',
+   marginTop:'2%',
+   marginBottom:'30%',
    alignSelf:'center',
    justifyContent:'center',
- }
+ },
+ errorMsg: {
+
+  backgroundColor: 'transparent',
+  color:'#ff0000',
+  fontSize: 16,
+ },
 });
 export default styles;

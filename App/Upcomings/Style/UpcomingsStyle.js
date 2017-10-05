@@ -15,24 +15,13 @@ const { width, height } = Dimensions.get('window');
      height: height,
 
    },
-
-   logo: {
-    width: '100%',
-    height: '60%',
-    resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '4%' : '1%',
-
-
-  },
-
    titleContainer: {
-     width: width,
-     height:'30%',
-     paddingTop: 20,
-     alignItems: 'center',
-     backgroundColor:'transparent',
-     marginTop: 20,
-   },
+         width: width,
+         marginTop: 40,
+         alignItems: 'center',
+         backgroundColor:'transparent',
+         height:'32%',
+     },
 
    titleTextFirst: {
      fontSize: 18,
@@ -109,17 +98,15 @@ item:{flexDirection:'row',
   borderColor: '#ddd',
   borderBottomWidth: 0,
   shadowColor: '#000',
-  shadowOffset: { width: 0, height: 2 },
+  shadowOffset: { width: 0},
   shadowOpacity: 0.8,
   shadowRadius: 2,
   elevation: 1,
-  marginLeft: 5,
-  marginRight: 5,
-  marginTop: 10,
-  padding:6,height:'5%',
+  margin: 5,
+  padding:6,
   backgroundColor: '#ffffff',
 },
-picw:{width:'20%',justifyContent:'center',alignItems:'center',backgroundColor:'#ccc',height:'100%'},
+picw:{width:'20%',justifyContent:'center',alignItems:'center',backgroundColor:'#ccc'},
 pic:{width:'50%' ,height:40},
 name:{fontSize:15,color:'#3F3F3F',fontWeight:'600'},
 btnw:{width:'20%',justifyContent:'center'},

@@ -24,7 +24,6 @@ import SendGift from '../SendGift/SendGift';
 //       tabBarLabel: "Upcoming Birthays"
 //     }},
 // };
-import Calendar from '../Calendar/Calendar';
 // const TabConfig = {
 //   stateName: 'MainNavigation',
 //   tabBarPosition: 'top',
