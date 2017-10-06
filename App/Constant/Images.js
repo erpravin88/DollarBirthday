@@ -25,5 +25,8 @@ const images = {
     backIcon: require('../images/back-icon.png'),
     checkedcheckbox: require('../images/donate-screen-checkbox.png'),
     uncheckedcheckbox: require('../images/donate-screen-uncheckbox.png'),
+    fbicon: require('../images/settings-screen-friends-tab-facebook-icon.png'),
+    crossicon: require('../images/settings-screen-friends-tab-cross-icon.png'),
+    editicon: require('../images/settings-screen-friends-tab-edit-icon.png'),
 }
 export default images
