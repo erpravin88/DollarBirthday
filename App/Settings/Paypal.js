@@ -11,6 +11,7 @@ import {
   AsyncStorage,
   KeyboardAvoidingView,
 } from 'react-native';
+
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/PaypalStyle';
@@ -18,7 +19,7 @@ import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import settings from '../Constant/UrlConstant';
 import Comunication from '../Constant/ConstantFunction';
-import {callApiWithAuth} from '../Service/WebServiceHandler';
+import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { NavigationActions } from 'react-navigation';
@@ -26,6 +27,7 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'CHARITY' })],
     });
+let currencyobj = [];
 export default class PayPal extends Component {
 
 
@@ -39,9 +41,10 @@ export default class PayPal extends Component {
                  errorMsg:{"emailMsg":''},
                  auth_token:'',
                  user_key:'',
-                 user_details:'',
-                 currency:'USD',
+                 user_details:[],
+                 currency:'',
                  showProgress: false,
+                 currency_list:[],
                 };
                }
 
@@ -60,10 +63,32 @@ componentWillMount(){
      });
   AsyncStorage.getItem(USER_DETAILS).then((details)=>{
        details = JSON.parse(details);
-       this.setState({user_details: details});
+       this.setState({user_details: details,email:details.paypal,currency:details.currency});
+       console.log(this.state);
      }).catch((err)=>{
        Toast.show(err);
      });
+     // to fetch charity list
+     callApiWithoutAuth('currencyList','GET' ).then((response) => {
+        if(response.status === 200){
+          response.json().then((responseobject) => {
+            console.log(responseobject);
+            currencyobj = responseobject.data;
+            let currencyList = Object.keys(responseobject.data).map(function(key,index) {
+              return { value: responseobject.data[key], index:key};
+
+             });
+             this.setState({
+               showProgress : false,
+               currency_list : currencyList,
+             });
+          });
+        }else if (response.status === 401) {
+           this.setState({showProgress : false});
+        }else if (response.status === 500) {
+           this.setState({showProgress : false});
+        }
+     }).catch((error) => {console.log(error); });
   }                      // to fetch task types
 onPaypalClick()
 {
@@ -95,18 +120,23 @@ if(flag != ''){
 }
 else
 {
-  console.log(this.state.email);
-  console.log(this.state.auth_token);
+  console.log(this.state);
   this.setState({showProgress : true});
   callApiWithAuth('user/payment','PUT',this.state.auth_token, {"paypal":this.state.email,"currency":this.state.currency}).then((response) => {
 
-    if(response.status === 201){
+  if(response.status === 201){
+    let ud = this.state.user_details;
+    ud.paypal = this.state.email;
+    ud.currency = this.state.currency;
+    ud = JSON.stringify(ud);
+    console.log(ud);
+    AsyncStorage.mergeItem(USER_DETAILS,ud);
     response.json().then((responseobject) => {
       console.log(responseobject);
-       this.props.navigation.dispatch(resetAction);
+      // this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     });
-    Toast.show('PayPal link Successfully');
+    Toast.show('Details updated Successfully');
   }else if (response.status === 404) {
     this.setState({showProgress : false});
     Toast.show('Page not Found');
@@ -130,10 +160,11 @@ hideErrors(){
   this.setState({errorMsg: error});
 }
   render(){
+    console.log(currencyobj);
   return(
 
     <ScrollView  keyboardShouldPersistTaps="always">
-    <View style = {[styles.TextInputContainer,styles.marginFix1]}>
+    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
       <TextInput
       style = {styles.TextInputStyle}
       keyboardType = 'email-address'
@@ -145,16 +176,27 @@ hideErrors(){
       autoCapitalize="none"
       autoCorrect={false}
       onSubmitEditing={this.onPaypalClick}
+      value={this.state.email}
       onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
       />
-      <Text style = {styles.TextInputLine} />
       <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+    </View>
+    <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+    <View style = {styles.TextInputContainer}>
+      <Dropdown
+            label='Choose a Currency'
+            style = {styles.TextInputStyle}
+            containerStyle ={{marginTop:-10}}
+            baseColor = '#B3B3B3'
+            data={this.state.currency_list}
+            value={currencyobj[this.state.currency]}
+            onChangeText = {(value,index,data)=>{this.setState({currency: data[index].index});this.hideErrors();}}
+          />
+          <Text style = {styles.errorMsg}>{this.state.errorMsg['currencyMsg']}</Text>
     </View>
     <View style = {styles.TextInputContainer}>
-      <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]}
-      onPress = {this.onPaypalClick}>
-        <Image style = {styles.facebookButton} source = {images.payPalBtn}/>
+      <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onPaypalClick}>
+        <Text style = {styles.signInButton}>Update</Text>
       </TouchableOpacity>
     </View>
     </ScrollView>

@@ -21,7 +21,7 @@ import styles from './Style/GeneralStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
-import {callApiWithoutAuth} from '../Service/WebServiceHandler';
+import {callApiWithoutAuth,callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 const date = new Date(Date.now());
 const resetAction = NavigationActions.reset({
@@ -40,7 +40,7 @@ export default class SignUp extends Component {
    month = month.length>1?month:'0'+month;
    this.state = {
 
-     date: date.getFullYear()+'-'+month+'-'+date.getDate(),
+  //   date: date.getFullYear()+'-'+month+'-'+date.getDate(),
      email:'',
      password:'',
      fullName:'',
@@ -66,7 +66,7 @@ componentWillMount(){
   AsyncStorage.getItem(USER_DETAILS).then((details)=>{
        details = JSON.parse(details);
        console.log(details);
-       this.setState({user_details: details,auth_token: details.authToken});
+       this.setState({user_details:details,fullName: details.full_name,dob:details.birth_date,email:details.email,auth_token: details.authToken});
      }).catch((err)=>{
        Toast.show(err);
      });
@@ -109,12 +109,12 @@ console.log(this.state.date);
     error.emailMsg = 'Please enter valid email.';
 
   }
-  else if(this.state.password == '')
-  {
-    flag = '1';
-    error.passwordMsg = 'Please enter password.';
-  }
-  else if(this.state.password.length < 8)
+  // else if(this.state.password == '')
+  // {
+  //   flag = '1';
+  //   error.passwordMsg = 'Please enter password.';
+  // }
+  else if(this.state.password != '' && this.state.password.length < 8)
   {
     flag = '1';
     error.passwordMsg = 'Minimum 8 character required.';
@@ -129,31 +129,35 @@ console.log(this.state.date);
     this.setState({showProgress : true});
     let data = {"email":this.state.email,
       "password":this.state.password,
-      "device_id":this.state.device_id,
-      "device_type":this.state.device_type,
+    //  "device_id":this.state.device_id,
+    //  "device_type":this.state.device_type,
       "paypal":this.state.email,
       "full_name":this.state.fullName,
-      "birth_date": this.state.date };
-      callApiWithoutAuth('register','PUT', data ).then((response) => {
-        // response.json().then((responseobject) => {
-        // console.log(responseobject);});
+      "birth_date": this.state.dob };
+      console.log(data);
+      callApiWithAuth('user/profile','PUT',this.state.auth_token ,data ).then((response) => {
+
         if(response.status === 201){
+
+          let ud = this.state.user_details;
+          ud.email = this.state.email;
+          ud.full_name = this.state.fullName;
+          ud.birth_date = this.state.dob;
+          //ud = JSON.stringify(ud);
+          console.log(ud);
         response.json().then((responseobject) => {
           console.log(responseobject);
-           onSignIn();
-           afterSignIn(responseobject.data.authToken);
-           setUserDetails(responseobject.data);
-           this.props.navigation.dispatch(resetAction);
+           setUserDetails(ud);
+           Toast.show('Data Updated Successfully.');
            this.setState({showProgress : false});
-        console.log(responseobject);
         });
-        Toast.show('Registration Successfull');
+
       }else if (response.status === 404) {
         this.setState({showProgress : false});
         Toast.show('Page not Found.');
       }else if (response.status === 406) {
         response.json().then((responseobject) => {
-          this.setState({showProgress : false});
+          this.setState({showProgress : false,email:this.state.user_details.email});
           Toast.show(responseobject.error_messages);
         });
       }else if (response.status === 500) {
@@ -167,7 +171,7 @@ console.log(this.state.date);
 }
 hideErrors(){
   let error = this.state.errorMsg;
-  error.passwordMsg = '';
+//  error.passwordMsg = '';
   error.emailMsg = '';
   error.dob = '';
   error.fullName = '';
@@ -188,7 +192,7 @@ hideErrors(){
           maxLength = {100}
           returnKeyType="next"
           autoCorrect={false}
-          value={this.state.user_details.full_name}
+          value={this.state.fullName}
           onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
           onChangeText = {(val) => {this.setState({fullName: val});this.hideErrors();}}
         />
@@ -209,7 +213,7 @@ hideErrors(){
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
-          value={this.state.user_details.email}
+          value={this.state.email}
           onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
         />
         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
@@ -219,13 +223,13 @@ hideErrors(){
         <Text style = {styles.dob_label}>Birthday</Text>
         <DatePicker
           style = {styles.date_picker}
-          date = {this.state.user_details.birth_date}
+          date = {this.state.dob}
           format = "YYYY-MM-DD"
           maxDate = {this.state.date}
           confirmBtnText = "Confirm"
           cancelBtnText = "Cancel"
           iconSource = {images.dropdownArrow}
-          onDateChange = {(date) => {this.setState({date:date})}}
+          onDateChange = {(date) => {this.setState({dob:date})}}
           customStyles={{dateInput: styles.dateInput,
                         dateIcon: styles.dateIcon,}}
         />

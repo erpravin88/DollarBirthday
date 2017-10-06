@@ -165,20 +165,13 @@ hideErrors(){
 }
 
   render(){
-    // let data = [{
-    //   value: 'Epilepsy Association of Central Florida',index:'1'
-    // }, {
-    //   value: 'Feeding America',index:'2'
-    // }, {
-    //   value: 'I Do Not Wish To Donate at This Time',index:'3'
-    // }];
   return(
 <ScrollView  keyboardShouldPersistTaps="always">
   <View style = {styles.TextInputContainer}>
     <Dropdown
           label='Choose a Charity'
           style = {styles.TextInputStyle}
-          containerStyle ={{marginTop:-40}}
+          containerStyle ={{marginTop:-10}}
           baseColor = '#B3B3B3'
           data={this.state.charity_list}
           onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
@@ -189,7 +182,7 @@ hideErrors(){
   <Dropdown
         label='Donation Value'
         style = {styles.TextInputStyle}
-        containerStyle ={{marginTop:-20}}
+        containerStyle ={{marginTop:-30}}
         baseColor = '#B3B3B3'
         data={this.state.donation_list}
         onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
@@ -197,7 +190,7 @@ hideErrors(){
       <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
   </View>
   {(this.state.pre_amount.index == 'specify') ?
-          (<View style = {[styles.TextInputContainer]}>
+          (<View><View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
             <TextInput
             style = {styles.TextInputStyle}
             keyboardType = 'numeric'
@@ -210,15 +203,14 @@ hideErrors(){
             autoCorrect={false}
             onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
             />
-            <Text style = {styles.TextInputLine} />
             <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
-            <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
-          </View>) : (<Text style={{height:0}}></Text>)}
+          </View>
+          <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity
-    style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}
+    style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>
-      <Text style = {styles.signInButton}>Save Charity</Text>
+      <Text style = {styles.signInButton}>Update</Text>
     </TouchableOpacity>
   </View>
 </ScrollView>);
