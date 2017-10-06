@@ -61,7 +61,7 @@ displaybirthdays(){
         var month = date.getMonth() + 1;
         if(day == this.state.dateSelected.day && month == this.state.dateSelected.month){
             return (
-                <View style={styles.listview}>
+                <View key={friend.email} style={styles.listview}>
                     <Image style = {styles.userImage} source = {images.background}></Image>
                     <Text style = {styles.username}>{friend.full_name}</Text>
                     <Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text>
