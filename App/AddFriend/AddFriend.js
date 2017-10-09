@@ -20,6 +20,11 @@ import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
+import { NavigationActions } from 'react-navigation';
+const resetAction = NavigationActions.reset({
+     index: 0,
+     actions: [NavigationActions.navigate({ routeName: 'SETTING',params: {tabName:'friends'} })],
+   });
 export default class AddFriend extends Component {
 
 constructor(props){
@@ -134,6 +139,16 @@ componentWillMount(){
                    this.setState({showProgress : false});
                 });
                 Toast.show('Friend Added');
+                if(this.props.navigation.state != undefined){
+                  if(this.props.navigation.state.params != undefined){
+                    if(this.props.navigation.state.params.callFrom != undefined){
+                      if(this.props.navigation.state.params.callFrom == 'setting'){
+                        this.props.navigation.dispatch(resetAction);
+                      }
+                    }
+                  }
+                }
+
                 this.props.navigation.goBack();
               }else if (response.status === 401) {
                 this.setState({showProgress : false});

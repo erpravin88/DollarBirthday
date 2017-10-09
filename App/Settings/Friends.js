@@ -24,27 +24,38 @@ import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
+const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
+    });
 const date = new Date(Date.now());
 
 const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'GENERAL' })],
-    });
+
 export default class Friends extends Component {
 
   constructor(props){
-    super(props);    
+    super(props);
     this.changedateformat = this.changedateformat.bind(this);
-   this.state = {
-    Friends:[],
-    auth_token:'',
-    showProgress: false,
-    friendlistvisible: true,
+    this.deleteFriend = this.deleteFriend.bind(this);
+    this.state = {
+      Friends:[],
+      auth_token:'',
+      showProgress: false,
+      friendlistvisible: true,
+      friend_id:0,
+      friend_id_edit:0,
     };
 
  }
-
+deleteFriend(){
+  let a = this.state.friend_id_del;
+  let b = [this.state.Friends];
+  console.log(a);
+  console.log(b);
+  console.log(b[0].indexOf(a));
+  //this.state.Friends.splice(0,1);
+}
  changedateformat(item){
     let temp = new Date(item.birth_date);
     let tempday = temp.getDate();
@@ -59,12 +70,12 @@ export default class Friends extends Component {
         <View>
             <Text style={styles.fullnametext}>{item.full_name}</Text>
         </View>
-        <TouchableOpacity style={styles.crossiconposi}>
+        <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item});this.deleteFriend();console.log(item.id);}}>
             <Image style={styles.crossicon} source={images.crossicon} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editiconposi}>
-            <Image style={styles.editicon} source={images.editicon} />    
-        </TouchableOpacity>            
+        <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.setState({friend_id_edit: item.id});console.log(item.id);}}>
+            <Image style={styles.editicon} source={images.editicon} />
+        </TouchableOpacity>
         <View style={styles.birthdatemailfield}>
             <Text style={styles.birthdatetext}>{item.birth_date} </Text>
             <Text style={styles.emailtext}>{item.email}</Text>
@@ -117,15 +128,18 @@ componentWillMount(){
 
   render(){
     let friendlistview = (this.state.friendlistvisible == true) ?
-    (<View><FlatList 
-        data={this.state.Friends} 
+    (<View><FlatList
+        data={this.state.Friends}
         renderItem={({item}) => this.changedateformat(item)}
-        keyExtractor={item => item.email} 
+        keyExtractor={item => item.id}
         /></View>) : (<View ></View>);
   return(
     <View style = {styles.formgroup}>
         <View style = {styles.friendboxes}>
-            <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{this.setState({friendlistvisible: true})}}>
+            <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
+              this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
+              this.setState({friendlistvisible: true});
+            }}>
                 <View style = {styles.addfriendbox}>
                     <Image style = {styles.addicon} source = {images.addBtn}></Image>
                     <Text style= {styles.boxtext}>Add Friend</Text>
@@ -149,10 +163,10 @@ componentWillMount(){
                 <Text style = {styles.googlefbtext}>Find your Friend's Birthdays on Facebook!</Text>
             </View>
         </View>
-        <View style={styles.scrolllist}> 
+        <View style={styles.scrolllist}>
             <ScrollView keyboardShouldPersistTaps="always">
                 {friendlistview}
-            </ScrollView>            
+            </ScrollView>
         </View>
     </View>
   );

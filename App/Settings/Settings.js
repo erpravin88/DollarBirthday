@@ -21,13 +21,13 @@ import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import DatePicker from 'react-native-datepicker';
-import { NavigationActions } from 'react-navigation';
 import MaterialTabs from 'react-native-material-tabs';
 import General from './General'
 import Paypal from './Paypal'
 import Charity from './Charity'
 import Friends from './Friends'
 import Notification from './Notification'
+import { NavigationActions } from 'react-navigation';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -105,6 +105,16 @@ export default class Settings extends Component {
       }).catch((err)=>{
         Toast.show(err);
       });
+      if(this.props.navigation.state != undefined){
+        if(this.props.navigation.state.params != undefined){
+          if(this.props.navigation.state.params.tabName != undefined){
+            if(this.props.navigation.state.params.tabName == 'friends'){
+
+              this.setState({selectedTab:4});
+            }
+          }
+        }
+      }
   }
   renderRow(data) {
     console.log(data);
@@ -142,17 +152,7 @@ export default class Settings extends Component {
     <Text style = {styles.titleTextFirst}>Settings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
-  <View style = {[styles.TextInputContainer,{marginLeft:'3%',width:'94%',justifyContent:'center'},{
-        shadowOpacity: 0.75,
-        shadowRadius: 5,
-        shadowColor: '#cccccc',
-        shadowOffset: { height: 0, width: 0 },
-        elevation:3,
-        borderWidth: 1,
-        borderRadius: 2,
-        borderColor: '#ddd',
-        borderBottomWidth: 0,
-      }]}>
+  <View style = {[styles.TextInputContainer,styles.tabs]}>
   <MaterialTabs
   items={['General', 'Payment','Charity', 'Notifications','Friends']}
   barColor="#FFFFFF"
@@ -165,7 +165,7 @@ export default class Settings extends Component {
   </View>
     <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
       <ScrollView >
-      {this.state.selectedTab == 0 ? (<General />):(this .state.selectedTab == 1? (<Paypal />):(this .state.selectedTab == 2? (<Charity/>):(this .state.selectedTab == 3? (<Notification />):(<Friends/>))))}
+      {this.state.selectedTab == 0 ? (<General />):(this .state.selectedTab == 1? (<Paypal />):(this .state.selectedTab == 2? (<Charity/>):(this .state.selectedTab == 3? (<Notification />):(<Friends nav={this.props}/>))))}
       </ScrollView>
     </View>
 </Image>);

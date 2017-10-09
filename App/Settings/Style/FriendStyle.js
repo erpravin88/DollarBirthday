@@ -2,10 +2,10 @@
     StyleSheet,
     Platform
     } from 'react-native';
-  
+
     import {Dimensions} from 'react-native';
     const { width, height } = Dimensions.get('window');
-  
+
     const styles = StyleSheet.create({
 
         scrolllist:{
@@ -16,17 +16,17 @@
         },
 
         formgroup:{
-            
-            marginTop: 10, 
+
+            marginTop: 10,
             backgroundColor:'transparent',
             overflow:'hidden',
             width: '100%',
-          }, 
+          },
 
           friendboxes:{
             flexDirection:'row',
             width:'100%',
-            
+
           },
 
           addfriendbox:{
@@ -35,13 +35,13 @@
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius:2,
-              
+
           },
 
           addfriendtouch:{
               width:'30%',
               borderRadius:2,
-              
+
           },
 
           boxtext:{
@@ -91,18 +91,20 @@
             color:'#b7b7b7',
             textAlign: 'center',
             fontFamily:'OpenSans-Semibold',
-            fontSize:8              
+            fontSize:8
           },
 
           listbox:{
-              borderRadius:1,
-              borderWidth:0.5,
-              borderColor:'#ffffff',
-              height:65,
-              elevation:2,
-              padding:5,
-              justifyContent: 'center',
-              marginBottom:20
+            shadowOpacity: 0.75,
+            shadowRadius: 5,
+            shadowColor: '#cccccc',
+            shadowOffset: { height: 0, width: 0 },
+            elevation:3,
+            borderWidth: 1,
+            borderRadius: 2,
+            borderColor: '#ddd',
+            marginBottom:5,
+            padding:8,
           },
 
           crossicon:{
@@ -110,7 +112,7 @@
             height: 15,
           },
 
-          crossiconposi:{            
+          crossiconposi:{
             position:'absolute',
             zIndex: 99,
             right:8,
@@ -134,22 +136,21 @@
           },
 
           fullnametext:{
-            fontSize:22,
-            fontWeight: 'bold',
+            fontSize:14,
             fontFamily:'OpenSans-Semibold'
           },
 
-          birthdatetext:{            
-            fontSize:12,
+          birthdatetext:{
+            fontSize:10,
+            color:'#b7b7b7',
             fontFamily:'OpenSans-Semibold'
           },
-          
+
           emailtext:{
             fontSize:10,
             fontFamily:'OpenSans-Semibold',
-            color:'#6CB8FB'             
+            color:'#6CB8FB'
           },
     });
-  
+
     export default styles;
-  

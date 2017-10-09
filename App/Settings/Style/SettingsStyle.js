@@ -113,6 +113,20 @@ btnw:{width:'20%',justifyContent:'center'},
 btn1:{backgroundColor: '#439FD8',justifyContent:'center',alignItems:'center',padding:'5%'},
 text1:{color:'#ffffff',fontSize:12,fontWeight:'600'},
 namew:{width:'60%',justifyContent:'center',paddingLeft:18},
+tabs:{
+      shadowOpacity: 0.75,
+      shadowRadius: 5,
+      shadowColor: '#cccccc',
+      shadowOffset: { height: 0, width: 0 },
+      elevation:3,
+      borderWidth: 1,
+      borderRadius: 2,
+      borderColor: '#ddd',
+      borderBottomWidth: 0,
+      marginLeft:'3%',
+      width:'94%',
+      justifyContent:'center'
+    },
   });
 
   export default styles;
