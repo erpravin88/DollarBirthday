@@ -17,13 +17,12 @@ import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
-import { NavigationActions } from 'react-navigation';
-const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'FETCH_FRIEND' })],
-    });
-let list1=[];
-let list2=[];
+//import { NavigationActions } from 'react-navigation';
+//const resetAction = NavigationActions.reset({
+//      index: 0,
+//      actions: [NavigationActions.navigate({ routeName: 'FETCH_FRIEND' })],
+//    });
+
 export default class Charity extends Component {
 
 
@@ -39,7 +38,7 @@ export default class Charity extends Component {
      auth_token:'',
      pre_amount:'',
      other_amount:'',
-     charity_type:'',
+     charity_type:{value:'',index:''},
      errorMsg:{charity_type:'',pre_amount:'',other_amount:''},
    }
 
@@ -51,48 +50,85 @@ export default class Charity extends Component {
     }).catch((err)=>{
       Toast.show(err);
     });
-
-    // to fetch charity list
-    callApiWithoutAuth('charityList','GET' ).then((response) => {
-       if(response.status === 200){
-         response.json().then((responseobject) => {
-           console.log(responseobject);
-           let charityList = Object.keys(responseobject.data).map(function(key,data) {
-             return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
-
-            });
-            this.setState({
-              showProgress : false,
-              charity_list : charityList,
-            });
-         });
-       }else if (response.status === 401) {
-          this.setState({showProgress : false});
-       }else if (response.status === 500) {
-          this.setState({showProgress : false});
-       }
-    }).catch((error) => {console.log(error); });
-    //--fetch donation list
-    callApiWithoutAuth('donationList','GET' ).then((response) => {
-       if(response.status === 200){
-         response.json().then((responseobject) => {
-          console.log(responseobject);
-          let donationList = Object.keys(responseobject.data).map(function(key,data) {
-            return { value: responseobject.data[key], index:key};
-
-           });
-           this.setState({
-             showProgress : false,
-             donation_list : donationList,
-           });
-            });
-
-       }else if (response.status === 401) {
-          this.setState({showProgress : false});
-       }else if (response.status === 500) {
-          this.setState({showProgress : false});
-       }
-    }).catch((error) => {console.log(error); });
+    AsyncStorage.getItem(USER_DETAILS).then((details)=>{
+      details = JSON.parse(details);
+      this.setState({
+        user_details: details,
+        });
+         // to fetch charity list
+        callApiWithoutAuth('charityList','GET' ).then((response) => {
+           if(response.status === 200){
+             response.json().then((responseobject) => {
+               console.log(responseobject);
+               let charityList = Object.keys(responseobject.data).map((key,data) => {
+                 return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
+    
+                });
+               let charity_type_label='';
+               Object.keys(responseobject.data).map((key,data) => {
+                  if(responseobject.data[key].id == this.state.user_details.charity[0].charity_id){
+                    charity_type_label = responseobject.data[key].organization;
+                    return false;
+                  }
+                });
+                this.setState({
+                  showProgress : false,
+                  charity_list : charityList,
+                  charity_type:{
+              value:charity_type_label,
+              index:this.state.user_details.charity[0].charity_id}
+                });
+             });
+           }else if (response.status === 401) {
+              this.setState({showProgress : false});
+           }else if (response.status === 500) {
+              this.setState({showProgress : false});
+           }
+        }).catch((error) => {console.log(error); });
+        //--fetch donation list
+        callApiWithoutAuth('donationList','GET' ).then((response) => {
+           if(response.status === 200){
+             response.json().then((responseobject) => {
+              console.log(responseobject);
+              let donationList = Object.keys(responseobject.data).map(function(key,data) {
+                return { value: responseobject.data[key], index:key};
+    
+               });
+               let donation_label ='';
+               let donation_value = '';
+               let donation_value1 = '';
+               Object.keys(responseobject.data).map((key,data) => {
+                  if(key == this.state.user_details.charity[0].gift_amount){
+                    donation_value = key;
+                    donation_label = responseobject.data[key];
+                    return false;
+                  }
+                });
+               if(donation_label == ''){
+                  donation_value = 'specify';
+                  donation_label = 'Speicify Amount';
+                  donation_value1= this.state.user_details.charity[0].gift_amount;
+               } 
+               this.setState({
+                 showProgress : false,
+                 donation_list : donationList,
+                 pre_amount : { value: donation_label,index:donation_value},
+                 other_amount : donation_value1,
+               });
+                });
+    
+           }else if (response.status === 401) {
+              this.setState({showProgress : false});
+           }else if (response.status === 500) {
+              this.setState({showProgress : false});
+           }
+        }).catch((error) => {console.log(error); });
+        
+    }).catch((err)=>{
+      Toast.show(err);
+    });
+ 
+    
  }
 
 onCharityClick(){
@@ -123,15 +159,14 @@ if(flag){
   let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.pre_amount.index;
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
-    response.json().then((responseobject) => {
-      console.log(responseobject);
-       //this.props.navigation.dispatch(resetAction);
-       this.setState({showProgress : false});
-    });
+    
+    this.state.user_details.charity[0].charity_id = charity_id;
+    this.state.user_details.charity[0].gift_amount = gift_amount;
+    setUserDetails(this.state.user_details);
     if(response.status === 201){
     // response.json().then((responseobject) => {
     //   console.log(responseobject);
-       this.props.navigation.dispatch(resetAction);
+       //this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     // });
     Toast.show('Charity add Successfully');
@@ -165,6 +200,8 @@ hideErrors(){
 }
 
   render(){
+    //alert(JSON.stringify(this.state));
+    console.log(this.state.other_amount);
   return(
 <ScrollView  keyboardShouldPersistTaps="always">
   <View style = {styles.TextInputContainer}>
@@ -173,7 +210,8 @@ hideErrors(){
           style = {styles.TextInputStyle}
           containerStyle ={{marginTop:-10}}
           baseColor = '#B3B3B3'
-          data={this.state.charity_list}
+          value = {this.state.charity_type.value}
+          data = {this.state.charity_list}
           onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
         />
         <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
@@ -184,6 +222,7 @@ hideErrors(){
         style = {styles.TextInputStyle}
         containerStyle ={{marginTop:-30}}
         baseColor = '#B3B3B3'
+        value = {this.state.pre_amount.value}
         data={this.state.donation_list}
         onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
       />
@@ -197,10 +236,11 @@ hideErrors(){
             placeholderTextColor = "#b7b7b7"
             placeholder = 'Donation Value'
             underlineColorAndroid = 'transparent'
-            multiline = {false} maxLength = {3}
+            multiline = {false} maxLength = {6}
             returnKeyType="send"
             autoCapitalize="none"
             autoCorrect={false}
+            value= {this.state.other_amount}
             onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
             />
             <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
