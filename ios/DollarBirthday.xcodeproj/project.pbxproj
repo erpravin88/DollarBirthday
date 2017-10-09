@@ -643,6 +643,7 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 6GK6WF86SC;
 						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -1082,7 +1083,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6GK6WF86SC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen",
@@ -1098,6 +1099,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.classic.onlinetool;
 				PRODUCT_NAME = DollarBirthday;
+				PROVISIONING_PROFILE = "bce2bb48-9d78-4ed0-bd7c-b02a0a480f70";
+				PROVISIONING_PROFILE_SPECIFIER = OnlineTool;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;

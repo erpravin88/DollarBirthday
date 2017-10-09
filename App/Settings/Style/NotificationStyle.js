@@ -58,12 +58,6 @@ const styles = StyleSheet.create({
   inputBorderBottom: {
        borderBottomWidth: 1,
        borderBottomColor: '#e0e0e0'
-  },
-  btn1:{backgroundColor: '#439FD8',justifyContent:'center',alignItems:'center',padding:'1.5%',marginLeft:'5%'},
-  text1:{color:'#ffffff',fontSize:12,fontWeight:'600'},
-  linkColor:{
-      color:'#5e3a93',
-      backgroundColor:'transparent',
-    },
+  }
 });
 export default styles;

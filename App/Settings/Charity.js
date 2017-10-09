@@ -17,6 +17,7 @@ import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import ConstantFunction from '../Constant/ConstantFunction';
 //import { NavigationActions } from 'react-navigation';
 //const resetAction = NavigationActions.reset({
 //      index: 0,
@@ -62,7 +63,7 @@ export default class Charity extends Component {
                console.log(responseobject);
                let charityList = Object.keys(responseobject.data).map((key,data) => {
                  return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
-    
+
                 });
                let charity_type_label='';
                Object.keys(responseobject.data).map((key,data) => {
@@ -92,7 +93,7 @@ export default class Charity extends Component {
               console.log(responseobject);
               let donationList = Object.keys(responseobject.data).map(function(key,data) {
                 return { value: responseobject.data[key], index:key};
-    
+
                });
                let donation_label ='';
                let donation_value = '';
@@ -108,7 +109,7 @@ export default class Charity extends Component {
                   donation_value = 'specify';
                   donation_label = 'Speicify Amount';
                   donation_value1= this.state.user_details.charity[0].gift_amount;
-               } 
+               }
                this.setState({
                  showProgress : false,
                  donation_list : donationList,
@@ -116,19 +117,19 @@ export default class Charity extends Component {
                  other_amount : donation_value1,
                });
                 });
-    
+
            }else if (response.status === 401) {
               this.setState({showProgress : false});
            }else if (response.status === 500) {
               this.setState({showProgress : false});
            }
         }).catch((error) => {console.log(error); });
-        
+
     }).catch((err)=>{
       Toast.show(err);
     });
- 
-    
+
+
  }
 
 onCharityClick(){
@@ -159,7 +160,7 @@ if(flag){
   let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.pre_amount.index;
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
-    
+
     this.state.user_details.charity[0].charity_id = charity_id;
     this.state.user_details.charity[0].gift_amount = gift_amount;
     setUserDetails(this.state.user_details);
@@ -251,6 +252,12 @@ hideErrors(){
     style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>
       <Text style = {styles.signInButton}>Update</Text>
+    </TouchableOpacity>
+  </View>
+  <View style = {[styles.TextInputContainer,{flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop:'5%'}]}>
+    <Text style={{backgroundColor:'transparent'},styles.linkColor}>Want to add your Charity?</Text>
+    <TouchableOpacity style={styles.btn1} onPress={()=>{ConstantFunction.email(['ronnage@cfl.rr.com'],'','','Add%20My%20Charity%20to%20Dollar%20Birthday%20Club','')}}>
+      <Text style={styles.text1}>Click Here</Text>
     </TouchableOpacity>
   </View>
 </ScrollView>);

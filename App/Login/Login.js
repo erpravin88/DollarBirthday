@@ -135,7 +135,7 @@ return(
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
           placeholder = 'Email Id'
-          underlineColorAndroid = '#e0e0e0'
+          underlineColorAndroid = 'transparent'
           returnKeyType="next"
           keyboardType="email-address"
           autoCapitalize="none"

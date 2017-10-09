@@ -27,7 +27,7 @@ import General from './General'
 import Paypal from './Paypal'
 import Charity from './Charity'
 import Friends from './Friends'
-//import General from './General'
+import Notification from './Notification'
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -165,7 +165,7 @@ export default class Settings extends Component {
   </View>
     <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
       <ScrollView >
-      {this.state.selectedTab == 0 ? (<General />):(this .state.selectedTab == 1? (<Paypal />):(this .state.selectedTab == 2? (<Charity/>):(this .state.selectedTab == 4? (<Friends/>):(<Text>Friends</Text>))))}
+      {this.state.selectedTab == 0 ? (<General />):(this .state.selectedTab == 1? (<Paypal />):(this .state.selectedTab == 2? (<Charity/>):(this .state.selectedTab == 3? (<Notification />):(<Friends/>))))}
       </ScrollView>
     </View>
 </Image>);

@@ -5,5 +5,17 @@ export const settings = {
   DEVICE_NAME: DeviceInfo.getSystemName(),
   PAYPAL_URL:"https://www.paypal.com/welcome/signup/",
 };
-
+export const alertData = [{
+      value: 'No alert',index:'0'
+    }, {
+      value: 'Day of birthday',index:'1'
+    }, {
+      value: '1 Day before birthday',index:'2'
+    },{
+      value: '2 Days before birthday',index:'3'
+    },{
+      value: '1 Week before birthday',index:'4'
+    },{
+      value: '2 weeks before birthday',index:'5'
+    }];
 export default settings;
