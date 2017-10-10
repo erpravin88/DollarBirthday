@@ -28,5 +28,6 @@ const images = {
     fbicon: require('../images/settings-screen-friends-tab-facebook-icon.png'),
     crossicon: require('../images/settings-screen-friends-tab-cross-icon.png'),
     editicon: require('../images/settings-screen-friends-tab-edit-icon.png'),
+    placeholderImage: require('../images/placeholderImage.png'),
 }
 export default images

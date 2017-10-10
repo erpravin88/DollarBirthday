@@ -102,9 +102,8 @@ componentWillMount(){
     callApiWithoutAuth('charityList','GET' ).then((response) => {
         if(response.status === 200){
           response.json().then((responseobject) => {
-            alert(JSON.stringify(responseobject));
             let charityList = Object.keys(responseobject.data).map(function(key,data) {
-              return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
+              return { value: responseobject.data[key].organization, index:responseobject.data[key].id, logo:responseobject.data[key].logo};
  
              });
              this.setState({
@@ -142,6 +141,9 @@ componentWillMount(){
 }
 
 render(){
+    let image = (this.state.charity_type.logo) ? 
+    (
+    <Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>);
     let other_amount =(this.state.pre_amount.index == 'specify') ?
     (<View style = {styles.inputBorderBottom}>
       <TextInput
@@ -170,31 +172,37 @@ render(){
             </View>
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="always"><View style = {styles.innerwidth}>
-                    <View style={styles.dropdown}>
-                        <Dropdown                        
-                        ref = 'ThirdInput'
-                        label='Choose a Charity'
-                        style = {styles.TextInputStyle}
-                        containerStyle ={{marginTop:-40}}
-                        baseColor = '#B3B3B3'
-                        data={this.state.charity_list}
-                        onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
-                        onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
-                        />
+                    <View style={styles.logoview}>
+                        {image}
+                        <View style={styles.selectboxes}>
+                            <View style={styles.dropdown}>
+                                <Dropdown                        
+                                ref = 'ThirdInput'
+                                label='Choose a Charity'
+                                style = {styles.TextInputStyle}
+                                containerStyle ={{marginTop:-40}}
+                                baseColor = '#B3B3B3'
+                                data={this.state.charity_list}
+                                onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
+                                onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
+                                />
+                            </View>
+                            <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
+                            <View style={styles.amountdropdown}>
+                                <Dropdown             
+                                    ref = 'FourthInput'
+                                    label='Donation Value'
+                                    style = {styles.TextInputStyle}
+                                    containerStyle ={{marginTop:-20}}
+                                    baseColor = '#B3B3B3'
+                                    data={this.state.donation_list}
+                                    onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
+                                />
+                            </View>                    
+                            <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
+                        </View>
                     </View>
-                    <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
-                    <View>
-                        <Dropdown             
-                            ref = 'FourthInput'
-                            label='Donation Value'
-                            style = {styles.TextInputStyle}
-                            containerStyle ={{marginTop:-20}}
-                            baseColor = '#B3B3B3'
-                            data={this.state.donation_list}
-                            onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
-                        />
-                    </View>                    
-                    <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
+                        
                     {other_amount}
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
                     <View >
