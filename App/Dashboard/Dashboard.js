@@ -71,7 +71,7 @@ export default class SignUp extends Component {
     <View style={[styles.iconContainer,styles.iconContainerfix1]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {this.onLoginClick}>
+      onPress={()=>{this.props.navigation.navigate('INBOX');}}>
       <Image style = {styles.full} source = {images.inboxIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
@@ -88,7 +88,7 @@ export default class SignUp extends Component {
     <View style={[styles.iconContainer,styles.iconContainerfix2]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {this.onLoginClick}>
+      onPress={()=>{this.props.navigation.navigate('DONATE')}}>
       <Image style = {styles.full} source = {images.donateIcon}/>
       </TouchableOpacity>
       <TouchableOpacity

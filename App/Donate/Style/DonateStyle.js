@@ -8,9 +8,29 @@ import {
   
     const styles = StyleSheet.create({
 
+      amountdropdown:{
+        width:'60%'        
+      },
+
+      TextInputStyle:{
+        width:100
+      },
+
+      selectboxes:{
+        paddingLeft:10,
+        width:'100%'
+      },
+
+      logoview:{
+        flexDirection:'row'
+      },
+
         charitylogo:{
-            height:50,
-            width:50
+            height:100,
+            width:100,
+            resizeMode:'contain',
+            borderWidth:1,
+            borderColor:'#e7e7e7'
         },
 
         donationbox:{
@@ -28,7 +48,8 @@ import {
         },
 
       dropdown:{
-        marginTop:20
+        marginTop:20,
+        width:'60%'
       },
 
       signInButton: {
@@ -50,8 +71,8 @@ import {
 
       sharefbtext:{
         marginLeft:5,
-        fontSize:18,
-        color:'#406BB0'
+        fontSize:16,
+        color:'#406BB0',
       },
 
       sharefbcontainer:{
@@ -62,6 +83,7 @@ import {
       },
 
       shareonfacebookimg:{
+        paddingTop:2,
         height:20,
         width:20,
         resizeMode:'contain',
