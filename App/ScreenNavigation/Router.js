@@ -12,6 +12,8 @@ import Upcoming from '../Upcomings/Upcomings';
 import Calendars from '../Calendar/Calendar';
 import SendGift from '../SendGift/SendGift';
 import Setting from '../Settings/Settings';
+import Donate from '../Donate/Donate';
+import Inbox from '../Inbox/Inbox';
 
 export const screenRoute = (SignIn) => {
   return StackNavigator({
@@ -27,6 +29,8 @@ export const screenRoute = (SignIn) => {
     CALENDAR: {screen:Calendars},
     SEND_GIFT: {screen:SendGift},
     SETTING: {screen:Setting},
+    DONATE: {screen:Donate},
+    INBOX: {screen:Inbox},
     },{
     headerMode: 'none',
     mode:'modal',
