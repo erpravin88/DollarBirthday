@@ -101,13 +101,6 @@ import {
            top:12,
           },
 
-      errorMsg: {
-        
-            backgroundColor: 'transparent',
-            color:'#ff0000',
-            fontSize: 16,
-          },
-
       TextInputLine: {
         
            width: '100%',
@@ -225,7 +218,7 @@ import {
   
       backgroundColor: 'transparent',
       color:'#ff0000',
-      fontSize: 16,
+      fontSize: 14,
     },
   
   

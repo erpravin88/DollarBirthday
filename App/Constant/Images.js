@@ -29,5 +29,8 @@ const images = {
     crossicon: require('../images/settings-screen-friends-tab-cross-icon.png'),
     editicon: require('../images/settings-screen-friends-tab-edit-icon.png'),
     placeholderImage: require('../images/placeholderImage.png'),
+    giftrecieved: require('../images/gif-history-screen-total-received-tab-icon.png'),
+    giftsent: require('../images/gif-history-screen-total-sent-tab-icon.png'),
+    giftdonation: require('../images/gif-history-screen-total-donations-tab-icon.png'),
 }
 export default images
