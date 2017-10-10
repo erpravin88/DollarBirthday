@@ -94,8 +94,8 @@ export default class upcomings extends Component {
     let date = new Date(data.birth_date)
        return (
         <View style={styles.item}>
-           <View style={styles.picw}><Image style = {styles.pic} source = {images.baseLogo}/></View>
-           <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
+           <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
+           <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
            <View style={styles.btnw}>
               <TouchableOpacity style={styles.btn1} onPress={()=>{console.log(data.email);}}>
                 <Text style={styles.text1}>Send Gift</Text>
@@ -135,7 +135,7 @@ console.log(data);
   indicatorColor='#DC6865'
   activeTextColor='#DC6865'
   inactiveTextColor= '#3B3B3A'
-  scrollable = {true}
+  scrollable = {false}
   selectedIndex={this.state.selectedTab}
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>

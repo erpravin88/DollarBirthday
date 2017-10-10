@@ -60,7 +60,7 @@ sendgiftandcharity(){
     error.pre_amount = '';
     error.other_amount = '';
     let flag = true;
-    
+
     if(this.state.Message == ''){
         flag = false;
         error.Message = 'Please Enter a Message.';
@@ -78,7 +78,7 @@ sendgiftandcharity(){
     error.pre_amount = 'Please select Donation Value.';
     }
     if(this.state.pre_amount.index == 'specify'){
-    
+
       if(this.state.other_amount == ''){
       flag = false;
       error.other_amount = 'Please fill Donation Value.';
@@ -120,7 +120,7 @@ componentWillMount(){
             console.log(responseobject);
             let charityList = Object.keys(responseobject.data).map(function(key,data) {
               return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
- 
+
              });
              this.setState({
                showProgress : false,
@@ -140,14 +140,14 @@ componentWillMount(){
            console.log(responseobject);
            let donationList = Object.keys(responseobject.data).map(function(key,data) {
              return { value: responseobject.data[key], index:key};
- 
+
             });
             this.setState({
               showProgress : false,
               donation_list : donationList,
             });
              });
- 
+
         }else if (response.status === 401) {
            this.setState({showProgress : false});
         }else if (response.status === 500) {
@@ -184,18 +184,21 @@ render(){
                 <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
             </View>
             <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="always"><View style = {styles.innerwidth}>
+                <ScrollView keyboardShouldPersistTaps="always">
+                <View style = {styles.innerwidth}>
                     <View style = {[styles.formimage]}>
                         <View>
-                            <Image style = {styles.userImage} source = {images.background}></Image>
+                            <Image style = {styles.userImage} source = {images.placeholderImage}></Image>
                         </View>
                         <View style = {styles.textcontainer}>
                             <Text style = {styles.usertext}>{this.state.friend.full_name}</Text>
                             <Text style = {styles.userdesc}>{this.state.friend.first_name}'s Birthday is {this.state.friend.monthshort} {this.state.friend.day}</Text>
                         </View>
                     </View>
-                    <View style = {styles.inputBorderBottom}>
-                        <TextInput style = {styles.TextAreaInputStyle}
+                    <View style={[{marginTop:'3%'},{borderWidth: 1,
+                    borderRadius: 1,
+                    borderColor: '#b7b7b7',borderBottomWidth:.5,paddingLeft:2}]}>
+                        <TextInput style = {[styles.TextInputStyle,styles.TextAreaInputStyle]}
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
                             placeholder = 'Message'
@@ -224,11 +227,11 @@ render(){
                             onSubmitEditing={(event) => {this.refs.ThirdInput.focus();}}
                             onChangeText = {(val) => {this.setState({GiftValue: val});this.hideErrors();}}
                         />
-                        <Image style = {styles.TextInputPasswordIcon} source = {images.dollarIcon}/>
+                        <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['GiftValue']}</Text>
                     <View style={styles.dropdown}>
-                        <Dropdown                        
+                        <Dropdown
                         ref = 'ThirdInput'
                         label='Choose a Charity'
                         style = {styles.TextInputStyle}
@@ -241,7 +244,7 @@ render(){
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
                     <View>
-                        <Dropdown             
+                        <Dropdown
                             ref = 'FourthInput'
                             label='Donation Value'
                             style = {styles.TextInputStyle}
@@ -250,7 +253,7 @@ render(){
                             data={this.state.donation_list}
                             onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
                         />
-                    </View>                    
+                    </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
                     {other_amount}
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
@@ -263,20 +266,20 @@ render(){
                         </TouchableOpacity>
                     </View>
                     <View style = {styles.TextInputContainer}>
-                        <TouchableOpacity 
-                        style = {[styles.signInButtonContainer,{borderRadius:3,}]}  
+                        <TouchableOpacity
+                        style = {[styles.signInButtonContainer,{borderRadius:3,}]}
                         onPress = {this.sendgiftandcharity}
                         >
-                            
+
                             <Text style = {styles.signInButton}>
                                 Send Gift
                             </Text>
                         </TouchableOpacity>
                     </View></View>
                 </ScrollView>
-            </View>    
-        </Image>  
-        );          
-        
+            </View>
+        </Image>
+        );
+
     }
 }

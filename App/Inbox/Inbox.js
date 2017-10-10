@@ -40,25 +40,25 @@ constructor(props){
 fetchlist(item){
     return(<View style={styles.messagebox}>
         <View style={styles.imagecontainer}>
-            <Image style = {styles.userimage} source = {images.background}></Image>
+            <Image style = {styles.userimage} source = {images.placeholderImage}/>
             <View style={styles.userdetailscontainer}>
-                <Text style={styles.username}>Sarah Locket</Text>    
-                <Text style={styles.datetime}>July 22 at 11:00 AM</Text>    
-            </View>                          
+                <Text style={styles.username}>Sarah Locket</Text>
+                <Text style={styles.datetime}>July 22 at 11:00 AM</Text>
+            </View>
         </View>
         <Text style={styles.message}>This is a test message</Text>
         <Image style = {styles.greenbg} source = {images.greenpricetag}>
             <Text style={styles.donationvalue}>$10</Text>
             <Text style={styles.currency}>USD</Text>
         </Image>
-        <Image style = {styles.redbg} source = {images.redpricetag}>                            
+        <Image style = {styles.redbg} source = {images.redpricetag}>
             <Text style={styles.donationvalue}>$100</Text>
             <Text style={styles.currency}>USD</Text>
         </Image>
         <View style={styles.line}></View>
         <View style={styles.donationlisting}>
             <View style = {styles.heartlogobox}>
-                <Image style = {styles.heartlogo} source = {images.heartlogo}/>    
+                <Image style = {styles.heartlogo} source = {images.heartlogo}/>
                 <Text style = {styles.charitytext}>Donated to Test Charity</Text>
             </View>
         </View>
@@ -105,11 +105,28 @@ componentWillMount(){
 
 render(){
     let messagelist = (this.state.messagelist == true) ?
-    (<View><FlatList 
-        data={this.state.messages} 
+    (<View><FlatList
+        data={this.state.messages}
         renderItem={({item}) => this.fetchlist(item)}
-        keyExtractor={item => item.email} 
+        keyExtractor={item => item.email}
         /></View>) : (<View ></View>);
+    // return(
+    //     <Image style = {styles.backgroundImage} source = {images.background}>
+    //         <MyActivityIndicator progress={this.state.showProgress} />
+    //         <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
+    //             <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+    //         </TouchableOpacity>
+    //         <View style = {styles.titleContainer}>
+    //             <Text style = {styles.titleTextFirst}>Inbox</Text>
+    //             <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    //         </View>
+    //         <View style={styles.scrolllist}>
+    //             <ScrollView keyboardShouldPersistTaps="always">
+    //                 {messagelist}
+    //             </ScrollView>
+    //         </View>
+    //     </Image>
+    //     );
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
@@ -120,13 +137,8 @@ render(){
                 <Text style = {styles.titleTextFirst}>Inbox</Text>
                 <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
             </View>
-            <View style={styles.scrolllist}> 
-                <ScrollView keyboardShouldPersistTaps="always">
-                    {messagelist}
-                </ScrollView>            
-            </View>
-        </Image>  
-        );          
-        
+        </Image>
+        );
+
     }
 }

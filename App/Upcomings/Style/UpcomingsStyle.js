@@ -22,8 +22,7 @@ const { width, height } = Dimensions.get('window');
          backgroundColor:'transparent',
          height:'32%',
      },
-
-   titleTextFirst: {
+ titleTextFirst: {
      fontSize: 18,
      color:'#efd7fe',
     fontFamily:'OpenSans-Semibold'
@@ -107,12 +106,12 @@ item:{flexDirection:'row',
   backgroundColor: '#ffffff',
 },
 picw:{width:'20%',justifyContent:'center',alignItems:'center',backgroundColor:'#ccc'},
-pic:{width:'50%' ,height:40},
-name:{fontSize:15,color:'#3F3F3F',fontWeight:'600'},
-btnw:{width:'20%',justifyContent:'center'},
-btn1:{backgroundColor: '#439FD8',justifyContent:'center',alignItems:'center',padding:'5%'},
+pic:{width:'100%' ,height:50},
+name:{fontSize:16,color:'#000000'},
+btnw:{width:'24%',justifyContent:'center'},
+btn1:{width:'96%',backgroundColor: '#439FD8',justifyContent:'center',alignItems:'center',paddingLeft:'2%',paddingRight:'2%',paddingTop:'5%',paddingBottom:'5%'},
 text1:{color:'#ffffff',fontSize:12,fontWeight:'600'},
-namew:{width:'60%',justifyContent:'center',paddingLeft:18},
+namew:{width:'56%',justifyContent:'center',paddingLeft:'2%',paddingRight:'2%',},
   });
 
   export default styles;
