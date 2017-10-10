@@ -60,17 +60,15 @@ displaybirthdays(){
         var day = date.getDate();
         var month = date.getMonth() + 1;
         if(day == this.state.dateSelected.day && month == this.state.dateSelected.month){
-            return (
-                <View key={friend.email} style={styles.listview}>
-                    <Image style = {styles.userImage} source = {images.background}></Image>
-                    <Text style = {styles.username}>{friend.full_name}</Text>
-                    <Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text>
-                    <TouchableOpacity onPress={()=>{this.navigatetoSendGift(friend)}}>
-                        <View style = {styles.sendgiftbtn}>
-                            <Text>Send Gift</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+            return (<View style={styles.item}>
+               <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
+               <View style={styles.namew}><Text style={styles.name}>{friend.full_name}<Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text></Text></View>
+               <View style={styles.btnw}>
+                  <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(friend);console.log(friend.email);}}>
+                    <Text style={styles.text1}>Send Gift</Text>
+                  </TouchableOpacity>
+               </View>
+               </View>
             )
         }
     });
@@ -187,14 +185,18 @@ render(){
             >
                 <View style={styles.modalparentview}>
                     <View style={styles.modaldata}>
-                        <Text style={styles.modalheader}>Birthdays on {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
-                        <ScrollView style={styles.modalcontent}>
-                            {this.displaybirthdays()}
-                        </ScrollView>
-                        <TouchableOpacity style={styles.modalfooter} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-                            <Text style={styles.modalfootertext}>Close</Text>
+                      <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                        <Text style={{flex:0.9,paddingLeft:'3%',fontSize:18}}>Birthdays on {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
+                        <TouchableOpacity style={{flex:0.1,padding:10,alignSelf:'flex-end'}} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+                            <Image style={{width:15,height:15}} source={images.crossicon} />
                         </TouchableOpacity>
-                        </View>
+                      </View>
+                      <View style={[{backgroundColor:'#5e4289',padding:10,}]}>
+                          <ScrollView >
+                              {this.displaybirthdays()}
+                          </ScrollView>
+                      </View>
+                    </View>
                 </View>
             </Modal>
         </Image>
