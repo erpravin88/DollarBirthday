@@ -652,6 +652,7 @@
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 6GK6WF86SC;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -1097,10 +1098,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.classic.onlinetool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classicinformatics.dollarbirthday;
 				PRODUCT_NAME = DollarBirthday;
-				PROVISIONING_PROFILE = "bce2bb48-9d78-4ed0-bd7c-b02a0a480f70";
-				PROVISIONING_PROFILE_SPECIFIER = OnlineTool;
+				PROVISIONING_PROFILE = "6f75a176-d380-4653-b8e1-1cac7ad1d054";
+				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1113,7 +1114,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6GK6WF86SC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen",
@@ -1127,8 +1128,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.classic.onlinetool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classicinformatics.dollarbirthday;
 				PRODUCT_NAME = DollarBirthday;
+				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1283,6 +1285,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6GK6WF86SC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1301,8 +1304,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "bce2bb48-9d78-4ed0-bd7c-b02a0a480f70";
-				PROVISIONING_PROFILE_SPECIFIER = OnlineTool;
+				PROVISIONING_PROFILE = "6f75a176-d380-4653-b8e1-1cac7ad1d054";
+				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1327,6 +1330,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 6GK6WF86SC;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1338,8 +1342,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "bce2bb48-9d78-4ed0-bd7c-b02a0a480f70";
-				PROVISIONING_PROFILE_SPECIFIER = OnlineTool;
+				PROVISIONING_PROFILE = "6f75a176-d380-4653-b8e1-1cac7ad1d054";
+				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

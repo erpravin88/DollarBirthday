@@ -50,9 +50,9 @@ navigatetoSendGift(friend){
     this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
 }
 
-setModalVisible(visible) { 
-    this.setState({modalVisible: visible}); 
-} 
+setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+}
 //friend.picture
 displaybirthdays(){
     return this.state.Friends.map((friend) => {
@@ -114,8 +114,9 @@ componentWillMount(){
              callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
                 if(response.status === 200){
                   response.json().then((responseobject) => {
-                    this.setState({ Friends: responseobject.data });                 
+                    this.setState({ Friends: responseobject.data });
                     this.state.calendaryear = (new Date()).getFullYear();
+                    let friends_date = {};
                     for (let friend of this.state.Friends) {
                         var temp = new Date(friend.birth_date);
                         var tempday = temp.getDate();
@@ -127,8 +128,9 @@ componentWillMount(){
                             tempmonth = "0"+tempmonth;
                         }
                         var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
-                        this.state.friends_date[date]={marked: true};
+                        friends_date[date]={marked: true};
                     }
+                    this.setState({friends_date: friends_date});
                   });
                   this.setState({showProgress : false});
                   //Toast.show('Task fetched');
@@ -173,30 +175,30 @@ render(){
                     markedDates={this.state.friends_date}
                     onDayPress={(day) => {this.modalOpen(day) }}
                     // Specify theme properties to override specific styles for calendar parts. Default = {}
-                    
+
                     />
                 </ScrollView>
             </View>
-            <Modal 
-                animationType="slide" 
-                transparent={true} 
-                visible={this.state.modalVisible} 
-                onRequestClose={() => {this.setModalVisible(false) }} 
-            > 
-                <View style={styles.modalparentview}> 
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {this.setModalVisible(false) }}
+            >
+                <View style={styles.modalparentview}>
                     <View style={styles.modaldata}>
                         <Text style={styles.modalheader}>Birthdays on {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
                         <ScrollView style={styles.modalcontent}>
                             {this.displaybirthdays()}
                         </ScrollView>
                         <TouchableOpacity style={styles.modalfooter} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-                            <Text style={styles.modalfootertext}>Close</Text> 
+                            <Text style={styles.modalfootertext}>Close</Text>
                         </TouchableOpacity>
-                        </View> 
-                </View> 
-            </Modal>    
-        </Image>  
-        );          
-        
+                        </View>
+                </View>
+            </Modal>
+        </Image>
+        );
+
     }
 }

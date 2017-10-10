@@ -14,7 +14,6 @@ import {
   NetInfo
 } from 'react-native';
 
-import Test from './App/Dummy/Test';
 import SplashScreen from 'react-native-smart-splash-screen';
 import { USER_KEY } from './App/Constant/Auth';
 import {screenRoute} from './App/ScreenNavigation/Router';
