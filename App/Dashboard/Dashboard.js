@@ -9,7 +9,8 @@ import {
   Alert,
   Image,ScrollView,
   ImageBackground,
-  AsyncStorage
+  AsyncStorage,
+  Modal,
 } from 'react-native';
 
 import images from '../Constant/Images';
@@ -19,8 +20,11 @@ import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth'
 export default class SignUp extends Component {
   constructor(props){
    super(props);
-   this.state = {'date': new Date(Date.now())};
+   this.state = {
+     'date': new Date(Date.now()),
+    };
   }
+
   componentWillMount(){
   //this.setState({name: this.props.navigation.state.params.name});
       AsyncStorage.getItem(USER_KEY).then((key)=>{
@@ -93,7 +97,7 @@ export default class SignUp extends Component {
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {this.onLoginClick}>
+      onPress={()=>{this.props.navigation.navigate('GIFTHISTORY')}}>
       <Image style = {styles.full} source = {images.gifthistoryIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
@@ -110,7 +114,7 @@ export default class SignUp extends Component {
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {()=>{onSignOut(this);}}>
+      onPress = {()=>{ Alert.alert( 'Logout', 'Are you sure you want to logout of Dollar Birthday Club?', [ {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: 'OK', onPress: () => onSignOut(this)}, ], { cancelable: false } )}}>
       <Image style = {styles.full} source = {images.logoutIcon}/>
       </TouchableOpacity>
     </View>
