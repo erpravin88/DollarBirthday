@@ -94,7 +94,6 @@ import {
     },
 
     CalendarContainer:{
-      marginTop:153,
       flex:1,
       marginBottom:'7.5%'
 
@@ -132,7 +131,8 @@ import {
    titleContainer: {
      width: width,
      alignItems: 'center',
-     backgroundColor:'transparent'
+     backgroundColor:'transparent',
+     height:'32%',
    },
 
    titleTextFirst: {

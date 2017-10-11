@@ -34,7 +34,7 @@ import {
 
       flatlistview:{
         backgroundColor:'transparent',
-        height:'44%',
+        height:'42%',
         overflow:'hidden',
         width: '100%',
       },
@@ -123,7 +123,6 @@ import {
       },
 
       donationdetailsbox:{
-        marginTop:130,
         width:'93.6%',
         marginLeft:'3.2%',
         backgroundColor:'#E8F6FD',
@@ -157,7 +156,8 @@ import {
      titleContainer: {
        width: width,
        alignItems: 'center',
-       backgroundColor:'transparent'
+       backgroundColor:'transparent',
+       height:'32%'
      },
   
      titleTextFirst: {

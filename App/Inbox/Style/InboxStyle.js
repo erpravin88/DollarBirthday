@@ -117,10 +117,9 @@ import {
         },
 
         scrolllist:{
-            marginTop:130,
             overflow:'hidden',
             paddingBottom:20,
-            height:'58%'
+            height:'56%'
         },
 
       dashlogo:{
@@ -149,7 +148,8 @@ import {
      titleContainer: {
        width: width,
        alignItems: 'center',
-       backgroundColor:'transparent'
+       backgroundColor:'transparent',
+       height:'32%',
      },
 
      titleTextFirst: {

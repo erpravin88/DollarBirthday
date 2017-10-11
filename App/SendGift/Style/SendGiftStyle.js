@@ -122,10 +122,8 @@ import {
       },
 
       formgroup:{
-
-        marginTop: 130,
         backgroundColor:'transparent',
-        height:'60%',
+        height:'56%',
         overflow:'hidden',
         width: '100%',
       },
@@ -156,7 +154,8 @@ import {
      titleContainer: {
        width: width,
        alignItems: 'center',
-       backgroundColor:'transparent'
+       backgroundColor:'transparent',
+       height:'32%',
      },
 
      titleTextFirst: {

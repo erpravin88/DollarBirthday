@@ -152,6 +152,7 @@ import {
       backgroundColor: 'transparent',
       color:'#ff0000',
       fontSize: 16,
+      marginLeft:'7.5%'
     },
 
    orDivider: {
