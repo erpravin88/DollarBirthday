@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
+import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/DonateStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -151,8 +152,8 @@ render(){
                 <Image style = {styles.img} source = {images.dashboardIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>Send Donation</Text>
-                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+                <Text style = {styles.titleTextFirst}>{Label.t('9')}</Text>
+                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="always"><View style = {styles.innerwidth}>
@@ -162,7 +163,7 @@ render(){
                             <View style={styles.dropdown}>
                                 <Dropdown
                                 ref = 'ThirdInput'
-                                label='Choose a Charity'
+                                label={Label.t('10')}
                                 style = {styles.TextInputStyle}
                                 containerStyle ={{marginTop:-40}}
                                 baseColor = '#B3B3B3'
@@ -175,7 +176,7 @@ render(){
                             <View style={styles.amountdropdown}>
                                 <Dropdown
                                     ref = 'FourthInput'
-                                    label='Donation Value'
+                                    label={Label.t('11')}
                                     style = {styles.TextInputStyle}
                                     containerStyle ={{marginTop:-20}}
                                     baseColor = '#B3B3B3'
@@ -193,7 +194,7 @@ render(){
                       style = {styles.TextInputStyle}
                       keyboardType = 'numeric'
                       placeholderTextColor = "#b7b7b7"
-                      placeholder = 'Donation Value'
+                      placeholder = {Label.t('11')}
                       underlineColorAndroid = 'transparent'
                       multiline = {false} maxLength = {3}
                       returnKeyType="send"
@@ -209,7 +210,7 @@ render(){
                         onPress={ () => this.setState({ checkboximg: !this.state.checkboximg }) }
                         >
                             {this.renderImage()}
-                            <Text style={styles.sharefbtext}>Share this on Facebook</Text>
+                            <Text style={styles.sharefbtext}>{Label.t('12')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style = {styles.TextInputContainer}>
@@ -219,7 +220,7 @@ render(){
                         >
 
                             <Text style = {styles.signInButton}>
-                                Send Gift
+                            {Label.t('13')}
                             </Text>
                         </TouchableOpacity>
                     </View></View>

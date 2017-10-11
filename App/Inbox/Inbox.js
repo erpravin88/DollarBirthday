@@ -18,6 +18,7 @@ import {
 
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
+import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/InboxStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -64,7 +65,7 @@ fetchlist(item){
         <View style={styles.donationlisting}>
             <View style = {styles.heartlogobox}>
                 <Image style = {styles.heartlogo} source = {images.heartlogo}/>
-                <Text style = {styles.charitytext}>Donated to Test Charity</Text>
+                <Text style = {styles.charitytext}>{Label.t('17')} Test Charity</Text>
             </View>
         </View>
     </View>)
@@ -122,8 +123,8 @@ render(){
             <Image style={styles.img} source = {images.dashboardIcon}/>
           </TouchableOpacity>
             <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>Inbox</Text>
-                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+                <Text style = {styles.titleTextFirst}>{Label.t('16')}</Text>
+                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
             <View style={styles.scrolllist}>
                 <ScrollView keyboardShouldPersistTaps="always">
