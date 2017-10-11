@@ -18,7 +18,6 @@ import styles from './Style/PaypalStyle';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import settings from '../Constant/UrlConstant';
-import Comunication from '../Constant/ConstantFunction';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import MyActivityIndicator from '../Component/MyActivityIndicator';

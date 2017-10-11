@@ -17,7 +17,7 @@ import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
-import ConstantFunction from '../Constant/ConstantFunction';
+import ConstantFunction from '../Constant/Function';
 //import { NavigationActions } from 'react-navigation';
 //const resetAction = NavigationActions.reset({
 //      index: 0,

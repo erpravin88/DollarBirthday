@@ -157,22 +157,6 @@ componentWillMount(){
 }
 
 render(){
-    let other_amount =(this.state.pre_amount.index == 'specify') ?
-    (<View style = {styles.inputBorderBottom}>
-      <TextInput
-      style = {styles.TextInputStyle}
-      keyboardType = 'numeric'
-      placeholderTextColor = "#b7b7b7"
-      placeholder = 'Donation Value'
-      underlineColorAndroid = 'transparent'
-      multiline = {false} maxLength = {3}
-      returnKeyType="send"
-      autoCapitalize="none"
-      autoCorrect={false}
-      onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
-      />
-      <Image style = {styles.TextInputPasswordIcon} source = {images.dollarIcon}/>
-    </View>) : (<View ></View>);
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
@@ -255,7 +239,22 @@ render(){
                         />
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
-                    {other_amount}
+                    {(this.state.pre_amount.index == 'specify') ?
+                    (<View style = {styles.inputBorderBottom}>
+                      <TextInput
+                      style = {styles.TextInputStyle}
+                      keyboardType = 'numeric'
+                      placeholderTextColor = "#b7b7b7"
+                      placeholder = 'Donation Value'
+                      underlineColorAndroid = 'transparent'
+                      multiline = {false} maxLength = {3}
+                      returnKeyType="send"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
+                      />
+                      <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+                    </View>) : (<View ></View>)}
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
                     <View >
                         <TouchableOpacity style={styles.sharefbcontainer}

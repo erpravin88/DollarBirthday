@@ -1,12 +1,8 @@
-import {
-    StyleSheet,
-    Platform
-    } from 'react-native';
-  
-    import {Dimensions} from 'react-native';
-    const { width, height } = Dimensions.get('window');
-  
-    const styles = StyleSheet.create({
+import {StyleSheet,Platform,Dimensions} from 'react-native';
+const { width, height } = Dimensions.get('window');
+import comman from '../../Constant/Style';
+
+const style = {
 
       donatedamount:{
         fontSize:10,
@@ -20,13 +16,13 @@ import {
         marginTop:2
       },
 
-      recievedamount:{        
+      recievedamount:{
         fontSize:10,
         color:'#5C3F89',
         marginTop:2
       },
 
-      usernamepending:{        
+      usernamepending:{
         fontSize:12,
         fontWeight:'bold',
         color:'#b7b7b7'
@@ -131,78 +127,10 @@ import {
         padding:10,
         elevation:5
       },
-  
-      dashlogo:{
-        height: 15,
-        width:15,
-        zIndex:99,
-        marginTop:'7.5%',
-        marginLeft: '7.5%'      
-      },
-  
-      backgroundImage: {
-  
-       flex:1,
-       width:  '100%',
-       height: height,
-       resizeMode:'stretch'
-      },
-      baseContainer: {
-  
-       width: width,
-       height: height,
-  
-     },
-  
-     titleContainer: {
-       width: width,
-       alignItems: 'center',
-       backgroundColor:'transparent'
-     },
-  
-     titleTextFirst: {
-       fontSize: 18,
-       color:'#efd7fe',
-      fontFamily:'OpenSans-Semibold'
-     },
-  
-     titleTextSecond: {
-       fontSize: 25,
-       fontWeight: 'bold',
-       color:'#ffffff',
-       fontFamily:'OpenSans-Semibold'
-     },
+
       
-   date_picker:{
-     width: '100%',
-     alignSelf: 'center',
-     backgroundColor:'transparent',
-     marginBottom:1,
-  
-     },
-  
-     errorMsg: {
-  
-      backgroundColor: 'transparent',
-      color:'#ff0000',
-      fontSize: 14,
-    },
-  
-  
-  
-      activityloder:{
-      position:'absolute',
-      flex:1,
-      width:width,
-      height:height,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 999,
-      },
-  
-  
-    });
-  
-    export default styles;
-  
+    };
+      const allRules = Object.assign(comman, style);
+      const styles = StyleSheet.create(allRules);
+
+      export default styles;

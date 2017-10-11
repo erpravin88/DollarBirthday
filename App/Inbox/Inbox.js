@@ -24,6 +24,11 @@ import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
+import { NavigationActions } from 'react-navigation';
+const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
+    });
 export default class Calendars extends Component {
 
 constructor(props){
@@ -110,6 +115,23 @@ render(){
         renderItem={({item}) => this.fetchlist(item)}
         keyExtractor={item => item.email}
         /></View>) : (<View ></View>);
+    return(
+        <Image style = {styles.backgroundImage} source = {images.background}>
+            <MyActivityIndicator progress={this.state.showProgress} />
+            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+            <Image style={styles.img} source = {images.dashboardIcon}/>
+          </TouchableOpacity>
+            <View style = {styles.titleContainer}>
+                <Text style = {styles.titleTextFirst}>Inbox</Text>
+                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+            </View>
+            <View style={styles.scrolllist}>
+                <ScrollView keyboardShouldPersistTaps="always">
+                    {messagelist}
+                </ScrollView>
+            </View>
+        </Image>
+        );
     // return(
     //     <Image style = {styles.backgroundImage} source = {images.background}>
     //         <MyActivityIndicator progress={this.state.showProgress} />
@@ -120,25 +142,8 @@ render(){
     //             <Text style = {styles.titleTextFirst}>Inbox</Text>
     //             <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
     //         </View>
-    //         <View style={styles.scrolllist}>
-    //             <ScrollView keyboardShouldPersistTaps="always">
-    //                 {messagelist}
-    //             </ScrollView>
-    //         </View>
     //     </Image>
     //     );
-    return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
-            <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
-                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
-            </TouchableOpacity>
-            <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>Inbox</Text>
-                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-            </View>
-        </Image>
-        );
 
     }
 }

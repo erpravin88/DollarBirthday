@@ -56,7 +56,7 @@ senddonation(){
     error.pre_amount = '';
     error.other_amount = '';
     let flag = true;
-    
+
     if(this.state.charity_type == ''){
     flag = false;
     error.charity_type = 'Please select Charity.';
@@ -66,7 +66,7 @@ senddonation(){
     error.pre_amount = 'Please select Donation Value.';
     }
     if(this.state.pre_amount.index == 'specify'){
-    
+
       if(this.state.other_amount == ''){
       flag = false;
       error.other_amount = 'Please fill Donation Value.';
@@ -104,7 +104,7 @@ componentWillMount(){
           response.json().then((responseobject) => {
             let charityList = Object.keys(responseobject.data).map(function(key,data) {
               return { value: responseobject.data[key].organization, index:responseobject.data[key].id, logo:responseobject.data[key].logo};
- 
+
              });
              this.setState({
                showProgress : false,
@@ -124,14 +124,14 @@ componentWillMount(){
            console.log(responseobject);
            let donationList = Object.keys(responseobject.data).map(function(key,data) {
              return { value: responseobject.data[key], index:key};
- 
+
             });
             this.setState({
               showProgress : false,
               donation_list : donationList,
             });
              });
- 
+
         }else if (response.status === 401) {
            this.setState({showProgress : false});
         }else if (response.status === 500) {
@@ -141,30 +141,14 @@ componentWillMount(){
 }
 
 render(){
-    let image = (this.state.charity_type.logo) ? 
+    let image = (this.state.charity_type.logo) ?
     (
     <Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>);
-    let other_amount =(this.state.pre_amount.index == 'specify') ?
-    (<View style = {styles.inputBorderBottom}>
-      <TextInput
-      style = {styles.TextInputStyle}
-      keyboardType = 'numeric'
-      placeholderTextColor = "#b7b7b7"
-      placeholder = 'Donation Value'
-      underlineColorAndroid = 'transparent'
-      multiline = {false} maxLength = {3}
-      returnKeyType="send"
-      autoCapitalize="none"
-      autoCorrect={false}
-      onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
-      />
-      <Image style = {styles.TextInputPasswordIcon} source = {images.dollarIcon}/>
-    </View>) : (<View ></View>);
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity  onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
-                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
+                <Image style = {styles.img} source = {images.dashboardIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>Send Donation</Text>
@@ -176,7 +160,7 @@ render(){
                         {image}
                         <View style={styles.selectboxes}>
                             <View style={styles.dropdown}>
-                                <Dropdown                        
+                                <Dropdown
                                 ref = 'ThirdInput'
                                 label='Choose a Charity'
                                 style = {styles.TextInputStyle}
@@ -189,7 +173,7 @@ render(){
                             </View>
                             <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
                             <View style={styles.amountdropdown}>
-                                <Dropdown             
+                                <Dropdown
                                     ref = 'FourthInput'
                                     label='Donation Value'
                                     style = {styles.TextInputStyle}
@@ -198,12 +182,27 @@ render(){
                                     data={this.state.donation_list}
                                     onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
                                 />
-                            </View>                    
+                            </View>
                             <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
                         </View>
                     </View>
-                        
-                    {other_amount}
+
+                    {(this.state.pre_amount.index == 'specify') ?
+                    (<View style = {styles.inputBorderBottom}>
+                      <TextInput
+                      style = {styles.TextInputStyle}
+                      keyboardType = 'numeric'
+                      placeholderTextColor = "#b7b7b7"
+                      placeholder = 'Donation Value'
+                      underlineColorAndroid = 'transparent'
+                      multiline = {false} maxLength = {3}
+                      returnKeyType="send"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
+                      />
+                      <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+                    </View>) : (<View ></View>)}
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
                     <View >
                         <TouchableOpacity style={styles.sharefbcontainer}
@@ -214,20 +213,20 @@ render(){
                         </TouchableOpacity>
                     </View>
                     <View style = {styles.TextInputContainer}>
-                        <TouchableOpacity 
-                        style = {[styles.signInButtonContainer,{borderRadius:3,}]}  
+                        <TouchableOpacity
+                        style = {[styles.signInButtonContainer,{borderRadius:3,}]}
                         onPress = {this.senddonation}
                         >
-                            
+
                             <Text style = {styles.signInButton}>
                                 Send Gift
                             </Text>
                         </TouchableOpacity>
                     </View></View>
                 </ScrollView>
-            </View>    
-        </Image>  
-        );          
-        
+            </View>
+        </Image>
+        );
+
     }
 }

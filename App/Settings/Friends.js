@@ -134,7 +134,7 @@ componentWillMount(){
         keyExtractor={item => item.id}
         /></View>) : (<View ></View>);
   return(
-    <View style = {styles.formgroup}>
+    <View style = {[styles.formgroup, styles.TextInputContainer]}>
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});

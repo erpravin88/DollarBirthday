@@ -19,8 +19,8 @@ import images from '../Constant/Images';
 import styles from './Style/UpcomingsStyle';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
-import { NavigationActions } from 'react-navigation';
 import MaterialTabs from 'react-native-material-tabs';
+import { NavigationActions } from 'react-navigation';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -118,17 +118,7 @@ console.log(data);
     <Text style = {styles.titleTextFirst}>Upcomings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
-  <View style = {[styles.TextInputContainer,{marginLeft:'3%',width:'94%',justifyContent:'center'},{
-        shadowOpacity: 0.75,
-        shadowRadius: 5,
-        shadowColor: '#cccccc',
-        shadowOffset: { height: 0, width: 0 },
-        elevation:3,
-        borderWidth: 1,
-        borderRadius: 2,
-        borderColor: '#ddd',
-        borderBottomWidth: 0,
-      }]}>
+  <View style = {[styles.TabContainer,styles.tabs]}>
   <MaterialTabs
   items={['Recent Birthdays', 'Up Next', 'Upcoming Birthdays']}
   barColor="#FFFFFF"
@@ -139,7 +129,7 @@ console.log(data);
   selectedIndex={this.state.selectedTab}
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>
-    <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
+    <View style={[styles.iconContainer,styles.TextInputContainer,styles.ListContainerfix1]}>
       <ScrollView >
           <ListView
             dataSource={ds.cloneWithRows(data)}

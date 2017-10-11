@@ -17,7 +17,7 @@ import styles from './Style/PaypalStyle';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import settings from '../Constant/UrlConstant';
-import Comunication from '../Constant/ConstantFunction';
+import Function from '../Constant/Function';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -172,7 +172,7 @@ hideErrors(){
     </View>
     <TouchableOpacity>
     <View style = {[styles.TextInputContainer]}>
-          <Text style = {styles.term_service}>Don,t have a Paypal account? <Text onPress={()=>{Comunication.web(settings.PAYPAL_URL);console.log('yes'); }} style={{color:'#449FD8',fontWeight:'600'}}>Sign up now</Text></Text>
+          <Text style = {styles.term_service}>Don,t have a Paypal account? <Text onPress={()=>{Function.web(settings.PAYPAL_URL);console.log('yes'); }} style={{color:'#449FD8',fontWeight:'600'}}>Sign up now</Text></Text>
     </View></TouchableOpacity>
 
     <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>

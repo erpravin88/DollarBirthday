@@ -178,8 +178,8 @@ render(){
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
-                <Image style = {styles.backlogo} source = {images.backIcon}></Image>
+            <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
+                <Image style={styles.img} source = {images.backIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>Add Friend</Text>

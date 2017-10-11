@@ -16,8 +16,8 @@ import {
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
-import styles from './Style/SettingsStyle';
 import settings from '../Constant/UrlConstant';
+import styles from './Style/SettingsStyle';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import DatePicker from 'react-native-datepicker';
@@ -152,7 +152,7 @@ export default class Settings extends Component {
     <Text style = {styles.titleTextFirst}>Settings</Text>
     <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
   </View>
-  <View style = {[styles.TextInputContainer,styles.tabs]}>
+  <View style = {[styles.TabContainer,styles.tabs]}>
   <MaterialTabs
   items={['General', 'Payment','Charity', 'Notifications','Friends']}
   barColor="#FFFFFF"

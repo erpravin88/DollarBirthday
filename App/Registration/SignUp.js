@@ -16,7 +16,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
-import styles from './Style/RegistrationStyle';
+import styles from './Style/SignUpStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
@@ -217,6 +217,7 @@ hideErrors(){
                         dateIcon: styles.dateIcon,}}
         />
       </View>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['dob']}</Text>
       <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput
           style = {styles.TextInputStyle}

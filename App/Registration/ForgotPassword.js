@@ -13,7 +13,6 @@ import {
 import images from '../Constant/Images';
 import styles from './Style/ForgotPasswordStyle';
 import settings from '../Constant/UrlConstant';
-import Comunication from '../Constant/ConstantFunction';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 

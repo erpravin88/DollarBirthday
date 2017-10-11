@@ -1,115 +1,9 @@
-import {Dimensions , StyleSheet,  Platform} from 'react-native';
+import {StyleSheet,Platform,Dimensions} from 'react-native';
 const { width, height } = Dimensions.get('window');
+import comman from '../../Constant/Style';
 
-  const styles = StyleSheet.create({
+const style = {
 
-    backgroundImage: {
-     flex:1,
-     width:  '100%',
-     height: '100%',
-     resizeMode:'stretch'
-    },
-    baseContainer: {
-
-     width: width,
-     height: height,
-
-   },
-  titleContainer: {
-      width: width,
-      marginTop: 40,
-      alignItems: 'center',
-      backgroundColor:'transparent',
-      height:'36%',
-  },
-   titleTextFirst: {
-     fontSize: 18,
-     color:'#efd7fe',
-    fontFamily:'OpenSans-Semibold'
-   },
-
-   titleTextSecond: {
-     fontSize: 25,
-     fontWeight: 'bold',
-     color:'#ffffff',
-     fontFamily:'OpenSans-Semibold'
-   },
-
-   TextInputStyle: {
-
-    width: '100%',
-    height: 40,
-    fontSize:16,
-    paddingBottom:0,
-    paddingBottom:5,
-    paddingRight:22,
-    fontFamily:'Open Sans'
-  },
-
-  TextInputContainer: {
-   width: '85%',
-   alignSelf: 'center',
-  },
-
-  EmailTextInputContainer: {
-   width: '85%',
-   alignSelf: 'center',
-   paddingTop:'10%',
- },
-  TextInputIcon: {
-
-   width: 18,
-   height: 18,
-   borderBottomWidth: 1,
-   resizeMode:'contain',
-   position:'absolute',
-   zIndex: 99,
-   right:0,
-   top:18,
-  },
-TextInputLine: {
-   width: '100%',
-   height:0,
-   borderBottomWidth: 1,
-   borderBottomColor: '#e0e0e0'
- },
-
- signInButtonContainer: {
-
-   width: '100%',
-   height:50,
-   marginTop: 30,
-   backgroundColor:'#DC6966',
-   justifyContent:'center',
-   alignItems:'center',
- },
- signInButton: {
-
-   fontSize: 18,
-   color:'#ffffff',
-   fontFamily:'OpenSans-Semibold'
- },
- orDivider: {
-
-   fontSize: 15,
-   color:'#3C3C3C',
-   alignSelf:'center',
-   marginTop:20,
-   backgroundColor:'transparent',
-   fontStyle: 'italic'
- },
-
- term_service: {
-   flex:1,
-   fontSize: 11.5,
-   color:'#b7b7b7',
-   fontFamily:'Open Sans',
-   marginTop:10,
-   backgroundColor:'transparent',
-   fontFamily:'Open Sans',
-   alignSelf:'center',
-   justifyContent:'center',
- },
  heading1:{
    alignSelf:'center',
    fontSize:25,
@@ -148,17 +42,6 @@ marginFix2:{
   marginTop: '2%',
   marginBottom:'12%',
 },
-
-activityloder:{
-position:'absolute',
-flex:1,
-width:width,
-height:height,
-backgroundColor: 'rgba(0, 0, 0, 0.5)',
-alignItems: 'center',
-justifyContent: 'center',
-zIndex: 999,
-},
 skip:{
   fontSize: 14,
   color:'#000000',
@@ -174,6 +57,8 @@ skipContainer:{
   alignSelf:'center',
   justifyContent:'center',
 }
-  });
+};
+  const allRules = Object.assign(comman, style);
+  const styles = StyleSheet.create(allRules);
 
   export default styles;

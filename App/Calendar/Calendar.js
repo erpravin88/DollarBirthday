@@ -23,6 +23,11 @@ import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
+import { NavigationActions } from 'react-navigation';
+const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
+    });
 export default class Calendars extends Component {
 
 constructor(props){
@@ -156,14 +161,14 @@ render(){
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
-                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+              <Image style={styles.img} source = {images.dashboardIcon}/>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>Birthday Calendar</Text>
                 <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
             </View>
-            <View style = {styles.CalendarContainer}>
+            <View style = {styles.TextInputContainer}>
                 <ScrollView keyboardShouldPersistTaps="always">
                     <Calendar
                     // Specify style for calendar container element. Default = {}
@@ -191,7 +196,7 @@ render(){
                             <Image style={{width:15,height:15}} source={images.crossicon} />
                         </TouchableOpacity>
                       </View>
-                      <View style={[{backgroundColor:'#5e4289',padding:10,}]}>
+                      <View style={[{backgroundColor:'#5e4289',padding:6,}]}>
                           <ScrollView >
                               {this.displaybirthdays()}
                           </ScrollView>

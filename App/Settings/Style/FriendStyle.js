@@ -1,12 +1,8 @@
-  import {
-    StyleSheet,
-    Platform
-    } from 'react-native';
+import {StyleSheet,Platform,Dimensions} from 'react-native';
+const { width, height } = Dimensions.get('window');
+import comman from '../../Constant/Style';
 
-    import {Dimensions} from 'react-native';
-    const { width, height } = Dimensions.get('window');
-
-    const styles = StyleSheet.create({
+const style = {
 
         scrolllist:{
             backgroundColor:'transparent',
@@ -14,15 +10,6 @@
             width: '100%',
             marginTop: 20
         },
-
-        formgroup:{
-
-            marginTop: 10,
-            backgroundColor:'transparent',
-            overflow:'hidden',
-            width: '100%',
-          },
-
           friendboxes:{
             flexDirection:'row',
             width:'100%',
@@ -151,6 +138,8 @@
             fontFamily:'OpenSans-Semibold',
             color:'#6CB8FB'
           },
-    });
+        };
+          const allRules = Object.assign(comman, style);
+          const styles = StyleSheet.create(allRules);
 
-    export default styles;
+          export default styles;
