@@ -29,6 +29,7 @@ const style = {
       alignSelf: 'center',
       backgroundColor:'transparent',
       marginBottom:1,
+
       },
       dateInput:{
            alignItems : 'flex-start',

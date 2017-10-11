@@ -30,6 +30,7 @@ export default class AddFriend extends Component {
 constructor(props){
     super(props);
     this.addfriend = this.addfriend.bind(this);
+    this.updatefriend = this.updatefriend.bind(this);
     this.hideErrors = this.hideErrors.bind(this);
     var month = (date.getMonth()+1).toString();
     month = month.length>1?month:'0'+month;
@@ -40,11 +41,21 @@ constructor(props){
         lastName:'',
         errorMsg:{"emailMsg":'', "firstName":'', "lastName":'', "dob":''},
         auth_token: '',
-        showProgress: false
+        showProgress: false,
+        newfriend : true,
+        formdata:{}
     };
 }
 
 componentWillMount(){
+  if(this.props.navigation.state.params){
+    this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false});
+    this.setState({firstName: this.props.navigation.state.params.editdata.first_name});
+    this.setState({lastName: this.props.navigation.state.params.editdata.last_name});
+    this.setState({email: this.props.navigation.state.params.editdata.email});
+    this.setState({date: this.props.navigation.state.params.editdata.birth_date});
+    
+  };
     //this.setState({name: this.props.navigation.state.params.name});
         AsyncStorage.getItem(USER_KEY).then((key)=>{
           //this.setState({user_key: key});
@@ -163,18 +174,113 @@ componentWillMount(){
                 Toast.show('Unsuccessfull error:500');
                 }
             }).catch((error) => {console.log(error); });
-          }
+      }
 
-        }
-        hideErrors(){
-          let error = this.state.errorMsg;
-          error.emailMsg = '';
-          error.firstName = '';
-          error.lastName = '';
-          this.setState({errorMsg: error});
-        }
+    }
+    hideErrors(){
+      let error = this.state.errorMsg;
+      error.emailMsg = '';
+      error.firstName = '';
+      error.lastName = '';
+      this.setState({errorMsg: error});
+    }
+
+    updatefriend(){
+      let error = this.state.errorMsg;
+      error.emailMsg = '';
+      error.firstName = '';
+      error.lastName = '';
+      let flag = '';
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
+
+      if(this.state.firstName == '')
+      {
+    console.log(this.state.date);
+      flag = '0';
+      error.firstName = 'Please enter first Name.';
+
+      }else if(this.state.lastName == '')
+      {
+      flag = '0';
+      error.lastName = 'Please enter last Name.';
+
+      }
+      else if(this.state.email == '')
+      {
+      flag = '0';
+      error.emailMsg = 'Please enter email.';
+
+      }
+      else if(!re.test(this.state.email))
+      {
+
+      console.log('validdat')
+        flag = '0';
+        error.emailMsg = 'Please enter valid email.';
+
+      }
+
+
+      if(flag != ''){
+        this.setState({errorMsg: error});
+      }
+      else
+      {
+        //API Call
+        this.setState({showProgress : true});
+        callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
+          "first_name":this.state.firstName,
+          "last_name":this.state.lastName,
+          "birth_date": this.state.date }
+        ).then((response) => {
+          // response.json().then((responseobject) => {
+          // console.log(responseobject);});
+          if(response.status === 200){
+            this.setState({showProgress : false});
+            Toast.show('Friend Updated');
+            if(this.props.navigation.state != undefined){
+              if(this.props.navigation.state.params != undefined){
+                if(this.props.navigation.state.params.callFrom != undefined){
+                  if(this.props.navigation.state.params.callFrom == 'setting'){
+                    this.props.navigation.dispatch(resetAction);
+                  }
+                }
+              }
+            }
+
+            this.props.navigation.goBack();
+          }else if (response.status === 401) {
+            this.setState({showProgress : false});
+            Toast.show('Unauthorized');
+          }else if (response.status === 406) {
+            response.json().then((responseobject) => {
+              this.setState({showProgress : false});
+              Toast.show(responseobject.error_messages);
+            });
+          }else if (response.status === 500) {
+            this.setState({showProgress : false});
+            Toast.show('Unsuccessfull error:500');
+            }
+        }).catch((error) => {console.log(error); });
+  }
+    }
 
 render(){
+  let button = (this.state.newfriend == true) ?
+    (
+      <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
+        <Text style = {styles.signInButton}>
+          <Image style = {styles.addBtn} source = {images.addBtn}/>
+          Add Friend
+        </Text>
+      </TouchableOpacity>) : 
+      (<TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.updatefriend}>
+        <Text style = {styles.signInButton}>
+          Update Friend
+        </Text>
+      </TouchableOpacity>)
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
@@ -193,6 +299,7 @@ render(){
                             placeholderTextColor = "#b7b7b7"
                             placeholder = 'First Name'
                             underlineColorAndroid = 'transparent'
+                            value = {this.state.firstName}
                             multiline = {false}
                             maxLength = {100}
                             returnKeyType="next"
@@ -205,15 +312,17 @@ render(){
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['firstName']}</Text>
                     <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
                         <TextInput style = {styles.TextInputStyle}
+                            ref='secondInput'
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
+                            value = {this.state.lastName}
                             placeholder = 'Last Name'
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
                             maxLength = {100}
                             returnKeyType="next"
                             autoCorrect={false}
-                            onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
+                            onSubmitEditing={(event) => {this.refs.thirdInput.focus();}}
                             onChangeText = {(val) => {this.setState({lastName: val});this.hideErrors();}}
                         />
                         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
@@ -222,10 +331,11 @@ render(){
                     <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
                         <TextInput
                             style = {[styles.TextInputStyle]}
-                            ref='secondInput'
+                            ref='thirdInput'
                             keyboardType = 'email-address'
                             placeholderTextColor = "#b7b7b7"
                             placeholder = 'PayPal Email Id'
+                            value = {this.state.email}
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
                             maxLength = {100}
@@ -254,13 +364,7 @@ render(){
                         />
                     </View>
                     <View style = {styles.TextInputContainer}>
-                        <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
-
-                            <Text style = {styles.signInButton}>
-                                <Image style = {styles.addBtn} source = {images.addBtn}/>
-                                Add Friend
-                            </Text>
-                        </TouchableOpacity>
+                      {button}
                     </View>
                 </ScrollView>
             </View>

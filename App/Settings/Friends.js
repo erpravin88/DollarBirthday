@@ -48,13 +48,26 @@ export default class Friends extends Component {
     };
 
  }
-deleteFriend(){
+deleteFriend(item){
   let a = this.state.friend_id_del;
   let b = [this.state.Friends];
   console.log(a);
   console.log(b);
   console.log(b[0].indexOf(a));
-  //this.state.Friends.splice(0,1);
+  this.state.Friends.splice(b[0].indexOf(a),1);
+  this.setState({Friends: this.state.Friends});
+
+  //API Call
+    callApiWithAuth('user/friend/'+item.id,'DELETE', this.state.auth_token).then((response) => {
+        if(response.status === 200){
+            Toast.show('Friend Deleted Successfully');
+        //Toast.show('Task fetched');
+        }else if (response.status === 401) {
+        Toast.show('Error deleting friends');
+        }else if (response.status === 500) {
+        Toast.show('Error deleting friend:500');
+        }
+    }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
 }
  changedateformat(item){
     let temp = new Date(item.birth_date);
@@ -65,19 +78,19 @@ deleteFriend(){
     let tempmonth = temp.getMonth();
     tempmonth = monthsLong[tempmonth];
     let tempyear = temp.getFullYear();
-    item.birth_date = tempmonth+" "+tempday+", "+tempyear;
-     return(<View style = {styles.listbox}>
+    let birth_date = tempmonth+" "+tempday+", "+tempyear;
+      return(<View style = {styles.listbox}>
         <View>
-            <Text style={styles.fullnametext}>{item.full_name}</Text>
+            <Text style={styles.fullnametext}>{item.first_name} {item.last_name}</Text>
         </View>
-        <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item});this.deleteFriend();console.log(item.id);}}>
+        <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item}); Alert.alert( 'Delete Friend', 'Are you sure you want to delete '+item.full_name+'\'s Birthday?', [ {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: 'Yes', onPress: () => this.deleteFriend(item)}, ], { cancelable: false } )}}>
             <Image style={styles.crossicon} source={images.crossicon} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.setState({friend_id_edit: item.id});console.log(item.id);}}>
+        <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.props.nav.navigation.navigate('ADDFRIEND',{editdata:item, callFrom:'setting'});}}>
             <Image style={styles.editicon} source={images.editicon} />
         </TouchableOpacity>
         <View style={styles.birthdatemailfield}>
-            <Text style={styles.birthdatetext}>{item.birth_date} </Text>
+            <Text style={styles.birthdatetext}>{birth_date} </Text>
             <Text style={styles.emailtext}>{item.email}</Text>
         </View>
        </View>)

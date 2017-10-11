@@ -30,7 +30,7 @@ const style = {
 
       flatlistview:{
         backgroundColor:'transparent',
-        height:'44%',
+        height:'42%',
         overflow:'hidden',
         width: '100%',
       },
@@ -119,7 +119,6 @@ const style = {
       },
 
       donationdetailsbox:{
-        marginTop:130,
         width:'93.6%',
         marginLeft:'3.2%',
         backgroundColor:'#E8F6FD',
@@ -128,7 +127,7 @@ const style = {
         elevation:5
       },
 
-      
+
     };
       const allRules = Object.assign(comman, style);
       const styles = StyleSheet.create(allRules);

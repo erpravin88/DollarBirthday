@@ -115,10 +115,8 @@ const style = {
         scrolllist:{
             overflow:'hidden',
             paddingBottom:20,
-            height:'58%'
+            height:'56%'
         },
-
-
 
     };
       const allRules = Object.assign(comman, style);

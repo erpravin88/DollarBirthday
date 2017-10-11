@@ -60,7 +60,6 @@ const style = {
         fontWeight:'bold',
       },
 
-
     };
       const allRules = Object.assign(comman, style);
       const styles = StyleSheet.create(allRules);
