@@ -2,6 +2,50 @@ import {Dimensions , StyleSheet,  Platform} from 'react-native';
 const { width, height } = Dimensions.get('window');
 
   const styles = {
+		full:{
+			width:'100%',
+			height:'100%',
+			resizeMode: 'stretch',
+
+		},
+		font1:{
+			fontSize:10,
+ 			fontFamily:'OpenSans-Semibold'
+		},
+		font2:{
+			fontSize:12,
+ 			fontFamily:'OpenSans-Semibold'
+		},
+		font3:{
+			fontSize:14,
+ 			fontFamily:'OpenSans-Semibold'
+		},
+		font4:{
+			fontSize:16,
+ 			fontFamily:'OpenSans-Semibold'
+		},
+		font4:{
+			fontSize:18,
+ 			fontFamily:'OpenSans-Semibold'
+		},
+		colorWhite:{
+			color:'#FFFFFF',
+		},
+		colorBlack:{
+			color:'#000000',
+		},
+		colorGray:{
+			color:'#e0e0e0',
+		},
+		backgroundtrans:{
+			backgroundColor:'transparent',
+		},
+		hide:{
+			display:'none',
+		},
+		show:{
+			display:'flex',
+		},
 		backgroundImage: {
 		 flex:1,
 		 width:  '100%',
@@ -39,12 +83,7 @@ const { width, height } = Dimensions.get('window');
 	   width:'100%',
 	   height:'100%',
 	 },
-	full:{
-	  width:'100%',
-	  height:'100%',
-	  resizeMode: 'stretch',
 
-	},
 		TextInputStyle: {
 				width: '100%',
 				height: 30,

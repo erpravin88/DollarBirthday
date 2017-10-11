@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
   AsyncStorage
 } from 'react-native';
-
+import Label from '../Constant/Languages/LangConfig';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/AddFriendStyle';
@@ -54,7 +54,7 @@ componentWillMount(){
     this.setState({lastName: this.props.navigation.state.params.editdata.last_name});
     this.setState({email: this.props.navigation.state.params.editdata.email});
     this.setState({date: this.props.navigation.state.params.editdata.birth_date});
-    
+
   };
     //this.setState({name: this.props.navigation.state.params.name});
         AsyncStorage.getItem(USER_KEY).then((key)=>{
@@ -268,19 +268,6 @@ componentWillMount(){
     }
 
 render(){
-  let button = (this.state.newfriend == true) ?
-    (
-      <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
-        <Text style = {styles.signInButton}>
-          <Image style = {styles.addBtn} source = {images.addBtn}/>
-          Add Friend
-        </Text>
-      </TouchableOpacity>) : 
-      (<TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.updatefriend}>
-        <Text style = {styles.signInButton}>
-          Update Friend
-        </Text>
-      </TouchableOpacity>)
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
@@ -288,8 +275,8 @@ render(){
                 <Image style={styles.img} source = {images.backIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>Add Friend</Text>
-                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+                <Text style = {styles.titleTextFirst}>{Label.t('0')}</Text>
+                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="always">
@@ -297,12 +284,12 @@ render(){
                         <TextInput style = {styles.TextInputStyle}
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
-                            placeholder = 'First Name'
+                            placeholder = {Label.t('2')}
                             underlineColorAndroid = 'transparent'
                             value = {this.state.firstName}
                             multiline = {false}
                             maxLength = {100}
-                            returnKeyType="next"
+                            returnKeyType={Label.t('3')}
                             autoCorrect={false}
                             onSubmitEditing={(event) => {this.refs.secondInput.focus();}}
                             onChangeText = {(val) => {this.setState({firstName: val});this.hideErrors();}}
@@ -316,11 +303,11 @@ render(){
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
                             value = {this.state.lastName}
-                            placeholder = 'Last Name'
+                            placeholder = {Label.t('4')}
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
                             maxLength = {100}
-                            returnKeyType="next"
+                            returnKeyType={Label.t('3')}
                             autoCorrect={false}
                             onSubmitEditing={(event) => {this.refs.thirdInput.focus();}}
                             onChangeText = {(val) => {this.setState({lastName: val});this.hideErrors();}}
@@ -332,14 +319,13 @@ render(){
                         <TextInput
                             style = {[styles.TextInputStyle]}
                             ref='thirdInput'
-                            keyboardType = 'email-address'
                             placeholderTextColor = "#b7b7b7"
-                            placeholder = 'PayPal Email Id'
+                            placeholder = {Label.t('5')}
                             value = {this.state.email}
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
                             maxLength = {100}
-                            returnKeyType="next"
+                            returnKeyType= {Label.t('3')}
                             keyboardType="email-address"
                             autoCapitalize="none"
                             autoCorrect={false}
@@ -355,8 +341,8 @@ render(){
                             date = {this.state.date}
                             format = "YYYY-MM-DD"
                             maxDate = {this.state.date}
-                            confirmBtnText = "Confirm"
-                            cancelBtnText = "Cancel"
+                            confirmBtnText = {Label.t('6')}
+                            cancelBtnText = {Label.t('7')}
                             iconSource = {images.dropdownArrow}
                             onDateChange = {(date) => {this.setState({date:date})}}
                             customStyles={{dateInput: styles.dateInput,
@@ -364,7 +350,13 @@ render(){
                         />
                     </View>
                     <View style = {styles.TextInputContainer}>
-                      {button}
+                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
+                      <Text style = {styles.signInButton}>
+                      {(this.state.newfriend == true) ?
+                        (<Image style = {styles.addBtn} source = {images.addBtn}/>
+                        )+Label.t('8') :Label.t('8')}
+                        </Text>
+                          </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>
