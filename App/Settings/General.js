@@ -181,7 +181,7 @@ hideErrors(){
   render(){
 
   return(
-  <View style = {[styles.formgroup]}>
+  <ScrollView  keyboardShouldPersistTaps="always">
       <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {styles.TextInputStyle}
           keyboardType = 'default'
@@ -258,6 +258,6 @@ hideErrors(){
           <Text style = {styles.signInButton}>Update</Text>
         </TouchableOpacity>
       </View>
-  </View>);
+  </ScrollView>);
   }
 }
