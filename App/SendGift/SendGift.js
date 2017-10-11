@@ -160,8 +160,8 @@ render(){
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity  onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
-                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
+                <Image style = {styles.img} source = {images.dashboardIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>Send Gift</Text>

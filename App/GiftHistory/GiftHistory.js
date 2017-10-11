@@ -45,7 +45,7 @@ constructor(props){
 }
 
 fetchlist(item){
-    return(        
+    return(
         <View style={styles.listbox}>
             <Image style = {styles.userimg} source ={images.placeholderImage}/>
             <View style={styles.userdetailtext}>
@@ -97,21 +97,21 @@ componentWillMount(){
 
 render(){
     let Historylist = (this.state.displaylist == true) ?
-    (<View><FlatList 
-        data={this.state.giftHistory.list} 
+    (<View><FlatList
+        data={this.state.giftHistory.list}
         renderItem={({item}) => this.fetchlist(item)}
-        keyExtractor={item => item.email} 
+        keyExtractor={item => item.email}
         /></View>) : (<View ><Text></Text></View>);
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity  onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
-                <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
+            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
+                <Image style = {styles.img} source = {images.dashboardIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>Gift History</Text>
                 <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-            </View> 
+            </View>
             <View style={styles.donationdetailsbox}>
                 <View style={styles.detailscontainer}>
                     <Image style = {styles.detaillogo} source = {images.giftrecieved}></Image>
@@ -185,8 +185,8 @@ render(){
                     </View>
                 </ScrollView>
             </View>
-        </Image>  
-        );          
-        
+        </Image>
+        );
+
     }
 }
