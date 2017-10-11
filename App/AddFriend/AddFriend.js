@@ -350,11 +350,10 @@ render(){
                         />
                     </View>
                     <View style = {styles.TextInputContainer}>
-                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.addfriend}>
+                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
                       <Text style = {styles.signInButton}>
-                      {(this.state.newfriend == true) ?
-                        (<Image style = {styles.addBtn} source = {images.addBtn}/>
-                        )+Label.t('8') :Label.t('8')}
+                      {(this.state.newfriend == true) ? (<Image style = {styles.addBtn} source = {images.addBtn}/>):''}
+                      {(this.state.newfriend == true) ? Label.t('0') :Label.t('8')}
                         </Text>
                           </TouchableOpacity>
                     </View>
