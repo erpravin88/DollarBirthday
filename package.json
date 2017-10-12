@@ -15,6 +15,7 @@
     "react-native-i18n": "^2.0.7",
     "react-native-material-dropdown": "^0.4.1",
     "react-native-material-tabs": "^3.0.3",
+    "react-native-paypal-integration": "^1.1.1",
     "react-native-simple-toast": "0.0.7",
     "react-native-smart-splash-screen": "^2.3.5",
     "react-navigation": "^1.0.0-beta.11"

@@ -24,8 +24,12 @@ const { width, height } = Dimensions.get('window');
 			fontSize:16,
  			fontFamily:'OpenSans-Semibold'
 		},
-		font4:{
+		font5:{
 			fontSize:18,
+ 			fontFamily:'OpenSans-Semibold'
+		},
+    font6:{
+			fontSize:20,
  			fontFamily:'OpenSans-Semibold'
 		},
 		colorWhite:{
@@ -87,11 +91,10 @@ const { width, height } = Dimensions.get('window');
 		TextInputStyle: {
 				width: '100%',
 				height: 30,
-				fontSize:14,
+        fontSize:18,
 				paddingBottom:0,
 				marginBottom:0,
 				paddingRight:18,
-				fontFamily:'Open Sans',
 			},
 			TextInputContainer: {
 			 width:'89%',
@@ -113,10 +116,8 @@ const { width, height } = Dimensions.get('window');
 		 },
 
 	   errorMsg: {
-
-	     backgroundColor: 'transparent',
+       backgroundColor: 'transparent',
 	     color:'#ff0000',
-	     fontSize: 16,
 	     width:'89%',
 	     alignSelf:'center',
 	   },

@@ -96,12 +96,7 @@ componentWillMount(){
 }
 
 render(){
-    let Historylist = (this.state.displaylist == true) ?
-    (<View><FlatList
-        data={this.state.giftHistory.list}
-        renderItem={({item}) => this.fetchlist(item)}
-        keyExtractor={item => item.email}
-        /></View>) : (<View ><Text></Text></View>);
+
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
@@ -181,7 +176,12 @@ render(){
                                 <Text style={styles.pendingamount}>August 11, 2016</Text>
                             </View>
                         </View>
-                        {Historylist}
+                        {(this.state.displaylist == true) ?
+                        (<View><FlatList
+                            data={this.state.giftHistory.list}
+                            renderItem={({item}) => this.fetchlist(item)}
+                            keyExtractor={item => item.email}
+                            /></View>) : ''}
                     </View>
                 </ScrollView>
             </View>

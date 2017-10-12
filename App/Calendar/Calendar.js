@@ -50,8 +50,6 @@ constructor(props){
 
 navigatetoSendGift(friend){
     this.setModalVisible(false);
-    friend.monthshort = this.state.monthshort[this.state.dateSelected.month-1];
-    friend.day = this.state.dateSelected.day;
     this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
 }
 

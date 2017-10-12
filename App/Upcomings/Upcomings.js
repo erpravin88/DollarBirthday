@@ -38,6 +38,7 @@ export default class upcomings extends Component {
      showProgress:false,
      user_details:[],
      selectedTab:0,
+     monthshort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
    };
   }
   componentDidMount(){
@@ -89,6 +90,11 @@ export default class upcomings extends Component {
         Toast.show(err);
       });
   }
+  navigatetoSendGift(friend){
+    console.log(friend);
+    let date = new Date(friend.birth_date)
+      this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+  }
   renderRow(data) {
     console.log(data);
     let date = new Date(data.birth_date)
@@ -97,7 +103,7 @@ export default class upcomings extends Component {
            <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
            <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
            <View style={styles.btnw}>
-              <TouchableOpacity style={styles.btn1} onPress={()=>{console.log(data.email);}}>
+              <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(data);console.log(data.email);}}>
                 <Text style={styles.text1}>Send Gift</Text>
               </TouchableOpacity>
            </View>

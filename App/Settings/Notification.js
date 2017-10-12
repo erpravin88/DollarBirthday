@@ -97,7 +97,7 @@ render(){
         }
       }}
       onTintColor='#84ce6f'
-    value={this.state.email_notify}
+    value={this.state.email_notify ? true : false}
     />
   </View>
   <View style = {styles.TextInputContainer}>

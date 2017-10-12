@@ -15,6 +15,7 @@ import {
   Picker
 } from 'react-native';
 
+import PayPal from 'react-native-paypal-integration';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/SendGiftStyle';
@@ -30,6 +31,7 @@ const resetAction = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
   });
+  const monthshort =["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 export default class SendGift extends Component {
 
 constructor(props){
@@ -89,7 +91,24 @@ sendgiftandcharity(){
       }
       else
       {
-        //API Call
+        PayPal.profileSharing({
+    clientId: 'access_token$sandbox$bqktwq68fv5sd8j9$066fbd28ee0f42302cdd82418c3a41d9',
+    environment: PayPal.SANDBOX,
+    merchantName: 'Your merchant name',
+    merchantPrivacyPolicyUri: 'http://your-url.com/policy',
+    merchantUserAgreementUri: 'http://your-url.com/legal',
+    scopes: ['pk','test','pravinkumar@classicinformatics.com','9015688565'
+        // PayPal.SCOPE_PROFILE, // Full Name, Birth Date, Time Zone, Locale, Language
+        // PayPal.SCOPE_PAYPAL_ATTRIBUTES, // Age Range, Account Status, Account Type, Account Creation Date
+        // PayPal.SCOPE_EMAIL, // Email
+        // PayPal.SCOPE_ADDRESS, // Address
+        // PayPal.SCOPE_PHONE // Telephone
+    ]
+  },
+  function (r) {
+    console.log(r);
+  }
+);
       }
 }
 
@@ -111,7 +130,14 @@ renderImage() {
 }
 
 componentWillMount(){
-    this.state.friend = this.props.navigation.state.params.friend;
+  if(this.props.navigation.state != undefined){
+    if(this.props.navigation.state.params != undefined){
+      if(this.props.navigation.state.params.friend != undefined){
+        this.setState({friend:this.props.navigation.state.params.friend});
+      }
+    }
+  }
+  //  this.state.friend = this.props.navigation.state.params.friend;
 
     // to fetch charity list
     callApiWithoutAuth('charityList','GET' ).then((response) => {
@@ -157,11 +183,12 @@ componentWillMount(){
 }
 
 render(){
+  let bdate = new Date(this.state.friend.birth_date)
     return(
         <Image style = {styles.backgroundImage} source = {images.background}>
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
-                <Image style = {styles.img} source = {images.dashboardIcon}></Image>
+            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.goBack()}}>
+                <Image style = {styles.img} source = {images.backIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>Send Gift</Text>
@@ -176,7 +203,7 @@ render(){
                         </View>
                         <View style = {styles.textcontainer}>
                             <Text style = {styles.usertext}>{this.state.friend.full_name}</Text>
-                            <Text style = {styles.userdesc}>{this.state.friend.first_name}'s Birthday is {this.state.friend.monthshort} {this.state.friend.day}</Text>
+                            <Text style = {styles.userdesc}>{this.state.friend.first_name}'s Birthday is {monthshort[bdate.getMonth()]} {bdate.getDate()}</Text>
                         </View>
                     </View>
                     <View style={[{marginTop:'3%'},{borderWidth: 1,
