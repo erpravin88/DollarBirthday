@@ -18,6 +18,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
+import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/FriendStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
@@ -60,12 +61,12 @@ deleteFriend(item){
   //API Call
     callApiWithAuth('user/friend/'+item.id,'DELETE', this.state.auth_token).then((response) => {
         if(response.status === 200){
-            Toast.show('Friend Deleted Successfully');
+            Toast.show(Label.t('58'));
         //Toast.show('Task fetched');
         }else if (response.status === 401) {
-        Toast.show('Error deleting friends');
+        Toast.show(Label.t('59'));
         }else if (response.status === 500) {
-        Toast.show('Error deleting friend:500');
+        Toast.show(Label.t('59')+':500');
         }
     }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
 }
@@ -83,7 +84,7 @@ deleteFriend(item){
         <View>
             <Text style={styles.fullnametext}>{item.first_name} {item.last_name}</Text>
         </View>
-        <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item}); Alert.alert( 'Delete Friend', 'Are you sure you want to delete '+item.full_name+'\'s Birthday?', [ {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: 'Yes', onPress: () => this.deleteFriend(item)}, ], { cancelable: false } )}}>
+        <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item}); Alert.alert( Label.t('60'), Label.t('61')+item.full_name+Label.t('62'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('63'), onPress: () => this.deleteFriend(item)}, ], { cancelable: false } )}}>
             <Image style={styles.crossicon} source={images.crossicon} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.props.nav.navigation.navigate('ADDFRIEND',{editdata:item, callFrom:'setting'});}}>
@@ -115,10 +116,10 @@ componentWillMount(){
               //Toast.show('Task fetched');
             }else if (response.status === 401) {
                this.setState({showProgress : false});
-               Toast.show('Error fetching friends');
+               Toast.show(Label.t('64'));
             }else if (response.status === 500) {
                this.setState({showProgress : false});
-               Toast.show('Error fetching friends:500');
+               Toast.show(Label.t('64')+':500');
             }
          }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
     }).catch((err)=>{
@@ -155,25 +156,25 @@ componentWillMount(){
             }}>
                 <View style = {styles.addfriendbox}>
                     <Image style = {styles.addicon} source = {images.addBtn}></Image>
-                    <Text style= {styles.boxtext}>Add Friend</Text>
+                    <Text style= {styles.boxtext}>{Label.t('0')}</Text>
                 </View>
             </TouchableOpacity>
             <View style = {styles.googlesigninview}>
                 <TouchableOpacity>
                     <View style = {styles.googlesigninbox}>
-                        <Text style= {styles.boxtext}>Verify Google Sign In</Text>
+                        <Text style= {styles.boxtext}>{Label.t('65')}</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style = {styles.googlefbtext}>Click here to import Contacts from Google</Text>
+                <Text style = {styles.googlefbtext}>{Label.t('66')}</Text>
             </View>
             <View style = {styles.fbfriendsview}>
                 <TouchableOpacity>
                     <View style = {styles.fbfriendsbox}>
                         <Image style = {styles.fbicon} source = {images.fbicon}></Image>
-                        <Text style= {styles.boxtext}>Friends</Text>
+                        <Text style= {styles.boxtext}>{Label.t('38')}</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style = {styles.googlefbtext}>Find your Friend's Birthdays on Facebook!</Text>
+                <Text style = {styles.googlefbtext}>{Label.t('67')}</Text>
             </View>
         </View>
         <View style={styles.scrolllist}>

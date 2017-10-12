@@ -13,6 +13,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/CharityStyle';
+import Label from '../Constant/Languages/LangConfig';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
@@ -142,17 +143,17 @@ let flag = true;
 
 if(this.state.charity_type == ''){
 flag = false;
-error.charity_type = 'Please select Charity.';
+error.charity_type = Label.t('45');
 }
 if(this.state.pre_amount == ''){
 flag = false;
-error.pre_amount = 'Please select Donation Value.';
+error.pre_amount = Label.t('46');
 }
 if(this.state.pre_amount.index == 'specify'){
 
   if(this.state.other_amount == ''){
   flag = false;
-  error.other_amount = 'Please fill Donation Value.';
+  error.other_amount = Label.t('47');
   }
 }
 if(flag){
@@ -170,19 +171,19 @@ if(flag){
        //this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     // });
-    Toast.show('Charity add Successfully');
+    Toast.show(Label.t('48'));
   }else if (response.status === 404) {
     this.setState({showProgress : false});
-    Toast.show('Page not Found');
+    Toast.show(Label.t('49'));
   }else if (response.status === 406) {
     this.setState({showProgress : false});
-    Toast.show('Invalid data');
+    Toast.show(Label.t('50'));
   }else if (response.status === 401) {
     this.setState({showProgress : false});
-    Toast.show('Unauthroize');
+    Toast.show(Label.t('51'));
   }else if (response.status === 500) {
     this.setState({showProgress : false});
-    Toast.show('Unsuccessfull error:500');
+    Toast.show(Label.t('52'));
     }
   }).catch((error) => {console.log(error); })
   }else {
@@ -207,7 +208,7 @@ hideErrors(){
 <ScrollView  keyboardShouldPersistTaps="always">
   <View style = {styles.TextInputContainer}>
     <Dropdown
-          label='Choose a Charity'
+          label={Label.t('10')}
           style = {styles.TextInputStyle}
           containerStyle ={{marginTop:-10}}
           baseColor = '#B3B3B3'
@@ -219,7 +220,7 @@ hideErrors(){
   </View>
   <View style = {styles.TextInputContainer}>
   <Dropdown
-        label='Donation Value'
+        label={Label.t('11')}
         style = {styles.TextInputStyle}
         containerStyle ={{marginTop:-30}}
         baseColor = '#B3B3B3'
@@ -235,7 +236,7 @@ hideErrors(){
             style = {styles.TextInputStyle}
             keyboardType = 'numeric'
             placeholderTextColor = "#b7b7b7"
-            placeholder = 'Donation Value'
+            placeholder = {Label.t('11')}
             underlineColorAndroid = 'transparent'
             multiline = {false} maxLength = {6}
             returnKeyType="send"
@@ -251,13 +252,13 @@ hideErrors(){
     <TouchableOpacity
     style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>
-      <Text style = {styles.signInButton}>Update</Text>
+      <Text style = {styles.signInButton}>{Label.t('39')}</Text>
     </TouchableOpacity>
   </View>
   <View style = {[styles.TextInputContainer,{flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop:'5%'}]}>
-    <Text style={{backgroundColor:'transparent'},styles.linkColor}>Want to add your Charity?</Text>
+    <Text style={[styles.linkColor,{backgroundColor:'transparent'}]}>{Label.t('53')}</Text>
     <TouchableOpacity style={styles.btn1} onPress={()=>{ConstantFunction.email(['ronnage@cfl.rr.com'],'','','Add%20My%20Charity%20to%20Dollar%20Birthday%20Club','')}}>
-      <Text style={styles.text1}>Click Here</Text>
+      <Text style={styles.text1}>{Label.t('54')}</Text>
     </TouchableOpacity>
   </View>
 </ScrollView>);

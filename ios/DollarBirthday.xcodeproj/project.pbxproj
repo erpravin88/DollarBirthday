@@ -572,6 +572,7 @@
 				00E356EF1AD99517003FC87E /* DollarBirthdayTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				96911F153A894BC59CBC6CCF /* Resources */,
+				8424530F1F8F246A004509BE /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -585,6 +586,17 @@
 				2D02E4901E0B4A5D006451C7 /* DollarBirthday-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8424530F1F8F246A004509BE /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				F64F0CD95A4E4D70851947FD /* libRCTSplashScreen.a */,
+				C5381996DECF4574835752EE /* libRNDeviceInfo.a */,
+				287E19B127474A549D58020A /* libLRDRCTSimpleToast.a */,
+				99592F56204B49579BF67C99 /* libRNI18n.a */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		96911F153A894BC59CBC6CCF /* Resources */ = {
