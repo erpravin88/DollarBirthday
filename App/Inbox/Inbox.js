@@ -22,6 +22,7 @@ import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/InboxStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
@@ -73,30 +74,38 @@ fetchlist(item){
 
 componentWillMount(){
     //this.setState({name: this.props.navigation.state.params.name});
-    this.setState({showProgress : true});
+
         AsyncStorage.getItem(USER_KEY).then((key)=>{
           //this.setState({user_key: key});
         }).catch((err)=>{
           Toast.show(err);
         });
         AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-           this.setState({auth_token: token});
-             callApiWithAuth('user/inbox','GET', this.state.auth_token).then((response) => {
-                if(response.status === 201){
-                  response.json().then((responseobject) => {
-                      //Remove quote from next line to update flatlist with dynamic data
-                    //  this.setState({messages: responseobject});
-                  });
-                  this.setState({showProgress : false});
-                  //Toast.show('Task fetched');
-                }else if (response.status === 401) {
-                   this.setState({showProgress : false});
-                   Toast.show('Error fetching friends');
-                }else if (response.status === 500) {
-                   this.setState({showProgress : false});
-                   Toast.show('Error fetching friends:500');
-                }
-             }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+            checkinternetconnectivity().then((response)=>{
+                if(response.Internet == true){
+                this.setState({showProgress : true});
+                this.setState({auth_token: token});
+                callApiWithAuth('user/inbox','GET', this.state.auth_token).then((response) => {
+                    if(response.status === 201){
+                        response.json().then((responseobject) => {
+                            //Remove quote from next line to update flatlist with dynamic data
+                            //  this.setState({messages: responseobject});
+                        });
+                        this.setState({showProgress : false});
+                        //Toast.show('Task fetched');
+                        }else if (response.status === 401) {
+                        this.setState({showProgress : false});
+                        Toast.show('Error fetching friends');
+                        }else if (response.status === 500) {
+                        this.setState({showProgress : false});
+                        Toast.show('Error fetching friends:500');
+                        }
+                        }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+                    }else{
+                        this.props.navigation.dispatch(resetAction);
+                        Toast.show("No Internet Connection");
+                    }
+                });
         }).catch((err)=>{
           onSignOut;
           Toast.show(err);

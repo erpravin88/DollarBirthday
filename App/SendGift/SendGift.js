@@ -25,6 +25,7 @@ import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { Dropdown } from 'react-native-material-dropdown';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
 const resetAction = NavigationActions.reset({
@@ -140,46 +141,53 @@ componentWillMount(){
   //  this.state.friend = this.props.navigation.state.params.friend;
 
     // to fetch charity list
-    callApiWithoutAuth('charityList','GET' ).then((response) => {
-        if(response.status === 200){
-          response.json().then((responseobject) => {
-            console.log(responseobject);
-            let charityList = Object.keys(responseobject.data).map(function(key,data) {
-              return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
+    checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){
+            callApiWithoutAuth('charityList','GET' ).then((response) => {
+                if(response.status === 200){
+                response.json().then((responseobject) => {
+                    console.log(responseobject);
+                    let charityList = Object.keys(responseobject.data).map(function(key,data) {
+                    return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
 
-             });
-             this.setState({
-               showProgress : false,
-               charity_list : charityList,
-             });
-          });
-        }else if (response.status === 401) {
-           this.setState({showProgress : false});
-        }else if (response.status === 500) {
-           this.setState({showProgress : false});
+                    });
+                    this.setState({
+                    showProgress : false,
+                    charity_list : charityList,
+                    });
+                });
+                }else if (response.status === 401) {
+                this.setState({showProgress : false});
+                }else if (response.status === 500) {
+                this.setState({showProgress : false});
+                }
+            }).catch((error) => {console.log(error); });
+            //--fetch donation list
+            callApiWithoutAuth('donationList','GET' ).then((response) => {
+                if(response.status === 200){
+                response.json().then((responseobject) => {
+                console.log(responseobject);
+                let donationList = Object.keys(responseobject.data).map(function(key,data) {
+                    return { value: responseobject.data[key], index:key};
+
+                    });
+                    this.setState({
+                    showProgress : false,
+                    donation_list : donationList,
+                    });
+                    });
+
+                }else if (response.status === 401) {
+                this.setState({showProgress : false});
+                }else if (response.status === 500) {
+                this.setState({showProgress : false});
+                }
+            }).catch((error) => {console.log(error); });
+        }else{
+            this.props.navigation.dispatch(resetAction);
+            Toast.show("No Internet Connection");
         }
-     }).catch((error) => {console.log(error); });
-     //--fetch donation list
-     callApiWithoutAuth('donationList','GET' ).then((response) => {
-        if(response.status === 200){
-          response.json().then((responseobject) => {
-           console.log(responseobject);
-           let donationList = Object.keys(responseobject.data).map(function(key,data) {
-             return { value: responseobject.data[key], index:key};
-
-            });
-            this.setState({
-              showProgress : false,
-              donation_list : donationList,
-            });
-             });
-
-        }else if (response.status === 401) {
-           this.setState({showProgress : false});
-        }else if (response.status === 500) {
-           this.setState({showProgress : false});
-        }
-     }).catch((error) => {console.log(error); });
+    });
 }
 
 render(){
