@@ -22,6 +22,7 @@ import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import { NavigationActions } from 'react-navigation';
 const date = new Date(Date.now());
 const resetAction = NavigationActions.reset({
@@ -109,42 +110,48 @@ console.log(this.state.date);
   }
   else
   {
-    this.setState({showProgress : true});
-      callApiWithoutAuth('register','POST', {"email":this.state.email,
-        "password":this.state.password,
-        "device_id":this.state.device_id,
-        "device_type":this.state.device_type,
-        "paypal":this.state.email,
-        "full_name":this.state.fullName,
-        "birth_date": this.state.date }
-      ).then((response) => {
-        // response.json().then((responseobject) => {
-        // console.log(responseobject);});
-        if(response.status === 201){
-        response.json().then((responseobject) => {
+    checkinternetconnectivity().then((response)=>{
+      if(response.Internet == true){
+      this.setState({showProgress : true});
+        callApiWithoutAuth('register','POST', {"email":this.state.email,
+          "password":this.state.password,
+          "device_id":this.state.device_id,
+          "device_type":this.state.device_type,
+          "paypal":this.state.email,
+          "full_name":this.state.fullName,
+          "birth_date": this.state.date }
+        ).then((response) => {
+          // response.json().then((responseobject) => {
+          // console.log(responseobject);});
+          if(response.status === 201){
+          response.json().then((responseobject) => {
+            console.log(responseobject);
+            onSignIn();
+            afterSignIn(responseobject.data.authToken);
+            setUserDetails(responseobject.data);
+            this.props.navigation.dispatch(resetAction);
+            this.setState({showProgress : false});
           console.log(responseobject);
-           onSignIn();
-           afterSignIn(responseobject.data.authToken);
-           setUserDetails(responseobject.data);
-           this.props.navigation.dispatch(resetAction);
-           this.setState({showProgress : false});
-        console.log(responseobject);
-        });
-        Toast.show(Label.t('104'));
-      }else if (response.status === 404) {
-        this.setState({showProgress : false});
-        Toast.show(Label.t('49'));
-      }else if (response.status === 406) {
-        response.json().then((responseobject) => {
+          });
+          Toast.show(Label.t('104'));
+        }else if (response.status === 404) {
           this.setState({showProgress : false});
-          Toast.show(responseobject.error_messages);
-        });
-      }else if (response.status === 500) {
-        this.setState({showProgress : false});
-        Toast.show(Label.t('52'));
-        }
-      }).catch((error) => {console.log(error); });
+          Toast.show(Label.t('49'));
+        }else if (response.status === 406) {
+          response.json().then((responseobject) => {
+            this.setState({showProgress : false});
+            Toast.show(responseobject.error_messages);
+          });
+        }else if (response.status === 500) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('52'));
+          }
+        }).catch((error) => {console.log(error); });
+      }else{
+        Toast.show("No Internet Connection");
+      }
 
+    });
   }
 
 }

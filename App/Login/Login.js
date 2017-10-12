@@ -21,6 +21,7 @@ import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSign
 import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import styles from './style/LoginStyle';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
@@ -81,8 +82,10 @@ export default class Login extends Component {
     if(flag != ''){
       this.setState({errorMsg: error});
     }else{
-      this.setState({showProgress : true});
       console.log(this.state);  // Add your logic for the transition
+      checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){
+          this.setState({showProgress : true});
         callApiWithoutAuth('login','POST', {"email":this.state.email,
           "password":this.state.password,
           "login_type":this.state.login_type,
@@ -109,6 +112,10 @@ export default class Login extends Component {
           Toast.show(Label.t('52'));
           }
         }).catch((error) => {console.log(error); });
+      }else{
+        Toast.show("No Internet Connection");
+      }
+      });
 
     }
   }
