@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
+import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/CalendarStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -68,7 +69,7 @@ displaybirthdays(){
                <View style={styles.namew}><Text style={styles.name}>{friend.full_name}<Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text></Text></View>
                <View style={styles.btnw}>
                   <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(friend);console.log(friend.email);}}>
-                    <Text style={styles.text1}>Send Gift</Text>
+                    <Text style={styles.text1}>{Label.t('13')}</Text>
                   </TouchableOpacity>
                </View>
                </View>
@@ -163,8 +164,8 @@ render(){
               <Image style={styles.img} source = {images.dashboardIcon}/>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>Birthday Calendar</Text>
-                <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+                <Text style = {styles.titleTextFirst}>{Label.t('14')}</Text>
+                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
             <View style = {styles.TextInputContainer}>
                 <ScrollView keyboardShouldPersistTaps="always">
@@ -189,7 +190,7 @@ render(){
                 <View style={styles.modalparentview}>
                     <View style={styles.modaldata}>
                       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{flex:0.9,paddingLeft:'3%',fontSize:18}}>Birthdays on {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
+                        <Text style={{flex:0.9,paddingLeft:'3%',fontSize:18}}>{Label.t('15')} {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
                         <TouchableOpacity style={{flex:0.1,padding:10,alignSelf:'flex-end'}} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
                             <Image style={{width:15,height:15}} source={images.crossicon} />
                         </TouchableOpacity>

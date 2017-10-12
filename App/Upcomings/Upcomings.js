@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/UpcomingsStyle';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
@@ -103,8 +104,8 @@ export default class upcomings extends Component {
            <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
            <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
            <View style={styles.btnw}>
-              <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(data);console.log(data.email);}}>
-                <Text style={styles.text1}>Send Gift</Text>
+              <TouchableOpacity style={styles.btn1} onPress={()=>{console.log(data.email);}}>
+                <Text style={styles.text1}>{Label.t('13')}</Text>
               </TouchableOpacity>
            </View>
         </View>
@@ -121,12 +122,12 @@ console.log(data);
     <Image style={styles.img} source = {images.dashboardIcon}/>
   </TouchableOpacity>
   <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>Upcomings</Text>
-    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    <Text style = {styles.titleTextFirst}>{Label.t('18')}</Text>
+    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
   <View style = {[styles.TabContainer,styles.tabs]}>
   <MaterialTabs
-  items={['Recent Birthdays', 'Up Next', 'Upcoming Birthdays']}
+  items={[Label.t('19'), Label.t('20'), Label.t('21')]}
   barColor="#FFFFFF"
   indicatorColor='#DC6865'
   activeTextColor='#DC6865'

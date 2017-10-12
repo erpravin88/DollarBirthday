@@ -49,11 +49,7 @@ constructor(props){
 
 componentWillMount(){
   if(this.props.navigation.state.params){
-    this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false});
-    this.setState({firstName: this.props.navigation.state.params.editdata.first_name});
-    this.setState({lastName: this.props.navigation.state.params.editdata.last_name});
-    this.setState({email: this.props.navigation.state.params.editdata.email});
-    this.setState({date: this.props.navigation.state.params.editdata.birth_date});
+    this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false, firstName: this.props.navigation.state.params.editdata.first_name,lastName: this.props.navigation.state.params.editdata.last_name, email: this.props.navigation.state.params.editdata.email, date: this.props.navigation.state.params.editdata.birth_date});
 
   };
     //this.setState({name: this.props.navigation.state.params.name});
