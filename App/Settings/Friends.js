@@ -141,14 +141,8 @@ componentWillMount(){
 
 
   render(){
-    let friendlistview = (this.state.friendlistvisible == true) ?
-    (<View><FlatList
-        data={this.state.Friends}
-        renderItem={({item}) => this.changedateformat(item)}
-        keyExtractor={item => item.id}
-        /></View>) : (<View ></View>);
   return(
-    <View style = {[styles.formgroup, styles.TextInputContainer]}>
+    <View style = {[styles.TextInputContainer]}>
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
@@ -159,13 +153,14 @@ componentWillMount(){
                     <Text style= {styles.boxtext}>{Label.t('0')}</Text>
                 </View>
             </TouchableOpacity>
-            <View style = {styles.googlesigninview}>
+            <View style = {[styles.googlesigninview]}>
                 <TouchableOpacity>
                     <View style = {styles.googlesigninbox}>
                         <Text style= {styles.boxtext}>{Label.t('65')}</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style = {styles.googlefbtext}>{Label.t('66')}</Text>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
             </View>
             <View style = {styles.fbfriendsview}>
                 <TouchableOpacity>
@@ -174,12 +169,18 @@ componentWillMount(){
                         <Text style= {styles.boxtext}>{Label.t('38')}</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style = {styles.googlefbtext}>{Label.t('67')}</Text>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('67')}</Text>
             </View>
         </View>
-        <View style={styles.scrolllist}>
+        <View style={[styles.scrolllist]}>
             <ScrollView keyboardShouldPersistTaps="always">
-                {friendlistview}
+                {(this.state.friendlistvisible == true) ?
+                (<View style={{width:'98%'}}><FlatList
+                    data={this.state.Friends}
+                    renderItem={({item}) => this.changedateformat(item)}
+                    keyExtractor={item => item.id}
+                    /></View>) : ''}
             </ScrollView>
         </View>
     </View>

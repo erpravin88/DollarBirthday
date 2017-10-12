@@ -7,8 +7,8 @@ const style = {
         scrolllist:{
             backgroundColor:'transparent',
             overflow:'hidden',
-            width: '100%',
-            marginTop: 20
+            marginTop: '2%',
+            height:'76%',
         },
           friendboxes:{
             flexDirection:'row',
