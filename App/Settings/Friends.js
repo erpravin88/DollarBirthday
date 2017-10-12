@@ -140,14 +140,8 @@ componentWillMount(){
 
 
   render(){
-    let friendlistview = (this.state.friendlistvisible == true) ?
-    (<View><FlatList
-        data={this.state.Friends}
-        renderItem={({item}) => this.changedateformat(item)}
-        keyExtractor={item => item.id}
-        /></View>) : (<View ></View>);
   return(
-    <View style = {[styles.formgroup, styles.TextInputContainer]}>
+    <View style = {[styles.TextInputContainer]}>
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
@@ -164,7 +158,7 @@ componentWillMount(){
                         <Text style= {styles.boxtext}>Verify Google Sign In</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style = {styles.googlefbtext}>Click here to import Contacts from Google</Text>
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>Click here to import Contacts from Google</Text>
             </View>
             <View style = {styles.fbfriendsview}>
                 <TouchableOpacity>
@@ -173,12 +167,17 @@ componentWillMount(){
                         <Text style= {styles.boxtext}>Friends</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style = {styles.googlefbtext}>Find your Friend's Birthdays on Facebook!</Text>
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>Find your Friend's Birthdays on Facebook!</Text>
             </View>
         </View>
-        <View style={styles.scrolllist}>
+        <View style={[styles.scrolllist]}>
             <ScrollView keyboardShouldPersistTaps="always">
-                {friendlistview}
+                {(this.state.friendlistvisible == true) ?
+                (<View style={{width:'98%'}}><FlatList
+                    data={this.state.Friends}
+                    renderItem={({item}) => this.changedateformat(item)}
+                    keyExtractor={item => item.id}
+                    /></View>) : ''}
             </ScrollView>
         </View>
     </View>

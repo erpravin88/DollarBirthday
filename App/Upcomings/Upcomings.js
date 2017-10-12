@@ -136,7 +136,7 @@ console.log(data);
   selectedIndex={this.state.selectedTab}
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>
-    <View style={[styles.iconContainer,styles.TextInputContainer,styles.ListContainerfix1]}>
+    <View style={[styles.TextInputContainer,styles.ListContainerfix1]}>
       <ScrollView >
           <ListView
             dataSource={ds.cloneWithRows(data)}

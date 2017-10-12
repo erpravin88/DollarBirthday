@@ -164,9 +164,9 @@ export default class Settings extends Component {
   onChange={(index) => this.setState({selectedTab: index})}/>
   </View>
     <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
-      <ScrollView >
-      {this.state.selectedTab == 0 ? (<General />):(this .state.selectedTab == 1? (<Paypal />):(this .state.selectedTab == 2? (<Charity/>):(this .state.selectedTab == 3? (<Notification />):(<Friends nav={this.props}/>))))}
-      </ScrollView>
+
+      {this.state.selectedTab == 0 ? (<ScrollView ><General /></ScrollView>):(this .state.selectedTab == 1? (<ScrollView><Paypal /></ScrollView>):(this .state.selectedTab == 2? (<ScrollView><Charity/></ScrollView>):(this .state.selectedTab == 3? (<ScrollView><Notification /></ScrollView>):(<Friends nav={this.props}/>))))}
+
     </View>
 </Image>);
 
