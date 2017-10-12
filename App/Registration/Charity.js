@@ -13,6 +13,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/CharityStyle';
+import Label from '../Constant/Languages/LangConfig';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
@@ -105,17 +106,17 @@ let flag = true;
 
 if(this.state.charity_type == ''){
 flag = false;
-error.charity_type = 'Please select Charity.';
+error.charity_type = Label.t('45');
 }
 if(this.state.pre_amount == ''){
 flag = false;
-error.pre_amount = 'Please select Donation Value.';
+error.pre_amount = Label.t('46');
 }
 if(this.state.pre_amount.index == 'specify'){
 
   if(this.state.other_amount == ''){
   flag = false;
-  error.other_amount = 'Please fill Donation Value.';
+  error.other_amount = Label.t('47');
   }
 }
 if(flag){
@@ -134,19 +135,19 @@ if(flag){
        this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     // });
-    Toast.show('Charity add Successfully');
+    Toast.show(Label.t('79'));
   }else if (response.status === 404) {
     this.setState({showProgress : false});
-    Toast.show('Page not Found');
+    Toast.show(Label.t('49'));
   }else if (response.status === 406) {
     this.setState({showProgress : false});
-    Toast.show('Invalid data');
+    Toast.show(Label.t('50'));
   }else if (response.status === 401) {
     this.setState({showProgress : false});
-    Toast.show('Unauthroize');
+    Toast.show(Label.t('51'));
   }else if (response.status === 500) {
     this.setState({showProgress : false});
-    Toast.show('Unsuccessfull error:500');
+    Toast.show(Label.t('52'));
     }
   }).catch((error) => {console.log(error); })
   }else {
@@ -178,7 +179,7 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
           style = {styles.TextInputStyle}
           keyboardType = 'numeric'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Donation Value'
+          placeholder = {Label.t('11')}
           underlineColorAndroid = 'transparent'
           multiline = {false} maxLength = {3}
           returnKeyType="send"
@@ -193,17 +194,17 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <View style = {styles.titleContainer}>
-  <Text style = {styles.titleTextFirst}>Join the</Text>
-  <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+  <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
+  <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
 </View>
 <View style={{height:'56%',overflow:'hidden'}}>
 <ScrollView  keyboardShouldPersistTaps="always">
 <View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.heading1}>Giving is Living</Text>
+  <Text style = {styles.heading1}>{Label.t('80')}</Text>
 </View>
 <View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.subhead1}>Setup a default charity to send a donation</Text>
-  <Text style = {styles.subhead1}>to everytime you send a gift to a friend.</Text>
+  <Text style = {styles.subhead1}>{Label.t('81')}</Text>
+  <Text style = {styles.subhead1}>{Label.t('82')}</Text>
 </View>
   <View style = {styles.EmailTextInputContainer}>
     <Dropdown
@@ -218,7 +219,7 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
   </View>
   <View style = {styles.TextInputContainer}>
   <Dropdown
-        label='Donation Value'
+        label= {Label.t('11')}
         style = {styles.TextInputStyle}
         containerStyle ={{marginTop:-20}}
         baseColor = '#B3B3B3'
@@ -232,13 +233,13 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
     <TouchableOpacity
     style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}
     onPress = {this.onCharityClick}>
-      <Text style = {styles.signInButton}>Save Charity</Text>
+      <Text style = {styles.signInButton}>{Label.t('83')}</Text>
     </TouchableOpacity>
-    <Text style = {styles.term_service}>Edit this charity default at anytime in the setting panel</Text>
+    <Text style = {styles.term_service}>{Label.t('84')}</Text>
   </View>
   <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
     <View style = {[styles.skipContainer]}>
-          <Text style = {styles.skip}>Skip >></Text>
+          <Text style = {styles.skip}>{Label.t('85')}</Text>
     </View>
   </TouchableOpacity>
 </ScrollView>

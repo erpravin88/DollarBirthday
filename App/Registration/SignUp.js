@@ -16,6 +16,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
+import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/SignUpStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
@@ -74,13 +75,13 @@ onSignUpClick(userData){
   {
 console.log(this.state.date);
   flag = '0';
-  error.fullName = 'Please enter full name.';
+  error.fullName = Label.t('103');
 
   }
   else if(this.state.email == '')
   {
   flag = '0';
-  error.emailMsg = 'Please enter email.';
+  error.emailMsg = Label.t('75');
 
   }
   else if(!re.test(this.state.email))
@@ -88,18 +89,18 @@ console.log(this.state.date);
 
   console.log('validdat')
     flag = '0';
-    error.emailMsg = 'Please enter valid email.';
+    error.emailMsg = Label.t('76');
 
   }
   else if(this.state.password == '')
   {
     flag = '1';
-    error.passwordMsg = 'Please enter password.';
+    error.passwordMsg = Label.t('77');
   }
   else if(this.state.password.length < 8)
   {
     flag = '1';
-    error.passwordMsg = 'Minimum 8 character required.';
+    error.passwordMsg = Label.t('78');
   }
 
 
@@ -129,10 +130,10 @@ console.log(this.state.date);
            this.setState({showProgress : false});
         console.log(responseobject);
         });
-        Toast.show('Registration Successfull');
+        Toast.show(Label.t('104'));
       }else if (response.status === 404) {
         this.setState({showProgress : false});
-        Toast.show('Page not Found.');
+        Toast.show(Label.t('49'));
       }else if (response.status === 406) {
         response.json().then((responseobject) => {
           this.setState({showProgress : false});
@@ -140,7 +141,7 @@ console.log(this.state.date);
         });
       }else if (response.status === 500) {
         this.setState({showProgress : false});
-        Toast.show('Unsuccessfull error:500');
+        Toast.show(Label.t('52'));
         }
       }).catch((error) => {console.log(error); });
 
@@ -162,8 +163,8 @@ hideErrors(){
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <MyActivityIndicator progress={this.state.showProgress} />
   <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>Join the</Text>
-    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
+    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
   <View style = {[styles.formgroup]}>
     <ScrollView  keyboardShouldPersistTaps="always">
@@ -171,7 +172,7 @@ hideErrors(){
         <TextInput style = {styles.TextInputStyle}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Full Name'
+          placeholder = {Label.t('42')}
           underlineColorAndroid = 'transparent'
           multiline = {false}
           maxLength = {100}
@@ -189,7 +190,7 @@ hideErrors(){
           ref='secondInput'
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Email Id'
+          placeholder = {Label.t('41')}
           underlineColorAndroid = 'transparent'
           multiline = {false}
           maxLength = {100}
@@ -203,14 +204,14 @@ hideErrors(){
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
       <View style = {styles.TextInputContainer}>
-        <Text style = {styles.dob_label}>Birthday</Text>
+        <Text style = {styles.dob_label}>{Label.t('43')}</Text>
         <DatePicker
           style = {styles.date_picker}
           date = {this.state.date}
           format = "YYYY-MM-DD"
           maxDate = {this.state.date}
-          confirmBtnText = "Confirm"
-          cancelBtnText = "Cancel"
+          confirmBtnText = {Label.t('6')}
+          cancelBtnText = {Label.t('7')}
           iconSource = {images.dropdownArrow}
           onDateChange = {(date) => {this.setState({date:date})}}
           customStyles={{dateInput: styles.dateInput,
@@ -223,7 +224,7 @@ hideErrors(){
           style = {styles.TextInputStyle}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Password'
+          placeholder = {Label.t('44')}
           underlineColorAndroid = 'transparent'
           secureTextEntry = {true}
           multiline = {false}
@@ -238,17 +239,17 @@ hideErrors(){
       <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
-          <Text style = {styles.signInButton}>Sign Up</Text>
+          <Text style = {styles.signInButton}>{Label.t('105')}</Text>
         </TouchableOpacity>
         <TouchableOpacity >
-          <Text style = {styles.button_below}>By signing up, you agree to the <Text style={styles.linkColor}>Terms of Services</Text> and <Text style={styles.linkColor}>Privacy Policy</Text></Text>
+          <Text style = {styles.button_below}>{Label.t('106')}<Text style={styles.linkColor}>{Label.t('107')}</Text>{Label.t('108')}<Text style={styles.linkColor}>{Label.t('109')}</Text></Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
-          <Text style = {styles.login_button}>Already have account?<Text style={styles.linkColor}> Sign In</Text></Text>
+          <Text style = {styles.login_button}>{Label.t('110')}<Text style={styles.linkColor}>{Label.t('111')}</Text></Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.TextInputContainer}>
-        <Text style = {styles.orDivider}>- or -</Text>
+        <Text style = {styles.orDivider}>{Label.t('72')}</Text>
       </View>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.facebookButtonContainer}>

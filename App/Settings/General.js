@@ -16,6 +16,7 @@ import {
 
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/GeneralStyle';
 import DatePicker from 'react-native-datepicker';
@@ -186,7 +187,7 @@ hideErrors(){
         <TextInput style = {styles.TextInputStyle}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Full Name'
+          placeholder = {Label.t('42')}
           underlineColorAndroid = 'transparent'
           multiline = {false}
           maxLength = {100}
@@ -205,7 +206,7 @@ hideErrors(){
           ref='secondInput'
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Email Id'
+          placeholder = {Label.t('41')}
           underlineColorAndroid = 'transparent'
           multiline = {false}
           maxLength = {100}
@@ -220,14 +221,14 @@ hideErrors(){
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
       <View style = {styles.TextInputContainer}>
-        <Text style = {styles.dob_label}>Birthday</Text>
+        <Text style = {styles.dob_label}>{Label.t('43')}</Text>
         <DatePicker
           style = {styles.date_picker}
           date = {this.state.dob}
           format = "YYYY-MM-DD"
           maxDate = {this.state.date}
-          confirmBtnText = "Confirm"
-          cancelBtnText = "Cancel"
+          confirmBtnText = {Label.t('6')}
+          cancelBtnText = {Label.t('7')}
           iconSource = {images.dropdownArrow}
           onDateChange = {(date) => {this.setState({dob:date})}}
           customStyles={{dateInput: styles.dateInput,
@@ -240,7 +241,7 @@ hideErrors(){
           style = {styles.TextInputStyle}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Password'
+          placeholder = {Label.t('44')}
           underlineColorAndroid = 'transparent'
           secureTextEntry = {true}
           multiline = {false}
@@ -255,7 +256,7 @@ hideErrors(){
       <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
-          <Text style = {styles.signInButton}>Update</Text>
+          <Text style = {styles.signInButton}>{Label.t('39')}</Text>
         </TouchableOpacity>
       </View>
   </ScrollView>);

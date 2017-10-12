@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import settings from '../Constant/UrlConstant';
 import styles from './Style/SettingsStyle';
@@ -149,12 +150,12 @@ export default class Settings extends Component {
     <Image style={styles.img} source = {images.dashboardIcon}/>
   </TouchableOpacity>
   <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>Settings</Text>
-    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    <Text style = {styles.titleTextFirst}>{Label.t('33')}</Text>
+    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
   <View style = {[styles.TabContainer,styles.tabs]}>
   <MaterialTabs
-  items={['General', 'Payment','Charity', 'Notifications','Friends']}
+  items={[ Label.t('34'), Label.t('35'), Label.t('36'), Label.t('37'), Label.t('38')]}
   barColor="#FFFFFF"
   indicatorColor='#DC6865'
   activeTextColor='#DC6865'

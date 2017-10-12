@@ -12,6 +12,7 @@ import {
 
 import images from '../Constant/Images';
 import styles from './Style/FetchFriendStyle';
+import Label from '../Constant/Languages/LangConfig';
 import {onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -88,13 +89,13 @@ export default class FetchFriend extends Component {
 <MyActivityIndicator progress={this.state.showProgress} />
 <View style = {styles.titleContainer}>
   <Text style = {styles.titleTextFirst}></Text>
-  <Text style = {[styles.titleTextSecond,styles.marginFix1]}>Dollar Birthday Club!</Text>
+  <Text style = {[styles.titleTextSecond,styles.marginFix1]}>{Label.t('1')}</Text>
 </View>
 <View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.heading1}>Life's better with friends.</Text>
+  <Text style = {styles.heading1}>{Label.t('86')}</Text>
 </View>
 <View style = {[styles.TextInputContainer,styles.marginFix2]}>
-  <Text style = {styles.subhead1}>Import contacts and birthdays</Text>
+  <Text style = {styles.subhead1}>{Label.t('87')}</Text>
 </View>
 <ScrollView keyboardShouldPersistTaps="always">
 
@@ -104,18 +105,18 @@ export default class FetchFriend extends Component {
     </TouchableOpacity>
   </View>
   <View style = {styles.TextInputContainer}>
-    <Text style = {styles.orDivider}>- or -</Text>
+    <Text style = {styles.orDivider}>{Label.t('72')}</Text>
   </View>
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer,{borderRadius:3}]}
     onPress = {this.onLoginClick}>
-      <Text style = {styles.signInButton}>Import Manually</Text>
+      <Text style = {styles.signInButton}>{Label.t('88')}</Text>
     </TouchableOpacity>
   </View>
   <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
     <View style = {[styles.skipContainer]}>
-          <Text style = {styles.skip}>Skip >></Text>
+          <Text style = {styles.skip}>{Label.t('85')}</Text>
     </View>
   </TouchableOpacity>
 </ScrollView>

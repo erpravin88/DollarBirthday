@@ -13,6 +13,7 @@ import {
 import images from '../Constant/Images';
 import styles from './Style/ForgotPasswordStyle';
 import settings from '../Constant/UrlConstant';
+import Label from '../Constant/Languages/LangConfig';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 
@@ -49,16 +50,16 @@ export default class ForgetPassword extends Component {
             this.props.navigation.goBack(null);
             this.setState({showProgress : false});
          });
-         Toast.show('Password Send Successfully');
+         Toast.show(Label.t('89'));
        }else if (response.status === 404) {
          this.setState({showProgress : false});
-         Toast.show('Email is not registered');
+         Toast.show(Label.t('90'));
        }else if (response.status === 406) {
          this.setState({showProgress : false});
-         Toast.show('Email is Invalid');
+         Toast.show(Label.t('91'));
        }else if (response.status === 500) {
          this.setState({showProgress : false});
-         Toast.show('Unsuccessfull error:500');
+         Toast.show(Label.t('52'));
          }
        }).catch((error) => {console.log(error); });
 
@@ -75,16 +76,16 @@ export default class ForgetPassword extends Component {
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <MyActivityIndicator progress={this.state.showProgress} />
 <View style = {styles.titleContainer}>
-  <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+  <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
 </View>
 <View style={{height:'56%',overflow:'hidden'}}>
 <ScrollView  keyboardShouldPersistTaps="always">
 <View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.heading1}>Forgot Password</Text>
+  <Text style = {styles.heading1}>{Label.t('69')}</Text>
 </View>
 <View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.subhead1}>Please enter your email id below to</Text>
-  <Text style = {styles.subhead1}>generate a new password</Text>
+  <Text style = {styles.subhead1}>{Label.t('92')}</Text>
+  <Text style = {styles.subhead1}>{Label.t('93')}</Text>
 </View>
 
   <View style = {[styles.TextInputContainer,styles.marginFix1]}>
@@ -92,7 +93,7 @@ export default class ForgetPassword extends Component {
     style = {styles.TextInputStyle}
     keyboardType = 'default'
     placeholderTextColor = "#b7b7b7"
-    placeholder = 'Email Id'
+    placeholder = {Label.t('41')}
     keyboardType = 'email-address'
     underlineColorAndroid = 'transparent'
     multiline = {false} maxLength = {100}
@@ -111,12 +112,12 @@ export default class ForgetPassword extends Component {
   <TouchableOpacity
   style = {[styles.signInButtonContainer,{backgroundColor:'#6A4A9A'}]}
   onPress = {this.onSubmitClick}>
-    <Text style = {styles.signInButton}>Send</Text>
+    <Text style = {styles.signInButton}>{Label.t('94')}</Text>
   </TouchableOpacity>
   </View>
   <TouchableOpacity>
   <View style = {[styles.TextInputContainer,{marginBottom:'30%'}]}>
-        <Text style = {styles.term_service}>Remember password? <Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>Sign in now</Text></Text>
+        <Text style = {styles.term_service}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
   </View></TouchableOpacity>
   </ScrollView>
   </View>

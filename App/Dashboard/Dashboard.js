@@ -15,6 +15,7 @@ import {
 
 import images from '../Constant/Images';
 import styles from './Style/DashboardStyle';
+import Label from '../Constant/Languages/LangConfig';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 
 export default class SignUp extends Component {
@@ -68,8 +69,8 @@ export default class SignUp extends Component {
   return(
 <Image style = {styles.backgroundImage} source = {images.dbbackground}>
   <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>Explore</Text>
-    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    <Text style = {styles.titleTextFirst}>{Label.t('29')}</Text>
+    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
     <Image style = {styles.logo} source = {images.dbtoplogo}/>
   </View>
     <View style={[styles.iconContainer,styles.iconContainerfix1]}>
@@ -114,7 +115,7 @@ export default class SignUp extends Component {
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {()=>{ Alert.alert( 'Logout', 'Are you sure you want to logout of Dollar Birthday Club?', [ {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: 'OK', onPress: () => onSignOut(this)}, ], { cancelable: false } )}}>
+      onPress = {()=>{ Alert.alert( Label.t('30'), Label.t('31'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('32'), onPress: () => onSignOut(this)}, ], { cancelable: false } )}}>
       <Image style = {styles.full} source = {images.logoutIcon}/>
       </TouchableOpacity>
     </View>

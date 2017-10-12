@@ -14,6 +14,7 @@ import {
 
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
+import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/PaypalStyle';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -168,7 +169,7 @@ hideErrors(){
       style = {styles.TextInputStyle}
       keyboardType = 'email-address'
       placeholderTextColor = "#b7b7b7"
-      placeholder = 'PayPal Email Id'
+      placeholder = {Label.t('5')}
       underlineColorAndroid = 'transparent'
       multiline = {false} maxLength = {100}
       returnKeyType="send"
@@ -183,7 +184,7 @@ hideErrors(){
     <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
     <View style = {styles.TextInputContainer}>
       <Dropdown
-            label='Choose a Currency'
+            label={Label.t('40')}
             style = {styles.TextInputStyle}
             containerStyle ={{marginTop:-10}}
             baseColor = '#B3B3B3'
@@ -195,7 +196,7 @@ hideErrors(){
     </View>
     <View style = {styles.TextInputContainer}>
       <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onPaypalClick}>
-        <Text style = {styles.signInButton}>Update</Text>
+        <Text style = {styles.signInButton}>{Label.t('39')}</Text>
       </TouchableOpacity>
     </View>
     </ScrollView>
