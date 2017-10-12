@@ -153,14 +153,14 @@ componentWillMount(){
                     <Text style= {styles.boxtext}>{Label.t('0')}</Text>
                 </View>
             </TouchableOpacity>
-            <View style = {styles.googlesigninview}>
+            <View style = {[styles.googlesigninview]}>
                 <TouchableOpacity>
                     <View style = {styles.googlesigninbox}>
                         <Text style= {styles.boxtext}>{Label.t('65')}</Text>
                     </View>
                 </TouchableOpacity>
 
-                <Text style = {styles.googlefbtext}>{Label.t('66')}</Text>
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
             </View>
             <View style = {styles.fbfriendsview}>
                 <TouchableOpacity>
@@ -170,7 +170,7 @@ componentWillMount(){
                     </View>
                 </TouchableOpacity>
 
-                <Text style = {styles.googlefbtext}>{Label.t('67')}</Text>
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('67')}</Text>
             </View>
         </View>
         <View style={[styles.scrolllist]}>
