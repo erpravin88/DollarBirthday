@@ -14,6 +14,7 @@ import {
 import Label from '../Constant/Languages/LangConfig';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import styles from './Style/AddFriendStyle';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -132,44 +133,50 @@ componentWillMount(){
           else
           {
             //API Call
-            this.setState({showProgress : true});
-            callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
-              "first_name":this.state.firstName,
-              "last_name":this.state.lastName,
-              "birth_date": this.state.date }
-            ).then((response) => {
-              // response.json().then((responseobject) => {
-              // console.log(responseobject);});
-              if(response.status === 201){
-                response.json().then((responseobject) => {
-                  console.log(responseobject);
-                   this.setState({showProgress : false});
-                });
-                Toast.show('Friend Added');
-                if(this.props.navigation.state != undefined){
-                  if(this.props.navigation.state.params != undefined){
-                    if(this.props.navigation.state.params.callFrom != undefined){
-                      if(this.props.navigation.state.params.callFrom == 'setting'){
-                        this.props.navigation.dispatch(resetAction);
+            checkinternetconnectivity().then((response)=>{
+              if(response.Internet == true){
+              this.setState({showProgress : true});
+              callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
+                "first_name":this.state.firstName,
+                "last_name":this.state.lastName,
+                "birth_date": this.state.date }
+              ).then((response) => {
+                // response.json().then((responseobject) => {
+                // console.log(responseobject);});
+                if(response.status === 201){
+                  response.json().then((responseobject) => {
+                    console.log(responseobject);
+                    this.setState({showProgress : false});
+                  });
+                  Toast.show('Friend Added');
+                  if(this.props.navigation.state != undefined){
+                    if(this.props.navigation.state.params != undefined){
+                      if(this.props.navigation.state.params.callFrom != undefined){
+                        if(this.props.navigation.state.params.callFrom == 'setting'){
+                          this.props.navigation.dispatch(resetAction);
+                        }
                       }
                     }
                   }
-                }
 
-                this.props.navigation.goBack();
-              }else if (response.status === 401) {
-                this.setState({showProgress : false});
-                Toast.show('Unauthorized');
-              }else if (response.status === 406) {
-                response.json().then((responseobject) => {
+                  this.props.navigation.goBack();
+                }else if (response.status === 401) {
                   this.setState({showProgress : false});
-                  Toast.show(responseobject.error_messages);
-                });
-              }else if (response.status === 500) {
-                this.setState({showProgress : false});
-                Toast.show('Unsuccessfull error:500');
-                }
-            }).catch((error) => {console.log(error); });
+                  Toast.show('Unauthorized');
+                }else if (response.status === 406) {
+                  response.json().then((responseobject) => {
+                    this.setState({showProgress : false});
+                    Toast.show(responseobject.error_messages);
+                  });
+                }else if (response.status === 500) {
+                  this.setState({showProgress : false});
+                  Toast.show('Unsuccessfull error:500');
+                  }
+              }).catch((error) => {console.log(error); });
+            }else{
+              Toast.show("No Internet Connection");
+            }
+            });
       }
 
     }
@@ -225,41 +232,47 @@ componentWillMount(){
       else
       {
         //API Call
-        this.setState({showProgress : true});
-        callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
-          "first_name":this.state.firstName,
-          "last_name":this.state.lastName,
-          "birth_date": this.state.date }
-        ).then((response) => {
-          // response.json().then((responseobject) => {
-          // console.log(responseobject);});
-          if(response.status === 200){
-            this.setState({showProgress : false});
-            Toast.show('Friend Updated');
-            if(this.props.navigation.state != undefined){
-              if(this.props.navigation.state.params != undefined){
-                if(this.props.navigation.state.params.callFrom != undefined){
-                  if(this.props.navigation.state.params.callFrom == 'setting'){
-                    this.props.navigation.dispatch(resetAction);
+        checkinternetconnectivity().then((response)=>{
+          if(response.Internet == true){
+          this.setState({showProgress : true});
+          callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
+            "first_name":this.state.firstName,
+            "last_name":this.state.lastName,
+            "birth_date": this.state.date }
+          ).then((response) => {
+            // response.json().then((responseobject) => {
+            // console.log(responseobject);});
+            if(response.status === 200){
+              this.setState({showProgress : false});
+              Toast.show('Friend Updated');
+              if(this.props.navigation.state != undefined){
+                if(this.props.navigation.state.params != undefined){
+                  if(this.props.navigation.state.params.callFrom != undefined){
+                    if(this.props.navigation.state.params.callFrom == 'setting'){
+                      this.props.navigation.dispatch(resetAction);
+                    }
                   }
                 }
               }
-            }
 
-            this.props.navigation.goBack();
-          }else if (response.status === 401) {
-            this.setState({showProgress : false});
-            Toast.show('Unauthorized');
-          }else if (response.status === 406) {
-            response.json().then((responseobject) => {
+              this.props.navigation.goBack();
+            }else if (response.status === 401) {
               this.setState({showProgress : false});
-              Toast.show(responseobject.error_messages);
-            });
-          }else if (response.status === 500) {
-            this.setState({showProgress : false});
-            Toast.show('Unsuccessfull error:500');
-            }
-        }).catch((error) => {console.log(error); });
+              Toast.show('Unauthorized');
+            }else if (response.status === 406) {
+              response.json().then((responseobject) => {
+                this.setState({showProgress : false});
+                Toast.show(responseobject.error_messages);
+              });
+            }else if (response.status === 500) {
+              this.setState({showProgress : false});
+              Toast.show('Unsuccessfull error:500');
+              }
+          }).catch((error) => {console.log(error); });
+        }else{
+          Toast.show("No Internet Connection");
+        }
+        });
   }
     }
 

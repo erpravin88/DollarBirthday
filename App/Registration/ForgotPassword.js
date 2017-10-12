@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 
 import images from '../Constant/Images';
+import Toast from 'react-native-simple-toast';
 import styles from './Style/ForgotPasswordStyle';
 import settings from '../Constant/UrlConstant';
 import Label from '../Constant/Languages/LangConfig';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 
 export default class ForgetPassword extends Component {
   constructor(props){
@@ -42,27 +44,33 @@ export default class ForgetPassword extends Component {
      if(flag != ''){
        this.setState({errorMsg: error});
      }else{
-       this.setState({showProgress : true});
-       callApiWithoutAuth('forgotPassword','POST', {"email":this.state.email}).then((response) => {
-         if(response.status === 201){
-         response.json().then((responseobject) => {
-           console.log(responseobject);
-            this.props.navigation.goBack(null);
-            this.setState({showProgress : false});
-         });
-         Toast.show(Label.t('89'));
-       }else if (response.status === 404) {
-         this.setState({showProgress : false});
-         Toast.show(Label.t('90'));
-       }else if (response.status === 406) {
-         this.setState({showProgress : false});
-         Toast.show(Label.t('91'));
-       }else if (response.status === 500) {
-         this.setState({showProgress : false});
-         Toast.show(Label.t('52'));
-         }
-       }).catch((error) => {console.log(error); });
+      checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){ 
+        this.setState({showProgress : true});
+        callApiWithoutAuth('forgotPassword','POST', {"email":this.state.email}).then((response) => {
+          if(response.status === 201){
+          response.json().then((responseobject) => {
+            console.log(responseobject);
+              this.props.navigation.goBack(null);
+              this.setState({showProgress : false});
+          });
+          Toast.show(Label.t('89'));
+        }else if (response.status === 404) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('90'));
+        }else if (response.status === 406) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('91'));
+        }else if (response.status === 500) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('52'));
+          }
+        }).catch((error) => {console.log(error); });
+      }else{
+        Toast.show("No Internet Connection");
+      }
 
+    });
     }
   }
   hideErrors(){

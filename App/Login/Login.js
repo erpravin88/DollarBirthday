@@ -18,8 +18,10 @@ import {
 import Toast from 'react-native-simple-toast';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import styles from './style/LoginStyle';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
@@ -60,28 +62,30 @@ export default class Login extends Component {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(this.state.email == ''){
     flag = '0';
-    error.emailMsg = 'Please enter email.';
+    error.emailMsg = Label.t('75');
     }else if(!re.test(this.state.email)){
       flag = '0';
-      error.emailMsg = 'Please enter valid email.';
+      error.emailMsg = Label.t('76');
     }else if(this.state.password == ''){
       flag = '1';
-      error.passwordMsg = 'Please enter password.';
+      error.passwordMsg = Label.t('77');
     } else if(this.state.password == '')
     {
       flag = '1';
-      error.passwordMsg = 'Please enter password.';
+      error.passwordMsg = Label.t('77');
     }
     else if(this.state.password.length < 8)
     {
       flag = '1';
-      error.passwordMsg = 'Minimum 8 character required.';
+      error.passwordMsg = Label.t('78');
     }
     if(flag != ''){
       this.setState({errorMsg: error});
     }else{
-      this.setState({showProgress : true});
       console.log(this.state);  // Add your logic for the transition
+      checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){
+          this.setState({showProgress : true});
         callApiWithoutAuth('login','POST', {"email":this.state.email,
           "password":this.state.password,
           "login_type":this.state.login_type,
@@ -97,17 +101,21 @@ export default class Login extends Component {
              this.props.navigation.dispatch(resetAction);
              this.setState({showProgress : false});
           });
-          Toast.show('Login Successfull');
+          Toast.show(Label.t('73'));
         }else if (response.status === 404) {
           this.setState({showProgress : false});
         }else if (response.status === 406) {
           this.setState({showProgress : false});
-          Toast.show('Email/Password is incorrect');
+          Toast.show(Label.t('74'));
         }else if (response.status === 500) {
           this.setState({showProgress : false});
-          Toast.show('Unsuccessfull error:500');
+          Toast.show(Label.t('52'));
           }
         }).catch((error) => {console.log(error); });
+      }else{
+        Toast.show("No Internet Connection");
+      }
+      });
 
     }
   }
@@ -124,8 +132,8 @@ return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground} >
 <MyActivityIndicator progress={this.state.showProgress} />
   <View style = {[styles.titleContainer]}>
-    <Text style = {styles.titleTextFirst}>Join the</Text>
-    <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
+    <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
+    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
     <Image style = {[styles.logo, {display:'none'}]} source = {images.baseLogo}/>
   </View>
   <View style = {[styles.formgroup]}>
@@ -134,7 +142,7 @@ return(
         <TextInput style = {[styles.TextInputStyle, styles.font5]}
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Email Id'
+          placeholder = {Label.t('41')}
           underlineColorAndroid = 'transparent'
           returnKeyType="next"
           keyboardType="email-address"
@@ -152,7 +160,7 @@ return(
           ref='secondInput'
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
-          placeholder = 'Password'
+          placeholder = {Label.t('44')}
           underlineColorAndroid = 'transparent'
           secureTextEntry = {true}
           multiline = {false}
@@ -168,21 +176,21 @@ return(
         <TouchableOpacity
         onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}
         >
-        <Text style = {styles.forgot}>Forgot Password?</Text>
+        <Text style = {styles.forgot}>{Label.t('69')}</Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
-          <Text style = {styles.signInButton}>Sign In</Text>
+          <Text style = {styles.signInButton}>{Label.t('70')}</Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity onPress={()=>{this.props.navigation.navigate('SIGN_UP')}}>
-        <Text style = {styles.forgot}>Don't have account? Sign Up</Text>
+        <Text style = {styles.forgot}>{Label.t('71')}</Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.TextInputContainer}>
-        <Text style = {styles.orDivider}>- or -</Text>
+        <Text style = {styles.orDivider}>{Label.t('72')}</Text>
       </View>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.facebookButtonContainer}>

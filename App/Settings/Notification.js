@@ -11,6 +11,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/NotificationStyle';
+import Label from '../Constant/Languages/LangConfig';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS,setUserDetails } from '../Constant/Auth';
@@ -71,15 +72,15 @@ onCharityClick(){
     this.state.user_details.alert = this.state.alert.index;
     this.state.user_details.notification = this.state.email_notify;
     setUserDetails(this.state.user_details);
-    Toast.show('Notification update Successfully');
+    Toast.show(Label.t('55'));
   }else if (response.status === 404) {
-    Toast.show('Page not Found');
+    Toast.show(Label.t('49'));
   }else if (response.status === 406) {
-    Toast.show('Invalid data');
+    Toast.show(Label.t('50'));
   }else if (response.status === 401) {
-    Toast.show('Unauthroize');
+    Toast.show(Label.t('51'));
   }else if (response.status === 500) {
-    Toast.show('Unsuccessfull error:500');
+    Toast.show(Label.t('52'));
     }
   }).catch((error) => {console.log(error); })
 }
@@ -87,7 +88,7 @@ render(){
 
   return(<ScrollView  keyboardShouldPersistTaps="always">
   <View style = {[styles.TextInputContainer,{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}]}>
-  <Text style={{flex:5,backgroundColor:'transparent'}}>Email Notifications</Text>
+  <Text style={{flex:5,backgroundColor:'transparent'}}>{Label.t('56')}</Text>
   <Switch style={{flex:1,width:100}}
     onValueChange={()=>{
           if(this.state.email_notify){
@@ -102,7 +103,7 @@ render(){
   </View>
   <View style = {styles.TextInputContainer}>
   <Dropdown
-        label='Alert Period'
+        label= {Label.t('57')}
         style = {styles.TextInputStyle}
         containerStyle ={{marginTop:-10}}
         baseColor = '#B3B3B3'
@@ -115,7 +116,7 @@ render(){
     <TouchableOpacity
     style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>
-      <Text style = {styles.signInButton}>Update</Text>
+      <Text style = {styles.signInButton}>{Label.t('39')}</Text>
     </TouchableOpacity>
   </View>
   </ScrollView>);
