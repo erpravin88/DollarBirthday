@@ -17,6 +17,7 @@ import images from '../Constant/Images';
 import styles from './Style/DashboardStyle';
 import Label from '../Constant/Languages/LangConfig';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 
 export default class SignUp extends Component {
   constructor(props){

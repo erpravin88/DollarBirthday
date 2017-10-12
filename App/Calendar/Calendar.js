@@ -18,7 +18,6 @@ import Toast from 'react-native-simple-toast';
 import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/CalendarStyle';
-import {checkinternetconnectivity} from '../Constant/netinfo';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -106,6 +105,7 @@ checkyear(month){
 
 componentWillMount(){
     //this.setState({name: this.props.navigation.state.params.name});
+    this.setState({showProgress : true});
         AsyncStorage.getItem(USER_KEY).then((key)=>{
           //this.setState({user_key: key});
         }).catch((err)=>{
@@ -113,45 +113,37 @@ componentWillMount(){
         });
         AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
            this.setState({auth_token: token});
-            checkinternetconnectivity().then((response)=>{
-                if(response.Internet == true){
-                    this.setState({showProgress : true});
-                    callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
-                        if(response.status === 200){
-                        response.json().then((responseobject) => {
-                            this.setState({ Friends: responseobject.data });
-                            this.state.calendaryear = (new Date()).getFullYear();
-                            let friends_date = {};
-                            for (let friend of this.state.Friends) {
-                                var temp = new Date(friend.birth_date);
-                                var tempday = temp.getDate();
-                                if(tempday < 10){
-                                    tempday = "0"+tempday;
-                                }
-                                var tempmonth = temp.getMonth() + 1;
-                                if(tempmonth < 10){
-                                    tempmonth = "0"+tempmonth;
-                                }
-                                var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
-                                friends_date[date]={marked: true};
-                            }
-                            this.setState({friends_date: friends_date});
-                        });
-                        this.setState({showProgress : false});
-                        //Toast.show('Task fetched');
-                        }else if (response.status === 401) {
-                        this.setState({showProgress : false});
-                        Toast.show('Error fetching friends');
-                        }else if (response.status === 500) {
-                        this.setState({showProgress : false});
-                        Toast.show('Error fetching friends:500');
+             callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
+                if(response.status === 200){
+                  response.json().then((responseobject) => {
+                    this.setState({ Friends: responseobject.data });
+                    this.state.calendaryear = (new Date()).getFullYear();
+                    let friends_date = {};
+                    for (let friend of this.state.Friends) {
+                        var temp = new Date(friend.birth_date);
+                        var tempday = temp.getDate();
+                        if(tempday < 10){
+                            tempday = "0"+tempday;
                         }
-                    }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
-                }else{
-                    this.props.navigation.dispatch(resetAction);
-                    Toast.show("No Internet Connection");
+                        var tempmonth = temp.getMonth() + 1;
+                        if(tempmonth < 10){
+                            tempmonth = "0"+tempmonth;
+                        }
+                        var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
+                        friends_date[date]={marked: true};
+                    }
+                    this.setState({friends_date: friends_date});
+                  });
+                  this.setState({showProgress : false});
+                  //Toast.show('Task fetched');
+                }else if (response.status === 401) {
+                   this.setState({showProgress : false});
+                   Toast.show('Error fetching friends');
+                }else if (response.status === 500) {
+                   this.setState({showProgress : false});
+                   Toast.show('Error fetching friends:500');
                 }
-            });
+             }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
         }).catch((err)=>{
           onSignOut;
           Toast.show(err);
