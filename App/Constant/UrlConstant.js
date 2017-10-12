@@ -5,6 +5,8 @@ export const settings = {
   DEVICE_ID: DeviceInfo.getUniqueID(),
   DEVICE_NAME: DeviceInfo.getSystemName(),
   PAYPAL_URL:"https://www.paypal.com/welcome/signup/",
+  PAYPAL_ENV:'sandbox',// NO_NETWORK mock,SANDBOX sandbox,PRODUCTION ListView
+  PAYPAL_CLIENT_ID:'AbtGwMQVpZ8OPYi8VuZ3mQG61TxSEHJXncouefwtFQVZ8F0XOMZ-1NrSWIWtOyDA38vxJdCLib1SJy-E',
 };
 export const alertData = [{
       value: 'No alert',index:'0'

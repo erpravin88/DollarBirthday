@@ -1,8 +1,12 @@
 import {Dimensions , StyleSheet,  Platform} from 'react-native';
 const { width, height } = Dimensions.get('window');
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 
   const styles = StyleSheet.create({
 
+      statusBar: {
+        height: STATUSBAR_HEIGHT,
+      },
     backgroundImage: {
      flex:1,
      width:  '100%',

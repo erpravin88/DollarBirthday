@@ -21,6 +21,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		225CAD9D458E4B0481853ACB /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F0900195D64C1BA0603FB5 /* libRNPaypalWrapper.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -114,6 +115,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 6476C4051EEAA69700B10F51;
 			remoteInfo = "RNI18n-tvOS";
+		};
+		28B3B1C11F8F841500079FB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNPaypalWrapper;
 		};
 		28C9926C1F848FAF00095684 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -316,7 +324,9 @@
 		287E19B127474A549D58020A /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* DollarBirthday-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DollarBirthday-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DollarBirthday-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DollarBirthday-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPaypalWrapper.xcodeproj; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; };
 		469EDEF950F04C19920CD113 /* LRDRCTSimpleToast.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = LRDRCTSimpleToast.xcodeproj; path = "../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast.xcodeproj"; sourceTree = "<group>"; };
+		51F0900195D64C1BA0603FB5 /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPaypalWrapper.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -350,6 +360,7 @@
 				325D4785825A43D6ADA808C7 /* libRNDeviceInfo.a in Frameworks */,
 				2DC8CEF864C64B71B4EC934D /* libLRDRCTSimpleToast.a in Frameworks */,
 				06750EF2A6144404A083EE29 /* libRNI18n.a in Frameworks */,
+				225CAD9D458E4B0481853ACB /* libRNPaypalWrapper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +510,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		28B3B19C1F8F841400079FB9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28B3B1C21F8F841500079FB9 /* libRNPaypalWrapper.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		28C992671F848FAF00095684 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +570,7 @@
 				2041393691234E88AD3E0AAD /* RNDeviceInfo.xcodeproj */,
 				469EDEF950F04C19920CD113 /* LRDRCTSimpleToast.xcodeproj */,
 				010BBF8A56164B17955E19A8 /* RNI18n.xcodeproj */,
+				3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -770,6 +790,10 @@
 					ProductGroup = 289E546F1F8E1C6B00A356A6 /* Products */;
 					ProjectRef = 010BBF8A56164B17955E19A8 /* RNI18n.xcodeproj */;
 				},
+				{
+					ProductGroup = 28B3B19C1F8F841400079FB9 /* Products */;
+					ProjectRef = 3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -849,6 +873,13 @@
 			fileType = archive.ar;
 			path = "libRNI18n-tvOS.a";
 			remoteRef = 289E54951F8E1C6B00A356A6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		28B3B1C21F8F841500079FB9 /* libRNPaypalWrapper.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNPaypalWrapper.a;
+			remoteRef = 28B3B1C11F8F841500079FB9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		28C9926D1F848FAF00095684 /* libLRDRCTSimpleToast.a */ = {
@@ -1149,11 +1180,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/DollarBirthday\"",
 					"\"$(SRCROOT)/DollarBirthday\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1184,11 +1217,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/DollarBirthday\"",
 					"\"$(SRCROOT)/DollarBirthday\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1223,6 +1258,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 				);
 				INFOPLIST_FILE = "DollarBirthday-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1263,6 +1299,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 				);
 				INFOPLIST_FILE = "DollarBirthday-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

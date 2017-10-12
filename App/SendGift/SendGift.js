@@ -15,7 +15,7 @@ import {
   Picker
 } from 'react-native';
 
-import PayPal from 'react-native-paypal-integration';
+import PayPal from 'react-native-paypal-wrapper';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/SendGiftStyle';
@@ -24,6 +24,7 @@ import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { Dropdown } from 'react-native-material-dropdown';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import settings from '../Constant/UrlConstant';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -54,6 +55,14 @@ constructor(props){
 }
 
 sendgiftandcharity(){
+  console.log(settings);
+  // PayPal.initialize(settings.PAYPAL_ENV,settings.PAYPAL_CLIENT_ID);
+  // PayPal.pay({
+  //   price: '40.70',
+  //   currency: 'USD',
+  //   description: 'Your description goes here',
+  // }).then(confirm => console.log(confirm))
+  //   .catch(error => console.log(error));
     let error = this.state.errorMsg;
     let shareonfb = !this.state.checkboximg;
     error.Message = '';
@@ -91,24 +100,9 @@ sendgiftandcharity(){
       }
       else
       {
-        PayPal.profileSharing({
-    clientId: 'access_token$sandbox$bqktwq68fv5sd8j9$066fbd28ee0f42302cdd82418c3a41d9',
-    environment: PayPal.SANDBOX,
-    merchantName: 'Your merchant name',
-    merchantPrivacyPolicyUri: 'http://your-url.com/policy',
-    merchantUserAgreementUri: 'http://your-url.com/legal',
-    scopes: ['pk','test','pravinkumar@classicinformatics.com','9015688565'
-        // PayPal.SCOPE_PROFILE, // Full Name, Birth Date, Time Zone, Locale, Language
-        // PayPal.SCOPE_PAYPAL_ATTRIBUTES, // Age Range, Account Status, Account Type, Account Creation Date
-        // PayPal.SCOPE_EMAIL, // Email
-        // PayPal.SCOPE_ADDRESS, // Address
-        // PayPal.SCOPE_PHONE // Telephone
-    ]
-  },
-  function (r) {
-    console.log(r);
-  }
-);
+        console.log(PayPal);
+        // 3 env available: NO_NETWORK, SANDBOX, PRODUCTION
+
       }
 }
 
@@ -285,7 +279,7 @@ render(){
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
                     <View >
                         <TouchableOpacity style={styles.sharefbcontainer}
-                        onPress={ () => this.setState({ checkboximg: !this.state.checkboximg }) }
+                        onPress={ () => {        this.setState({ checkboximg: !this.state.checkboximg });} }
                         >
                             {this.renderImage()}
                             <Text style={styles.sharefbtext}>Share this on Facebook</Text>

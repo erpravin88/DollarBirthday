@@ -59,7 +59,7 @@ export default class upcomings extends Component {
                  this.setState({ f_list: responseobject.data,showProgress : false });
                  console.log(responseobject.data);
                });
-               Toast.show('Friend list fetched');
+               //Toast.show('Friend list fetched');
              }else if (response.status === 401) {
                response.json().then((responseobject) => {
                  //this.setState({ f_list: responseobject.data.recent,showProgress : false });
@@ -92,8 +92,8 @@ export default class upcomings extends Component {
       });
   }
   navigatetoSendGift(friend){
-    console.log(friend);
-    let date = new Date(friend.birth_date)
+    //console.log(friend);
+    //let date = new Date(friend.birth_date)
       this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
   }
   renderRow(data) {
@@ -104,7 +104,7 @@ export default class upcomings extends Component {
            <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
            <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
            <View style={styles.btnw}>
-              <TouchableOpacity style={styles.btn1} onPress={()=>{console.log(data.email);}}>
+              <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(data);console.log(data.email);}}>
                 <Text style={styles.text1}>{Label.t('13')}</Text>
               </TouchableOpacity>
            </View>

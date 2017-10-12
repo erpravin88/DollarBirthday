@@ -18,7 +18,7 @@ import styles from './Style/DashboardStyle';
 import Label from '../Constant/Languages/LangConfig';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 
-export default class SignUp extends Component {
+export default class Dashboard extends Component {
   constructor(props){
    super(props);
    this.state = {
