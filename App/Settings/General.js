@@ -21,6 +21,7 @@ import images from '../Constant/Images';
 import styles from './Style/GeneralStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithoutAuth,callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
@@ -127,7 +128,7 @@ console.log(this.state.date);
   }
   else
   {
-    this.setState({showProgress : true});
+    
     let data = {"email":this.state.email,
       "password":this.state.password,
     //  "device_id":this.state.device_id,
@@ -136,6 +137,9 @@ console.log(this.state.date);
       "full_name":this.state.fullName,
       "birth_date": this.state.dob };
       console.log(data);
+      checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){
+      this.setState({showProgress : true});
       callApiWithAuth('user/profile','PUT',this.state.auth_token ,data ).then((response) => {
 
         if(response.status === 201){
@@ -166,7 +170,10 @@ console.log(this.state.date);
         Toast.show('Unsuccessfull error:500');
         }
       }).catch((error) => {console.log(error); });
-
+    }else{
+      Toast.show("No Internet Connection");
+    }
+  });
   }
 
 }

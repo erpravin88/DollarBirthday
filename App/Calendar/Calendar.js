@@ -22,6 +22,7 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -51,7 +52,13 @@ constructor(props){
 
 navigatetoSendGift(friend){
     this.setModalVisible(false);
-    this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+    checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){
+            this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+        }else{
+            Toast.show("No Internet Connection");
+        }
+    });
 }
 
 setModalVisible(visible) {
