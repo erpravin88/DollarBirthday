@@ -6,7 +6,8 @@ export const settings = {
   DEVICE_NAME: DeviceInfo.getSystemName(),
   PAYPAL_URL:"https://www.paypal.com/welcome/signup/",
   PAYPAL_ENV:'sandbox',// NO_NETWORK mock,SANDBOX sandbox,PRODUCTION ListView
-  PAYPAL_CLIENT_ID:'AbtGwMQVpZ8OPYi8VuZ3mQG61TxSEHJXncouefwtFQVZ8F0XOMZ-1NrSWIWtOyDA38vxJdCLib1SJy-E',
+  PAYPAL_CLIENT_ID:'Af80nyGeNsyln_wAA_V9Dx7mfdRDXPOM_7uWwPdTi7wliAxA2LkqA6bTIbucs4xx5wElEfN5AN1NKgow',
+  //PAYPAL_CLIENT_ID:'AbtGwMQVpZ8OPYi8VuZ3mQG61TxSEHJXncouefwtFQVZ8F0XOMZ-1NrSWIWtOyDA38vxJdCLib1SJy-E',
 };
 export const alertData = [{
       value: 'No alert',index:'0'

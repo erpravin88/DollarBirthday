@@ -1,4 +1,4 @@
-import {Dimensions , StyleSheet,  Platform} from 'react-native';
+import {Dimensions , StyleSheet,  Platform,StatusBar} from 'react-native';
 const { width, height } = Dimensions.get('window');
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 

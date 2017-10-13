@@ -10,28 +10,28 @@ const { width, height } = Dimensions.get('window');
 		},
 		font1:{
 			fontSize:10,
- 			fontFamily:'OpenSans-Semibold'
 		},
 		font2:{
 			fontSize:12,
- 			fontFamily:'OpenSans-Semibold'
 		},
 		font3:{
 			fontSize:14,
- 			fontFamily:'OpenSans-Semibold'
 		},
 		font4:{
 			fontSize:16,
- 			fontFamily:'OpenSans-Semibold'
 		},
 		font5:{
 			fontSize:18,
- 			fontFamily:'OpenSans-Semibold'
 		},
     font6:{
 			fontSize:20,
- 			fontFamily:'OpenSans-Semibold'
 		},
+    fontFamilyBold:{
+      fontFamily:'OpenSans-Semibold',
+    },
+    fontFamilyNormal:{
+      fontFamily:'Open Sans',
+    },
 		colorWhite:{
 			color:'#FFFFFF',
 		},
@@ -50,6 +50,12 @@ const { width, height } = Dimensions.get('window');
 		show:{
 			display:'flex',
 		},
+    marginTopFive:{
+      marginTop:'5%',
+    },
+    marginBottomFive:{
+      marginBottom:'5%',
+    },
 		backgroundImage: {
 		 flex:1,
 		 width:  '100%',
@@ -78,8 +84,8 @@ const { width, height } = Dimensions.get('window');
 	 },
  dashboardIconw:{
 	   position:'absolute',
-	   width:25,
-	   height:25,
+	   width:35,
+	   height:35,
 	   left:'5.5%',
 	   top:'3.5%',
 	 },

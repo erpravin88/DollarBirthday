@@ -173,24 +173,6 @@ hideErrors(){
     // }, {
     //   value: 'I Do Not Wish To Donate at This Time',index:'3'
     // }];
-let other_amount =(this.state.pre_amount.index == 'specify') ?
-        (<View style = {[styles.TextInputContainer]}>
-          <TextInput
-          style = {styles.TextInputStyle}
-          keyboardType = 'numeric'
-          placeholderTextColor = "#b7b7b7"
-          placeholder = {Label.t('11')}
-          underlineColorAndroid = 'transparent'
-          multiline = {false} maxLength = {3}
-          returnKeyType="send"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
-          />
-          <Text style = {styles.TextInputLine} />
-          <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
-          <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
-        </View>) : (<Text style={{height:0}}></Text>);
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <View style = {styles.titleContainer}>
@@ -202,11 +184,11 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
 <View style = {[styles.TextInputContainer]}>
   <Text style = {styles.heading1}>{Label.t('80')}</Text>
 </View>
-<View style = {[styles.TextInputContainer]}>
+<View style = {[styles.TextInputContainer,styles.marginBottomFive]}>
   <Text style = {styles.subhead1}>{Label.t('81')}</Text>
   <Text style = {styles.subhead1}>{Label.t('82')}</Text>
 </View>
-  <View style = {styles.EmailTextInputContainer}>
+  <View style = {[styles.TextInputContainer,styles.marginTopFive]}>
     <Dropdown
           label='Choose a Charity'
           style = {styles.TextInputStyle}
@@ -227,8 +209,25 @@ let other_amount =(this.state.pre_amount.index == 'specify') ?
         onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
       />
       <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
+  </View><View>
+  {(this.state.pre_amount.index == 'specify') ?
+          (<View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+            <TextInput
+            style = {styles.TextInputStyle}
+            keyboardType = 'numeric'
+            placeholderTextColor = "#b7b7b7"
+            placeholder = {Label.t('11')}
+            underlineColorAndroid = 'transparent'
+            multiline = {false} maxLength = {3}
+            returnKeyType="send"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
+            />
+            <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+            </View>) : (<View></View>)}
+  <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
   </View>
-  {other_amount}
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}

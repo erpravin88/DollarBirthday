@@ -89,7 +89,7 @@ export default class FetchFriend extends Component {
 <MyActivityIndicator progress={this.state.showProgress} />
 <View style = {styles.titleContainer}>
   <Text style = {styles.titleTextFirst}></Text>
-  <Text style = {[styles.titleTextSecond,styles.marginFix1]}>{Label.t('1')}</Text>
+  <Text style = {[styles.titleTextSecond,styles.marginTopFive]}>{Label.t('1')}</Text>
 </View>
 <View style = {[styles.TextInputContainer]}>
   <Text style = {styles.heading1}>{Label.t('86')}</Text>

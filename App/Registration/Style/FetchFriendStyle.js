@@ -23,8 +23,8 @@ const style = {
  facebookButtonContainer: {
 
    width: '100%',
-   height:50,
-   marginTop: 5,
+   height:40,
+   marginTop: '5%',
    backgroundColor:'#426cb1',
    justifyContent:'center',
    alignItems:'center',
@@ -35,9 +35,6 @@ const style = {
    height:'100%',
    resizeMode:'contain'
  },
-marginFix1:{
-  marginBottom: '5%',
-},
 marginFix2:{
   marginTop: '2%',
   marginBottom:'12%',
@@ -47,13 +44,12 @@ skip:{
   color:'#000000',
   fontFamily:'Open Sans',
   backgroundColor:'transparent',
-  fontFamily:'Open Sans',
   alignSelf:'center',
   justifyContent:'center',
 },
 skipContainer:{
   width:'20%',
-  marginTop:'2%',
+  marginTop:'4%',
   alignSelf:'center',
   justifyContent:'center',
 }

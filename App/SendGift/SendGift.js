@@ -58,9 +58,9 @@ sendgiftandcharity(){
   console.log(settings);
   // PayPal.initialize(settings.PAYPAL_ENV,settings.PAYPAL_CLIENT_ID);
   // PayPal.pay({
-  //   price: '40.70',
-  //   currency: 'USD',
-  //   description: 'Your description goes here',
+  //   price:'1.00',
+  //   currency:'USD',
+  //   description:'Test transctions',
   // }).then(confirm => console.log(confirm))
   //   .catch(error => console.log(error));
     let error = this.state.errorMsg;

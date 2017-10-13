@@ -45,7 +45,7 @@ export default class ForgetPassword extends Component {
        this.setState({errorMsg: error});
      }else{
       checkinternetconnectivity().then((response)=>{
-        if(response.Internet == true){ 
+        if(response.Internet == true){
         this.setState({showProgress : true});
         callApiWithoutAuth('forgotPassword','POST', {"email":this.state.email}).then((response) => {
           if(response.status === 201){
@@ -95,8 +95,8 @@ export default class ForgetPassword extends Component {
   <Text style = {styles.subhead1}>{Label.t('92')}</Text>
   <Text style = {styles.subhead1}>{Label.t('93')}</Text>
 </View>
-
-  <View style = {[styles.TextInputContainer,styles.marginFix1]}>
+  <View style={[styles.marginFix1,]}>
+  <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
     <TextInput
     style = {styles.TextInputStyle}
     keyboardType = 'default'
@@ -112,9 +112,9 @@ export default class ForgetPassword extends Component {
     onSubmitEditing={this.onSubmitClick}
     onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
     />
-    <Text style = {styles.TextInputLine} />
     <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-    <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+  </View>
+  <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
   </View>
   <View style = {styles.TextInputContainer}>
   <TouchableOpacity
