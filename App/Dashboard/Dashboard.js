@@ -15,6 +15,7 @@ import {
 
 import images from '../Constant/Images';
 import styles from './Style/DashboardStyle';
+import Toast from 'react-native-simple-toast';
 import Label from '../Constant/Languages/LangConfig';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
 import {checkinternetconnectivity} from '../Constant/netinfo';
@@ -22,9 +23,20 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 export default class Dashboard extends Component {
   constructor(props){
    super(props);
+   this.navfromdashboard = this.navfromdashboard.bind(this);
    this.state = {
      'date': new Date(Date.now()),
     };
+  }
+
+  navfromdashboard(route){
+    checkinternetconnectivity().then((response)=>{
+      if(response.Internet == true){
+        this.props.navigation.navigate(route);
+      }else{
+        Toast.show("No Internet Connection");
+      }
+    });
   }
 
   componentWillMount(){
@@ -77,41 +89,41 @@ export default class Dashboard extends Component {
     <View style={[styles.iconContainer,styles.iconContainerfix1]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.props.navigation.navigate('INBOX');}}>
+      onPress={()=>{this.navfromdashboard('INBOX')}}>
       <Image style = {styles.full} source = {images.inboxIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.props.navigation.navigate('UPCOMINGS');}}>
+      onPress={()=>{this.navfromdashboard('UPCOMINGS')}}>
       <Image style = {styles.full} source = {images.upcomingIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.props.navigation.navigate('CALENDAR')}}>
+      onPress={()=>{this.navfromdashboard('CALENDAR')}}>
       <Image style = {styles.full} source = {images.colenderIcon}/>
       </TouchableOpacity>
     </View>
     <View style={[styles.iconContainer,styles.iconContainerfix2]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.props.navigation.navigate('DONATE')}}>
+      onPress={()=>{this.navfromdashboard('DONATE')}}>
       <Image style = {styles.full} source = {images.donateIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.props.navigation.navigate('GIFTHISTORY')}}>
+      onPress={()=>{this.navfromdashboard('GIFTHISTORY')}}>
       <Image style = {styles.full} source = {images.gifthistoryIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress = {()=>{this.props.navigation.navigate('SETTING')}}>
+      onPress = {()=>{this.navfromdashboard('SETTING')}}>
       <Image style = {styles.full} source = {images.settingsIcon}/>
       </TouchableOpacity>
     </View>
     <View style = {[styles.iconContainer,styles.iconContainerfix3]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.props.navigation.navigate('ADDFRIEND')}}>
+      onPress={()=>{this.navfromdashboard('ADDFRIEND')}}>
       <Image style = {styles.full} source = {images.addfriendIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
