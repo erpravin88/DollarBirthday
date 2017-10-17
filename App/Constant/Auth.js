@@ -57,4 +57,5 @@ export const isSignedIn = () => {
 
 export const setUserDetails = (data) =>{
   AsyncStorage.setItem(USER_DETAILS, JSON.stringify(data));
+  console.log(data);
 };

@@ -4,8 +4,9 @@ import Login from '../Login/Login';
 import SignUp from '../Registration/SignUp';
 import Charity from '../Registration/Charity';
 import FetchFriend from '../Registration/FetchFriend';
-import Dashboard from '../Dashboard/Dashboard';
 import Paypal from '../Registration/Paypal';
+import ImportManually from '../Registration/ImportManually';
+import Dashboard from '../Dashboard/Dashboard';
 import ForgotPassword from '../Registration/ForgotPassword';
 import AddFriend from '../AddFriend/AddFriend';
 import Upcoming from '../Upcomings/Upcomings';
@@ -22,8 +23,9 @@ export const screenRoute = (SignIn) => {
     SIGN_UP:{screen:SignUp},
     CHARITY:{screen:Charity},
     FETCH_FRIEND:{screen:FetchFriend},
-    DASHBOARD:{screen: Dashboard},
     PAYPAL:{screen: Paypal},
+    IMPORTMANUALLY: {screen:ImportManually},
+    DASHBOARD:{screen: Dashboard},
     FPASSWORD:{screen: ForgotPassword},
     ADDFRIEND:{screen: AddFriend},
     UPCOMINGS : {screen : Upcoming},

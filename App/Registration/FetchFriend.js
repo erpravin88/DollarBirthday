@@ -22,6 +22,10 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
+const resetAction1 = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'IMPORTMANUALLY' })],
+    });
 export default class FetchFriend extends Component {
 
 
@@ -85,42 +89,41 @@ export default class FetchFriend extends Component {
   render(){
 
   return(
-<Image style = {styles.backgroundImage} source = {images.loginbackground}>
-<MyActivityIndicator progress={this.state.showProgress} />
-<View style = {styles.titleContainer}>
-  <Text style = {styles.titleTextFirst}></Text>
-  <Text style = {[styles.titleTextSecond,styles.marginTopFive]}>{Label.t('1')}</Text>
-</View>
-<View style = {[styles.TextInputContainer]}>
-  <Text style = {styles.heading1}>{Label.t('86')}</Text>
-</View>
-<View style = {[styles.TextInputContainer,styles.marginFix2]}>
-  <Text style = {styles.subhead1}>{Label.t('87')}</Text>
-</View>
-<ScrollView keyboardShouldPersistTaps="always">
-
-  <View style = {styles.TextInputContainer}>
-    <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]}>
-      <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
-    </TouchableOpacity>
-  </View>
-  <View style = {styles.TextInputContainer}>
-    <Text style = {styles.orDivider}>{Label.t('72')}</Text>
+<View style={[styles.full]}>
+<Image style = {styles.backgroundImage} source = {images.loginbackground} />
+  <MyActivityIndicator progress={this.state.showProgress} />
+  <View style = {styles.titleContainer}>
+    <Text style = {styles.titleTextFirst}></Text>
+    <Text style = {[styles.titleTextSecond,styles.marginTopFive]}>{Label.t('1')}</Text>
   </View>
   <View style = {[styles.TextInputContainer]}>
-    <TouchableOpacity
-    style = {[styles.signInButtonContainer,{borderRadius:3}]}
-    onPress = {this.onLoginClick}>
-      <Text style = {styles.signInButton}>{Label.t('88')}</Text>
-    </TouchableOpacity>
+    <Text style = {styles.heading1}>{Label.t('86')}</Text>
   </View>
-  <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
-    <View style = {[styles.skipContainer]}>
-          <Text style = {styles.skip}>{Label.t('85')}</Text>
+  <View style = {[styles.TextInputContainer,styles.marginFix2]}>
+    <Text style = {styles.subhead1}>{Label.t('87')}</Text>
+  </View>
+  <ScrollView keyboardShouldPersistTaps="always">
+    <View style = {styles.TextInputContainer}>
+      <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]}>
+        <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
+      </TouchableOpacity>
     </View>
-  </TouchableOpacity>
-</ScrollView>
-</Image>);
-
+    <View style = {styles.TextInputContainer}>
+      <Text style = {styles.orDivider}>{Label.t('72')}</Text>
+    </View>
+    <View style = {[styles.TextInputContainer]}>
+      <TouchableOpacity
+      style = {[styles.signInButtonContainer,{borderRadius:3}]}>
+        <Text style = {styles.signInButton}>{Label.t('88')}</Text>
+      </TouchableOpacity>
+    </View>
+    <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+      <View style = {[styles.skipContainer]}>
+            <Text style = {styles.skip}>{Label.t('85')}</Text>
+      </View>
+    </TouchableOpacity>
+  </ScrollView>
+</View>);
   }
 }
+//onPress={()=>{this.props.navigation.dispatch(resetAction1);}}

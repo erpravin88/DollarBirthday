@@ -179,7 +179,8 @@ componentWillMount(){
 render(){
   let bdate = new Date(this.state.friend.birth_date)
     return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
+      <View style={[styles.full]}>
+        <Image style = {styles.backgroundImage} source = {images.background} />
             <MyActivityIndicator progress={this.state.showProgress} />
             <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.goBack()}}>
                 <Image style = {styles.img} source = {images.backIcon}></Image>
@@ -240,7 +241,7 @@ render(){
                         ref = 'ThirdInput'
                         label='Choose a Charity'
                         style = {styles.TextInputStyle}
-                        containerStyle ={{marginTop:-40}}
+                        containerStyle ={{marginTop:-50}}
                         baseColor = '#B3B3B3'
                         data={this.state.charity_list}
                         onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
@@ -253,7 +254,7 @@ render(){
                             ref = 'FourthInput'
                             label='Donation Value'
                             style = {styles.TextInputStyle}
-                            containerStyle ={{marginTop:-20}}
+                            containerStyle ={{marginTop:-38}}
                             baseColor = '#B3B3B3'
                             data={this.state.donation_list}
                             onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
@@ -277,17 +278,16 @@ render(){
                       <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
                     </View>) : (<View ></View>)}
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
-                    <View >
-                        <TouchableOpacity style={styles.sharefbcontainer}
+                    <View style={styles.marginBottomFive}>
+                        <TouchableOpacity style={styles.flexDirectionRow}
                         onPress={ () => {        this.setState({ checkboximg: !this.state.checkboximg });} }
                         >
                             {this.renderImage()}
                             <Text style={styles.sharefbtext}>Share this on Facebook</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style = {styles.TextInputContainer}>
                         <TouchableOpacity
-                        style = {[styles.signInButtonContainer,{borderRadius:3,}]}
+                        style = {[styles.signInButtonContainer,{backgroundColor:'#439FD8'}]}
                         onPress = {this.sendgiftandcharity}
                         >
 
@@ -295,10 +295,10 @@ render(){
                                 Send Gift
                             </Text>
                         </TouchableOpacity>
-                    </View></View>
+                    </View>
                 </ScrollView>
             </View>
-        </Image>
+        </View>
         );
 
     }

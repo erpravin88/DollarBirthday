@@ -42,6 +42,7 @@ export default class Charity extends Component {
      other_amount:'',
      charity_type:{value:'',index:''},
      errorMsg:{charity_type:'',pre_amount:'',other_amount:''},
+     user_details:'',
    }
 
  }
@@ -161,7 +162,7 @@ if(flag){
   let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.pre_amount.index;
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
-
+    //this.state.user_details.charity = [0:{charity_id:'',gift_amount:''}];
     this.state.user_details.charity[0].charity_id = charity_id;
     this.state.user_details.charity[0].gift_amount = gift_amount;
     setUserDetails(this.state.user_details);

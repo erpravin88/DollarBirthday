@@ -54,7 +54,7 @@ const style = {
             position:'absolute',
             zIndex: 99,
             right:10,
-            height:35,
+            height:40,
             width:35,
             alignItems:'center'
         },
@@ -63,7 +63,7 @@ const style = {
             position:'absolute',
             zIndex: 99,
             right:55,
-            height:35,
+            height:40,
             width:35,
             alignItems:'center'
         },

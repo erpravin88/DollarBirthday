@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -9,9 +8,7 @@ import {
   Alert,
   Image,
   ScrollView,
-  ImageBackground,
   AsyncStorage,
-  ListView,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -20,8 +17,6 @@ import images from '../Constant/Images';
 import settings from '../Constant/UrlConstant';
 import styles from './Style/SettingsStyle';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth';
-import {callApiWithAuth} from '../Service/WebServiceHandler';
-import DatePicker from 'react-native-datepicker';
 import MaterialTabs from 'react-native-material-tabs';
 import General from './General'
 import Paypal from './Paypal'
@@ -33,28 +28,11 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
-const date = new Date(Date.now());
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class Settings extends Component {
   constructor(props){
    super(props);
-   let month = (date.getMonth()+1).toString();
-   month = month.length>1?month:'0'+month;
    this.state = {
-     auth_token:'',
-     user_key:false,
-     showProgress:false,
-     user_details:[],
      selectedTab:0,
-     date: date.getFullYear()+'-'+month+'-'+date.getDate(),
-     email:'',
-     password:'',
-     fullName:'',
-     device_id:settings.DEVICE_ID,
-     device_type:settings.DEVICE_NAME,
-     dob:'',
-     paypal:'abc@gmail.com',
-     errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "dob":''},
      showProgress: false
    };
   }
@@ -66,35 +44,7 @@ export default class Settings extends Component {
         Toast.show(err);
       });
       AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-        // this.setState({auth_token: token,showProgress : true}); console.log(this.state);
-        //   callApiWithAuth('user/upcoming','GET', this.state.auth_token).then((response) => {
-        //
-        //      if(response.status === 201){
-        //        response.json().then((responseobject) => {
-        //          console.log(responseobject.data);
-        //          this.setState({ f_list: responseobject.data,showProgress : false });
-        //          console.log(responseobject.data);
-        //        });
-        //        Toast.show('Friend list fetched');
-        //      }else if (response.status === 401) {
-        //        response.json().then((responseobject) => {
-        //          //this.setState({ f_list: responseobject.data.recent,showProgress : false });
-        //          console.log(responseobject);
-        //        });
-        //        console.log(this.state);
-        //         this.setState({showProgress : false});
-        //         Toast.show('Unauthorized');
-        //      }else if (response.status === 404) {
-        //         this.setState({showProgress : false});
-        //         Toast.show('No Friend found');
-        //      }else if (response.status === 406) {
-        //         this.setState({showProgress : false});
-        //         Toast.show('Invalid Data found');
-        //      }else if (response.status === 500) {
-        //         this.setState({showProgress : false});
-        //         Toast.show('Task not fetched:500');
-        //      }
-        //   }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+         this.setState({auth_token: token,showProgress : false}); console.log(this.state);
       }).catch((err)=>{
         onSignOut;
         console.log(err);
@@ -117,34 +67,11 @@ export default class Settings extends Component {
         }
       }
   }
-  renderRow(data) {
-    console.log(data);
-    let date = new Date(data.birth_date)
-       return (
-        <View style={styles.item}>
-           <View style={styles.picw}><Image style = {styles.pic} source = {images.baseLogo}/></View>
-           <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
-           <View style={styles.btnw}>
-              <TouchableOpacity style={styles.btn1} onPress={()=>{console.log(data.email);}}>
-                <Text style={styles.text1}>Send Gift</Text>
-              </TouchableOpacity>
-           </View>
-        </View>
-       );
-     }
-     hideErrors(){
-       let error = this.state.errorMsg;
-       error.passwordMsg = '';
-       error.emailMsg = '';
-       error.dob = '';
-       error.fullName = '';
-       this.setState({errorMsg: error});
-     }
-
   render(){
 
   return(
-<Image style = {styles.backgroundImage} source = {images.loginbackground}>
+<View style={[styles.full]}>
+  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
   <MyActivityIndicator progress={this.state.showProgress} />
     <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
     <Image style={styles.img} source = {images.dashboardIcon}/>
@@ -169,7 +96,7 @@ export default class Settings extends Component {
       {this.state.selectedTab == 0 ? (<ScrollView ><General /></ScrollView>):(this .state.selectedTab == 1? (<ScrollView><Paypal /></ScrollView>):(this .state.selectedTab == 2? (<ScrollView><Charity/></ScrollView>):(this .state.selectedTab == 3? (<ScrollView><Notification /></ScrollView>):(<Friends nav={this.props}/>))))}
 
     </View>
-</Image>);
+</View>);
 
   }
 }

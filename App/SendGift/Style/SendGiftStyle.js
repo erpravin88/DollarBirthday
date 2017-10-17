@@ -8,20 +8,24 @@ const style = {
         width:'80%',
         marginLeft:'10%',
       },
-
+      errorMsg: {
+           backgroundColor: 'transparent',
+    	     color:'#ff0000',
+    	     width:'100%',
+    	     alignSelf:'center',
+    	   },
       dropdown:{
         marginTop:20
       },
       sharefbtext:{
         marginLeft:5,
         fontSize:18,
-        color:'#3b5998'
+        color:'#446CAE'
       },
 
       sharefbcontainer:{
-        paddingLeft:5,
-        paddingRight:5,
-        flexDirection:'row'
+        flexDirection:'row',
+        marginBottom:5,
       },
 
       shareonfacebookimg:{

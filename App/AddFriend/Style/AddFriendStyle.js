@@ -3,13 +3,7 @@ const { width, height } = Dimensions.get('window');
 import comman from '../../Constant/Style';
 
 const style = {
-    dashboardIconw:{
-          position:'absolute',
-          width:15,
-          height:15,
-          left:'5.5%',
-          top:'3.5%',
-        },
+    
     addBtn: {
       width: 12,
       height: 12,

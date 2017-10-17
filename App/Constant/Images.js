@@ -32,5 +32,8 @@ const images = {
     giftrecieved: require('../images/gif-history-screen-total-received-tab-icon.png'),
     giftsent: require('../images/gif-history-screen-total-sent-tab-icon.png'),
     giftdonation: require('../images/gif-history-screen-total-donations-tab-icon.png'),
+    greenpricetag: require('../images/inbox-screens-green-price-tag.png'),
+    redpricetag: require('../images/inbox-screens-red-price-tag.png'),
+    heartlogo: require('../images/inbox-screen-heart-icon.png'),
 }
 export default images

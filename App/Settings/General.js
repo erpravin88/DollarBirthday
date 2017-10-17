@@ -42,15 +42,15 @@ export default class SignUp extends Component {
    month = month.length>1?month:'0'+month;
    this.state = {
 
-  //   date: date.getFullYear()+'-'+month+'-'+date.getDate(),
+     maxdob: date.getFullYear()+'-'+month+'-'+date.getDate(),
+     initialdob: (date.getFullYear() - 15)+'-'+month+'-'+date.getDate(),
      email:'',
      password:'',
      fullName:'',
      device_id:settings.DEVICE_ID,
      device_type:settings.DEVICE_NAME,
-     dob:'',
      paypal:'abc@gmail.com',
-     errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "dob":''},
+     errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "initialdob":''},
      showProgress: false,
      auth_token:'',
      user_key:'',
@@ -68,7 +68,7 @@ componentWillMount(){
   AsyncStorage.getItem(USER_DETAILS).then((details)=>{
        details = JSON.parse(details);
        console.log(details);
-       this.setState({user_details:details,fullName: details.full_name,dob:details.birth_date,email:details.email,auth_token: details.authToken});
+       this.setState({user_details:details,fullName: details.full_name,initialdob:details.birth_date,email:details.email,auth_token: details.authToken});
      }).catch((err)=>{
        Toast.show(err);
      });
@@ -83,7 +83,7 @@ onSignUpClick(userData){
   let error = this.state.errorMsg;
   error.passwordMsg = '';
   error.emailMsg = '';
-  error.dob = '';
+  error.initialdob = '';
   error.fullName = '';
   let flag = '';
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -128,14 +128,14 @@ console.log(this.state.date);
   }
   else
   {
-    
+
     let data = {"email":this.state.email,
       "password":this.state.password,
     //  "device_id":this.state.device_id,
     //  "device_type":this.state.device_type,
       "paypal":this.state.email,
       "full_name":this.state.fullName,
-      "birth_date": this.state.dob };
+      "birth_date": this.state.initialdob };
       console.log(data);
       checkinternetconnectivity().then((response)=>{
         if(response.Internet == true){
@@ -147,7 +147,7 @@ console.log(this.state.date);
           let ud = this.state.user_details;
           ud.email = this.state.email;
           ud.full_name = this.state.fullName;
-          ud.birth_date = this.state.dob;
+          ud.birth_date = this.state.initialdob;
           //ud = JSON.stringify(ud);
           console.log(ud);
         response.json().then((responseobject) => {
@@ -231,18 +231,18 @@ hideErrors(){
         <Text style = {styles.dob_label}>{Label.t('43')}</Text>
         <DatePicker
           style = {styles.date_picker}
-          date = {this.state.dob}
+          date = {this.state.initialdob}
           format = "YYYY-MM-DD"
-          maxDate = {this.state.date}
+          maxDate = {this.state.maxdob}
           confirmBtnText = {Label.t('6')}
           cancelBtnText = {Label.t('7')}
           iconSource = {images.dropdownArrow}
-          onDateChange = {(date) => {this.setState({dob:date})}}
+          onDateChange = {(date) => {this.setState({initialdob:date})}}
           customStyles={{dateInput: styles.dateInput,
                         dateIcon: styles.dateIcon,}}
         />
       </View>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['dob']}</Text>
+      <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
       <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput
           style = {styles.TextInputStyle}

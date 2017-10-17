@@ -128,8 +128,8 @@ export default class Login extends Component {
 render(){
   console.log("render"+this.state.Connected);
 return(
-
-<Image style = {styles.backgroundImage} source = {images.loginbackground} >
+<View style={[styles.full]}>
+<Image style = {styles.backgroundImage} source = {images.loginbackground} />
 <MyActivityIndicator progress={this.state.showProgress} />
   <View style = {[styles.titleContainer]}>
     <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
@@ -199,6 +199,6 @@ return(
       </View>
     </ScrollView>
   </View>
-</Image>
+</View>
  ); }
 }
