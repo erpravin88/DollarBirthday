@@ -21,6 +21,7 @@ import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/FriendStyle';
 import DatePicker from 'react-native-datepicker';
+import createReactClass from 'create-react-class';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
@@ -33,12 +34,23 @@ const date = new Date(Date.now());
 
 const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+import FBSDK  from 'react-native-fbsdk';
+const {
+  LoginButton,
+  LoginManager,
+  GraphRequest,
+  GraphRequestManager,
+  AccessToken
+} = FBSDK;
+
 export default class Friends extends Component {
 
   constructor(props){
     super(props);
     this.changedateformat = this.changedateformat.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
+    this._fbAuth = this._fbAuth.bind(this);
+    this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this.state = {
       Friends:[],
       auth_token:'',
@@ -49,6 +61,48 @@ export default class Friends extends Component {
     };
 
  }
+
+ _fbAuth = () => {
+    LoginManager.logInWithReadPermissions(['public_profile','email']).then(function(result){
+        if(result.isCancelled){
+            console.log('loging cancelled')
+        }
+        else { 
+            //Create response callback.
+
+
+            AccessToken.getCurrentAccessToken().then(
+            (data) => {
+                console.log(data);
+                let infoRequest = new GraphRequest('/me', null , this._responseInfoCallback);
+        console.log(infoRequest);
+                   new GraphRequestManager().addRequest(infoRequest).start();
+            }
+          )
+            
+        
+        }
+    }, function(error){
+        console.log('An error occured: ' + error)
+    })
+}
+
+_responseInfoCallback(error, result){ console.log(4,result);
+    if (error) {
+      alert('Error fetching data: ' + error.toString());
+    } else {
+        console.log(result);
+      this.setState({name: result.name, pic:              result.picture.data.url});
+    }
+  }
+//   _responseInfoCallback(error: ?Object, result: ?Object) {
+//    if (error) {
+//       alert('Error fetching data: ' + error.toString());
+//     } else {
+//       alert('Success fetching data: ' + result.toString());
+//     }
+//   } 
+
 deleteFriend(item){
   let a = this.state.friend_id_del;
   let b = [this.state.Friends];
@@ -163,7 +217,7 @@ componentWillMount(){
                 <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
             </View>
             <View style = {styles.fbfriendsview}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {this._fbAuth()}}>
                     <View style = {styles.fbfriendsbox}>
                         <Image style = {styles.fbicon} source = {images.fbicon}></Image>
                         <Text style= {styles.boxtext}>{Label.t('38')}</Text>
