@@ -15,6 +15,7 @@ import {
   ActivityIndicator,
   NetInfo,
 } from 'react-native';
+import CheckBox from 'react-native-checkbox';
 import Toast from 'react-native-simple-toast';
 import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
@@ -202,3 +203,9 @@ return(
 </View>
  ); }
 }
+// <CheckBox
+//           style={[styles.singlecheckbox,{color}]}
+//           checkboxStyle={[{wid:'gray'}]}
+//           label="Keep me Signed In"
+//           onChange={(val) => {console.log(val);}}
+//         />

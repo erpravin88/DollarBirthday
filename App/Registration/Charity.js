@@ -132,10 +132,7 @@ if(flag){
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
     response.json().then((responseobject) => {
       console.log(this.state.user_details);
-      // this.state.user_details.charity[0] = {charity_id:'',gift_amount:''};
-      // this.state.user_details.charity[0].charity_id = charity_id;
-      // this.state.user_details.charity[0].gift_amount = gift_amount;
-      console.log(this.state.user_details);
+      this.state.user_details.charity = [{charity_id:charity_id,gift_amount:gift_amount}];
       setUserDetails(this.state.user_details);
        this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
