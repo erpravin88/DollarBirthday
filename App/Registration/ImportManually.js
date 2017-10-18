@@ -19,11 +19,9 @@ import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
-import styles from './Style/FriendStyle';
+import styles from './Style/ImportManuallyStyle';
 import DatePicker from 'react-native-datepicker';
-import createReactClass from 'create-react-class';
 import settings from '../Constant/UrlConstant';
-import functions from '../Constant/Function';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
@@ -35,19 +33,12 @@ const date = new Date(Date.now());
 
 const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-import FBSDK  from 'react-native-fbsdk';
-const {
-  LoginManager,
-} = FBSDK;
-
-export default class Friends extends Component {
+export default class ImportManually extends Component {
 
   constructor(props){
     super(props);
     this.changedateformat = this.changedateformat.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
-    this._fbAuth = this._fbAuth.bind(this);
-    //this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this.state = {
       Friends:[],
       auth_token:'',
@@ -58,20 +49,6 @@ export default class Friends extends Component {
     };
 
  }
-
- _fbAuth = () => {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result){
-        if(result.isCancelled){
-            Toast.show('Log In cancelled');
-        }
-        else { 
-            functions.web("https://www.facebook.com/events/birthdays/");
-        }
-    }, function(error){
-        console.log('An error occured: ' + error)
-    })
-}
-
 deleteFriend(item){
   let a = this.state.friend_id_del;
   let b = [this.state.Friends];
@@ -103,21 +80,22 @@ deleteFriend(item){
     tempmonth = monthsLong[tempmonth];
     let tempyear = temp.getFullYear();
     let birth_date = tempmonth+" "+tempday+", "+tempyear;
-      return(<View style = {styles.listbox}>
-        <View>
-            <Text style={styles.fullnametext}>{item.first_name} {item.last_name}</Text>
-        </View>
-        <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item}); Alert.alert( Label.t('60'), Label.t('61')+item.full_name+Label.t('62'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('63'), onPress: () => this.deleteFriend(item)}, ], { cancelable: false } )}}>
-            <Image style={styles.crossicon} source={images.crossicon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.props.nav.navigation.navigate('ADDFRIEND',{editdata:item, callFrom:'setting'});}}>
-            <Image style={styles.editicon} source={images.editicon} />
-        </TouchableOpacity>
-        <View style={styles.birthdatemailfield}>
-            <Text style={styles.birthdatetext}>{birth_date} </Text>
-            <Text style={styles.emailtext}>{item.email}</Text>
-        </View>
-       </View>)
+      return(
+          <View style = {styles.listbox}>
+            <View>
+                <Text style={styles.fullnametext}>{item.first_name} {item.last_name}</Text>
+            </View>
+            <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item}); Alert.alert( Label.t('60'), Label.t('61')+item.full_name+Label.t('62'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('63'), onPress: () => this.deleteFriend(item)}, ], { cancelable: false } )}}>
+                <Image style={styles.crossicon} source={images.crossicon} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.props.navigation.navigate('ADDFRIEND',{editdata:item, callFrom:'IMPORTMANUALLY'});}}>
+                <Image style={styles.editicon} source={images.editicon} />
+            </TouchableOpacity>
+            <View style={styles.birthdatemailfield}>
+                <Text style={styles.birthdatetext}>{birth_date} </Text>
+                <Text style={styles.emailtext}>{item.email}</Text>
+            </View>
+          </View>)
 
  }
 
@@ -165,10 +143,19 @@ componentWillMount(){
 
   render(){
   return(
+    <View style={[styles.full]}>
+    <Image style = {styles.backgroundImage} source = {images.loginbackground} />
+      <MyActivityIndicator progress={this.state.showProgress} />
+      <View style = {styles.titleContainer}>
+        <Text style = {styles.titleTextFirst}>Add Manually Friends</Text>
+        <Text style = {[styles.titleTextSecond]}>{Label.t('1')}</Text>
+      </View>
+      <View style = {[styles.TextInputContainer]}>
+        <Text style = {styles.heading1}>{Label.t('86')}</Text>
+      </View>
     <View style = {[styles.TextInputContainer]}>
-        <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
-              this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
+              this.props.navigation.navigate('ADDFRIEND',{callFrom:'IMPORTMANUALLY'});
               this.setState({friendlistvisible: true});
             }}>
                 <View style = {styles.addfriendbox}>
@@ -176,26 +163,6 @@ componentWillMount(){
                     <Text style= {styles.boxtext}>{Label.t('0')}</Text>
                 </View>
             </TouchableOpacity>
-            <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity>
-                    <View style = {styles.googlesigninbox}>
-                        <Text style= {styles.boxtext}>{Label.t('65')}</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
-            </View>
-            <View style = {styles.fbfriendsview}>
-                <TouchableOpacity onPress={() => {this._fbAuth()}}>
-                    <View style = {styles.fbfriendsbox}>
-                        <Image style = {styles.fbicon} source = {images.fbicon}></Image>
-                        <Text style= {styles.boxtext}>{Label.t('38')}</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('67')}</Text>
-            </View>
-        </View>
         <View style={[styles.scrolllist]}>
             <ScrollView keyboardShouldPersistTaps="always">
                 {(this.state.friendlistvisible == true) ?
@@ -207,6 +174,7 @@ componentWillMount(){
             </ScrollView>
         </View>
     </View>
+</View>
   );
   }
 }

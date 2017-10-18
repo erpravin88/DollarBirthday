@@ -112,11 +112,9 @@ export default class upcomings extends Component {
        );
      }
   render(){
-console.log(this.state.f_list);
-let data = this .state.selectedTab == 0 ? this.state.f_list.recent:(this .state.selectedTab == 1? this.state.f_list.up_next:(this .state.selectedTab == 2? this.state.f_list.up_comming:[]))
-console.log(data);
   return(
-<Image style = {styles.backgroundImage} source = {images.loginbackground}>
+<View style={[styles.full]}>
+  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
   <MyActivityIndicator progress={this.state.showProgress} />
     <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
     <Image style={styles.img} source = {images.dashboardIcon}/>
@@ -139,13 +137,13 @@ console.log(data);
     <View style={[styles.TextInputContainer,styles.ListContainerfix1]}>
       <ScrollView >
           <ListView
-            dataSource={ds.cloneWithRows(data)}
+            dataSource={ds.cloneWithRows(this .state.selectedTab == 0 ? this.state.f_list.recent:(this .state.selectedTab == 1? this.state.f_list.up_next:(this .state.selectedTab == 2? this.state.f_list.up_comming:[])))}
             renderRow={(data) => this.renderRow(data)}
             enableEmptySections={true}
           />
       </ScrollView>
     </View>
-</Image>);
+</View>);
 
   }
 }

@@ -66,12 +66,12 @@ setModalVisible(visible) {
 }
 //friend.picture
 displaybirthdays(){
-    return this.state.Friends.map((friend) => {
+    return this.state.Friends.map((friend,key) => {
         var date = new Date(friend.birth_date);
         var day = date.getDate();
         var month = date.getMonth() + 1;
         if(day == this.state.dateSelected.day && month == this.state.dateSelected.month){
-            return (<View style={styles.item}>
+            return (<View key={key} style={styles.item}>
                <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
                <View style={styles.namew}><Text style={styles.name}>{friend.full_name}<Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text></Text></View>
                <View style={styles.btnw}>
@@ -112,15 +112,18 @@ checkyear(month){
 
 componentWillMount(){
     //this.setState({name: this.props.navigation.state.params.name});
-    this.setState({showProgress : true});
+    //this.setState({showProgress : true});
         AsyncStorage.getItem(USER_KEY).then((key)=>{
           //this.setState({user_key: key});
         }).catch((err)=>{
           Toast.show(err);
         });
         AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-           this.setState({auth_token: token});
+           this.setState({auth_token: token,showProgress : true});
              callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
+                //  response.json().then((responseobject) => {
+                //    console.log(responseobject);
+                //  });
                 if(response.status === 200){
                   response.json().then((responseobject) => {
                     this.setState({ Friends: responseobject.data });
@@ -143,6 +146,9 @@ componentWillMount(){
                   });
                   this.setState({showProgress : false});
                   //Toast.show('Task fetched');
+                }else if (response.status === 404) {
+                   this.setState({showProgress : false});
+                   Toast.show('No friends found');
                 }else if (response.status === 401) {
                    this.setState({showProgress : false});
                    Toast.show('Error fetching friends');
@@ -165,9 +171,10 @@ componentWillMount(){
 
 render(){
     return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
+      <View style={[styles.full]}>
+            <Image style = {styles.backgroundImage} source = {images.background} />
             <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{console.log(styles);this.props.navigation.dispatch(resetAction);}}>
               <Image style={styles.img} source = {images.dashboardIcon}/>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
@@ -210,7 +217,7 @@ render(){
                     </View>
                 </View>
             </Modal>
-        </Image>
+        </View>
         );
 
     }

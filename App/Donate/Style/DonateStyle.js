@@ -7,6 +7,12 @@ const style = {
       amountdropdown:{
         width:'60%'
       },
+      errorMsg:{
+        backgroundColor: 'transparent',
+        color:'#ff0000',
+        width:'100%',
+        alignSelf:'center',
+      },
       selectboxes:{
         paddingLeft:10,
         width:'100%'

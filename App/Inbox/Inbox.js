@@ -53,14 +53,16 @@ fetchlist(item){
             </View>
         </View>
         <Text style={styles.message}>This is a test message</Text>
-        <Image style = {styles.greenbg} source = {images.greenpricetag}>
-            <Text style={styles.donationvalue}>$10</Text>
+        <Image style = {styles.greenbg} source = {images.greenpricetag}/>
+        <View style = {styles.greenbg}>
+            <Text style={[styles.donationvalue]}>$10</Text>
             <Text style={styles.currency}>USD</Text>
-        </Image>
-        <Image style = {styles.redbg} source = {images.redpricetag}>
+        </View>
+        <Image style = {styles.redbg} source = {images.redpricetag}/>
+        <View style = {styles.redbg}>
             <Text style={styles.donationvalue}>$100</Text>
             <Text style={styles.currency}>USD</Text>
-        </Image>
+        </View>
         <View style={styles.line}></View>
         <View style={styles.donationlisting}>
             <View style = {styles.heartlogobox}>
@@ -110,16 +112,11 @@ componentWillMount(){
     }
 
 render(){
-    let messagelist = (this.state.messagelist == true) ?
-    (<View><FlatList
-        data={this.state.messages}
-        renderItem={({item}) => this.fetchlist(item)}
-        keyExtractor={item => item.email}
-        /></View>) : (<View ></View>);
     return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
-            <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+        <View style={[styles.full]}>
+          <Image style = {styles.backgroundImage} source = {images.background} />
+          <MyActivityIndicator progress={this.state.showProgress} />
+          <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
             <Image style={styles.img} source = {images.dashboardIcon}/>
           </TouchableOpacity>
             <View style = {styles.titleContainer}>
@@ -128,23 +125,16 @@ render(){
             </View>
             <View style={styles.scrolllist}>
                 <ScrollView keyboardShouldPersistTaps="always">
-                    {messagelist}
+                    {(this.state.messagelist == true) ?
+                    (<View><FlatList
+                        data={this.state.messages}
+                        renderItem={({item}) => this.fetchlist(item)}
+                        keyExtractor={item => item.email}
+                        /></View>) : (<View ></View>)}
                 </ScrollView>
             </View>
-        </Image>
+        </View>
         );
-    // return(
-    //     <Image style = {styles.backgroundImage} source = {images.background}>
-    //         <MyActivityIndicator progress={this.state.showProgress} />
-    //         <TouchableOpacity  onPress={()=>{this.props.navigation.goBack()}}>
-    //             <Image style = {styles.dashlogo} source = {images.dashboardIcon}></Image>
-    //         </TouchableOpacity>
-    //         <View style = {styles.titleContainer}>
-    //             <Text style = {styles.titleTextFirst}>Inbox</Text>
-    //             <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
-    //         </View>
-    //     </Image>
-    //     );
 
     }
 }

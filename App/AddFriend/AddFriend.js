@@ -26,6 +26,11 @@ const resetAction = NavigationActions.reset({
      index: 0,
      actions: [NavigationActions.navigate({ routeName: 'SETTING',params: {tabName:'friends'} })],
    });
+const resetAction1 = NavigationActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'IMPORTMANUALLY',params: {tabName:'friends'} })],
+  });
+
 export default class AddFriend extends Component {
 
 constructor(props){
@@ -36,11 +41,12 @@ constructor(props){
     var month = (date.getMonth()+1).toString();
     month = month.length>1?month:'0'+month;
     this.state = {
-        date: date.getFullYear()+'-'+month+'-'+date.getDate(),
+        maxdob: date.getFullYear()+'-'+month+'-'+date.getDate(),
+        initialdob: (date.getFullYear() - 15)+'-'+month+'-'+date.getDate(),
         email:'',
         firstName:'',
         lastName:'',
-        errorMsg:{"emailMsg":'', "firstName":'', "lastName":'', "dob":''},
+        errorMsg:{"emailMsg":'', "firstName":'', "lastName":'', "initialdob":''},
         auth_token: '',
         showProgress: false,
         newfriend : true,
@@ -49,44 +55,31 @@ constructor(props){
 }
 
 componentWillMount(){
-  if(this.props.navigation.state.params){
-    this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false, firstName: this.props.navigation.state.params.editdata.first_name,lastName: this.props.navigation.state.params.editdata.last_name, email: this.props.navigation.state.params.editdata.email, date: this.props.navigation.state.params.editdata.birth_date});
-
-  };
+  if(this.props.navigation.state != undefined){
+    if(this.props.navigation.state.params != undefined){
+      if(this.props.navigation.state.params.editdata != undefined){
+        this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false, firstName: this.props.navigation.state.params.editdata.first_name,lastName: this.props.navigation.state.params.editdata.last_name, email: this.props.navigation.state.params.editdata.email, initialdob: this.props.navigation.state.params.editdata.birth_date});
+      }
+    }
+  }
     //this.setState({name: this.props.navigation.state.params.name});
-        AsyncStorage.getItem(USER_KEY).then((key)=>{
-          //this.setState({user_key: key});
-        }).catch((err)=>{
-          Toast.show(err);
-        });
+        // AsyncStorage.getItem(USER_KEY).then((key)=>{
+        //   this.setState({user_key: key});
+        // }).catch((err)=>{
+        //   Toast.show(err);
+        // });
         AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
            this.setState({auth_token: token});
-          //   callApiWithAuth('api/task/show','GET', this.state.auth_token).then((response) => {
-          //      if(response.status === 200){
-          //        response.json().then((responseobject) => {
-          //          this.setState({ taskList: responseobject.data });
-          //          console.log(responseobject);
-          //        });
-          //        this.setState({showProgress : false});
-          //        Toast.show('Task fetched');
-          //      }else if (response.status === 401) {
-          //         this.setState({showProgress : false});
-          //         Toast.show('Task not fetched');
-          //      }else if (response.status === 500) {
-          //         this.setState({showProgress : false});
-          //         Toast.show('Task not fetched:500');
-          //      }
-          //   }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
         }).catch((err)=>{
           onSignOut;
           Toast.show(err);
         });
-        AsyncStorage.getItem(USER_DETAILS).then((details)=>{
-          details = JSON.parse(details);
-          //this.setState({user_details: details});
-        }).catch((err)=>{
-          Toast.show(err);
-        });
+        // AsyncStorage.getItem(USER_DETAILS).then((details)=>{
+        //   details = JSON.parse(details);
+        //   //this.setState({user_details: details});
+        // }).catch((err)=>{
+        //   Toast.show(err);
+        // });
     }
 
     addfriend(userData){
@@ -94,6 +87,7 @@ componentWillMount(){
           error.emailMsg = '';
           error.firstName = '';
           error.lastName = '';
+          error.initialdob = '';
           let flag = '';
           var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -139,7 +133,7 @@ componentWillMount(){
               callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
                 "first_name":this.state.firstName,
                 "last_name":this.state.lastName,
-                "birth_date": this.state.date }
+                "birth_date": this.state.initialdob }
               ).then((response) => {
                 // response.json().then((responseobject) => {
                 // console.log(responseobject);});
@@ -154,6 +148,8 @@ componentWillMount(){
                       if(this.props.navigation.state.params.callFrom != undefined){
                         if(this.props.navigation.state.params.callFrom == 'setting'){
                           this.props.navigation.dispatch(resetAction);
+                        }else if (this.props.navigation.state.params.callFrom == 'IMPORTMANUALLY') {
+                          this.props.navigation.dispatch(resetAction1);
                         }
                       }
                     }
@@ -185,6 +181,7 @@ componentWillMount(){
       error.emailMsg = '';
       error.firstName = '';
       error.lastName = '';
+      error.initialdob = '';
       this.setState({errorMsg: error});
     }
 
@@ -193,6 +190,7 @@ componentWillMount(){
       error.emailMsg = '';
       error.firstName = '';
       error.lastName = '';
+      error.initialdob = '';
       let flag = '';
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -238,7 +236,7 @@ componentWillMount(){
           callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
             "first_name":this.state.firstName,
             "last_name":this.state.lastName,
-            "birth_date": this.state.date }
+            "birth_date": this.state.initialdob }
           ).then((response) => {
             // response.json().then((responseobject) => {
             // console.log(responseobject);});
@@ -250,6 +248,8 @@ componentWillMount(){
                   if(this.props.navigation.state.params.callFrom != undefined){
                     if(this.props.navigation.state.params.callFrom == 'setting'){
                       this.props.navigation.dispatch(resetAction);
+                    }else if (this.props.navigation.state.params.callFrom == 'IMPORTMANUALLY') {
+                      this.props.navigation.dispatch(resetAction1);
                     }
                   }
                 }
@@ -277,8 +277,10 @@ componentWillMount(){
     }
 
 render(){
+
     return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
+      <View style={[styles.full]}>
+            <Image style = {styles.backgroundImage} source = {images.background} />
             <MyActivityIndicator progress={this.state.showProgress} />
             <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
                 <Image style={styles.img} source = {images.backIcon}></Image>
@@ -347,17 +349,18 @@ render(){
                         <Text style = {styles.dob_label}>Birthday</Text>
                         <DatePicker
                             style = {styles.date_picker}
-                            date = {this.state.date}
+                            date = {this.state.initialdob}
                             format = "YYYY-MM-DD"
-                            maxDate = {this.state.date}
+                            maxDate = {this.state.maxdob}
                             confirmBtnText = {Label.t('6')}
                             cancelBtnText = {Label.t('7')}
                             iconSource = {images.dropdownArrow}
-                            onDateChange = {(date) => {this.setState({date:date})}}
+                            onDateChange = {(date) => {this.setState({initialdob:date})}}
                             customStyles={{dateInput: styles.dateInput,
                                         dateIcon: styles.dateIcon,}}
                         />
                     </View>
+                    <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
                     <View style = {styles.TextInputContainer}>
                     <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
                       <Text style = {styles.signInButton}>
@@ -368,7 +371,7 @@ render(){
                     </View>
                 </ScrollView>
             </View>
-        </Image>
+        </View>
         );
     }
 }

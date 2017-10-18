@@ -5,7 +5,6 @@ const { width, height } = Dimensions.get('window');
 		full:{
 			width:'100%',
 			height:'100%',
-			resizeMode: 'stretch',
 
 		},
 		font1:{
@@ -56,11 +55,16 @@ const { width, height } = Dimensions.get('window');
     marginBottomFive:{
       marginBottom:'5%',
     },
+    flexDirectionRow:{
+      flexDirection:'row',
+    },
 		backgroundImage: {
 		 flex:1,
-		 width:  '100%',
-		 height: '100%',
-		 resizeMode:'stretch'
+		 resizeMode:'cover',
+     width: width,
+     height: height,
+     position:'absolute',
+     zIndex: 0,
 		},
 	 titleContainer: {
 				 width: width,
@@ -83,12 +87,12 @@ const { width, height } = Dimensions.get('window');
 		 fontFamily:'OpenSans-Semibold'
 	 },
  dashboardIconw:{
-	   position:'absolute',
-	   width:35,
-	   height:35,
-	   left:'5.5%',
-	   top:'3.5%',
-	 },
+    position:'absolute',
+    width:25,
+    height:24,
+    left:'5.5%',
+    top:'3.5%',
+  },
 	 img:{
 	   width:'100%',
 	   height:'100%',

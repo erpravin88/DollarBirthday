@@ -1,18 +1,15 @@
 import {Dimensions , StyleSheet,  Platform,StatusBar} from 'react-native';
 const { width, height } = Dimensions.get('window');
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+import comman from '../../Constant/Style';
 
   const styles = StyleSheet.create({
 
       statusBar: {
         height: STATUSBAR_HEIGHT,
       },
-    backgroundImage: {
-     flex:1,
-     width:  '100%',
-     height: '100%',
-     resizeMode:'stretch'
-    },
+    backgroundImage: comman.backgroundImage,
+    full: comman.full,
     baseContainer: {
 
      width: width,
@@ -70,12 +67,6 @@ dbIcon:{
   width:'32%',
   marginLeft:'1%',
   marginBottom:'1%',
-},
-full:{
-  width:'100%',
-  height:'100%',
-  resizeMode: 'stretch',
-
 },
 iconContainer:{
   width:'88%',

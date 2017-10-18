@@ -103,7 +103,12 @@ else
 
     if(response.status === 201){
     response.json().then((responseobject) => {
-      console.log(responseobject);
+      let ud = this.state.user_details;
+      ud.paypal = this.state.email;
+      ud.currency = this.state.currency;
+      ud = JSON.stringify(ud);
+      console.log(ud);
+      AsyncStorage.mergeItem(USER_DETAILS,ud);
        this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     });
@@ -132,7 +137,8 @@ hideErrors(){
 }
   render(){
   return(
-  <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+<View style={[styles.full]}>
+  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
     <MyActivityIndicator progress={this.state.showProgress} />
     <View style = {styles.titleContainer}>
       <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
@@ -183,7 +189,7 @@ hideErrors(){
     </TouchableOpacity>
     </ScrollView>
     </View>
-  </Image>
+  </View>
 );
 
   }

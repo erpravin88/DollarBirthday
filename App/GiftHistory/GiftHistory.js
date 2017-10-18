@@ -99,7 +99,8 @@ componentWillMount(){
 render(){
 
     return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
+      <View style={[styles.full]}>
+            <Image style = {styles.backgroundImage} source = {images.background} />
             <MyActivityIndicator progress={this.state.showProgress} />
             <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
                 <Image style = {styles.img} source = {images.dashboardIcon}></Image>
@@ -186,7 +187,7 @@ render(){
                     </View>
                 </ScrollView>
             </View>
-        </Image>
+        </View>
         );
 
     }

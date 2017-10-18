@@ -1243,18 +1243,16 @@
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/DollarBirthday\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/DollarBirthday\"",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.classicinformatics.dollarbirthday;
 				PRODUCT_NAME = DollarBirthday;
-				PROVISIONING_PROFILE = "53be2473-8f6a-4945-a59f-214785975cd7";
+				PROVISIONING_PROFILE = "435982c8-6b6b-4168-92ad-0b66f38d2d01";
 				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1281,18 +1279,16 @@
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/DollarBirthday\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/DollarBirthday\"",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.classicinformatics.dollarbirthday;
 				PRODUCT_NAME = DollarBirthday;
-				PROVISIONING_PROFILE = "53be2473-8f6a-4945-a59f-214785975cd7";
+				PROVISIONING_PROFILE = "435982c8-6b6b-4168-92ad-0b66f38d2d01";
 				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1473,7 +1469,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "53be2473-8f6a-4945-a59f-214785975cd7";
+				PROVISIONING_PROFILE = "435982c8-6b6b-4168-92ad-0b66f38d2d01";
 				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				SDKROOT = iphoneos;
 			};
@@ -1511,7 +1507,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "53be2473-8f6a-4945-a59f-214785975cd7";
+				PROVISIONING_PROFILE = "435982c8-6b6b-4168-92ad-0b66f38d2d01";
 				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

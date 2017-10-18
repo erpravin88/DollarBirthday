@@ -146,10 +146,11 @@ render(){
     (
     <Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>);
     return(
-        <Image style = {styles.backgroundImage} source = {images.background}>
+      <View style={[styles.full]}>
+          <Image style = {styles.backgroundImage} source = {images.background} />
             <MyActivityIndicator progress={this.state.showProgress} />
             <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
-                <Image style = {styles.img} source = {images.dashboardIcon}></Image>
+                <Image style = {styles.img} source = {images.dashboardIcon} />
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>{Label.t('9')}</Text>
@@ -205,7 +206,7 @@ render(){
                       <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
                     </View>) : (<View ></View>)}
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
-                    <View >
+                    <View style={[styles.marginBottomFive]}>
                         <TouchableOpacity style={styles.sharefbcontainer}
                         onPress={ () => this.setState({ checkboximg: !this.state.checkboximg }) }
                         >
@@ -213,20 +214,17 @@ render(){
                             <Text style={styles.sharefbtext}>{Label.t('12')}</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style = {styles.TextInputContainer}>
                         <TouchableOpacity
-                        style = {[styles.signInButtonContainer,{borderRadius:3,}]}
-                        onPress = {this.senddonation}
-                        >
-
-                            <Text style = {styles.signInButton}>
-                            {Label.t('13')}
-                            </Text>
+                        style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',}]}
+                        onPress = {this.senddonation}>
+                          <Text style = {styles.signInButton}>
+                              {Label.t('13')}
+                          </Text>
                         </TouchableOpacity>
-                    </View></View>
+                    </View>
                 </ScrollView>
             </View>
-        </Image>
+        </View>
         );
 
     }
