@@ -21,6 +21,7 @@ import styles from './Style/CalendarStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import DirectiveMsg from '../Component/DirectiveMsg';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {checkinternetconnectivity} from '../Constant/netinfo';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
@@ -193,6 +194,7 @@ render(){
                     // Specify theme properties to override specific styles for calendar parts. Default = {}
 
                     />
+                    <DirectiveMsg icon={true} iconSource={images.smallbdclogo} message={Label.t('113')} />
                 </ScrollView>
             </View>
             <Modal

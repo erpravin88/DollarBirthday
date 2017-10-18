@@ -218,7 +218,7 @@ render(){
                         style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',}]}
                         onPress = {this.senddonation}>
                           <Text style = {styles.signInButton}>
-                              {Label.t('13')}
+                              {Label.t('112')}
                           </Text>
                         </TouchableOpacity>
                     </View>

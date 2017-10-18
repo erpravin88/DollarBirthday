@@ -19,6 +19,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import ConstantFunction from '../Constant/Function';
+import DirectiveMsg from '../Component/DirectiveMsg';
 //import { NavigationActions } from 'react-navigation';
 //const resetAction = NavigationActions.reset({
 //      index: 0,
@@ -204,7 +205,15 @@ hideErrors(){
 
   render(){
     //alert(JSON.stringify(this.state));
-    console.log(this.state.other_amount);
+    let hide;
+    if(this.state.charity_type.index === 24){
+       this.state.pre_amount = { value: 'specify',index:'Speicify Amount'};
+       this.state.other_amount = '0.00';
+       hide = true;
+    }else{
+       hide = false;
+    }
+    console.log(this.state.pre_amount);
   return(
 <ScrollView  keyboardShouldPersistTaps="always">
   <View style = {styles.TextInputContainer}>
@@ -215,11 +224,11 @@ hideErrors(){
           baseColor = '#B3B3B3'
           value = {this.state.charity_type.value}
           data = {this.state.charity_list}
-          onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
+          onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]}); console.log(data[index]);this.hideErrors();}}
         />
         <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
   </View>
-  <View style = {styles.TextInputContainer}>
+  <View style = {[ hide ? styles.hide : styles.show, styles.TextInputContainer]}>
   <Dropdown
         label={Label.t('11')}
         style = {styles.TextInputStyle}
@@ -231,6 +240,7 @@ hideErrors(){
       />
       <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
   </View>
+  <View style={[hide ? styles.hide : styles.show,]}>
   {(this.state.pre_amount.index == 'specify') ?
           (<View><View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
             <TextInput
@@ -249,6 +259,7 @@ hideErrors(){
             <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
           </View>
           <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
+    </View>
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer]}
@@ -261,6 +272,9 @@ hideErrors(){
     <TouchableOpacity style={styles.btn1} onPress={()=>{ConstantFunction.email(['ronnage@cfl.rr.com'],'','','Add%20My%20Charity%20to%20Dollar%20Birthday%20Club','')}}>
       <Text style={styles.text1}>{Label.t('54')}</Text>
     </TouchableOpacity>
+  </View>
+  <View style = {[styles.TextInputContainer]}>
+    <DirectiveMsg message={Label.t('114')} icon = {false} />
   </View>
 </ScrollView>);
 

@@ -17,7 +17,7 @@ import Donate from '../Donate/Donate';
 import Inbox from '../Inbox/Inbox';
 import GiftHistory from '../GiftHistory/GiftHistory';
 
-export const screenRoute = (SignIn) => { 
+export const screenRoute = (SignIn) => {
   return StackNavigator({
     LOG_IN:{screen:Login},
     SIGN_UP:{screen:SignUp},

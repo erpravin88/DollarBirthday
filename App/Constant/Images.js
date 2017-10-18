@@ -35,5 +35,6 @@ const images = {
     greenpricetag: require('../images/inbox-screens-green-price-tag.png'),
     redpricetag: require('../images/inbox-screens-red-price-tag.png'),
     heartlogo: require('../images/inbox-screen-heart-icon.png'),
+    smallbdclogo: require('../images/logo-icon-for-calendar-screen.png'),
 }
 export default images
