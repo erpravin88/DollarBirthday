@@ -21,7 +21,9 @@ import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/FriendStyle';
 import DatePicker from 'react-native-datepicker';
+import createReactClass from 'create-react-class';
 import settings from '../Constant/UrlConstant';
+import functions from '../Constant/Function';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
@@ -33,12 +35,19 @@ const date = new Date(Date.now());
 
 const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+import FBSDK  from 'react-native-fbsdk';
+const {
+  LoginManager,
+} = FBSDK;
+
 export default class Friends extends Component {
 
   constructor(props){
     super(props);
     this.changedateformat = this.changedateformat.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
+    this._fbAuth = this._fbAuth.bind(this);
+    //this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this.state = {
       Friends:[],
       auth_token:'',
@@ -49,6 +58,20 @@ export default class Friends extends Component {
     };
 
  }
+
+ _fbAuth = () => {
+    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result){
+        if(result.isCancelled){
+            Toast.show('Log In cancelled');
+        }
+        else { 
+            functions.web("https://www.facebook.com/events/birthdays/");
+        }
+    }, function(error){
+        console.log('An error occured: ' + error)
+    })
+}
+
 deleteFriend(item){
   let a = this.state.friend_id_del;
   let b = [this.state.Friends];
@@ -163,7 +186,7 @@ componentWillMount(){
                 <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
             </View>
             <View style = {styles.fbfriendsview}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {this._fbAuth()}}>
                     <View style = {styles.fbfriendsbox}>
                         <Image style = {styles.fbicon} source = {images.fbicon}></Image>
                         <Text style= {styles.boxtext}>{Label.t('38')}</Text>
