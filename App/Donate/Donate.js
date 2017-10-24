@@ -28,6 +28,7 @@ import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSign
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
+import {ShareDialog} from 'react-native-fbsdk';
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -47,6 +48,7 @@ constructor(props){
         other_amount:'',
         checkboximg: true,
         errorMsg:{charity_type:'', pre_amount:'', other_amount:''},
+        shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',contentDescription: 'I just donated to this charity'}
     };
 }
 
@@ -79,6 +81,29 @@ senddonation(){
       else
       {
         //API Call
+
+        if(!this.state.checkboximg){
+            var tmp = this;
+            ShareDialog.canShow(this.state.shareLinkContent).then(
+            function(canShow) {
+                if (canShow) {
+                return ShareDialog.show(tmp.state.shareLinkContent);
+                }
+            }
+            ).then(
+            function(result) {
+                if (result.isCancelled) {
+                console.log('Share cancelled');
+                } else {
+                    console.log('Share success with postId: ' + result.postId);
+                }
+            },
+            function(error) {
+                console.log('Share fail with error: ' + error);
+            }
+            );
+        
+        }
       }
 }
 
@@ -157,7 +182,7 @@ render(){
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
             <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="always"><View style = {styles.innerwidth}>
+                <ScrollView keyboardShouldPersistTaps="never"><View style = {styles.innerwidth}>
                     <View style={styles.logoview}>
                         {image}
                         <View style={styles.selectboxes}>

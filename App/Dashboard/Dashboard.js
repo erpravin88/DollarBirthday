@@ -67,9 +67,8 @@ export default class Dashboard extends Component {
 <View style={[styles.full]}>
   <Image style = {styles.backgroundImage} source = {images.dbbackground} />
   <View style = {styles.titleContainer}>
+    <Text style = {styles.titleboldheading}>{Label.t('115')}</Text>
     <Image style = {styles.logo} source = {images.dbtoplogo}/>
-    <Text style = {styles.titleTextFirst}>{Label.t('29')}</Text>
-    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
     <View style={[styles.iconContainer,styles.iconContainerfix1]}>
       <TouchableOpacity

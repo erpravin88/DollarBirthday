@@ -147,15 +147,17 @@ if(this.state.charity_type == ''){
 flag = false;
 error.charity_type = Label.t('45');
 }
-if(this.state.pre_amount == ''){
-flag = false;
-error.pre_amount = Label.t('46');
-}
-if(this.state.pre_amount.index == 'specify'){
-
-  if(this.state.other_amount == ''){
+if(this.state.charity_type == 'I Do Not Wish To Donate at This Time'){
+  if(this.state.pre_amount == ''){
   flag = false;
-  error.other_amount = Label.t('47');
+  error.pre_amount = Label.t('46');
+  }
+  if(this.state.pre_amount.index == 'specify'){
+
+    if(this.state.other_amount == ''){
+    flag = false;
+    error.other_amount = Label.t('47');
+    }
   }
 }
 if(flag){

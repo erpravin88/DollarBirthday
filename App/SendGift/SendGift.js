@@ -28,6 +28,7 @@ import settings from '../Constant/UrlConstant';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
+import {ShareDialog} from 'react-native-fbsdk';
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -51,6 +52,7 @@ constructor(props){
         other_amount:'',
         checkboximg: true,
         errorMsg:{Message:'', GiftValue:'' , charity_type:'', pre_amount:'', other_amount:''},
+        shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',message: 'I just donated to this charity'}
     };
 }
 
@@ -84,16 +86,18 @@ sendgiftandcharity(){
     flag = false;
     error.charity_type = 'Please select Charity.';
     }
-    if(this.state.pre_amount == ''){
-    flag = false;
-    error.pre_amount = 'Please select Donation Value.';
-    }
-    if(this.state.pre_amount.index == 'specify'){
+    if(this.state.charity_type == 'I Do Not Wish To Donate at This Time'){
+        if(this.state.pre_amount == ''){
+        flag = false;
+        error.pre_amount = 'Please select Donation Value.';
+        }
+        if(this.state.pre_amount.index == 'specify'){
 
-      if(this.state.other_amount == ''){
-      flag = false;
-      error.other_amount = 'Please fill Donation Value.';
-      }
+        if(this.state.other_amount == ''){
+        flag = false;
+        error.other_amount = 'Please fill Donation Value.';
+        }
+        }
     }
     if(flag != true){
         this.setState({errorMsg: error});
@@ -101,6 +105,29 @@ sendgiftandcharity(){
       else
       {
         console.log(PayPal);
+
+        if(!this.state.checkboximg){
+            var tmp = this;
+            ShareDialog.canShow(this.state.shareLinkContent).then(
+            function(canShow) {
+                if (canShow) {
+                return ShareDialog.show(tmp.state.shareLinkContent);
+                }
+            }
+            ).then(
+            function(result) {
+                if (result.isCancelled) {
+                    console.log('Share cancelled');
+                } else {
+                    console.log('Share success with postId: ' + result.postId);
+                }
+            },
+            function(error) {
+                console.log('Share fail with error: ' + error);
+            }
+            );
+        
+        }
         // 3 env available: NO_NETWORK, SANDBOX, PRODUCTION
 
       }
@@ -190,7 +217,7 @@ render(){
                 <Text style = {styles.titleTextSecond}>Dollar Birthday Club!</Text>
             </View>
             <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="always">
+                <ScrollView keyboardShouldPersistTaps="never">
                 <View style = {styles.innerwidth}>
                     <View style = {[styles.formimage]}>
                         <View>
@@ -222,7 +249,7 @@ render(){
                     <View style = {styles.inputBorderBottom}>
                         <TextInput style = {styles.TextInputStyle}
                             ref = 'SecondInput'
-                            keyboardType = 'numeric'
+                            keyboardType="numeric"
                             placeholderTextColor = "#b7b7b7"
                             placeholder = 'Gift Value'
                             underlineColorAndroid = 'transparent'
@@ -241,7 +268,7 @@ render(){
                         ref = 'ThirdInput'
                         label='Choose a Charity'
                         style = {styles.TextInputStyle}
-                        containerStyle ={{marginTop:-50}}
+                        containerStyle ={{marginTop:-45}}
                         baseColor = '#B3B3B3'
                         data={this.state.charity_list}
                         onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
@@ -252,9 +279,9 @@ render(){
                     <View>
                         <Dropdown
                             ref = 'FourthInput'
-                            label='Donation Value'
+                            label= 'Donation Value'
                             style = {styles.TextInputStyle}
-                            containerStyle ={{marginTop:-38}}
+                            containerStyle ={{marginTop:-35}}
                             baseColor = '#B3B3B3'
                             data={this.state.donation_list}
                             onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}

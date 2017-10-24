@@ -18,8 +18,8 @@ import comman from '../../Constant/Style';
    },
 
    logo: {
-    width: '100%',
-    height: '60%',
+    width: '90%',
+    height: '55%',
     resizeMode: 'contain',
     marginTop: (Platform.OS === 'ios')? '4%' : '1%',
 
@@ -35,14 +35,24 @@ import comman from '../../Constant/Style';
      marginTop: 20,
    },
 
+   titleboldheading:{
+     fontSize:15,
+     color:'#efd7fe',
+    fontFamily:'OpenSans-Semibold',
+    width:'80%',
+    fontWeight:'bold',
+    textAlign:'center',
+
+   },
+
    titleTextFirst: {
-     fontSize: 18,
+     fontSize: 16,
      color:'#efd7fe',
     fontFamily:'OpenSans-Semibold'
    },
 
    titleTextSecond: {
-     fontSize: 25,
+     fontSize: 22,
      fontWeight: 'bold',
      color:'#ffffff',
      fontFamily:'OpenSans-Semibold'
