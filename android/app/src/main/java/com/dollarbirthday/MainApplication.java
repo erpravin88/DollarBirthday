@@ -40,7 +40,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FBSDKPackage(),
+            new FBSDKPackage(mCallbackManager),
             new RNPaypalWrapperPackage(),
             new RNI18nPackage(),
             new RNDeviceInfo(),
@@ -62,19 +62,4 @@ public class MainApplication extends Application implements ReactApplication {
     AppEventsLogger.activateApp(this);
     SoLoader.init(this, /* native exopackage */ false);
   }
-
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-              new MainReactPackage(),
-              new FBSDKPackage(mCallbackManager)
-      );
-    }
-  };
 }
