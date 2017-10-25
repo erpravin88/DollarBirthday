@@ -173,13 +173,13 @@ componentWillMount(){
             }}>
                 <View style = {styles.addfriendbox}>
                     <Image style = {styles.addicon} source = {images.addBtn}></Image>
-                    <Text style= {styles.boxtext}>{Label.t('0')}</Text>
+                    <Text style= {styles.boxtextsmall}>{Label.t('0')}</Text>
                 </View>
             </TouchableOpacity>
             <View style = {[styles.googlesigninview]}>
                 <TouchableOpacity>
                     <View style = {styles.googlesigninbox}>
-                        <Text style= {styles.boxtext}>{Label.t('65')}</Text>
+                        <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -189,11 +189,31 @@ componentWillMount(){
                 <TouchableOpacity onPress={() => {this._fbAuth()}}>
                     <View style = {styles.fbfriendsbox}>
                         <Image style = {styles.fbicon} source = {images.fbicon}></Image>
-                        <Text style= {styles.boxtext}>{Label.t('38')}</Text>
+                        <Text style= {styles.boxtextsmall}>{Label.t('38')}</Text>
                     </View>
                 </TouchableOpacity>
 
                 <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('67')}</Text>
+            </View>
+        </View>
+        <View style = {styles.friendboxes}>
+            <View style = {[styles.yahoosigninview]}>
+                <TouchableOpacity>
+                    <View style = {styles.yahoosigninbox}>
+                        <Text style= {styles.boxtextsmall}>{Label.t('117')}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
+            </View>
+            <View style = {[styles.googlesigninview]}>
+                <TouchableOpacity>
+                    <View style = {styles.hotmailsigninbox}>
+                        <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('119')}</Text>
             </View>
         </View>
         <View style={[styles.scrolllist]}>
