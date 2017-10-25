@@ -206,7 +206,7 @@ hideErrors(){
         />
         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
       </View>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
+      <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['fullName']}</Text>
       <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput
           style = {styles.TextInputStyle}
@@ -226,7 +226,7 @@ hideErrors(){
         />
         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
       </View>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+      <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <Text style = {styles.dob_label}>{Label.t('43')}</Text>
         <DatePicker
@@ -242,7 +242,7 @@ hideErrors(){
                         dateIcon: styles.dateIcon,}}
         />
       </View>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
+      <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['initialdob']}</Text>
       <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
         <TextInput
           style = {styles.TextInputStyle}
@@ -260,7 +260,7 @@ hideErrors(){
         />
         <Image style = {styles.TextInputIcon} source = {images.password}/>
       </View>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
+      <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.TextInputContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
           <Text style = {styles.signInButton}>{Label.t('39')}</Text>

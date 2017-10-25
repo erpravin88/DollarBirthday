@@ -4,7 +4,7 @@ import comman from '../../Constant/Style';
 
 const style = {
 
-
+  
   btn1:{backgroundColor: '#439FD8',justifyContent:'center',alignItems:'center',padding:'1.5%',marginLeft:'5%'},
   text1:{color:'#ffffff',fontSize:12,fontWeight:'600'},
   linkColor:{

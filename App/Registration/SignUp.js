@@ -117,7 +117,6 @@ console.log(this.state.date);
           "password":this.state.password,
           "device_id":this.state.device_id,
           "device_type":this.state.device_type,
-          "paypal":this.state.email,
           "full_name":this.state.fullName,
           "birth_date": this.state.initialdob }
         ).then((response) => {

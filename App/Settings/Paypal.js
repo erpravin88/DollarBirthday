@@ -181,7 +181,7 @@ hideErrors(){
       />
       <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
     </View>
-    <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+    <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
     <View style = {styles.TextInputContainer}>
       <Dropdown
             label={Label.t('40')}
@@ -192,7 +192,7 @@ hideErrors(){
             value={currencyobj[this.state.currency]}
             onChangeText = {(value,index,data)=>{this.setState({currency: data[index].index});this.hideErrors();}}
           />
-          <Text style = {styles.errorMsg}>{this.state.errorMsg['currencyMsg']}</Text>
+          <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['currencyMsg']}</Text>
     </View>
     <View style = {styles.TextInputContainer}>
       <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onPaypalClick}>

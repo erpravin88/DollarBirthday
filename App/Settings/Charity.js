@@ -59,6 +59,7 @@ export default class Charity extends Component {
       this.setState({
         user_details: details,
         });
+
          // to fetch charity list
         callApiWithoutAuth('charityList','GET' ).then((response) => {
            if(response.status === 200){
@@ -68,6 +69,8 @@ export default class Charity extends Component {
                  return { value: responseobject.data[key].organization, index:responseobject.data[key].id};
 
                 });
+          if(this.state.user_details.charity[0] !== undefined){
+
                let charity_type_label='';
                Object.keys(responseobject.data).map((key,data) => {
                   if(responseobject.data[key].id == this.state.user_details.charity[0].charity_id){
@@ -82,6 +85,11 @@ export default class Charity extends Component {
               value:charity_type_label,
               index:this.state.user_details.charity[0].charity_id}
                 });
+              }else {
+                this.setState({
+                  showProgress : false,
+                  charity_list : charityList,});
+              }
              });
            }else if (response.status === 401) {
               this.setState({showProgress : false});
@@ -98,6 +106,7 @@ export default class Charity extends Component {
                 return { value: responseobject.data[key], index:key};
 
                });
+              if(this.state.user_details.charity[0] !== undefined ){
                let donation_label ='';
                let donation_value = '';
                let donation_value1 = '';
@@ -108,10 +117,10 @@ export default class Charity extends Component {
                     return false;
                   }
                 });
-               if(donation_label == ''){
+               if(donation_label == '' && this.state.user_details.charity[0].gift_amount !== '' ){
                   donation_value = 'specify';
                   donation_label = 'Speicify Amount';
-                  donation_value1= this.state.user_details.charity[0].gift_amount;
+                  donation_value1= this.state.user_details.charity[0].gift_amount+"";
                }
                this.setState({
                  showProgress : false,
@@ -119,6 +128,12 @@ export default class Charity extends Component {
                  pre_amount : { value: donation_label,index:donation_value},
                  other_amount : donation_value1,
                });
+             }else{
+               this.setState({
+                 showProgress : false,
+                 donation_list : donationList,
+               });
+             }
                 });
 
            }else if (response.status === 401) {
@@ -152,22 +167,30 @@ if(this.state.charity_type == 'I Do Not Wish To Donate at This Time'){
   flag = false;
   error.pre_amount = Label.t('46');
   }
-  if(this.state.pre_amount.index == 'specify'){
+}
+if(this.state.pre_amount.index == 'specify'){
 
-    if(this.state.other_amount == ''){
-    flag = false;
-    error.other_amount = Label.t('47');
-    }
+  if(this.state.other_amount == ''){
+  flag = false;
+  error.other_amount = Label.t('47');
   }
 }
 if(flag){
   let charity_id  =this.state.charity_type.index;
-  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.pre_amount.index;
+  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.charity_type.index=== 24 ? 0.00 : this.state.pre_amount.index;
+  console.log(charity_id);
+  console.log(gift_amount);
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
     //this.state.user_details.charity = [0:{charity_id:'',gift_amount:''}];
+
     this.state.user_details.charity[0].charity_id = charity_id;
     this.state.user_details.charity[0].gift_amount = gift_amount;
+    response.json().then((responseobject) => {
+      console.log(responseobject);
+      //  this.props.navigation.dispatch(resetAction);
+      //  this.setState({showProgress : false});
+    });
     setUserDetails(this.state.user_details);
     if(response.status === 201){
     // response.json().then((responseobject) => {
@@ -181,7 +204,11 @@ if(flag){
     Toast.show(Label.t('49'));
   }else if (response.status === 406) {
     this.setState({showProgress : false});
-    Toast.show(Label.t('50'));
+    response.json().then((responseobject) => {
+      if(responseobject.error_messages !== 'invalid data'){
+        Toast.show(Label.t('50'));
+      }
+    });
   }else if (response.status === 401) {
     this.setState({showProgress : false});
     Toast.show(Label.t('51'));
@@ -209,13 +236,15 @@ hideErrors(){
     //alert(JSON.stringify(this.state));
     let hide;
     if(this.state.charity_type.index === 24){
-       this.state.pre_amount = { value: 'specify',index:'Speicify Amount'};
-       this.state.other_amount = '0.00';
-       hide = true;
+      this.state.pre_amount = { value: '',index:''};
+      this.state.other_amount = '0.00';
+      hide = true;
     }else{
        hide = false;
     }
     console.log(this.state.pre_amount);
+    console.log(hide);
+    console.log(this.state.other_amount);
   return(
 <ScrollView  keyboardShouldPersistTaps="always">
   <View style = {styles.TextInputContainer}>
@@ -228,7 +257,7 @@ hideErrors(){
           data = {this.state.charity_list}
           onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]}); console.log(data[index]);this.hideErrors();}}
         />
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
+        <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['charity_type']}</Text>
   </View>
   <View style = {[ hide ? styles.hide : styles.show, styles.TextInputContainer]}>
   <Dropdown
@@ -240,7 +269,7 @@ hideErrors(){
         data={this.state.donation_list}
         onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
       />
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
+      <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
   </View>
   <View style={[hide ? styles.hide : styles.show,]}>
   {(this.state.pre_amount.index == 'specify') ?
@@ -260,7 +289,7 @@ hideErrors(){
             />
             <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
           </View>
-          <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
+          <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
     </View>
   <View style = {[styles.TextInputContainer]}>
     <TouchableOpacity

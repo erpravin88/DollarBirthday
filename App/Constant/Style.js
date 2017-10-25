@@ -245,7 +245,6 @@ const { width, height } = Dimensions.get('window');
 									marginLeft: 0
 							 },
 							 orDivider: {
-
 								 fontSize: 15,
 								 color:'#3C3C3C',
 								 alignSelf:'center',
