@@ -18,7 +18,7 @@ import {
 import CheckBox from 'react-native-checkbox';
 import Toast from 'react-native-simple-toast';
 import settings from '../Constant/UrlConstant';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, onSignOutfromlogin, setUserDetails, afterSignIn } from '../Constant/Auth';
 import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -44,12 +44,21 @@ export default class Login extends Component {
                 errorMsg:{"emailMsg":'', "passwordMsg":''},
                 showProgress: false,
                 Connected: false,
+                persistentlogin: false
               };
   }
   componentWillMount(){
-  AsyncStorage.getItem(USER_KEY).then((key) => {
-      if(key){
-        this.props.navigation.navigate('DASHBOARD');
+    AsyncStorage.getItem("persistentlogin").then((navigatetodashboard) => {
+      if(navigatetodashboard == "true"){
+        
+        AsyncStorage.getItem(USER_KEY).then((key) => {
+          if(key){console.log(key);
+            this.props.navigation.navigate('DASHBOARD');
+          }
+        });
+      }
+      else{
+        onSignOutfromlogin(this);
       }
     });
 
@@ -97,6 +106,7 @@ export default class Login extends Component {
           response.json().then((responseobject) => {
             console.log(responseobject);
              onSignIn();
+             AsyncStorage.setItem("persistentlogin", this.state.persistentlogin.toString());
              afterSignIn(responseobject.data.authToken);
              setUserDetails(responseobject.data);
              this.props.navigation.dispatch(resetAction);
@@ -174,6 +184,13 @@ return(
       </View>
       <Text style = {[styles.errorMsg,styles.font3]}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.TextInputContainer}>
+        <CheckBox
+            style={[styles.singlecheckbox]}
+            label="Keep me Signed In"
+            onChange={(val) => {this.setState({persistentlogin: !val})}}
+          />
+      </View>
+      <View style = {styles.TextInputContainer}>
         <TouchableOpacity
         onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}
         >
@@ -203,9 +220,4 @@ return(
 </View>
  ); }
 }
-// <CheckBox
-//           style={[styles.singlecheckbox,{color}]}
-//           checkboxStyle={[{wid:'gray'}]}
-//           label="Keep me Signed In"
-//           onChange={(val) => {console.log(val);}}
-//         />
+

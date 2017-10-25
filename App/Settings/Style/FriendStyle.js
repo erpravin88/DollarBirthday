@@ -37,6 +37,13 @@ const style = {
               fontFamily:'OpenSans-Semibold'
           },
 
+          boxtextsmall:{
+              color:'#ffffff',
+              fontSize:12,
+              textAlign: 'center',
+              fontFamily:'OpenSans-Semibold'
+          },
+
           addicon:{
               width:13,
               height:13,
@@ -45,6 +52,22 @@ const style = {
           fbicon:{
               width:7,
               height:13,
+          },
+
+          yahoosigninbox:{
+            backgroundColor:'#6A479C',
+            height:50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius:2,
+          },
+
+          hotmailsigninbox:{
+            backgroundColor:'#6A479C',
+            height:50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius:2,
           },
 
           googlesigninbox:{
@@ -57,6 +80,10 @@ const style = {
 
           googlesigninview:{
             marginLeft:'5%',
+            width:'30%',
+          },
+
+          yahoosigninview:{
             width:'30%',
           },
 
