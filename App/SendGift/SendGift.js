@@ -104,7 +104,7 @@ sendgiftandcharity(){
       }
       else
       {
-        console.log(PayPal);
+        console.log(Paypal);
 
         if(!this.state.checkboximg){
             var tmp = this;
@@ -126,7 +126,7 @@ sendgiftandcharity(){
                 console.log('Share fail with error: ' + error);
             }
             );
-        
+
         }
         // 3 env available: NO_NETWORK, SANDBOX, PRODUCTION
 

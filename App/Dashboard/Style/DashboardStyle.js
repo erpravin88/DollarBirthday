@@ -85,15 +85,15 @@ iconContainer:{
   justifyContent:'flex-start',
   alignItems:'flex-start',
 },iconContainerfix1:{
-  flex:1.1,
-  marginTop:'6%',
+  flex:1.6,
+  marginTop:'5%',
 },iconContainerfix2:{
   height:60,
   flex:1,
   overflow:'hidden',
 },iconContainerfix3:{
   flex:1,
-  marginBottom:'5%',
+  marginBottom:'4%',
 },
   });
 

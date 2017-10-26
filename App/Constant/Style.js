@@ -60,9 +60,9 @@ const { width, height } = Dimensions.get('window');
     },
 		backgroundImage: {
 		 flex:1,
-		 resizeMode:'cover',
+		 resizeMode:(Platform.OS === 'ios')?  'cover':'stretch',
      width: width,
-     height: height,
+     height: (Platform.OS === 'ios')? height : '100%',
      position:'absolute',
      zIndex: 0,
 		},

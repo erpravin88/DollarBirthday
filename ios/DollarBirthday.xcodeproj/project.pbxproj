@@ -1490,6 +1490,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6GK6WF86SC;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1535,6 +1536,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6GK6WF86SC;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

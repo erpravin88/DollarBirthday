@@ -66,7 +66,7 @@ export default class Dashboard extends Component {
   return(
 <View style={[styles.full]}>
   <Image style = {styles.backgroundImage} source = {images.dbbackground} />
-  <View style = {styles.titleContainer}>
+  <View style = {[styles.titleContainer ]}>
     <Text style = {styles.titleboldheading}>{Label.t('115')}</Text>
     <Image style = {styles.logo} source = {images.dbtoplogo}/>
   </View>
