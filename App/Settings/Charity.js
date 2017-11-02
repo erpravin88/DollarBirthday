@@ -13,6 +13,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/CharityStyle';
+import settings from '../Constant/UrlConstant';
 import Label from '../Constant/Languages/LangConfig';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -162,30 +163,29 @@ if(this.state.charity_type == ''){
 flag = false;
 error.charity_type = Label.t('45');
 }
-if(this.state.charity_type == 'I Do Not Wish To Donate at This Time'){
+if(this.state.charity_type.index !== settings.DONOT_CHARITY_ID){
   if(this.state.pre_amount == ''){
   flag = false;
   error.pre_amount = Label.t('46');
   }
-}
-if(this.state.pre_amount.index == 'specify'){
+  if(this.state.pre_amount.index == 'specify'){
 
-  if(this.state.other_amount == ''){
-  flag = false;
-  error.other_amount = Label.t('47');
+    if(this.state.other_amount == ''){
+    flag = false;
+    error.other_amount = Label.t('47');
+    }
   }
 }
 if(flag){
   let charity_id  =this.state.charity_type.index;
-  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.charity_type.index=== 24 ? 0.00 : this.state.pre_amount.index;
+  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
   console.log(charity_id);
   console.log(gift_amount);
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
     //this.state.user_details.charity = [0:{charity_id:'',gift_amount:''}];
 
-    this.state.user_details.charity[0].charity_id = charity_id;
-    this.state.user_details.charity[0].gift_amount = gift_amount;
+    this.state.user_details.charity = [{charity_id:charity_id,gift_amount:gift_amount}];
     response.json().then((responseobject) => {
       console.log(responseobject);
       //  this.props.navigation.dispatch(resetAction);
@@ -235,7 +235,7 @@ hideErrors(){
   render(){
     //alert(JSON.stringify(this.state));
     let hide;
-    if(this.state.charity_type.index === 24){
+    if(this.state.charity_type.index === settings.DONOT_CHARITY_ID){
       this.state.pre_amount = { value: '',index:''};
       this.state.other_amount = '0.00';
       hide = true;
@@ -267,7 +267,7 @@ hideErrors(){
         baseColor = '#B3B3B3'
         value = {this.state.pre_amount.value}
         data={this.state.donation_list}
-        onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
+        onChangeText = {(value,index,data)=>{if(data[index].index === 'specify'){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
       />
       <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
   </View>

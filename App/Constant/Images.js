@@ -36,5 +36,7 @@ const images = {
     redpricetag: require('../images/inbox-screens-red-price-tag.png'),
     heartlogo: require('../images/inbox-screen-heart-icon.png'),
     smallbdclogo: require('../images/logo-icon-for-calendar-screen.png'),
+    invitefriendIcon: require('../images/invite-a-friend.png'),
+
 }
 export default images

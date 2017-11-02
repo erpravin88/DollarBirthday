@@ -12,7 +12,8 @@ import {
   AsyncStorage,
   Modal,
   TouchableHighlight,
-  Picker
+  Picker,
+  WebView,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -20,12 +21,14 @@ import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/DonateStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import ModalAlert from '../Component/ModalAlert';
 import settings from '../Constant/UrlConstant';
 import { Dropdown } from 'react-native-material-dropdown';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
-import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
+import {callApiWithAuth,callApiWithoutAuth, callApiToPaypal} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
 import {ShareDialog} from 'react-native-fbsdk';
@@ -39,6 +42,7 @@ constructor(props){
     super(props);
     this.senddonation = this.senddonation.bind(this);
     this.hideErrors = this.hideErrors.bind(this);
+    this.hidestatusmsg = this.hidestatusmsg.bind(this);
     this.state = {
         showProgress: false,
         charity_type:'',
@@ -48,7 +52,12 @@ constructor(props){
         other_amount:'',
         checkboximg: true,
         errorMsg:{charity_type:'', pre_amount:'', other_amount:''},
-        shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',contentDescription: 'I just donated to this charity'}
+        shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',contentDescription: 'I just donated to this charity'},
+        modalVisible:false,
+        payUrl: settings.PAYPAL_ENV === 'live'? settings.PAYPAL_LIVE_AUTHURL : settings.PAYPAL_SANDBOX_AUTHURL,
+        payKey:'',
+        statusmsg:'',
+        modelstatusmsg: false,
     };
 }
 
@@ -80,30 +89,20 @@ senddonation(){
       }
       else
       {
-        //API Call
 
-        if(!this.state.checkboximg){
-            var tmp = this;
-            ShareDialog.canShow(this.state.shareLinkContent).then(
-            function(canShow) {
-                if (canShow) {
-                return ShareDialog.show(tmp.state.shareLinkContent);
-                }
-            }
-            ).then(
-            function(result) {
-                if (result.isCancelled) {
-                console.log('Share cancelled');
-                } else {
-                    console.log('Share success with postId: ' + result.postId);
-                }
-            },
-            function(error) {
-                console.log('Share fail with error: ' + error);
-            }
-            );
-        
+        let param = {charity_id: this.state.charity_type.index,donation_amount: this.state.pre_amount.index == 'specify' ? this.state.other_amount : this.state.pre_amount.index,facebook_share:this.state.checkboximg ? 0 : 1 ,facebook_message:""}
+        console.log(param);
+        //API Call
+        //for test
+        checkinternetconnectivity().then((response)=>{
+          if(response.Internet == true){
+            callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:res.payKey,modalVisible:true});}));});
+            console.log(this.state);
+        }else{
+          Toast.show("No Internet Connection");
         }
+        });
+
       }
 }
 
@@ -165,14 +164,88 @@ componentWillMount(){
         }
      }).catch((error) => {console.log(error); });
 }
+_onNavigationStateChange (webViewState) {
+  let url = webViewState.url.split("?");
+  let urlparam = url[1].split("&");
+  let result = {};
+  let temp = '';
+  Object.keys(urlparam).map((index) => {
+    temp = urlparam[index].split('=');
+    result[temp[0]] = temp[1];
+  });
+  if(result.hasOwnProperty('type') ){
+    this.setState({ modalVisible: false ,statusmsg:result.type,modelstatusmsg: true});
+  }
+}
+// show () {
+//   this.setState({ modalVisible: true })
+// }
+//
+hide () {
+  this.setState({ modalVisible: false })
+}
+hidestatusmsg(){
+  this.setState({ modelstatusmsg: false });
+  if(this.state.statusmsg ==='complete'){
+    if(!this.state.checkboximg){
+        var tmp = this;
+        ShareDialog.canShow(this.state.shareLinkContent).then(
+        function(canShow) {
+            if (canShow) {
+            return ShareDialog.show(tmp.state.shareLinkContent);
+            }
+        }
+        ).then(
+        function(result) {
+            if (result.isCancelled) {
+            console.log('Share cancelled');
+            this.props.navigation.dispatch(resetAction);
+            } else {
+                console.log('Share success with postId: ' + result.postId);
+                this.props.navigation.dispatch(resetAction);
+            }
+        },
+        function(error) {
+            console.log('Share fail with error: ' + error);
+        }
+        );
 
+    }else {
+      this.props.navigation.dispatch(resetAction);
+    }
+
+  }
+}
 render(){
+  console.log(this.state.payUrl+this.state.payKey);
     let image = (this.state.charity_type.logo) ?
     (
     <Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>);
-    return(
+  return(
       <View style={[styles.full]}>
-          <Image style = {styles.backgroundImage} source = {images.background} />
+        <ModalAlert visible={this.state.modelstatusmsg} onRequestClose={this.hidestatusmsg} head={this.state.statusmsg ==='complete' ? Label.t('120') : this.state.statusmsg ==='cancel' ? Label.t('122') : ''} message={ this.state.statusmsg ==='complete' ? Label.t('121') : this.state.statusmsg ==='cancel' ? Label.t('123') : ''}/>
+        <Modal
+          animationType={'slide'}
+          visible={this.state.modalVisible}
+          onRequestClose={this.hide.bind(this)}
+          transparent
+        >
+          <View style={[styles.full]}>
+            <View style={[styles.full]}>
+              <WebView
+                style={[{ flex: 1 }, {marginTop: 20}]}
+                source={{ uri: this.state.payUrl+this.state.payKey }}
+                scalesPageToFit
+                startInLoadingState
+                onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                onError={this._onNavigationStateChange.bind(this)}
+                javaScriptEnabledAndroid={true}
+                domStorageEnabled={true}
+              />
+            </View>
+          </View>
+        </Modal >
+        <Image style = {styles.backgroundImage} source = {images.background} />
             <MyActivityIndicator progress={this.state.showProgress} />
             <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
                 <Image style = {styles.img} source = {images.dashboardIcon} />
@@ -184,7 +257,7 @@ render(){
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="never"><View style = {styles.innerwidth}>
                     <View style={styles.logoview}>
-                        {image}
+                    {(this.state.charity_type.logo) ? (<Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>)}
                         <View style={styles.selectboxes}>
                             <View style={styles.dropdown}>
                                 <Dropdown
@@ -254,3 +327,8 @@ render(){
 
     }
 }
+// <View style={[{backgroundColor:'#ffffff'}]}>
+// <TouchableOpacity style={[{height:40,width:'30%',justifyContent:'center',alignSelf:'center',backgroundColor:'#FDAA3C',borderWidth:1,borderColor:'gray',borderRadius:5}]} onPress={this.hide.bind(this)} >
+//   <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>
+// </TouchableOpacity>
+// </View>

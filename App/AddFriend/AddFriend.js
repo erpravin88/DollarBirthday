@@ -55,6 +55,7 @@ constructor(props){
 }
 
 componentWillMount(){
+
   if(this.props.navigation.state != undefined){
     if(this.props.navigation.state.params != undefined){
       if(this.props.navigation.state.params.editdata != undefined){
@@ -91,41 +92,25 @@ componentWillMount(){
           let flag = '';
           var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-
-
-          if(this.state.firstName == '')
-          {
-        console.log(this.state.date);
-          flag = '0';
-          error.firstName = 'Please enter first Name.';
-
-          }else if(this.state.lastName == '')
-          {
-          flag = '0';
-          error.lastName = 'Please enter last Name.';
-
-          }
-          else if(this.state.email == '')
-          {
-          flag = '0';
-          error.emailMsg = 'Please enter email.';
-
-          }
-          else if(!re.test(this.state.email))
-          {
-
-          console.log('validdat')
+          if(this.state.firstName == ''){
             flag = '0';
-            error.emailMsg = 'Please enter valid email.';
-
+            error.firstName = Label.t('132');
           }
-
-
+          if(this.state.lastName == ''){
+            flag = '0';
+            error.lastName = Label.t('133');
+          }
+          if(this.state.email == ''){
+            flag = '0';
+            error.emailMsg = Label.t('75');
+          }
+          if(!re.test(this.state.email)){
+            flag = '0';
+            error.emailMsg = Label.t('76');
+          }
           if(flag != ''){
             this.setState({errorMsg: error});
-          }
-          else
-          {
+          }else {
             //API Call
             checkinternetconnectivity().then((response)=>{
               if(response.Internet == true){
@@ -135,8 +120,6 @@ componentWillMount(){
                 "last_name":this.state.lastName,
                 "birth_date": this.state.initialdob }
               ).then((response) => {
-                // response.json().then((responseobject) => {
-                // console.log(responseobject);});
                 if(response.status === 201){
                   response.json().then((responseobject) => {
                     console.log(responseobject);
@@ -194,36 +177,22 @@ componentWillMount(){
       let flag = '';
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-
-
-      if(this.state.firstName == '')
-      {
-    console.log(this.state.date);
-      flag = '0';
-      error.firstName = 'Please enter first Name.';
-
-      }else if(this.state.lastName == '')
-      {
-      flag = '0';
-      error.lastName = 'Please enter last Name.';
-
-      }
-      else if(this.state.email == '')
-      {
-      flag = '0';
-      error.emailMsg = 'Please enter email.';
-
-      }
-      else if(!re.test(this.state.email))
-      {
-
-      console.log('validdat')
+      if(this.state.firstName == ''){
         flag = '0';
-        error.emailMsg = 'Please enter valid email.';
-
+        error.firstName = Label.t('132');
       }
-
-
+      if(this.state.lastName == ''){
+        flag = '0';
+        error.lastName = Label.t('133');
+      }
+      if(this.state.email == ''){
+        flag = '0';
+        error.emailMsg = Label.t('75');
+      }
+      if(!re.test(this.state.email)){
+        flag = '0';
+        error.emailMsg = Label.t('76');
+      }
       if(flag != ''){
         this.setState({errorMsg: error});
       }

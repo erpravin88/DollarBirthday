@@ -16,6 +16,7 @@ import Setting from '../Settings/Settings';
 import Donate from '../Donate/Donate';
 import Inbox from '../Inbox/Inbox';
 import GiftHistory from '../GiftHistory/GiftHistory';
+import InviteFriend from '../InviteFriend/InviteFriend';
 
 export const screenRoute = (SignIn) => {
   return StackNavigator({
@@ -35,9 +36,10 @@ export const screenRoute = (SignIn) => {
     DONATE: {screen:Donate},
     INBOX: {screen:Inbox},
     GIFTHISTORY: {screen:GiftHistory},
+    INVITE_FRIEND: {screen:InviteFriend},
     },{
     headerMode: 'none',
-    mode:'modal',
+    mode:'card',
     initialRouteName: SignIn ? 'DASHBOARD':'LOG_IN'
   });
 };

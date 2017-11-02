@@ -112,6 +112,11 @@ export default class Dashboard extends Component {
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
+      onPress={()=>{this.navfromdashboard('INVITE_FRIEND')}}>
+      <Image style = {styles.full} source = {images.invitefriendIcon}/>
+      </TouchableOpacity>
+      <TouchableOpacity
+      style = {[styles.dbIcon]}
       onPress = {()=>{ Alert.alert( Label.t('30'), Label.t('31'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('32'), onPress: () => onSignOut(this)}, ], { cancelable: false } )}}>
       <Image style = {styles.full} source = {images.logoutIcon}/>
       </TouchableOpacity>

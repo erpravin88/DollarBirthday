@@ -1,6 +1,6 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * DollarBirthday App
+ *
  * @flow
  */
 
@@ -11,7 +11,8 @@ import {
   Text,
   View,
   AsyncStorage,
-  NetInfo
+  NetInfo,
+  AppState,
 } from 'react-native';
 
 import SplashScreen from 'react-native-smart-splash-screen';
@@ -23,9 +24,10 @@ export default class DollarBirthday extends Component {
      super(props);
      this.state = {
                 SignIn: false,
+                appState: AppState.currentState
                 };
     }
-  componentDidMount () {
+  componentWillMount () {
        SplashScreen.close({
           animationType: SplashScreen.animationType.scale,
           duration: 2000,
@@ -39,14 +41,33 @@ export default class DollarBirthday extends Component {
             this.setState({ SignIn: true });
           }
         });
+// conectivity eventlistener added here
+const dispatchConnected = isConnected => console.log('Internet connected' + isConnected);
 
+NetInfo.isConnected.fetch().then().done(() => {
+  NetInfo.isConnected.addEventListener('change', dispatchConnected);
+});
+AppState.addEventListener('change', this._handleAppStateChange);
   }
-
+componentWillUnmount(){
+  NetInfo.isConnected.removeEventListener('change', dispatchConnected);
+  AppState.removeEventListener('change', this._handleAppStateChange);
+}
+_handleAppStateChange = (nextAppState) => { //console.log(nextAppState);
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.log('App has come to the foreground!')
+    }
+    if (this.state.appState === 'active' && nextAppState.match(/inactive|background/)) {
+      console.log('App has come to the Background of close!')
+    }
+    this.setState({appState: nextAppState});
+  }
   render() {
+// console.log('sign in check'+this.state.SignIn);
    const T = screenRoute(this.state.SignIn);
 
     return (
-    <T/>
+      <T/>
     );
   }
 }

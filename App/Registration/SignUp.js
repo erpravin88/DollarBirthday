@@ -113,12 +113,13 @@ console.log(this.state.date);
     checkinternetconnectivity().then((response)=>{
       if(response.Internet == true){
       this.setState({showProgress : true});
-        callApiWithoutAuth('register','POST', {"email":this.state.email,
-          "password":this.state.password,
-          "device_id":this.state.device_id,
-          "device_type":this.state.device_type,
-          "full_name":this.state.fullName,
-          "birth_date": this.state.initialdob }
+        callApiWithoutAuth('register','POST', {email:this.state.email,
+          password:this.state.password,
+          device_id:this.state.device_id,
+          device_type:this.state.device_type,
+          full_name:this.state.fullName,
+          birth_date: this.state.initialdob,
+          paypal:'' }
         ).then((response) => {
           // response.json().then((responseobject) => {
           // console.log(responseobject);});

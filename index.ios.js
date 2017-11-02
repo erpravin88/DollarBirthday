@@ -1,6 +1,6 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * DollarBirthday App
+ * 
  * @flow
  */
 
@@ -27,7 +27,7 @@ export default class DollarBirthday extends Component {
                 appState: AppState.currentState
                 };
     }
-  componentDidMount () {
+  componentWillMount () {
        SplashScreen.close({
           animationType: SplashScreen.animationType.scale,
           duration: 2000,
@@ -63,7 +63,7 @@ _handleAppStateChange = (nextAppState) => { //console.log(nextAppState);
     this.setState({appState: nextAppState});
   }
   render() {
-//console.log('sign in check'+this.state.SignIn);
+// console.log('sign in check'+this.state.SignIn);
    const T = screenRoute(this.state.SignIn);
 
     return (
