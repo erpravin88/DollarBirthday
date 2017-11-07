@@ -13,8 +13,12 @@ import {
   KeyboardAvoidingView,
   AsyncStorage,
   FlatList,
+  Modal,
+  Linking,
+  Platform,
 } from 'react-native';
 
+import SafariView from 'react-native-safari-view';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import images from '../Constant/Images';
@@ -40,6 +44,7 @@ const {
   LoginManager,
 } = FBSDK;
 
+
 export default class Friends extends Component {
 
   constructor(props){
@@ -57,15 +62,17 @@ export default class Friends extends Component {
       friend_id_edit:0,
     };
 
+
  }
 
  _fbAuth = () => {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result){
+    LoginManager.logInWithReadPermissions(['public_profile']).then((result) => {
+      //console.log(result);
         if(result.isCancelled){
             Toast.show('Log In cancelled');
         }
-        else { 
-            functions.web("https://www.facebook.com/events/birthdays/");
+        else {
+            this.openURL("https://www.facebook.com/events/birthdays/");
         }
     }, function(error){
         console.log('An error occured: ' + error)
@@ -122,6 +129,7 @@ deleteFriend(item){
  }
 
 componentWillMount(){
+
     this.setState({showProgress : true});
     AsyncStorage.getItem(USER_KEY).then((key)=>{
       //this.setState({user_key: key});
@@ -156,16 +164,36 @@ componentWillMount(){
       Toast.show(err);
     });
 }
- componentDidMount(){
+componentWillUnmount() {
 
- }
+ };
 
+
+ // Handle Login with Facebook button tap
+ loginWithFacebook = () => this.openURL('https://login.live.com/oauth20_authorize.srf?client_id=56f9576b-ab7b-4c44-bc4d-9ab7aa8d8913&scope=User.ReadBasic.All%20Mail.Read%20offline_access&response_type=token&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient');
+ //loginWithFacebook = () => this.openURL('https://login.live.com/oauth20_authorize.srf?client_id=000000004C1F2910&scope=wl.signin%20wl.basic%20wl.emails%20wl.contacts_emails&response_type=code&redirect_uri=https://www.dollarbirthdayclub.com/gcontacts');
+
+ // Open URL in a browser
+  openURL = (url) => {
+    // Use SafariView on iOS
+    if (Platform.OS === 'ios') {
+      SafariView.show({
+        url: url,
+        fromBottom: true,
+      });
+    }
+    // Or Linking.openURL on Android
+    else {
+      Linking.openURL(url);
+    }
+  };
  /**/
 
 
   render(){
   return(
     <View style = {[styles.TextInputContainer]}>
+
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
@@ -207,7 +235,9 @@ componentWillMount(){
                 <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
             </View>
             <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                  console.log('test');//this.loginWithFacebook()
+                }}>
                     <View style = {styles.hotmailsigninbox}>
                         <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
                     </View>

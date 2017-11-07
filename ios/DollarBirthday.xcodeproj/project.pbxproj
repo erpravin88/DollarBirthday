@@ -21,7 +21,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		225CAD9D458E4B0481853ACB /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F0900195D64C1BA0603FB5 /* libRNPaypalWrapper.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -44,6 +43,7 @@
 		84D45CE11F95DE3B005225CD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D45CDC1F95DDE0005225CD /* FBSDKLoginKit.framework */; };
 		84D45CE21F95DE3B005225CD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D45CDE1F95DDE2005225CD /* FBSDKShareKit.framework */; };
 		84D45CE31F95DE56005225CD /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D45CD91F95DDA8005225CD /* libRCTFBSDK.a */; };
+		A1ABA6249C8E417FBD5B8BF0 /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0018379CF1E542D8AC272EBC /* libSafariViewManager.a */; };
 		B1A7C0063B9D472CB814D6ED /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9ED3384EC7C4024BBB90EC1 /* OpenSans-Semibold.ttf */; };
 		DB7FCCE01F625E2C003EB888 /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB7FCCDE1F625E2C003EB888 /* splash@2x.png */; };
 		DB7FCCE11F625E2C003EB888 /* splash@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB7FCCDF1F625E2C003EB888 /* splash@3x.png */; };
@@ -121,12 +121,12 @@
 			remoteGlobalIDString = 6476C4051EEAA69700B10F51;
 			remoteInfo = "RNI18n-tvOS";
 		};
-		28B3B1C11F8F841500079FB9 /* PBXContainerItemProxy */ = {
+		28A4C7F51FB09DD400ED406D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */;
+			containerPortal = 4D2740FA19EC4176B646BDC5 /* SafariViewManager.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNPaypalWrapper;
+			remoteInfo = SafariViewManager;
 		};
 		28C9926C1F848FAF00095684 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -320,6 +320,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0018379CF1E542D8AC272EBC /* libSafariViewManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSafariViewManager.a; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
@@ -344,9 +345,8 @@
 		287E19B127474A549D58020A /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* DollarBirthday-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DollarBirthday-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DollarBirthday-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DollarBirthday-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPaypalWrapper.xcodeproj; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; };
 		469EDEF950F04C19920CD113 /* LRDRCTSimpleToast.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = LRDRCTSimpleToast.xcodeproj; path = "../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast.xcodeproj"; sourceTree = "<group>"; };
-		51F0900195D64C1BA0603FB5 /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPaypalWrapper.a; sourceTree = "<group>"; };
+		4D2740FA19EC4176B646BDC5 /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -392,7 +392,7 @@
 				325D4785825A43D6ADA808C7 /* libRNDeviceInfo.a in Frameworks */,
 				2DC8CEF864C64B71B4EC934D /* libLRDRCTSimpleToast.a in Frameworks */,
 				06750EF2A6144404A083EE29 /* libRNI18n.a in Frameworks */,
-				225CAD9D458E4B0481853ACB /* libRNPaypalWrapper.a in Frameworks */,
+				A1ABA6249C8E417FBD5B8BF0 /* libSafariViewManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,10 +542,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		28B3B19C1F8F841400079FB9 /* Products */ = {
+		28A4C7F21FB09DD400ED406D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28B3B1C21F8F841500079FB9 /* libRNPaypalWrapper.a */,
+				28A4C7F61FB09DD400ED406D /* libSafariViewManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -602,9 +602,9 @@
 				2041393691234E88AD3E0AAD /* RNDeviceInfo.xcodeproj */,
 				469EDEF950F04C19920CD113 /* LRDRCTSimpleToast.xcodeproj */,
 				010BBF8A56164B17955E19A8 /* RNI18n.xcodeproj */,
-				3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */,
 				09D42E196F6C44D9A489A073 /* RCTFBSDK.xcodeproj */,
 				874D6EC1176F4C7CA89560C6 /* RCTDismissableNumericKeyboard.xcodeproj */,
+				4D2740FA19EC4176B646BDC5 /* SafariViewManager.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -650,9 +650,9 @@
 				C5381996DECF4574835752EE /* libRNDeviceInfo.a */,
 				287E19B127474A549D58020A /* libLRDRCTSimpleToast.a */,
 				99592F56204B49579BF67C99 /* libRNI18n.a */,
-				51F0900195D64C1BA0603FB5 /* libRNPaypalWrapper.a */,
 				AA5C1F64A4A64862A718C70B /* libRCTFBSDK.a */,
 				A3D3D2226AB14CB082A66B9F /* libRCTDismissableNumericKeyboard.a */,
+				0018379CF1E542D8AC272EBC /* libSafariViewManager.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -764,7 +764,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 810;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
@@ -864,8 +864,8 @@
 					ProjectRef = 010BBF8A56164B17955E19A8 /* RNI18n.xcodeproj */;
 				},
 				{
-					ProductGroup = 28B3B19C1F8F841400079FB9 /* Products */;
-					ProjectRef = 3313C9DD09F44F1E8EB3A408 /* RNPaypalWrapper.xcodeproj */;
+					ProductGroup = 28A4C7F21FB09DD400ED406D /* Products */;
+					ProjectRef = 4D2740FA19EC4176B646BDC5 /* SafariViewManager.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -948,11 +948,11 @@
 			remoteRef = 289E54951F8E1C6B00A356A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		28B3B1C21F8F841500079FB9 /* libRNPaypalWrapper.a */ = {
+		28A4C7F61FB09DD400ED406D /* libSafariViewManager.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libRNPaypalWrapper.a;
-			remoteRef = 28B3B1C11F8F841500079FB9 /* PBXContainerItemProxy */;
+			path = libSafariViewManager.a;
+			remoteRef = 28A4C7F51FB09DD400ED406D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		28C9926D1F848FAF00095684 /* libLRDRCTSimpleToast.a */ = {
@@ -1268,15 +1268,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
-					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
+					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/DollarBirthday\"",
 					"\"$(SRCROOT)/DollarBirthday\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1308,15 +1307,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
-					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
+					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/DollarBirthday\"",
 					"\"$(SRCROOT)/DollarBirthday\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1351,9 +1349,9 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
-					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
+					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				INFOPLIST_FILE = "DollarBirthday-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1394,9 +1392,9 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
-					"$(SRCROOT)/../node_modules/react-native-paypal-wrapper/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
+					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				INFOPLIST_FILE = "DollarBirthday-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

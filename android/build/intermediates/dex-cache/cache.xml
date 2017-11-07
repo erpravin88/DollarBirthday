@@ -102,15 +102,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/amit/.android/build-cache/a2138fa176d7c1e27c269acdf28e24f1d447531a/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7de4e9c774aa3924c5633377c652913fa7de49e0">
-        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_766d146c688b36660659c52e0e5a80719beab035.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
         jumboMode="false"
         optimize="true"
@@ -279,15 +270,6 @@
         revision="25.0.0"
         sha1="150252b33b00274cc868578ade018fda0d43a3eb">
         <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_0e10f9043b19fa3319069081dbc7fe8a8f3f3db2.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-paypal-wrapper/android/build/intermediates/bundles/default/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="94d285972e86fe33a9e4116e5e6ed77bd734dc41">
-        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_830aa44ee80c020abd5695856841859fc2d11c7e.jar" />
     </item>
     <item
         is-multidex="false"

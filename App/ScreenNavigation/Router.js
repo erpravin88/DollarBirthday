@@ -19,6 +19,8 @@ import GiftHistory from '../GiftHistory/GiftHistory';
 import InviteFriend from '../InviteFriend/InviteFriend';
 
 export const screenRoute = (SignIn) => {
+  // console.log('route');
+  // console.log(SignIn);
   return StackNavigator({
     LOG_IN:{screen:Login},
     SIGN_UP:{screen:SignUp},
@@ -40,6 +42,6 @@ export const screenRoute = (SignIn) => {
     },{
     headerMode: 'none',
     mode:'card',
-    initialRouteName: SignIn ? 'DASHBOARD':'LOG_IN'
+    initialRouteName: (SignIn === true) ? 'DASHBOARD':'LOG_IN'
   });
 };

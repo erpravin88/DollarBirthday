@@ -1,6 +1,6 @@
 /**
  * DollarBirthday App
- * 
+ *
  * @flow
  */
 
@@ -18,6 +18,7 @@ import {
 import SplashScreen from 'react-native-smart-splash-screen';
 import { USER_KEY } from './App/Constant/Auth';
 import {screenRoute} from './App/ScreenNavigation/Router';
+const dispatchConnected = isConnected => console.log('Internet connected' + isConnected);
 
 export default class DollarBirthday extends Component {
     constructor(props){
@@ -42,7 +43,7 @@ export default class DollarBirthday extends Component {
           }
         });
 // conectivity eventlistener added here
-const dispatchConnected = isConnected => console.log('Internet connected' + isConnected);
+
 
 NetInfo.isConnected.fetch().then().done(() => {
   NetInfo.isConnected.addEventListener('change', dispatchConnected);

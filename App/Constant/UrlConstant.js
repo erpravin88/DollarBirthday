@@ -2,7 +2,7 @@ import DeviceInfo from "react-native-device-info";
 
 
 export const settings = {
-  DONOT_CHARITY_ID: 24, //"I Do Not Wish To Donate at This Time" Charity id 
+  DONOT_CHARITY_ID: 24, //"I Do Not Wish To Donate at This Time" Charity id
   API_URL: "http://dbc.demos.classicinformatics.com/apiDbc/public/",
   BASE_URL: "http://dbc.demos.classicinformatics.com",
   DEVICE_ID: DeviceInfo.getUniqueID(),
@@ -24,6 +24,11 @@ export const settings = {
                         'gv_paypal_password':'9YPPMCQQXKGGZ7WB',
                         'gv_paypal_signature':'AFcWxV21C7fd0v3bYYYRCpSSRl31AUSjdZagSGLZM6Q9dNTN4BiG7PwZ',
                         'gv_paypal_app_id':'APP-897100548E965904X'},
+  HOTMAIL_CREDENTIAILS : {
+                            client_id: '56f9576b-ab7b-4c44-bc4d-9ab7aa8d8913',
+                            client_secret: 'VBDLE3277>_stkmaqaCY8]%',
+                            scope: 'User.ReadBasic.All Mail.Read offline_access',
+                        },
 };
 export const alertData = [{
       value: 'No alert',index:'0'
