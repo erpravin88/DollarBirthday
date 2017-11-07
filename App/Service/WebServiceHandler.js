@@ -14,13 +14,7 @@ console.log(JSON.stringify(params));
             body: JSON.stringify(params)
         })
         .then((response) => {
-          let myReader = new FileReader();
-          myReader.onload = function(event){
-              console.log(JSON.stringify(myReader.result));
-          };
-          let data = myReader.readAsText(response._bodyBlob);
-          console.log(data);
-        	return response;
+          return response;
         })
         .catch((error) => Toast.show("error"));
 }
@@ -42,13 +36,7 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
                     body: JSON.stringify(params)
                 })
                 .then((response) => {
-                  let myReader = new FileReader();
-                  myReader.onload = function(event){
-                      console.log(JSON.stringify(myReader.result));
-                  };
-                  let data = myReader.readAsText(response._bodyBlob);
-                  console.log(data);
-                	return response;
+                  return response;
                 })
                 .catch((error) => Toast.show("error"));
 

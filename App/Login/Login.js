@@ -48,21 +48,14 @@ export default class Login extends Component {
               };
   }
   componentWillMount(){
-    AsyncStorage.getItem("persistentlogin").then((navigatetodashboard) => {
-      if(navigatetodashboard == "true"){
+
 
         AsyncStorage.getItem(USER_KEY).then((key) => {
-          if(key){console.log(key);
+          if(key == 'true'){ console.log('login'); console.log(key);
             this.props.navigation.navigate('DASHBOARD');
           }
         });
       }
-      else{
-        onSignOutfromlogin(this);
-      }
-    });
-
-  }
 
   onLoginClick(){
     let error = this.state.errorMsg;

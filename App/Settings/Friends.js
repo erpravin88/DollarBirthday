@@ -15,7 +15,7 @@ import {
   KeyboardAvoidingView,
   AsyncStorage,
   FlatList,
-  Modal
+  Modal,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -45,6 +45,7 @@ const {
   AccessToken
 } = FBSDK;
 
+
 export default class Friends extends Component {
 
   constructor(props){
@@ -63,6 +64,7 @@ export default class Friends extends Component {
       friend_id_edit:0,
       contactListModal:false,
     };
+
 
  }
 
@@ -141,6 +143,7 @@ deleteFriend(item){
  }
 
 componentWillMount(){
+
     this.setState({showProgress : true});
     AsyncStorage.getItem(USER_KEY).then((key)=>{
       //this.setState({user_key: key});
@@ -204,6 +207,11 @@ componentDidMount() {
     }
   };
 
+ // Handle Login with Facebook button tap
+ loginWithFacebook = () => this.openURL('https://login.live.com/oauth20_authorize.srf?client_id=56f9576b-ab7b-4c44-bc4d-9ab7aa8d8913&scope=User.ReadBasic.All%20Mail.Read%20offline_access&response_type=token&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient');
+ //loginWithFacebook = () => this.openURL('https://login.live.com/oauth20_authorize.srf?client_id=000000004C1F2910&scope=wl.signin%20wl.basic%20wl.emails%20wl.contacts_emails&response_type=code&redirect_uri=https://www.dollarbirthdayclub.com/gcontacts');
+
+ // Open URL in a browser
   openURL = (url) => {
     // Use SafariView on iOS
     if (Platform.OS === 'ios') {
@@ -217,7 +225,6 @@ componentDidMount() {
       Linking.openURL(url);
     }
   };
-
  /**/
 
 
@@ -232,7 +239,43 @@ componentDidMount() {
         >
             <View style={styles.modalbox}>
                 <View style={styles.modalinnerbox}>
-        
+                    <View style={styles.modalhead}>
+                        <Text style={styles.headtext}>Import Friends</Text>
+                        <TouchableOpacity onPress={() => {this.setState({contactListModal:false})}}>
+                            <Text style={styles.cross}>         X</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style = {styles.modallist}>
+                        <View style = {styles.listbox}>
+                            <View>
+                                <Text style={styles.fullnametext}>Full Name</Text>
+                            </View>
+                            <TouchableOpacity style={styles.crossiconposi}>
+                                <Image style={styles.crossicon} source={images.crossicon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.editiconposi}>
+                                <Image style={styles.editicon} source={images.editicon} />
+                            </TouchableOpacity>
+                            <View style={styles.birthdatemailfield}>
+                                <Text style={styles.birthdatetext}>email@email.com</Text>
+                                <Text style={styles.emailtext}>hotmail</Text>
+                            </View>
+                            <View>
+                                <DatePicker
+                                    style = {styles.modalpicker}
+                                    date = {this.state.initialdob}
+                                    format = "YYYY-MM-DD"
+                                    maxDate = {this.state.maxdob}
+                                    confirmBtnText = {Label.t('6')}
+                                    cancelBtnText = {Label.t('7')}
+                                    iconSource = {images.dropdownArrow}
+                                    onDateChange = {(date) => {this.setState({initialdob:date})}}
+                                    customStyles={{dateInput: styles.dateInput,
+                                                dateIcon: styles.dateIcon,}}
+                                />
+                            </View>
+                        </View>
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -277,7 +320,9 @@ componentDidMount() {
                 <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
             </View>
             <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                  console.log('test');//this.loginWithFacebook()
+                }}>
                     <View style = {styles.hotmailsigninbox}>
                         <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
                     </View>

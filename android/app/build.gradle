@@ -150,7 +150,6 @@ android {
 
 dependencies {
     compile project(':react-native-fbsdk')
-    compile project(':react-native-paypal-wrapper')
     compile project(':react-native-i18n')
     compile project(':react-native-device-info')
     compile project(':react-native-smart-splash-screen')

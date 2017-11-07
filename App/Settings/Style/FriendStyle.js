@@ -4,15 +4,50 @@ import comman from '../../Constant/Style';
 
 const style = {
 
+        modalpicker:{
+          backgroundColor:'transparent',
+          marginBottom:1,
+          width:'50%',
+        },
+
+        modallist:{
+          padding:10,
+          marginTop:5
+        },
+
+        cross:{
+          color:'#FFFFFF',
+          fontSize:20,
+          fontFamily:'OpenSans-Semibold',
+          textAlign:'right'
+
+        },
+
+        headtext:{
+            color:'#FFFFFF',
+            fontSize:20,
+            fontFamily:'OpenSans-Semibold',
+
+        },
+
+        modalhead:{
+            backgroundColor:'#62458F',
+            height:50,
+            padding:10,
+            flexDirection:'row',
+
+        },
+
         modalbox:{
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#00000070'
+            backgroundColor: '#00000070',
+            height: height
         },
 
         modalinnerbox:{
             width:'94%',
-            height:'98%',
+            height:'96%',
             backgroundColor: '#FFFFFF'
         },
 
