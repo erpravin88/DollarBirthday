@@ -4,6 +4,18 @@ import comman from '../../Constant/Style';
 
 const style = {
 
+        modalbox:{
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#00000070'
+        },
+
+        modalinnerbox:{
+            width:'94%',
+            height:'98%',
+            backgroundColor: '#FFFFFF'
+        },
+
         scrolllist:{
             backgroundColor:'transparent',
             overflow:'hidden',

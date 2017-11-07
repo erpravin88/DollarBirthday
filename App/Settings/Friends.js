@@ -7,12 +7,15 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  Linking,
+  Platform,
   Image,ScrollView,
   ImageBackground,
   ActivityIndicator,
   KeyboardAvoidingView,
   AsyncStorage,
   FlatList,
+  Modal
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -27,6 +30,7 @@ import functions from '../Constant/Function';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
+import SafariView from 'react-native-safari-view';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -38,6 +42,7 @@ const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'Jul
 import FBSDK  from 'react-native-fbsdk';
 const {
   LoginManager,
+  AccessToken
 } = FBSDK;
 
 export default class Friends extends Component {
@@ -47,6 +52,7 @@ export default class Friends extends Component {
     this.changedateformat = this.changedateformat.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
     this._fbAuth = this._fbAuth.bind(this);
+    this.openURL = this.openURL.bind(this);
     //this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this.state = {
       Friends:[],
@@ -55,17 +61,30 @@ export default class Friends extends Component {
       friendlistvisible: true,
       friend_id:0,
       friend_id_edit:0,
+      contactListModal:false,
     };
 
  }
 
  _fbAuth = () => {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result){
+    LoginManager.logInWithReadPermissions(['public_profile','user_birthday']).then((result) => {
         if(result.isCancelled){
             Toast.show('Log In cancelled');
         }
         else { 
-            functions.web("https://www.facebook.com/events/birthdays/");
+            /*AccessToken.getCurrentAccessToken().then(
+                (data) => {
+                    console.log(data);
+                    fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
+                    .then((response) => response.json())
+                    .then((json) => {console.log("Profile fb",json)})
+                    .catch(() => {
+                      console.log('ERROR GETTING DATA FROM FACEBOOK');
+                    })
+
+                }
+            );*/
+            this.openURL("https://www.facebook.com/events/birthdays/");
         }
     }, function(error){
         console.log('An error occured: ' + error)
@@ -156,9 +175,48 @@ componentWillMount(){
       Toast.show(err);
     });
 }
- componentDidMount(){
 
- }
+componentDidMount() {
+    // Add event listener to handle OAuthLogin:// URLs
+    Linking.addEventListener('url', this.handleOpenURL);
+    // Launched from an external URL
+    Linking.getInitialURL().then((url) => {
+      if (url) {
+        this.handleOpenURL({ url });
+      }
+    });
+  };
+
+  componentWillUnmount() {
+    // Remove event listener
+    Linking.removeEventListener('url', this.handleOpenURL);
+  };
+
+  handleOpenURL = ({ url }) => {console.log(11);
+    // Extract stringified user string out of the URL
+    const [, user_string] = url.match(/user=([^#]+)/);
+    this.setState({
+      // Decode the user string and parse it into JSON
+      user: JSON.parse(decodeURI(user_string))
+    });
+    if (Platform.OS === 'ios') {
+      SafariView.dismiss();
+    }
+  };
+
+  openURL = (url) => {
+    // Use SafariView on iOS
+    if (Platform.OS === 'ios') {
+      SafariView.show({
+        url: url,
+        fromBottom: true,
+      });
+    }
+    // Or Linking.openURL on Android
+    else {
+      Linking.openURL(url);
+    }
+  };
 
  /**/
 
@@ -166,6 +224,18 @@ componentWillMount(){
   render(){
   return(
     <View style = {[styles.TextInputContainer]}>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.contactListModal}
+            onRequestClose={() => {alert("Modal has been closed.")}}
+        >
+            <View style={styles.modalbox}>
+                <View style={styles.modalinnerbox}>
+        
+                </View>
+            </View>
+        </Modal>
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
@@ -177,11 +247,11 @@ componentWillMount(){
                 </View>
             </TouchableOpacity>
             <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {this.openURL("https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&include_granted_scopes=true&redirect_uri=com.googleusercontent.apps.963030470350-pb5sboa800vjrmbi9jq370d3er94foq0:/google&response_type=code&client_id=963030470350-pb5sboa800vjrmbi9jq370d3er94foq0.apps.googleusercontent.com");}}>
                     <View style = {styles.googlesigninbox}>
                         <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
                     </View>
-                </TouchableOpacity>
+                 </TouchableOpacity>
 
                 <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
             </View>
@@ -198,7 +268,7 @@ componentWillMount(){
         </View>
         <View style = {styles.friendboxes}>
             <View style = {[styles.yahoosigninview]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {this.setState({contactListModal:true})}}>
                     <View style = {styles.yahoosigninbox}>
                         <Text style= {styles.boxtextsmall}>{Label.t('117')}</Text>
                     </View>
