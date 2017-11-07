@@ -225,6 +225,13 @@ componentDidMount() {
       Linking.openURL(url);
     }
   };
+  
+  renderImage() {
+      var imgSource = this.state.checkboximg? images.uncheckedcheckbox : images.checkedcheckbox;
+      return (
+          <Image style={styles.checkboxicon} source = {imgSource}/>
+      );
+  }
  /**/
 
 
@@ -246,33 +253,38 @@ componentDidMount() {
                         </TouchableOpacity>
                     </View>
                     <View style = {styles.modallist}>
-                        <View style = {styles.listbox}>
-                            <View>
-                                <Text style={styles.fullnametext}>Full Name</Text>
-                            </View>
-                            <TouchableOpacity style={styles.crossiconposi}>
-                                <Image style={styles.crossicon} source={images.crossicon} />
+                        <View style = {styles.modallistbox}>
+                            <TouchableOpacity onPress={ () => {        this.setState({ checkboximg: !this.state.checkboximg });} }>
+                                    {this.renderImage()}
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.editiconposi}>
-                                <Image style={styles.editicon} source={images.editicon} />
-                            </TouchableOpacity>
-                            <View style={styles.birthdatemailfield}>
-                                <Text style={styles.birthdatetext}>email@email.com</Text>
-                                <Text style={styles.emailtext}>hotmail</Text>
-                            </View>
-                            <View>
-                                <DatePicker
-                                    style = {styles.modalpicker}
-                                    date = {this.state.initialdob}
-                                    format = "YYYY-MM-DD"
-                                    maxDate = {this.state.maxdob}
-                                    confirmBtnText = {Label.t('6')}
-                                    cancelBtnText = {Label.t('7')}
-                                    iconSource = {images.dropdownArrow}
-                                    onDateChange = {(date) => {this.setState({initialdob:date})}}
-                                    customStyles={{dateInput: styles.dateInput,
-                                                dateIcon: styles.dateIcon,}}
-                                />
+                            <View style={style=styles.listdetailbox}>
+                                <View>
+                                    <Text style={styles.fullnametext}>Full Name</Text>
+                                </View>
+                                <TouchableOpacity style={styles.crossiconposi}>
+                                    <Image style={styles.crossicon} source={images.crossicon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.editiconposi}>
+                                    <Image style={styles.editicon} source={images.editicon} />
+                                </TouchableOpacity>
+                                <View style={styles.birthdatemailfield}>
+                                    <Text style={styles.birthdatetext}>email@email.com</Text>
+                                    <Text style={styles.emailtext}>hotmail</Text>
+                                </View>
+                                <View>
+                                    <DatePicker
+                                        style = {styles.modalpicker}
+                                        date = {this.state.initialdob}
+                                        format = "YYYY-MM-DD"
+                                        maxDate = {this.state.maxdob}
+                                        confirmBtnText = {Label.t('6')}
+                                        cancelBtnText = {Label.t('7')}
+                                        iconSource = {images.dropdownArrow}
+                                        onDateChange = {(date) => {this.setState({initialdob:date})}}
+                                        customStyles={{dateInput: styles.dateInput,
+                                                    dateIcon: styles.dateIcon,}}
+                                    />
+                                </View>
                             </View>
                         </View>
                     </View>

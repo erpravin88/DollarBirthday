@@ -4,6 +4,32 @@ import comman from '../../Constant/Style';
 
 const style = {
 
+        checkboxicon:{
+          marginTop:3,
+          height:16,
+          width:16
+        },
+
+        listdetailbox:{
+          width:'90%',
+          paddingLeft:10
+        },
+
+        modallistbox:{
+
+          flexDirection:'row',
+          shadowOpacity: 0.75,
+          shadowRadius: 5,
+          shadowColor: '#cccccc',
+          shadowOffset: { height: 0, width: 0 },
+          elevation:3,
+          borderWidth: 1,
+          borderRadius: 2,
+          borderColor: '#ddd',
+          marginBottom:5,
+          padding:8,
+        },
+
         modalpicker:{
           backgroundColor:'transparent',
           marginBottom:1,
@@ -12,7 +38,7 @@ const style = {
 
         modallist:{
           padding:10,
-          marginTop:5
+          marginTop:5,
         },
 
         cross:{
