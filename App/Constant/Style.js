@@ -25,6 +25,12 @@ const { width, height } = Dimensions.get('window');
     font6:{
 			fontSize:20,
 		},
+		font7:{
+			fontSize:22,
+		},
+    font8:{
+			fontSize:24,
+		},
     fontFamilyBold:{
       fontFamily:'OpenSans-Semibold',
     },
@@ -110,6 +116,10 @@ const { width, height } = Dimensions.get('window');
 			 width:'89%',
 			 alignSelf: 'center',
 			},
+			SettingsTextInputContainer: {
+			 width:'78%',
+			 alignSelf: 'center',
+			},
 			TabContainer: {
 			 width:'94%',
 			 alignSelf: 'center',
@@ -128,7 +138,7 @@ const { width, height } = Dimensions.get('window');
 	   errorMsg: {
        backgroundColor: 'transparent',
 	     color:'#ff0000',
-	     width:'89%',
+	     width:'78%',
 	     alignSelf:'center',
 	   },
 

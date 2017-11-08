@@ -4,6 +4,13 @@ import comman from '../../Constant/Style';
 
 const style = {
 
+    calendarmodal:{
+      backgroundColor:'#5e4289',
+      padding:6, 
+      width:'100%', 
+      height:'100%'
+    },
+
     modaldata:{
       height:'60%',
       width:'85%',

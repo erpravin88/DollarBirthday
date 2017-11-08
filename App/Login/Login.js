@@ -141,9 +141,9 @@ return(
     <Image style = {[styles.logo, {display:'none'}]} source = {images.baseLogo}/>
   </View>
   <View style = {[styles.formgroup]}>
-  <ScrollView keyboardShouldPersistTaps="always">
-        <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-        <TextInput style = {[styles.TextInputStyle, styles.font5]}
+  <ScrollView  style={styles.scrollviewheight}>
+        <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
+        <TextInput style = {[styles.TextInputStyle, styles.font3]}
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
           placeholder = {Label.t('41')}
@@ -159,8 +159,8 @@ return(
         />
         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
       </View><Text style = {[styles.errorMsg,styles.font3]}>{this.state.errorMsg['emailMsg']}</Text>
-      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-        <TextInput style = {[styles.TextInputStyle, styles.font5]}
+      <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
+        <TextInput style = {[styles.TextInputStyle, styles.font3]}
           ref='secondInput'
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
@@ -176,34 +176,32 @@ return(
         <Image style = {styles.TextInputIcon} source = {images.password}/>
       </View>
       <Text style = {[styles.errorMsg,styles.font3]}>{this.state.errorMsg['passwordMsg']}</Text>
-      <View style = {styles.TextInputContainer}>
+      <View style = {styles.tempTextInputContainer}>
         <CheckBox
             style={[styles.singlecheckbox]}
             label="Keep me Signed In"
             onChange={(val) => {this.setState({persistentlogin: !val})}}
           />
       </View>
-      <View style = {styles.TextInputContainer}>
-        <TouchableOpacity
-        onPress={()=>{this.props.navigation.navigate('FPASSWORD')}}
-        >
-        <Text style = {styles.forgot}>{Label.t('69')}</Text>
+      <View style = {styles.tempTextInputContainer}>
+        <TouchableOpacity>
+        <Text onPress={()=>{this.props.navigation.navigate('FPASSWORD')}} style = {styles.forgot}>{Label.t('69')}</Text>
         </TouchableOpacity>
       </View>
-      <View style = {styles.TextInputContainer}>
+      <View style = {styles.tempoTextInputContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onLoginClick}>
           <Text style = {styles.signInButton}>{Label.t('70')}</Text>
         </TouchableOpacity>
       </View>
-      <View style = {styles.TextInputContainer}>
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('SIGN_UP')}}>
-        <Text style = {styles.forgot}>{Label.t('71')}</Text>
+      <View style = {styles.tempTextInputContainer}>
+        <TouchableOpacity>
+        <Text onPress={()=>{this.props.navigation.navigate('SIGN_UP')}} style = {styles.forgot}>{Label.t('71')}</Text>
         </TouchableOpacity>
       </View>
-      <View style = {styles.TextInputContainer}>
+      <View style = {styles.tempTextInputContainer}>
         <Text style = {styles.orDivider}>{Label.t('72')}</Text>
       </View>
-      <View style = {styles.TextInputContainer}>
+      <View style = {styles.tempTextInputContainer}>
         <TouchableOpacity style = {styles.facebookButtonContainer}>
           <Image style = {styles.facebookButton} source = {images.facebookButton}/>
         </TouchableOpacity>

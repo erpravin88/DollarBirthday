@@ -4,10 +4,34 @@ import comman from '../../Constant/Style';
 
 const style = {
 
+        modalbackicon:{
+          marginTop:5,
+          height:18,
+          width:18,
+          marginRight:10,
+        },
+
+        modalfullnametext:{
+          fontSize:18,
+          fontFamily:'OpenSans-Semibold'
+        },
+
+        modalbirthdatetext:{
+          fontSize:12,
+          color:'#b7b7b7',
+          fontFamily:'OpenSans-Semibold'
+        },
+
+        modalemailtext:{
+          fontSize:12,
+          fontFamily:'OpenSans-Semibold',
+           color:'#6CB8FB'
+        },
+
         checkboxicon:{
           marginTop:3,
-          height:16,
-          width:16
+          height:25,
+          width:25
         },
 
         listdetailbox:{

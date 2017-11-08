@@ -3,6 +3,18 @@ const { width, height } = Dimensions.get('window');
 import comman from '../../Constant/Style';
 
 const style = {
+  
+    tempTextInputContainer: {
+      marginTop:5,
+     width:'78%',
+     alignSelf: 'center',
+    },
+
+    tempoTextInputContainer: {
+      marginTop:-5,
+     width:'78%',
+     alignSelf: 'center',
+    },
 
  heading1:{
    alignSelf:'center',
@@ -21,6 +33,8 @@ const style = {
    alignSelf:'center',
    justifyContent:'center',
    backgroundColor:'transparent',
+   fontWeight:'bold',
+   color:'#3E3E3E'
  },
 signupPaypal:{
   color:'#449FD8',

@@ -238,7 +238,7 @@ componentDidMount() {
   render(){
   return(
     <View style = {[styles.TextInputContainer]}>
-        <Modal
+        {/* <Modal
             animationType="slide"
             transparent={true}
             visible={this.state.contactListModal}
@@ -247,29 +247,23 @@ componentDidMount() {
             <View style={styles.modalbox}>
                 <View style={styles.modalinnerbox}>
                     <View style={styles.modalhead}>
-                        <Text style={styles.headtext}>Import Friends</Text>
                         <TouchableOpacity onPress={() => {this.setState({contactListModal:false})}}>
-                            <Text style={styles.cross}>         X</Text>
+                            <Image style = {styles.modalbackicon} source = {images.backIcon}></Image>
                         </TouchableOpacity>
+                        <Text style={styles.headtext}>Import Friends</Text>
                     </View>
                     <View style = {styles.modallist}>
                         <View style = {styles.modallistbox}>
-                            <TouchableOpacity onPress={ () => {        this.setState({ checkboximg: !this.state.checkboximg });} }>
+                            <TouchableOpacity onPress={ () => {this.setState({ checkboximg: !this.state.checkboximg });} }>
                                     {this.renderImage()}
                             </TouchableOpacity>
                             <View style={style=styles.listdetailbox}>
                                 <View>
-                                    <Text style={styles.fullnametext}>Full Name</Text>
+                                    <Text style={styles.modalfullnametext}>Full Name</Text>
                                 </View>
-                                <TouchableOpacity style={styles.crossiconposi}>
-                                    <Image style={styles.crossicon} source={images.crossicon} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.editiconposi}>
-                                    <Image style={styles.editicon} source={images.editicon} />
-                                </TouchableOpacity>
                                 <View style={styles.birthdatemailfield}>
-                                    <Text style={styles.birthdatetext}>email@email.com</Text>
-                                    <Text style={styles.emailtext}>hotmail</Text>
+                                    <Text style={styles.modalbirthdatetext}>email@email.com</Text>
+                                    <Text style={styles.modalemailtext}>  hotmail</Text>
                                 </View>
                                 <View>
                                     <DatePicker
@@ -290,7 +284,7 @@ componentDidMount() {
                     </View>
                 </View>
             </View>
-        </Modal>
+        </Modal> */}
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});

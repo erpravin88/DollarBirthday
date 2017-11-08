@@ -86,9 +86,18 @@ displaybirthdays(){
     });
 }
 
-modalOpen(selectedDate){
+modalOpen(selectedDate){console.log(selectedDate, this.state.Friends);
+    let bdayfound = false;
+    for (let friend of this.state.Friends) {
+        if(friend.birth_date == selectedDate.dateString){
+            bdayfound = true;
+            break
+        }
+    }
+    if(bdayfound == true){
     this.state.dateSelected = selectedDate;
     this.setModalVisible(true);
+    }
 }
 
 checkyear(month){
@@ -211,7 +220,7 @@ render(){
                             <Image style={{width:15,height:15}} source={images.crossicon} />
                         </TouchableOpacity>
                       </View>
-                      <View style={[{backgroundColor:'#5e4289',padding:6,}]}>
+                      <View style={styles.calendarmodal}>
                           <ScrollView >
                               {this.displaybirthdays()}
                           </ScrollView>

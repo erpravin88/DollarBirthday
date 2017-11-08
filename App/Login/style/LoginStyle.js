@@ -3,6 +3,25 @@ const { width, height } = Dimensions.get('window');
 import comman from '../../Constant/Style';
 
 const style = {
+
+  scrollviewheight:{
+    flex: 1, 
+    maxHeight: "45%"
+
+  },
+
+  tempTextInputContainer: {
+    marginTop:5,
+   width:'78%',
+   alignSelf: 'center',
+  },
+
+  tempoTextInputContainer: {
+    marginTop:35,
+   width:'78%',
+   alignSelf: 'center',
+  },
+
   titleContainer: {
     width: width,
     marginTop: 40,
@@ -18,7 +37,7 @@ viewStyle: {
 
   forgot: {
 
-    fontSize: 14,
+    fontSize: 12,
     color:'#5e3a93',
     marginTop: 5,
     alignSelf:'flex-end',

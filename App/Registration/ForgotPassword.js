@@ -90,16 +90,16 @@ export default class ForgetPassword extends Component {
   <View style={{height:'56%',overflow:'hidden'}}>
   <ScrollView  keyboardShouldPersistTaps="always">
     <View style = {[styles.TextInputContainer]}>
-      <Text style = {styles.heading1}>{Label.t('69')}</Text>
+      <Text style = {[styles.heading1, styles.font8]}>{Label.t('69')}</Text>
     </View>
-    <View style = {[styles.TextInputContainer]}>
-      <Text style = {styles.subhead1}>{Label.t('92')}</Text>
-      <Text style = {styles.subhead1}>{Label.t('93')}</Text>
+    <View style = {[styles.tempTextInputContainer]}>
+      <Text style = {[styles.subhead1, styles.font3]}>{Label.t('92')}</Text>
+      <Text style = {[styles.subhead1, styles.font3]}>{Label.t('93')}</Text>
     </View>
     <View style={[styles.marginFix1,]}>
-      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+      <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
         <TextInput
-        style = {styles.TextInputStyle}
+        style = {[styles.TextInputStyle, styles.font2]}
         keyboardType = 'default'
         placeholderTextColor = "#b7b7b7"
         placeholder = {Label.t('41')}
@@ -117,18 +117,18 @@ export default class ForgetPassword extends Component {
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
     </View>
-    <View style = {styles.TextInputContainer}>
+    <View style = {styles.tempoTextInputContainer}>
       <TouchableOpacity
       style = {[styles.signInButtonContainer,{backgroundColor:'#6A4A9A'}]}
       onPress = {this.onSubmitClick}>
         <Text style = {styles.signInButton}>{Label.t('94')}</Text>
       </TouchableOpacity>
     </View>
-    <TouchableOpacity>
-      <View style = {[styles.TextInputContainer,{marginBottom:'30%'}]}>
-            <Text style = {styles.term_service}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
+      <View style = {[styles.tempTextInputContainer,{marginBottom:'30%'}]}>
+        <TouchableOpacity>
+            <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
+      </TouchableOpacity>
       </View>
-    </TouchableOpacity>
   </ScrollView>
   </View>
 </View>);

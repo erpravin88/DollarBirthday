@@ -48,7 +48,6 @@
 		DB7FCCE01F625E2C003EB888 /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB7FCCDE1F625E2C003EB888 /* splash@2x.png */; };
 		DB7FCCE11F625E2C003EB888 /* splash@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB7FCCDF1F625E2C003EB888 /* splash@3x.png */; };
 		EFF32AC23BEE4BF3A4AC64A8 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F64F0CD95A4E4D70851947FD /* libRCTSplashScreen.a */; };
-		F13FC512C6D142A986EC40F4 /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A088656EAA4F9A9B89CEAA /* libSafariViewManager.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -660,6 +659,7 @@
 				99592F56204B49579BF67C99 /* libRNI18n.a */,
 				AA5C1F64A4A64862A718C70B /* libRCTFBSDK.a */,
 				F6A088656EAA4F9A9B89CEAA /* libSafariViewManager.a */,
+				0018379CF1E542D8AC272EBC /* libSafariViewManager.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";

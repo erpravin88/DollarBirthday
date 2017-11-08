@@ -175,9 +175,9 @@ hideErrors(){
     <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
   <View style = {[styles.formgroup]}>
-    <ScrollView  keyboardShouldPersistTaps="always">
-      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-        <TextInput style = {styles.TextInputStyle}
+    <ScrollView>
+      <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
+        <TextInput style = {[styles.TextInputStyle, styles.font3]}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
           placeholder = {Label.t('42')}
@@ -192,9 +192,9 @@ hideErrors(){
         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['fullName']}</Text>
-      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+      <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
         <TextInput
-          style = {styles.TextInputStyle}
+          style = {[styles.TextInputStyle, styles.font3]}
           ref='secondInput'
           keyboardType = 'email-address'
           placeholderTextColor = "#b7b7b7"
@@ -211,10 +211,10 @@ hideErrors(){
         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-      <View style = {styles.TextInputContainer}>
-        <Text style = {styles.dob_label}>{Label.t('43')}</Text>
+      <View style = {styles.tempoTextInputContainer}>
+        <Text style = {[styles.dob_label, styles.font1]}>{Label.t('43')}</Text>
         <DatePicker
-          style = {styles.date_picker}
+          style = {[styles.date_picker, styles.font3]}
           date = {this.state.initialdob}
           format = "YYYY-MM-DD"
           maxDate = {this.state.maxdob}
@@ -227,9 +227,9 @@ hideErrors(){
         />
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
-      <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+      <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
         <TextInput
-          style = {styles.TextInputStyle}
+          style = {[styles.TextInputStyle, styles.font3]}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
           placeholder = {Label.t('44')}
@@ -245,21 +245,21 @@ hideErrors(){
         <Image style = {styles.TextInputIcon} source = {images.password}/>
       </View>
       <Text style = {styles.errorMsg}>{this.state.errorMsg['passwordMsg']}</Text>
-      <View style = {styles.TextInputContainer}>
+      <View style = {styles.signupbuttonContainer}>
         <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
           <Text style = {styles.signInButton}>{Label.t('105')}</Text>
         </TouchableOpacity>
         <TouchableOpacity >
           <Text style = {styles.button_below}>{Label.t('106')}<Text style={styles.linkColor}>{Label.t('107')}</Text>{Label.t('108')}<Text style={styles.linkColor}>{Label.t('109')}</Text></Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null)}}>
-          <Text style = {styles.login_button}>{Label.t('110')}<Text style={styles.linkColor}>{Label.t('111')}</Text></Text>
+        <TouchableOpacity>
+          <Text  onPress={()=>{this.props.navigation.goBack(null)}} style = {[styles.login_button, styles.font2]}>{Label.t('110')}<Text style={styles.linkColor}>{Label.t('111')}</Text></Text>
         </TouchableOpacity>
       </View>
-      <View style = {styles.TextInputContainer}>
-        <Text style = {styles.orDivider}>{Label.t('72')}</Text>
+      <View style = {styles.tempTextInputContainer}>
+        <Text style = {[styles.orDivider, styles.font2]}>{Label.t('72')}</Text>
       </View>
-      <View style = {styles.TextInputContainer}>
+      <View style = {styles.tempTextInputContainer}>
         <TouchableOpacity style = {styles.facebookButtonContainer}>
           <Image style = {styles.facebookButton} source = {images.facebookButton}/>
         </TouchableOpacity>

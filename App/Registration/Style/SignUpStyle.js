@@ -4,6 +4,24 @@ import comman from '../../Constant/Style';
 
 const style = {
 
+  signupbuttonContainer: {
+    marginTop:14,
+   width:'78%',
+   alignSelf: 'center',
+  },
+  
+    tempTextInputContainer: {
+      marginTop:5,
+     width:'78%',
+     alignSelf: 'center',
+    },
+  
+    tempoTextInputContainer: {
+      marginTop:-8,
+     width:'78%',
+     alignSelf: 'center',
+    },
+
     titleContainer: {
       width: width,
       marginTop: 40,
