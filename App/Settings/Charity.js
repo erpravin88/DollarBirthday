@@ -250,7 +250,7 @@ hideErrors(){
   <View style = {[styles.SettingsTextInputContainer,{marginTop:15}]}>
     <Dropdown
           label={Label.t('10')}
-          style = {[styles.TextInputStyle,styles.font3]}
+          style = {[styles.TextInputStyle,styles.font2]}
           containerStyle ={{marginTop:-10}}
           baseColor = '#B3B3B3'
           value = {this.state.charity_type.value}
@@ -262,7 +262,7 @@ hideErrors(){
   <View style = {[ hide ? styles.hide : styles.show, styles.SettingsTextInputContainer]}>
   <Dropdown
         label={Label.t('11')}
-        style = {[styles.TextInputStyle,styles.font3]}
+        style = {[styles.TextInputStyle,styles.font2]}
         containerStyle ={{marginTop:-30}}
         baseColor = '#B3B3B3'
         value = {this.state.pre_amount.value}
@@ -275,7 +275,7 @@ hideErrors(){
   {(this.state.pre_amount.index == 'specify') ?
           (<View><View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
             <TextInput
-            style = {[styles.TextInputStyle,styles.font3]}
+            style = {[styles.TextInputStyle,styles.font2]}
             keyboardType = 'numeric'
             placeholderTextColor = "#b7b7b7"
             placeholder = {Label.t('11')}

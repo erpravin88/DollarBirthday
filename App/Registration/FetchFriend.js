@@ -96,24 +96,24 @@ export default class FetchFriend extends Component {
     <Text style = {styles.titleTextFirst}></Text>
     <Text style = {[styles.titleTextSecond,styles.marginTopFive]}>{Label.t('1')}</Text>
   </View>
-  <View style = {[styles.TextInputContainer]}>
+  <View style = {[styles.SettingsTextInputContainer]}>
     <Text style = {styles.heading1}>{Label.t('86')}</Text>
   </View>
-  <View style = {[styles.TextInputContainer,styles.marginFix2]}>
+  <View style = {[styles.SettingsTextInputContainer,styles.marginFix2]}>
     <Text style = {styles.subhead1}>{Label.t('87')}</Text>
   </View>
   <ScrollView keyboardShouldPersistTaps="always">
-    <View style = {styles.TextInputContainer}>
+    <View style = {styles.SettingsTextInputContainer}>
       <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]}>
         <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
       </TouchableOpacity>
     </View>
-    <View style = {styles.TextInputContainer}>
+    <View style = {styles.SettingsTextInputContainer}>
       <Text style = {styles.orDivider}>{Label.t('72')}</Text>
     </View>
-    <View style = {[styles.TextInputContainer]}>
+    <View style = {[styles.SettingsTextInputContainer,{marginTop:10}]}>
       <TouchableOpacity
-      style = {[styles.signInButtonContainer,{borderRadius:3}]}>
+      style = {[styles.redfullButtonContainer,{borderRadius:3}]}>
         <Text style = {styles.signInButton}>{Label.t('88')}</Text>
       </TouchableOpacity>
     </View>

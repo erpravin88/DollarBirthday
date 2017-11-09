@@ -6,19 +6,20 @@ const style = {
 
  heading1:{
    alignSelf:'center',
-   fontSize:25,
+   fontSize:22,
    fontFamily:'Open Sans',
    color:'#336D96',
    backgroundColor:'transparent',
    fontFamily:'OpenSans-Semibold',
  },
  subhead1:{
-   fontSize:14,
+   fontSize:12,
    fontFamily:'Open Sans',
    color:'#000000',
    alignSelf:'center',
    justifyContent:'center',
    backgroundColor:'transparent',
+   fontWeight:'bold'
  },
  facebookButtonContainer: {
 
@@ -40,7 +41,7 @@ marginFix2:{
   marginBottom:'12%',
 },
 skip:{
-  fontSize: 14,
+  fontSize: 12,
   color:'#000000',
   fontFamily:'Open Sans',
   backgroundColor:'transparent',
