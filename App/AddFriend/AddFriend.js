@@ -260,8 +260,8 @@ render(){
             </View>
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="always">
-                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-                        <TextInput style = {styles.TextInputStyle}
+                    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
+                        <TextInput style = {[styles.TextInputStyle,styles.font3]}
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
                             placeholder = {Label.t('2')}
@@ -277,8 +277,8 @@ render(){
                         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['firstName']}</Text>
-                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-                        <TextInput style = {styles.TextInputStyle}
+                    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
+                        <TextInput style = {[styles.TextInputStyle,styles.font3]}
                             ref='secondInput'
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
@@ -295,9 +295,9 @@ render(){
                         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['lastName']}</Text>
-                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+                    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
                         <TextInput
-                            style = {[styles.TextInputStyle]}
+                            style = {[styles.TextInputStyle,styles.font3]}
                             ref='thirdInput'
                             placeholderTextColor = "#b7b7b7"
                             placeholder = {Label.t('5')}
@@ -314,10 +314,10 @@ render(){
                         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-                    <View style = {[styles.TextInputContainer]}>
-                        <Text style = {styles.dob_label}>Birthday</Text>
+                    <View style = {[styles.SettingsTextInputContainer]}>
+                        <Text style = {[styles.dob_label,styles.font3]}>Birthday</Text>
                         <DatePicker
-                            style = {styles.date_picker}
+                            style = {[styles.date_picker,styles.font3]}
                             date = {this.state.initialdob}
                             format = "YYYY-MM-DD"
                             maxDate = {this.state.maxdob}
@@ -330,7 +330,7 @@ render(){
                         />
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
-                    <View style = {styles.TextInputContainer}>
+                    <View style = {styles.SettingsTextInputContainer}>
                     <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
                       <Text style = {styles.signInButton}>
                       {(this.state.newfriend == true) ? (<Image style = {styles.addBtn} source = {images.addBtn}/>):''}

@@ -185,7 +185,6 @@ hideErrors(){
 <View style={[styles.full]}>
   <Image style = {styles.backgroundImage} source = {images.loginbackground} />
   <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
     <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
   <View style={{height:'56%',overflow:'hidden'}}>
@@ -193,14 +192,14 @@ hideErrors(){
   <View style = {[styles.TextInputContainer]}>
     <Text style = {styles.heading1}>{Label.t('80')}</Text>
   </View>
-  <View style = {[styles.TextInputContainer,styles.marginBottomFive]}>
+  <View style = {[styles.SettingsTextInputContainer,styles.marginBottomFive]}>
     <Text style = {styles.subhead1}>{Label.t('81')}</Text>
     <Text style = {styles.subhead1}>{Label.t('82')}</Text>
   </View>
-    <View style = {[styles.TextInputContainer,styles.marginTopFive]}>
+    <View style = {[styles.SettingsTextInputContainer,styles.marginTopFive]}>
       <Dropdown
             label='Choose a Charity'
-            style = {styles.TextInputStyle}
+            style = {[styles.TextInputStyle,styles.font3]}
             containerStyle ={{marginTop:-40}}
             baseColor = '#B3B3B3'
             data={this.state.charity_list}
@@ -208,10 +207,10 @@ hideErrors(){
           />
           <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
     </View>
-    <View style = {styles.TextInputContainer}>
+    <View style = {styles.SettingsTextInputContainer}>
     <Dropdown
           label= {Label.t('11')}
-          style = {styles.TextInputStyle}
+          style = {[styles.TextInputStyle,styles.font3]}
           containerStyle ={{marginTop:-20}}
           baseColor = '#B3B3B3'
           data={this.state.donation_list}
@@ -220,9 +219,9 @@ hideErrors(){
         <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
     </View><View>
     {(this.state.pre_amount.index == 'specify') ?
-            (<View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+            (<View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
               <TextInput
-              style = {styles.TextInputStyle}
+              style = {[styles.TextInputStyle,styles.font3]}
               keyboardType = 'numeric'
               placeholderTextColor = "#b7b7b7"
               placeholder = {Label.t('11')}
@@ -237,13 +236,13 @@ hideErrors(){
               </View>) : (<View></View>)}
     <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
     </View>
-    <View style = {[styles.TextInputContainer]}>
+    <View style = {[styles.SettingsTextInputContainer]}>
       <TouchableOpacity
       style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}
       onPress = {this.onCharityClick}>
         <Text style = {styles.signInButton}>{Label.t('83')}</Text>
       </TouchableOpacity>
-      <Text style = {styles.term_service}>{Label.t('84')}</Text>
+      <Text style = {[styles.term_service,styles.font1]}>{Label.t('84')}</Text>
     </View>
     <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
       <View style = {[styles.skipContainer]}>

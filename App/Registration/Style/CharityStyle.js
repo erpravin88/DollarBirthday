@@ -6,18 +6,21 @@ const style = {
 
  heading1:{
    alignSelf:'center',
-   fontSize:25,
+   fontSize:24,
    fontFamily:'OpenSans-Semibold',
    color:'#DC6966',
    backgroundColor:'transparent',
+   marginBottom:5
  },
  subhead1:{
-   fontSize:14,
+   fontSize:12,
    fontFamily:'Open Sans',
-   color:'#000000',
+   color:'#3E3E3E',
    alignSelf:'center',
    justifyContent:'center',
    backgroundColor:'transparent',
+   fontWeight:'bold',
+   marginTop:5
  },
  skip:{
    fontSize: 14,
