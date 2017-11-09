@@ -331,7 +331,7 @@ render(){
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
                     <View style = {styles.SettingsTextInputContainer}>
-                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
+                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3, marginTop:10}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
                       <Text style = {styles.signInButton}>
                       {(this.state.newfriend == true) ? (<Image style = {styles.addBtn} source = {images.addBtn}/>):''}
                       {(this.state.newfriend == true) ? Label.t('0') :Label.t('8')}
