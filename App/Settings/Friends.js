@@ -237,7 +237,7 @@ componentDidMount() {
 
   render(){
   return(
-    <View style = {[styles.TextInputContainer]}>
+    <View style = {[styles.SettingsTextInputContainer,{marginTop:10}]}>
         {/* <Modal
             animationType="slide"
             transparent={true}
@@ -338,9 +338,9 @@ componentDidMount() {
             </View>
         </View>
         <View style={[styles.scrolllist]}>
-            <ScrollView keyboardShouldPersistTaps="always">
+            <ScrollView keyboardShouldPersistTaps="always" style={{flex:1,maxHeight:'40%'}}>
                 {(this.state.friendlistvisible == true) ?
-                (<View style={{width:'98%'}}><FlatList
+                (<View><FlatList
                     data={this.state.Friends}
                     renderItem={({item}) => this.changedateformat(item)}
                     keyExtractor={item => item.id}

@@ -87,8 +87,8 @@ onCharityClick(){
 render(){
 
   return(<ScrollView  keyboardShouldPersistTaps="always">
-  <View style = {[styles.TextInputContainer,{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}]}>
-  <Text style={{flex:5,backgroundColor:'transparent'}}>{Label.t('56')}</Text>
+  <View style = {[styles.SettingsTextInputContainer,{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center', marginTop:15}]}>
+  <Text style={[{flex:5,backgroundColor:'transparent'},styles.font3]}>{Label.t('56')}</Text>
   <Switch style={{flex:1,width:100}}
     onValueChange={()=>{
           if(this.state.email_notify){
@@ -101,10 +101,10 @@ render(){
     value={this.state.email_notify ? true : false}
     />
   </View>
-  <View style = {styles.TextInputContainer}>
+  <View style = {[styles.SettingsTextInputContainer,{marginTop:5}]}>
   <Dropdown
         label= {Label.t('57')}
-        style = {styles.TextInputStyle}
+        style = {[styles.TextInputStyle,styles.font3]}
         containerStyle ={{marginTop:-10}}
         baseColor = '#B3B3B3'
         value = {this.state.alert.value}
@@ -112,7 +112,7 @@ render(){
         onChangeText = {(value,index,data)=>{this.setState({alert:data[index]});}}
       />
   </View>
-  <View style = {[styles.TextInputContainer]}>
+  <View style = {[styles.SettingsTextInputContainer,{marginTop:20}]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>
