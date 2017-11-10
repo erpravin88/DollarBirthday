@@ -136,10 +136,9 @@ const style = {
 
           boxtextsmall:{
               color:'#ffffff',
-              fontSize:10,
+              fontSize:12,
               textAlign: 'center',
-              fontFamily:'OpenSans-Semibold',
-              padding:3
+              fontFamily:'OpenSans-Semibold'
           },
 
           addicon:{

@@ -16,13 +16,12 @@ const style = {
    marginBottom:'5%',
  },
  subhead1:{
-   fontSize:12,
+   fontSize:14,
    fontFamily:'Open Sans',
-   color:'#3E3E3E',
+   color:'#000000',
    alignSelf:'center',
    justifyContent:'center',
    backgroundColor:'transparent',
-   fontWeight:'bold'
  },
  facebookButtonContainer: {
 

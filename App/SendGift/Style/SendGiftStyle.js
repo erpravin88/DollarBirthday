@@ -34,13 +34,12 @@ const style = {
         resizeMode:'contain',
       },
       TextAreaInputStyle: {
-
           width: '100%',
           height: 80,
-          paddingBottom:0,
           paddingBottom:5,
+          alignItems: "flex-start",
+          textAlignVertical: "top",
       },
-
       textcontainer:{
         marginLeft:'5%',
         marginTop: 5

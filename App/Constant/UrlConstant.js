@@ -17,7 +17,7 @@ export const settings = {
                         'gv_paypal_password':'EPRA3GVFLC5VQM88',
                         'gv_paypal_signature':'As73nrgcNlPNUmFI7LiaXizN2XJ7AaJx-wbNNxfW00xJORQFZkFUTD4u',
                         'gv_paypal_app_id':'APP-80W284485P519543T'},
-  PAYPAL_LIVE_AUTHURL: 'https://www.paypal.com/webapps/adaptivepayment/flow/pay?&expType=light&payKey=',
+  PAYPAL_LIVE_AUTHURL: 'https://www.paypal.com/webapps/adaptivepayment/flow/pay?&expType=mini&payKey=',
   // PAYPAL_LIVE_AUTHURL: 'https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=',
   PAYPAL_LIVE_APIURL: 'https://svcs.paypal.com/AdaptivePayments/',
   PAYPAL_LIVE_CREDENTIALS:{'gv_paypal_user_name':'ronnage123_api1.gmail.com',

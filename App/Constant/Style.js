@@ -152,15 +152,6 @@ const { width, height } = Dimensions.get('window');
 	       borderBottomWidth: 1,
 	       borderBottomColor: '#e0e0e0'
 	  },
-		redfullButtonContainer: {
-
-	    width: '100%',
-	    height:40,
-	    marginTop: 5,
-	    backgroundColor:'#DC6966',
-	    justifyContent:'center',
-	    alignItems:'center'
-	  },
 		signInButtonContainer: {
 
 	    width: '100%',
@@ -264,7 +255,7 @@ const { width, height } = Dimensions.get('window');
 									marginLeft: 0
 							 },
 							 orDivider: {
-								 fontSize: 12,
+								 fontSize: 15,
 								 color:'#3C3C3C',
 								 alignSelf:'center',
 								 marginTop:10,

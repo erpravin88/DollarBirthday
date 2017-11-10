@@ -145,17 +145,17 @@ hideErrors(){
     </View>
     <View style={{height:'56%',overflow:'hidden'}}>
     <ScrollView  keyboardShouldPersistTaps="always">
-    <View style = {[styles.SettingsTextInputContainer]}>
+    <View style = {[styles.TextInputContainer]}>
       <Text style = {styles.heading1}>{Label.t('98')}</Text>
     </View>
-    <View style = {[styles.SettingsTextInputContainer]}>
+    <View style = {[styles.TextInputContainer]}>
       <Text style = {styles.subhead1}>{Label.t('99')}</Text>
       <Text style = {styles.subhead1}>{Label.t('100')}</Text>
     </View>
     <View style={[styles.marginFix1,]}>
-    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
+    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
       <TextInput
-      style = {[styles.TextInputStyle,styles.font3]}
+      style = {styles.TextInputStyle}
       keyboardType = 'email-address'
       placeholderTextColor = "#b7b7b7"
       placeholder = {Label.t('5')}
@@ -170,7 +170,7 @@ hideErrors(){
       <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
     </View><Text style = {[styles.errorMsg,styles.font3]}>{this.state.errorMsg['emailMsg']}</Text>
     </View>
-    <View style = {[styles.SettingsTextInputContainer, {marginTop:-10}]}>
+    <View style = {styles.TextInputContainer}>
       <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]}
       onPress = {this.onPaypalClick}>
         <Image style = {styles.facebookButton} source = {images.payPalBtn}/>
@@ -178,8 +178,8 @@ hideErrors(){
 
     </View>
     <TouchableOpacity>
-    <View style = {[styles.SettingsTextInputContainer]}>
-          <Text style = {[styles.term_service,styles.font1]}>{Label.t('101')}<Text onPress={()=>{Function.web(settings.PAYPAL_URL);console.log('yes'); }} style={{color:'#449FD8',fontWeight:'600'}}>{Label.t('102')}</Text></Text>
+    <View style = {[styles.TextInputContainer]}>
+          <Text style = {styles.term_service}>{Label.t('101')}<Text onPress={()=>{Function.web(settings.PAYPAL_URL);console.log('yes'); }} style={{color:'#449FD8',fontWeight:'600'}}>{Label.t('102')}</Text></Text>
     </View></TouchableOpacity>
 
     <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>

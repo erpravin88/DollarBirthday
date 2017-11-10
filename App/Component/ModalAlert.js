@@ -38,7 +38,7 @@ export default class ModalAlert extends Component {
       alignItems: 'center',
 
     }]}>
-    <View style= {[ {  padding:10,height:'30%',
+    <View style= {[ {  padding:10,height:'15%',
       width:'85%',
       backgroundColor:'#ffffff',
       alignItems: 'flex-start',}]}>

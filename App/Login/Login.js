@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -9,7 +7,8 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Alert,
-  Image,ScrollView,
+  Image,
+  ScrollView,
   ImageBackground,
   AsyncStorage,
   ActivityIndicator,
@@ -130,7 +129,6 @@ export default class Login extends Component {
     this.setState({errorMsg: error});
   }
 render(){
-  console.log("render"+this.state.Connected);
 return(
 <View style={[styles.full]}>
 <Image style = {styles.backgroundImage} source = {images.loginbackground} />

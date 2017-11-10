@@ -164,9 +164,9 @@ hideErrors(){
   return(
 
     <ScrollView  keyboardShouldPersistTaps="always">
-    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom,{marginTop:15}]}>
+    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
       <TextInput
-      style = {[styles.TextInputStyle,styles.font3]}
+      style = {styles.TextInputStyle}
       keyboardType = 'email-address'
       placeholderTextColor = "#b7b7b7"
       placeholder = {Label.t('5')}
@@ -181,20 +181,20 @@ hideErrors(){
       />
       <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
     </View>
-    <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
-    <View style = {styles.SettingsTextInputContainer}>
+    <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
+    <View style = {styles.TextInputContainer}>
       <Dropdown
             label={Label.t('40')}
-            style = {[styles.TextInputStyle,styles.font3]}
+            style = {styles.TextInputStyle}
             containerStyle ={{marginTop:-10}}
             baseColor = '#B3B3B3'
             data={this.state.currency_list}
             value={currencyobj[this.state.currency]}
             onChangeText = {(value,index,data)=>{this.setState({currency: data[index].index});this.hideErrors();}}
           />
-          <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['currencyMsg']}</Text>
+          <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['currencyMsg']}</Text>
     </View>
-    <View style = {[styles.SettingsTextInputContainer,{marginTop:10}]}>
+    <View style = {styles.TextInputContainer}>
       <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onPaypalClick}>
         <Text style = {styles.signInButton}>{Label.t('39')}</Text>
       </TouchableOpacity>
