@@ -173,8 +173,8 @@ render(){
             </View>
             <View style = {[styles.formgroup]}>
                 <ScrollView keyboardShouldPersistTaps="always">
-                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-                        <TextInput style = {styles.TextInputStyle}
+                    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
+                        <TextInput style = {[styles.TextInputStyle,styles.font3]}
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
                             placeholder = {Label.t('2')}
@@ -189,9 +189,9 @@ render(){
                         />
                         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
                     </View>
-                    <Text style = {[styles.errorMsg,styles.TextInputContainer]}>{this.state.errorMsg['firstName']}</Text>
-                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
-                        <TextInput style = {styles.TextInputStyle}
+                    <Text style = {[styles.errorMsg,styles.SettingsTextInputContainer]}>{this.state.errorMsg['firstName']}</Text>
+                    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
+                        <TextInput style = {[styles.TextInputStyle,styles.font3]}
                             ref='secondInput'
                             keyboardType = 'default'
                             placeholderTextColor = "#b7b7b7"
@@ -207,10 +207,10 @@ render(){
                         />
                         <Image style = {styles.TextInputIcon} source = {images.fullName}/>
                     </View>
-                    <Text style = {[styles.errorMsg,styles.TextInputContainer]}>{this.state.errorMsg['lastName']}</Text>
-                    <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+                    <Text style = {[styles.errorMsg,styles.SettingsTextInputContainer]}>{this.state.errorMsg['lastName']}</Text>
+                    <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
                         <TextInput
-                            style = {[styles.TextInputStyle]}
+                            style = {[styles.TextInputStyle,styles.font3]}
                             ref='thirdInput'
                             placeholderTextColor = "#b7b7b7"
                             placeholder = {Label.t('5')}
@@ -226,8 +226,8 @@ render(){
                         />
                         <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
                     </View>
-                    <Text style = {[styles.errorMsg,styles.TextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
-                    <View style = {styles.TextInputContainer}>
+                    <Text style = {[styles.errorMsg,styles.SettingsTextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
+                    <View style = {[styles.SettingsTextInputContainer,{marginTop:10}]}>
                     <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.invitefriend}>
                       <Text style = {styles.signInButton}>
                       { Label.t('131')}
