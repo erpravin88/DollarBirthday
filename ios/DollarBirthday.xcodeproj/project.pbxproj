@@ -343,6 +343,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2041393691234E88AD3E0AAD /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		287E19B127474A549D58020A /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
+		2899EC971FB6B63E003F4546 /* DollarBirthday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DollarBirthday.entitlements; path = DollarBirthday/DollarBirthday.entitlements; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* DollarBirthday-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DollarBirthday-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DollarBirthday-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DollarBirthday-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469EDEF950F04C19920CD113 /* LRDRCTSimpleToast.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = LRDRCTSimpleToast.xcodeproj; path = "../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast.xcodeproj"; sourceTree = "<group>"; };
@@ -501,6 +502,7 @@
 		13B07FAE1A68108700A75B9A /* DollarBirthday */ = {
 			isa = PBXGroup;
 			children = (
+				2899EC971FB6B63E003F4546 /* DollarBirthday.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -769,6 +771,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 6GK6WF86SC;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1255,6 +1262,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = DollarBirthday/DollarBirthday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1295,6 +1303,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = DollarBirthday/DollarBirthday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				CURRENT_PROJECT_VERSION = 1;

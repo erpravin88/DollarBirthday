@@ -246,7 +246,7 @@ hideErrors(){
     console.log(hide);
     console.log(this.state.other_amount);
   return(
-<ScrollView  keyboardShouldPersistTaps="always">
+<ScrollView  keyboardShouldPersistTaps="never">
   <View style = {styles.TextInputContainer}>
     <Dropdown
           label={Label.t('10')}

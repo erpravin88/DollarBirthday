@@ -1,15 +1,28 @@
 import {Dimensions , StyleSheet,  Platform,StatusBar} from 'react-native';
 const { width, height } = Dimensions.get('window');
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
-import comman from '../../Constant/Style';
 
   const styles = StyleSheet.create({
 
       statusBar: {
         height: STATUSBAR_HEIGHT,
       },
-    backgroundImage: comman.backgroundImage,
-    full: comman.full,
+      backgroundImage: {
+  		 flex:1,
+  		 resizeMode:(Platform.OS === 'ios')?  'cover':'stretch',
+       width: width,
+       height: (Platform.OS === 'ios')? height : '100%',
+       position:'absolute',
+       zIndex: 0,
+  		},
+      full:{
+  			width:'100%',
+  			height:'100%',
+
+  		},
+      resizeModec:{
+        resizeMode:'stretch',
+      },
     baseContainer: {
 
      width: width,
@@ -18,30 +31,56 @@ import comman from '../../Constant/Style';
    },
 
    logo: {
-    width: '90%',
-    height: '55%',
-    resizeMode: 'contain',
-    marginTop: (Platform.OS === 'ios')? '4%' : '1%',
+
+      width: '85%',
+      height: '70%',
+      resizeMode: 'contain',
+      marginTop: (Platform.OS === 'ios')? '4%' : '1%',
 
 
   },
 
    titleContainer: {
+     flex:1,
      width: width,
-     height:'45%',
-     paddingTop: 20,
+     paddingTop: '5%',
      alignItems: 'center',
+     marginTop: '5%',
      backgroundColor:'transparent',
-     marginTop: 20,
+     height:'30%',
    },
-
-   titleboldheading:{
-     fontSize:15,
-     color:'#efd7fe',
+ iconsContainer:{
+   flex:1,
+   width: width,
+   height:'56%',
+   backgroundColor:'transparent',
+   marginBottom:'4.5%',
+  },
+  dbIcon:{
+    width:'32%',
+    marginLeft:'1%',
+    marginBottom:'1%',
+  },
+  iconContainer:{
+    width:'90%',
+    marginLeft:'5%',
+    flexDirection:'row',
+    backgroundColor:'transparent',
+  },iconContainerfix1:{
+    flex:1.3,
+  },iconContainerfix2:{
+    flex:1,
+  },iconContainerfix3:{
+    flex:1,
+  },
+ titleboldheading:{
+    fontSize:15,
+    color:'#efd7fe',
     fontFamily:'OpenSans-Semibold',
     width:'80%',
     fontWeight:'bold',
     textAlign:'center',
+    backgroundColor:'transparent',
 
    },
 
@@ -73,28 +112,7 @@ import comman from '../../Constant/Style';
    justifyContent:'center',
    backgroundColor:'transparent',
  },
-dbIcon:{
-  width:'32%',
-  marginLeft:'1%',
-  marginBottom:'1%',
-},
-iconContainer:{
-  width:'88%',
-  marginLeft:'6%',
-  flexDirection:'row',
-  justifyContent:'flex-start',
-  alignItems:'flex-start',
-},iconContainerfix1:{
-  flex:1.6,
-  marginTop:'5%',
-},iconContainerfix2:{
-  height:60,
-  flex:1,
-  overflow:'hidden',
-},iconContainerfix3:{
-  flex:1,
-  marginBottom:'4%',
-},
+
   });
 
   export default styles;

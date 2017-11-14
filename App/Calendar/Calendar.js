@@ -85,13 +85,27 @@ displaybirthdays(){
         }
     });
 }
-
+formBorthdaytakemonthandday(indate){
+  let temp = new Date(indate);
+  let tempday = temp.getDate();
+  if(tempday < 10){
+      tempday = "0"+tempday;
+  }
+  let tempmonth = temp.getMonth() + 1;
+  if(tempmonth < 10){
+      tempmonth = "0"+tempmonth;
+  }
+  return tempmonth+tempday+"";
+}
 modalOpen(selectedDate){console.log(selectedDate, this.state.Friends);
     let bdayfound = false;
+    let currentmonthday = this.formBorthdaytakemonthandday(selectedDate.dateString);
     for (let friend of this.state.Friends) {
-        if(friend.birth_date == selectedDate.dateString){
-            bdayfound = true;
-            break
+      let birthmonthday = this.formBorthdaytakemonthandday(friend.birth_date);
+
+        if(birthmonthday === currentmonthday){
+            bdayfound = true;console.log('in');
+            break;
         }
     }
     if(bdayfound == true){
@@ -105,16 +119,16 @@ checkyear(month){
         this.state.calendaryear = month.year;
         friends_date:{};
         for (let friend of this.state.Friends) {
-            var temp = new Date(friend.birth_date);
-            var tempday = temp.getDate();
+            let temp = new Date(friend.birth_date);
+            let tempday = temp.getDate();
             if(tempday < 10){
                 tempday = "0"+tempday;
             }
-            var tempmonth = temp.getMonth() + 1;
+            let tempmonth = temp.getMonth() + 1;
             if(tempmonth < 10){
                 tempmonth = "0"+tempmonth;
             }
-            var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
+            let date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
             this.state.friends_date[date]={marked: true};
         }
     }
@@ -181,9 +195,11 @@ componentWillMount(){
 
 render(){
     return(
-      <View style={[styles.full]}>
-            <Image style = {styles.backgroundImage} source = {images.background} />
-            <MyActivityIndicator progress={this.state.showProgress} />
+      <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+        <View style={[styles.full]}>
+          <MyActivityIndicator progress={this.state.showProgress} />
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+              <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
             <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{console.log(styles);this.props.navigation.dispatch(resetAction);}}>
               <Image style={styles.img} source = {images.dashboardIcon}/>
             </TouchableOpacity>
@@ -191,8 +207,9 @@ render(){
                 <Text style = {styles.titleTextFirst}>{Label.t('14')}</Text>
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
+            </Image>
+      <View style={[styles.formgroup,styles.containerWidth]}>
             <View style = {styles.TextInputContainer}>
-                <ScrollView keyboardShouldPersistTaps="always">
                     <Calendar
                     // Specify style for calendar container element. Default = {}
                     style = {styles.calendar}
@@ -204,7 +221,6 @@ render(){
 
                     />
                     <DirectiveMsg icon={true} iconSource={images.smallbdclogo} message={Label.t('113')} />
-                </ScrollView>
             </View>
             <Modal
                 animationType="slide"
@@ -221,14 +237,17 @@ render(){
                         </TouchableOpacity>
                       </View>
                       <View style={styles.calendarmodal}>
-                          <ScrollView >
+                          <ScrollView keyboardShouldPersistTaps='never'>
                               {this.displaybirthdays()}
                           </ScrollView>
                       </View>
                     </View>
                 </View>
             </Modal>
+            </View>
+          </ScrollView>
         </View>
+      </Image>
         );
 
     }

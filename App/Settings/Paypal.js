@@ -163,7 +163,7 @@ hideErrors(){
     console.log(currencyobj);
   return(
 
-    <ScrollView  keyboardShouldPersistTaps="always">
+    <ScrollView  keyboardShouldPersistTaps="never">
     <View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
       <TextInput
       style = {styles.TextInputStyle}

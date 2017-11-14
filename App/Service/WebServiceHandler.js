@@ -38,7 +38,7 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
                 .then((response) => {
                   return response;
                 })
-                .catch((error) => Toast.show("error"));
+                .catch((error) => {console.log(error);Toast.show("error"); return error;});
 
 }
 

@@ -43,6 +43,7 @@ constructor(props){
     this.senddonation = this.senddonation.bind(this);
     this.hideErrors = this.hideErrors.bind(this);
     this.hidestatusmsg = this.hidestatusmsg.bind(this);
+    //this.fbshareposttest = this.fbshareposttest.bind(this);
     this.state = {
         showProgress: false,
         charity_type:'',
@@ -279,6 +280,9 @@ renderImage() {
 
 
 _onNavigationStateChange (webViewState) { console.log(webViewState.url);
+  if(webViewState.title === 'Return to Merchant - PayPal'){
+    this.setState({ statusmsg: 'cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
+  }
   if(webViewState.url != undefined){
     substring = "?";
 if(webViewState.url.includes(substring)){
@@ -297,38 +301,62 @@ if(webViewState.url.includes(substring)){
 }
 
 }
-// show () {
-//   this.setState({ modalVisible: true })
+
+// to test fb share
+// fbshareposttest = () => {
+//   console.log('hello');
+//   console.log(this.state);
+//   ShareDialog.canShow(this.state.shareLinkContent).then(
+//   (canShow) => { console.log(canShow);
+//       if (canShow) {console.log(this.state.shareLinkContent);
+//       return ShareDialog.show(this.state.shareLinkContent);
+//       }
+//   }
+//   ).then(
+//   (result) => { console.log(result);
+//       if (result.isCancelled) {
+//       console.log('Share cancelled');
+//       this.props.navigation.dispatch(resetAction);
+//       } else {
+//           console.log('Share success with postId: ' + result.postId);
+//           this.props.navigation.dispatch(resetAction);
+//       }
+//   },
+//   (error) => {
+//       console.log('Share fail with error: ' + error);
+//   }
+//   );
 // }
-//
-hide () {
+hide = () => {
   this.setState({ modalVisible: false })
 }
-hidestatusmsg(){
+hidestatusmsg = () => { //console.log('in');
   this.setState({ modelstatusmsg: false });
-  if(this.state.statusmsg ==='complete'){
+  console.log(this.state);
+  if(this.state.statusmsg ==='complete'){ //console.log('in1');
+  console.log(!this.state.checkboximg);
     if(!this.state.checkboximg){
-        var tmp = this;
-        ShareDialog.canShow(this.state.shareLinkContent).then(
-        function(canShow) {
-            if (canShow) {
-            return ShareDialog.show(tmp.state.shareLinkContent);
-            }
-        }
-        ).then(
-        function(result) {
-            if (result.isCancelled) {
-            console.log('Share cancelled');
-            this.props.navigation.dispatch(resetAction);
-            } else {
-                console.log('Share success with postId: ' + result.postId);
-                this.props.navigation.dispatch(resetAction);
-            }
-        },
-        function(error) {
-            console.log('Share fail with error: ' + error);
-        }
-        );
+      ShareDialog.canShow(this.state.shareLinkContent).then(
+      (canShow) => { console.log(canShow);
+          if (canShow) {console.log(this.state.shareLinkContent);
+          return ShareDialog.show(this.state.shareLinkContent);
+          }
+      }
+      ).then(
+      (result) => { console.log(result);
+          if (result.isCancelled) {
+          console.log('Share cancelled');
+          this.props.navigation.dispatch(resetAction);
+          } else {
+              console.log('Share success with postId: ' + result.postId);
+              this.props.navigation.dispatch(resetAction);
+          }
+      },
+      (error) => {
+          console.log('Share fail with error: ' + error);
+      }
+      );
+
 
     }else {
       this.props.navigation.dispatch(resetAction);
@@ -348,40 +376,45 @@ render(){
   console.log(this.state.payUrl+this.state.payKey);
 
   return(
+    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
       <ModalAlert visible={this.state.modelstatusmsg} onRequestClose={this.hidestatusmsg} head={this.state.paymentalerthead} message={ this.state.paymentalertmsg }/>
-        <Modal
-          animationType={'slide'}
-          visible={this.state.modalVisible}
-          onRequestClose={this.hide.bind(this)}
-          transparent
-        >
-          <View style={[styles.full]}>
-            <View style={[styles.full]}>
-              <WebView
-                style={[{ flex: 1 }, {marginTop: 20}]}
-                source={{ uri: this.state.payUrl+this.state.payKey }}
-                scalesPageToFit
-                startInLoadingState
-                onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                onError={this._onNavigationStateChange.bind(this)}
-                javaScriptEnabledAndroid={true}
-                domStorageEnabled={true}
-              />
+          <Modal
+            animationType={'slide'}
+            visible={this.state.modalVisible}
+            onRequestClose={this.hide.bind(this)}
+            transparent
+          >
+            <View style={[styles.fulls]}>
+                <WebView
+                  source={{ uri: this.state.payUrl+this.state.payKey }}
+                  scalesPageToFit
+                  startInLoadingState
+                  onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                  onError={this._onNavigationStateChange.bind(this)}
+                  javaScriptEnabledAndroid={true}
+                  domStorageEnabled={true}
+                />
             </View>
-          </View>
-        </Modal >
-        <Image style = {styles.backgroundImage} source = {images.background} />
-            <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
-                <Image style = {styles.img} source = {images.dashboardIcon} />
+            <View style={[{backgroundColor:'#ffffff'}]}>
+            <TouchableOpacity style={[styles.btnyellow]} onPress={this.hide} >
+              <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>
             </TouchableOpacity>
-            <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>{Label.t('9')}</Text>
-                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
-            <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="never"><View style = {styles.innerwidth}>
+          </Modal >
+        <MyActivityIndicator progress={this.state.showProgress} />
+          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+            <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+              <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
+                  <Image style = {styles.img} source = {images.dashboardIcon} />
+              </TouchableOpacity>
+              <View style = {styles.titleContainer}>
+                  <Text style = {styles.titleTextFirst}>{Label.t('9')}</Text>
+                  <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+              </View>
+            </Image>
+            <View style={[styles.formgroup,styles.containerWidth]}>
+              <View style = {styles.innerwidth}>
                     <View style={styles.logoview}>
                     {(this.state.charity_type.logo) ? (<Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>)}
                         <View style={styles.selectboxes}>
@@ -437,7 +470,7 @@ render(){
                       </View>
                     <View style={[styles.marginBottomFive]}>
                         <TouchableOpacity style={styles.sharefbcontainer}
-                        onPress={ () => this.setState({ checkboximg: !this.state.checkboximg }) }
+                        onPress={ () => {this.setState({ checkboximg: !this.state.checkboximg })} }
                         >
                             {this.renderImage()}
                             <Text style={styles.sharefbtext}>{Label.t('12')}</Text>
@@ -451,13 +484,22 @@ render(){
                           </Text>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
             </View>
-        </View>
-        );
+            </ScrollView>
+          </View>
+        </Image>);
 
     }
 }
+// to test fb share
+// <View style={[styles.marginBottomFive]}>
+//     <TouchableOpacity style={styles.sharefbcontainer}
+//     onPress={this.fbshareposttest}
+//     >
+//         <Text style={styles.sharefbtext}>Share Now</Text>
+//     </TouchableOpacity>
+// </View>
+//to add close to WebView
 // <View style={[{backgroundColor:'#ffffff'}]}>
 // <TouchableOpacity style={[{height:40,width:'30%',justifyContent:'center',alignSelf:'center',backgroundColor:'#FDAA3C',borderWidth:1,borderColor:'gray',borderRadius:5}]} onPress={this.hide.bind(this)} >
 //   <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>

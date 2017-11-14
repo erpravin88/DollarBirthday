@@ -61,6 +61,12 @@ const { width, height } = Dimensions.get('window');
     marginBottomFive:{
       marginBottom:'5%',
     },
+    paddingTopFive:{
+      paddingTop: '5%',
+    },
+    paddingBottomFive:{
+      paddingBottom: '5%',
+    },
     flexDirectionRow:{
       flexDirection:'row',
     },
@@ -206,10 +212,10 @@ const { width, height } = Dimensions.get('window');
 	 		picw:{width:'20%',justifyContent:'center',alignItems:'center',backgroundColor:'#ccc'},
 	 		pic:{width:'100%' ,height:55},
 	 		name:{fontSize:15,color:'#3F3F3F',fontWeight:'600'},
-	 		btnw:{width:'20%',justifyContent:'center'},
+	 		btnw:{width:'25%',justifyContent:'center'},
 	 		btn1:{backgroundColor: '#439FD8',justifyContent:'center',alignItems:'center',padding:'5%'},
 	 		text1:{color:'#ffffff',fontSize:12,fontWeight:'600'},
-	 		namew:{width:'60%',justifyContent:'center',paddingLeft:18},
+	 		namew:{width:'55%',justifyContent:'center',paddingLeft:18},
 	 		tabs:{
 	 		      shadowOpacity: 0.75,
 	 		      shadowRadius: 5,
@@ -220,7 +226,7 @@ const { width, height } = Dimensions.get('window');
 	 		      borderRadius: 2,
 	 		      borderColor: '#ddd',
 	 		      borderBottomWidth: 0,
-	 		      justifyContent:'center'
+	 		      justifyContent:'center',
 	 		    },
 					dob_label: {
 

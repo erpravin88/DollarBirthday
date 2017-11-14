@@ -102,7 +102,7 @@ export default class upcomings extends Component {
        return (
         <View style={styles.item}>
            <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
-           <View style={styles.namew}><Text style={styles.name}>{data.full_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
+           <View style={styles.namew}><Text style={styles.name}>{data.first_name+' '+data.last_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
            <View style={styles.btnw}>
               <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(data);console.log(data.email);}}>
                 <Text style={styles.text1}>{Label.t('13')}</Text>
@@ -113,37 +113,41 @@ export default class upcomings extends Component {
      }
   render(){
   return(
-<View style={[styles.full]}>
-  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
-  <MyActivityIndicator progress={this.state.showProgress} />
-    <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
-    <Image style={styles.img} source = {images.dashboardIcon}/>
-  </TouchableOpacity>
-  <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>{Label.t('18')}</Text>
-    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-  </View>
-  <View style = {[styles.TabContainer,styles.tabs]}>
-  <MaterialTabs
-  items={[Label.t('19'), Label.t('20'), Label.t('21')]}
-  barColor="#FFFFFF"
-  indicatorColor='#DC6865'
-  activeTextColor='#DC6865'
-  inactiveTextColor= '#3B3B3A'
-  scrollable = {false}
-  selectedIndex={this.state.selectedTab}
-  onChange={(index) => this.setState({selectedTab: index})}/>
-  </View>
-    <View style={[styles.TextInputContainer,styles.ListContainerfix1]}>
-      <ScrollView >
-          <ListView
-            dataSource={ds.cloneWithRows(this .state.selectedTab == 0 ? this.state.f_list.recent:(this .state.selectedTab == 1? this.state.f_list.up_next:(this .state.selectedTab == 2? this.state.f_list.up_comming:[])))}
-            renderRow={(data) => this.renderRow(data)}
-            enableEmptySections={true}
-          />
-      </ScrollView>
-    </View>
-</View>);
-
+    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+      <View style={[styles.full]}>
+        <MyActivityIndicator progress={this.state.showProgress} />
+          <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+              <Image style={styles.img} source = {images.dashboardIcon}/>
+            </TouchableOpacity>
+            <View style = {[styles.titleContainer,{height:'45%'}]}>
+              <Text style = {styles.titleTextFirst}>{Label.t('138')}</Text>
+              <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+            </View>
+          </Image>
+        <View style={[styles.formgroup,styles.containerWidth,{height:'55%'}]}>
+            <View style = {[styles.tabs]}>
+              <MaterialTabs
+                items={[Label.t('19'), Label.t('20'), Label.t('21')]}
+                barColor="#FFFFFF"
+                indicatorColor='#DC6865'
+                activeTextColor='#DC6865'
+                inactiveTextColor= '#3B3B3A'
+                scrollable = {false}
+                selectedIndex={this.state.selectedTab}
+                onChange={(index) => this.setState({selectedTab: index})}/>
+            </View>
+            <View style={[styles.TabContainer,styles.marginTopFive]}>
+              <ScrollView keyboardShouldPersistTaps="never">
+                  <ListView
+                      dataSource={ds.cloneWithRows(this .state.selectedTab == 0 ? this.state.f_list.recent:(this .state.selectedTab == 1? this.state.f_list.up_next:(this .state.selectedTab == 2? this.state.f_list.up_comming:[])))}
+                      renderRow={(data) => this.renderRow(data)}
+                      enableEmptySections={true}
+                  />
+              </ScrollView>
+            </View>
+          </View>
+      </View>
+    </Image>);
   }
 }

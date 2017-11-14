@@ -9,7 +9,7 @@ export const settings = {
   DEVICE_NAME: DeviceInfo.getSystemName(),
   PAYPAL_URL:"https://www.paypal.com/welcome/signup/",
   // adaptive payments of paypal config
-  PAYPAL_ENV:'sandbox',//sandbox/live
+  PAYPAL_ENV:'live',//sandbox/live
   //PAYPAL_SANDBOX_AUTHURL: 'https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?&expType=mini&payKey=',
   PAYPAL_SANDBOX_AUTHURL: 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=',
   PAYPAL_SANDBOX_APIURL: 'https://svcs.sandbox.paypal.com/AdaptivePayments/',

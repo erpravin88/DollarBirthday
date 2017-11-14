@@ -1,6 +1,7 @@
 const images = {
     background: require('../images/background.png'),
-    loginbackground: require('../images/base.png'),
+    loginbackground: require('../images/base_1.png'),
+    topbackground: require('../images/top.png'),
     baseLogo: require('../images/base-logo.png'),
     emailIcon: require('../images/email-icon.png'),
     fullName: require('../images/fullname-icon.png'),

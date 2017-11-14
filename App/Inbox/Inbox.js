@@ -44,7 +44,7 @@ constructor(props){
 }
 
 fetchlist(item){
-    return(<View style={styles.messagebox}>
+    return(<View  style={styles.messagebox}>
         <View style={styles.imagecontainer}>
             <Image style = {styles.userimage} source = {images.placeholderImage}/>
             <View style={styles.userdetailscontainer}>
@@ -124,7 +124,7 @@ render(){
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
             <View style={styles.scrolllist}>
-                <ScrollView keyboardShouldPersistTaps="always">
+                <ScrollView keyboardShouldPersistTaps="never">
                     {(this.state.messagelist == true) ?
                     (<View><FlatList
                         data={this.state.messages}

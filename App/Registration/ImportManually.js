@@ -29,6 +29,10 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
+const resetAction1 = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'FETCH_FRIEND' })],
+    });
 const date = new Date(Date.now());
 
 const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -100,14 +104,14 @@ deleteFriend(item){
  }
 
 componentWillMount(){
-    this.setState({showProgress : true});
+
     AsyncStorage.getItem(USER_KEY).then((key)=>{
       //this.setState({user_key: key});
     }).catch((err)=>{
       Toast.show(err);
     });
     AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-       this.setState({auth_token: token});
+       this.setState({auth_token: token,showProgress : true});
          callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
             if(response.status === 200){
               response.json().then((responseobject) => {
@@ -143,38 +147,45 @@ componentWillMount(){
 
   render(){
   return(
-    <View style={[styles.full]}>
-    <Image style = {styles.backgroundImage} source = {images.loginbackground} />
-      <MyActivityIndicator progress={this.state.showProgress} />
-      <View style = {styles.titleContainer}>
-        <Text style = {styles.titleTextFirst}>Add Manually Friends</Text>
-        <Text style = {[styles.titleTextSecond]}>{Label.t('1')}</Text>
-      </View>
-      <View style = {[styles.TextInputContainer]}>
-        <Text style = {styles.heading1}>{Label.t('86')}</Text>
-      </View>
-    <View style = {[styles.TextInputContainer]}>
-            <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
-              this.props.navigation.navigate('ADDFRIEND',{callFrom:'IMPORTMANUALLY'});
-              this.setState({friendlistvisible: true});
-            }}>
-                <View style = {styles.addfriendbox}>
-                    <Image style = {styles.addicon} source = {images.addBtn}></Image>
-                    <Text style= {styles.boxtext}>{Label.t('0')}</Text>
-                </View>
+    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+      <View style={[styles.full]}>
+        <MyActivityIndicator progress={this.state.showProgress} />
+            <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+            <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.dispatch(resetAction1)}}>
+                <Image style={styles.img} source = {images.backIcon}></Image>
             </TouchableOpacity>
-        <View style={[styles.scrolllist]}>
-            <ScrollView keyboardShouldPersistTaps="always">
-                {(this.state.friendlistvisible == true) ?
-                (<View style={{width:'98%'}}><FlatList
-                    data={this.state.Friends}
-                    renderItem={({item}) => this.changedateformat(item)}
-                    keyExtractor={item => item.id}
-                    /></View>) : ''}
-            </ScrollView>
-        </View>
-    </View>
-</View>
-  );
+              <View style = {[styles.titleContainer]}>
+                <Text style = {styles.titleTextFirst}>Add Manually Friends</Text>
+                <Text style = {[styles.titleTextSecond]}>{Label.t('1')}</Text>
+              </View>
+            </Image>
+            <View style = {[styles.formgroup,styles.containerWidth]}>
+              <View style = {[styles.TextInputContainer]}>
+                <Text style = {styles.heading1}>{Label.t('86')}</Text>
+              </View>
+              <View style = {[styles.TextInputContainer]}>
+                <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
+                  this.props.navigation.navigate('ADDFRIEND',{callFrom:'IMPORTMANUALLY'});
+                  this.setState({friendlistvisible: true});
+                }}>
+                  <View style = {styles.addfriendbox}>
+                      <Image style = {styles.addicon} source = {images.addBtn}></Image>
+                      <Text style= {styles.boxtext}>{Label.t('0')}</Text>
+                  </View>
+              </TouchableOpacity>
+              <View style={[styles.scrolllist]}>
+                  <ScrollView keyboardShouldPersistTaps="never">
+                      {(this.state.friendlistvisible == true) ?
+                      (<View style={{width:'98%'}}><FlatList
+                          data={this.state.Friends}
+                          renderItem={({item}) => this.changedateformat(item)}
+                          keyExtractor={item => item.id}
+                          /></View>) : ''}
+                  </ScrollView>
+              </View>
+            </View>
+          </View>
+      </View>
+    </Image>);
   }
 }

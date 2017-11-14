@@ -248,9 +248,11 @@ componentWillMount(){
 render(){
 
     return(
-      <View style={[styles.full]}>
-            <Image style = {styles.backgroundImage} source = {images.background} />
-            <MyActivityIndicator progress={this.state.showProgress} />
+      <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+        <View style={[styles.full]}>
+          <MyActivityIndicator progress={this.state.showProgress} />
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+              <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
             <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
                 <Image style={styles.img} source = {images.backIcon}></Image>
             </TouchableOpacity>
@@ -258,8 +260,8 @@ render(){
                 <Text style = {styles.titleTextFirst}>{Label.t('0')}</Text>
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
-            <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="always">
+            </Image>
+      <View style={[styles.formgroup,styles.containerWidth]}>
                     <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
                         <TextInput style = {[styles.TextInputStyle,styles.font3]}
                             keyboardType = 'default'
@@ -338,9 +340,9 @@ render(){
                         </Text>
                           </TouchableOpacity>
                     </View>
-                </ScrollView>
             </View>
+          </ScrollView>
         </View>
-        );
+      </Image>);
     }
 }

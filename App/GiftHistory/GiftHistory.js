@@ -136,7 +136,7 @@ render(){
                 </View>
             </View>
             <View style={styles.flatlistview}>
-                <ScrollView keyboardShouldPersistTaps="always">
+                <ScrollView keyboardShouldPersistTaps='never'>
                     <View style={styles.flatlistdisplay}>
                         <View style={styles.listbox}>
                             <Image style = {styles.userimg} source ={images.placeholderImage}/>

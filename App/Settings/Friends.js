@@ -73,7 +73,7 @@ export default class Friends extends Component {
         if(result.isCancelled){
             Toast.show('Log In cancelled');
         }
-        else { 
+        else {
             /*AccessToken.getCurrentAccessToken().then(
                 (data) => {
                     console.log(data);
@@ -225,7 +225,7 @@ componentDidMount() {
       Linking.openURL(url);
     }
   };
-  
+
   renderImage() {
       var imgSource = this.state.checkboximg? images.uncheckedcheckbox : images.checkedcheckbox;
       return (
@@ -237,6 +237,7 @@ componentDidMount() {
 
   render(){
   return(
+    <ScrollView >
     <View style = {[styles.TextInputContainer]}>
         {/* <Modal
             animationType="slide"
@@ -338,16 +339,17 @@ componentDidMount() {
             </View>
         </View>
         <View style={[styles.scrolllist]}>
-            <ScrollView keyboardShouldPersistTaps="always">
+
                 {(this.state.friendlistvisible == true) ?
                 (<View style={{width:'98%'}}><FlatList
                     data={this.state.Friends}
                     renderItem={({item}) => this.changedateformat(item)}
                     keyExtractor={item => item.id}
                     /></View>) : ''}
-            </ScrollView>
+
         </View>
     </View>
+</ScrollView>
   );
   }
 }

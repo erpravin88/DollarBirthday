@@ -189,7 +189,7 @@ hideErrors(){
   render(){
 
   return(
-  <ScrollView  keyboardShouldPersistTaps="always">
+  <View style={{height:'100%'}}>
       <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom,{marginTop:15}]}>
         <TextInput style = {[styles.TextInputStyle,styles.font3]}
           keyboardType = 'default'
@@ -266,6 +266,7 @@ hideErrors(){
           <Text style = {styles.signInButton}>{Label.t('39')}</Text>
         </TouchableOpacity>
       </View>
-  </ScrollView>);
+<View style={{height:200,backgroundColor:'#FFFFFF'}}></View>
+  </View>);
   }
 }

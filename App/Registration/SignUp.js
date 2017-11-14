@@ -167,15 +167,17 @@ hideErrors(){
   render(){
 
   return(
-<View style={[styles.full]}>
- <Image style = {styles.backgroundImage} source = {images.loginbackground} />
+  <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+  <View style={[styles.full]}>
   <MyActivityIndicator progress={this.state.showProgress} />
+  <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+  <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
   <View style = {styles.titleContainer}>
     <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
     <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
   </View>
-  <View style = {[styles.formgroup]}>
-    <ScrollView>
+  </Image>
+  <View style = {[styles.formgroup,styles.containerWidth]}>
       <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {[styles.TextInputStyle, styles.font3]}
           keyboardType = 'default'
@@ -264,8 +266,9 @@ hideErrors(){
           <Image style = {styles.facebookButton} source = {images.facebookButton}/>
         </TouchableOpacity>
       </View>
-    </ScrollView>
   </View>
-  </View>);
+  </ScrollView>
+  </View>
+  </Image>);
   }
 }

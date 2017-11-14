@@ -3,8 +3,27 @@ const { width, height } = Dimensions.get('window');
 import comman from '../../Constant/Style';
 
 const style = {
-
-      innerwidth:{
+  full:{
+      width:width,
+      height:height,
+      flex:1,
+      marginTop:(Platform.OS === 'ios')?  20 : 10,
+      marginBottom:10,
+    },
+    fulls:{
+      width:width,
+      height:height,
+      flex:1,
+    },
+    top:{resizeMode:'stretch',height:null,flex:1},
+    containerWidth:{width:'94%',marginLeft:'3%',marginRight:'3%',},
+    formgroup:{
+        backgroundColor:'#FFFFFF',
+        paddingBottom: 230,
+        flex:1,
+      },
+    btnyellow:{height:40,width:'30%',justifyContent:'center',alignSelf:'center',backgroundColor:'#FDAA3C',borderWidth:1,borderColor:'gray',borderRadius:5},
+    innerwidth:{
         width:'80%',
         marginLeft:'10%',
       },

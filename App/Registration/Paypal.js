@@ -137,14 +137,15 @@ hideErrors(){
 }
   render(){
   return(
-<View style={[styles.full]}>
-  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
+    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+    <View style={[styles.full]}>
     <MyActivityIndicator progress={this.state.showProgress} />
+    <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+    <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
     <View style = {styles.titleContainer}>
       <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-    </View>
-    <View style={{height:'56%',overflow:'hidden'}}>
-    <ScrollView  keyboardShouldPersistTaps="always">
+    </View></Image>
+    <View style={[styles.formgroup,styles.containerWidth]}>
     <View style = {[styles.TextInputContainer]}>
       <Text style = {styles.heading1}>{Label.t('98')}</Text>
     </View>
@@ -187,9 +188,10 @@ hideErrors(){
             <Text style = {styles.skip}>{Label.t('85')}</Text>
       </View>
     </TouchableOpacity>
+    </View>
     </ScrollView>
     </View>
-  </View>
+    </Image>
 );
 
   }

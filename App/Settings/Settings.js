@@ -70,33 +70,39 @@ export default class Settings extends Component {
   render(){
 
   return(
-<View style={[styles.full]}>
-  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
-  <MyActivityIndicator progress={this.state.showProgress} />
-    <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
-    <Image style={styles.img} source = {images.dashboardIcon}/>
-  </TouchableOpacity>
-  <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextFirst}>{Label.t('33')}</Text>
-    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-  </View>
-  <View style = {[styles.TabContainer,styles.tabs]}>
-  <MaterialTabs
-  items={[ Label.t('34'), Label.t('35'), Label.t('36'), Label.t('37'), Label.t('38')]}
-  barColor="#FFFFFF"
-  indicatorColor='#DC6865'
-  activeTextColor='#DC6865'
-  inactiveTextColor= '#3B3B3A'
-  scrollable = {false}
-  selectedIndex={this.state.selectedTab}
-  onChange={(index) => this.setState({selectedTab: index})}/>
-  </View>
-    <View style={[styles.iconContainer,{height:'49%',marginTop: '4%'}]}>
-
-      {this.state.selectedTab == 0 ? (<ScrollView ><General /></ScrollView>):(this .state.selectedTab == 1? (<ScrollView><Paypal /></ScrollView>):(this .state.selectedTab == 2? (<ScrollView><Charity/></ScrollView>):(this .state.selectedTab == 3? (<ScrollView><Notification /></ScrollView>):(<Friends nav={this.props}/>))))}
-
-    </View>
-</View>);
-
+    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+      <View style={[styles.full]}>
+        <MyActivityIndicator progress={this.state.showProgress} />
+          <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+              <Image style={styles.img} source = {images.dashboardIcon}/>
+            </TouchableOpacity>
+            <View style = {styles.titleContainer}>
+              <Text style = {styles.titleTextFirst}>{Label.t('33')}</Text>
+              <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+            </View>
+          </Image>
+          <View style = {[styles.paddingBottomFive,styles.containerWidth,{backgroundColor:'#FFFFFF'}]}>
+          <View style = {[styles.tabs]}>
+            <MaterialTabs
+            items={[ Label.t('34'), Label.t('35'), Label.t('36'), Label.t('37'), Label.t('38')]}
+            barColor="#FFFFFF"
+            indicatorColor='#DC6865'
+            activeTextColor='#DC6865'
+            inactiveTextColor= '#3B3B3A'
+            scrollable = {false}
+            selectedIndex={this.state.selectedTab}
+            onChange={(index) => this.setState({selectedTab: index})}/>
+            </View>
+          </View>
+          <View style={[styles.formgroup,styles.containerWidth]}>
+            {this.state.selectedTab == 0 ? (<ScrollView keyboardShouldPersistTaps="never"><General /></ScrollView>):
+            (this .state.selectedTab == 1? (<ScrollView keyboardShouldPersistTaps="never"><Paypal /></ScrollView>):
+            (this .state.selectedTab == 2? (<ScrollView keyboardShouldPersistTaps="never"><Charity/></ScrollView>):
+            (this .state.selectedTab == 3? (<ScrollView keyboardShouldPersistTaps="never"><Notification /></ScrollView>):
+            (<Friends nav={this.props}/>))))}
+          </View>
+        </View>
+      </Image>);
   }
 }

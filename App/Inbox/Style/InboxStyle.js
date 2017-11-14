@@ -3,7 +3,7 @@ const { width, height } = Dimensions.get('window');
 import comman from '../../Constant/Style';
 
 const style = {
-
+        
         pricetagbox:{
             flex:1,
             alignSelf:'flex-end',

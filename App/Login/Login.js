@@ -93,7 +93,7 @@ export default class Login extends Component {
           "login_type":this.state.login_type,
           "device_id":this.state.device_id,
           "device_type":this.state.device_type}
-        ).then((response) => {
+        ).then((response) => { console.log(response);
           if(response.status === 200){
           response.json().then((responseobject) => {
             console.log(responseobject);
@@ -129,17 +129,18 @@ export default class Login extends Component {
     this.setState({errorMsg: error});
   }
 render(){
-return(
+  console.log("render"+this.state.Connected);
+return(<Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <View style={[styles.full]}>
-<Image style = {styles.backgroundImage} source = {images.loginbackground} />
 <MyActivityIndicator progress={this.state.showProgress} />
+<ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+<Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
   <View style = {[styles.titleContainer]}>
     <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
     <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-    <Image style = {[styles.logo, {display:'none'}]} source = {images.baseLogo}/>
   </View>
-  <View style = {[styles.formgroup]}>
-  <ScrollView  style={styles.scrollviewheight}>
+  </Image>
+  <View style = {[styles.formgroup,styles.containerWidth]}>
         <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {[styles.TextInputStyle, styles.font3]}
           keyboardType = 'email-address'
@@ -204,8 +205,9 @@ return(
           <Image style = {styles.facebookButton} source = {images.facebookButton}/>
         </TouchableOpacity>
       </View>
-    </ScrollView>
   </View>
+  </ScrollView>
 </View>
+</Image>
  ); }
 }

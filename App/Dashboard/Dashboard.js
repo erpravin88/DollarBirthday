@@ -70,38 +70,39 @@ export default class Dashboard extends Component {
     <Text style = {styles.titleboldheading}>{Label.t('115')}</Text>
     <Image style = {styles.logo} source = {images.dbtoplogo}/>
   </View>
+  <View style = {[styles.iconsContainer]}>
     <View style={[styles.iconContainer,styles.iconContainerfix1]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard('INBOX')}}>
-      <Image style = {styles.full} source = {images.inboxIcon}/>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.inboxIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard('UPCOMINGS')}}>
-      <Image style = {styles.full} source = {images.upcomingIcon}/>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.upcomingIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard('CALENDAR')}}>
-      <Image style = {styles.full} source = {images.colenderIcon}/>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.colenderIcon}/>
       </TouchableOpacity>
     </View>
     <View style={[styles.iconContainer,styles.iconContainerfix2]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard('DONATE')}}>
-      <Image style = {styles.full} source = {images.donateIcon}/>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.donateIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard('GIFTHISTORY')}}>
-      <Image style = {styles.full} source = {images.gifthistoryIcon}/>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.gifthistoryIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress = {()=>{this.navfromdashboard('SETTING')}}>
-      <Image style = {styles.full} source = {images.settingsIcon}/>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.settingsIcon}/>
       </TouchableOpacity>
     </View>
     <View style = {[styles.iconContainer,styles.iconContainerfix3]}>
@@ -121,6 +122,7 @@ export default class Dashboard extends Component {
       <Image style = {styles.full} source = {images.logoutIcon}/>
       </TouchableOpacity>
     </View>
+  </View>
 </View>);
 
   }

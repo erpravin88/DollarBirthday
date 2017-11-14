@@ -156,23 +156,24 @@ componentWillMount(){
         }
 
       }
+//  <ModalAlert visible={this.state.modelstatus} onRequestClose={this.hidestatusmsg} head={this.state.statusmsg ==='success' ? Label.t('134') : this.state.statusmsg ==='failure' ? Label.t('135') : ''} message={ this.state.statusmsg ==='success' ? Label.t('136') : this.state.statusmsg ==='failure' ? Label.t('137') : ''}/>
 
 render(){
 
-    return(
+    return(<Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
-      <ModalAlert visible={this.state.modelstatus} onRequestClose={this.hidestatusmsg} head={this.state.statusmsg ==='success' ? Label.t('134') : this.state.statusmsg ==='failure' ? Label.t('135') : ''} message={ this.state.statusmsg ==='success' ? Label.t('136') : this.state.statusmsg ==='failure' ? Label.t('137') : ''}/>
-            <Image style = {styles.backgroundImage} source = {images.background} />
-            <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
-                <Image style={styles.img} source = {images.backIcon}></Image>
-            </TouchableOpacity>
-            <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>{Label.t('130')}</Text>
-                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-            </View>
-            <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="always">
+        <MyActivityIndicator progress={this.state.showProgress} />
+          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+            <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+              <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
+                  <Image style={styles.img} source = {images.backIcon}></Image>
+              </TouchableOpacity>
+              <View style = {[styles.titleContainer]}>
+                  <Text style = {styles.titleTextFirst}>{Label.t('130')}</Text>
+                  <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+              </View>
+            </Image>
+            <View style={[styles.formgroup,styles.containerWidth]}>
                     <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
                         <TextInput style = {[styles.TextInputStyle,styles.font3]}
                             keyboardType = 'default'
@@ -213,7 +214,7 @@ render(){
                             style = {[styles.TextInputStyle,styles.font3]}
                             ref='thirdInput'
                             placeholderTextColor = "#b7b7b7"
-                            placeholder = {Label.t('5')}
+                            placeholder = {Label.t('41')}
                             value = {this.state.email}
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
@@ -234,9 +235,10 @@ render(){
                       </Text>
                     </TouchableOpacity>
                     </View>
-                </ScrollView>
-            </View>
-        </View>
+                </View>
+            </ScrollView>
+          </View>
+        </Image>
         );
     }
 }

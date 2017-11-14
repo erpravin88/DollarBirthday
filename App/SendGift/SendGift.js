@@ -246,49 +246,49 @@ sendgiftandcharity(){
         checkinternetconnectivity().then((response)=>{
           if(response.Internet == true){
             this.setState({showProgress : true});
-            callApiWithAuth('save_gift','POST',this.state.auth_token, param ).then((response) => {
-              if(response.status === 200){
-                response.json().then((responseobject) => {
-                  console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
-                  if(responseobject.data.paymentExecStatus === 'CREATED'){
-                    this.setState({payKey:responseobject.data.payKey,modalVisible:true,showProgress : false});
-                  }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
-                      this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
-                  }
+            // callApiWithAuth('save_gift','POST',this.state.auth_token, param ).then((response) => {
+            //   if(response.status === 200){
+            //     response.json().then((responseobject) => {
+            //       console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
+            //       if(responseobject.data.paymentExecStatus === 'CREATED'){
+            //         this.setState({payKey:responseobject.data.payKey,modalVisible:true,showProgress : false});
+            //       }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
+            //           this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
+            //       }
+            //
+            //     });
+            //     Toast.show('');
+            //   }else if (response.status === 401) {
+            //     response.json().then((responseobject) => {
+            //       console.log(responseobject);
+            //     });
+            //     this.setState({showProgress : false});
+            //     Toast.show('Unauthorized');
+            //   }else if (response.status === 406) {
+            //     response.json().then((responseobject) => {
+            //       this.setState({showProgress : false});
+            //     //  Toast.show(responseobject.error_messages);
+            //       Toast.show('Please Check Your Paypal Id and Currency.');
+            //     });
+            //   }else if (response.status === 500) {
+            //     this.setState({showProgress : false});
+            //     Toast.show('Unsuccessfull error:500');
+            //     }
+            // }).catch((error) => {console.log(error); });
 
-                });
-                Toast.show('');
-              }else if (response.status === 401) {
-                response.json().then((responseobject) => {
-                  console.log(responseobject);
-                });
-                this.setState({showProgress : false});
-                Toast.show('Unauthorized');
-              }else if (response.status === 406) {
-                response.json().then((responseobject) => {
-                  this.setState({showProgress : false});
-                //  Toast.show(responseobject.error_messages);
-                  Toast.show('Please Check Your Paypal Id and Currency.');
-                });
-              }else if (response.status === 500) {
-                this.setState({showProgress : false});
-                Toast.show('Unsuccessfull error:500');
+
+
+            callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
+              response.json().then((res)=>{ console.log(res);
+                if(res.responseEnvelope.ack === 'Failure'){
+                  console.log(res);
+                   Toast.show(res.error.message);this.setState({showProgress : false});
+                }else if(res.responseEnvelope.ack === 'Success'){
+
+                this.setState({payKey:res.payKey,modalVisible:true,showProgress : false});
                 }
-            }).catch((error) => {console.log(error); });
-
-
-
-          // callApiToPaypal('Pay','POST', {actionType:'CREATED',senderEmail:'ronnage123@gmail.com',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'us-seller@treefrog.ca',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
-          //   response.json().then((res)=>{
-          //     if(res.responseEnvelope.ack === 'Failure'){
-          //       console.log(res);
-          //        Toast.show(res.error.message);this.setState({showProgress : false});
-          //     }else if(res.responseEnvelope.ack === 'success'){
-          //
-          //     this.setState({payKey:res.payKey,modalVisible:true});
-          //     }
-          //   });
-          // });
+              });
+            });
           // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
           console.log(this.state);
         }else{
@@ -316,8 +316,13 @@ renderImage() {
     );
 }
 
-_onNavigationStateChange (webViewState) {
-  console.log(webViewState);
+_onNavigationStateChange (webViewState) { console.log(webViewState);
+  if(webViewState.title === 'Return to Merchant - PayPal'){
+    this.setState({ statusmsg: 'Cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
+  }
+  if(webViewState.url != undefined){
+    substring = "?";
+if(webViewState.url.includes(substring)){
   let url = webViewState.url.split("?");
   let urlparam = url[1].split("&");
   let result = {};
@@ -327,30 +332,44 @@ _onNavigationStateChange (webViewState) {
     result[temp[0]] = temp[1];
   });
   if(result.hasOwnProperty('type') ){
-    // check payment at paypal
-    checkinternetconnectivity().then((response)=>{
-      if(response.Internet == true){
-        //this.setState({showProgress : true});
-
-      // callApiToPaypal('PaymentDetails','POST',{payKey:this.state.payKey,requestEnvelope:{errorLanguage: 'en_US'}}).then(
-      //   (response)=> {
-      //   response.json().then((res)=>{ console.log(res); });
-      //   }
-      // )
-      // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
-      console.log(this.state);
-    }else{
-      Toast.show("No Internet Connection");
-    }
-  });
     this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
   }
+}
+}
+  // console.log(webViewState);
+  // let url = webViewState.url.split("?");
+  // let urlparam = url[1].split("&");
+  // let result = {};
+  // let temp = '';
+  // Object.keys(urlparam).map((index) => {
+  //   temp = urlparam[index].split('=');
+  //   result[temp[0]] = temp[1];
+  // });
+  // if(result.hasOwnProperty('type') ){
+  //   // check payment at paypal
+  //   checkinternetconnectivity().then((response)=>{
+  //     if(response.Internet == true){
+  //       //this.setState({showProgress : true});
+  //
+  //     // callApiToPaypal('PaymentDetails','POST',{payKey:this.state.payKey,requestEnvelope:{errorLanguage: 'en_US'}}).then(
+  //     //   (response)=> {
+  //     //   response.json().then((res)=>{ console.log(res); });
+  //     //   }
+  //     // )
+  //     // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
+  //     console.log(this.state);
+  //   }else{
+  //     Toast.show("No Internet Connection");
+  //   }
+  // });
+  //   this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
+  // }
 }
 // show () {
 //   this.setState({ modalVisible: true })
 // }
 //
-hide () {
+hide = () => {
   this.setState({ modalVisible: false })
 }
 hidestatusmsg = () => { //console.log('in');
@@ -399,48 +418,52 @@ render(){
   let bdate = new Date(this.state.friend.birth_date);
   console.log(this.state.payUrl+this.state.payKey);
     return(
-      <View style={[styles.full]}>
-      <ModalAlert visible={this.state.modelstatusmsg} onRequestClose={this.hidestatusmsg} head={this.state.paymentalerthead} message={ this.state.paymentalertmsg }/>
-      <Modal
-        animationType={'slide'}
-        visible={this.state.modalVisible}
-        onRequestClose={null}
-        transparent
-      >
+      <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
-          <View style={[styles.full]}>
-            <WebView
-              style={[{ flex: 1 }, {marginTop: 20,marginBottom:20}]}
-              source={{ uri: this.state.payUrl+this.state.payKey }}
-              scalesPageToFit={true}
-              onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-              onError={this._onNavigationStateChange.bind(this)}
-              javaScriptEnabledAndroid={true}
-              domStorageEnabled={true}
-              automaticallyAdjustContentInsets={false}
-              startInLoadingState={true}
-            />
-          </View>
-        </View>
-      </Modal >
-      <Image style = {styles.backgroundImage} source = {images.background} />
-            <MyActivityIndicator progress={this.state.showProgress} />
-            <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.goBack()}}>
-                <Image style = {styles.img} source = {images.backIcon}></Image>
-            </TouchableOpacity>
-            <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}>{Label.t('13')}</Text>
-                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-            </View>
-            <View style = {[styles.formgroup]}>
-                <ScrollView keyboardShouldPersistTaps="never">
+        <ModalAlert visible={this.state.modelstatusmsg} onRequestClose={this.hidestatusmsg} head={this.state.paymentalerthead} message={ this.state.paymentalertmsg }/>
+            <Modal
+              animationType={'slide'}
+              visible={this.state.modalVisible}
+              onRequestClose={this.hide.bind(this)}
+              transparent
+            >
+              <View style={[styles.fulls]}>
+                  <WebView
+                    source={{ uri: this.state.payUrl+this.state.payKey }}
+                    scalesPageToFit={true}
+                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                    onError={this._onNavigationStateChange.bind(this)}
+                    javaScriptEnabledAndroid={true}
+                    domStorageEnabled={true}
+                    automaticallyAdjustContentInsets={false}
+                    startInLoadingState={true}
+                  />
+              </View>
+              <View style={[{backgroundColor:'#ffffff'}]}>
+              <TouchableOpacity style={[styles.btnyellow]} onPress={this.hide} >
+                <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>
+              </TouchableOpacity>
+              </View>
+            </Modal >
+          <MyActivityIndicator progress={this.state.showProgress} />
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+              <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+                <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.goBack()}}>
+                    <Image style = {styles.img} source = {images.backIcon}></Image>
+                </TouchableOpacity>
+                <View style = {styles.titleContainer}>
+                    <Text style = {styles.titleTextFirst}>{Label.t('13')}</Text>
+                    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+                </View>
+              </Image>
+              <View style={[styles.formgroup,styles.containerWidth]}>
                 <View style = {styles.innerwidth}>
                     <View style = {[styles.formimage]}>
                         <View >
                             <Image style = {styles.userImage} source = {images.placeholderImage} />
                         </View>
                         <View style = {styles.textcontainer}>
-                            <Text style = {styles.usertext}>{this.state.friend.full_name}</Text>
+                            <Text style = {styles.usertext}>{this.state.friend.first_name+' '+this.state.friend.last_name}</Text>
                             <Text style = {styles.userdesc}>{this.state.friend.first_name+Label.t('126')+` `+monthshort[bdate.getMonth()]} {bdate.getDate()}</Text>
                         </View>
                     </View>
@@ -482,15 +505,15 @@ render(){
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['GiftValue']}</Text>
                     <View style={styles.dropdown}>
                         <Dropdown
-                        ref = 'ThirdInput'
-                        label= {Label.t('10')}
-                        style = {styles.TextInputStyle}
-                        containerStyle ={{marginTop:-45}}
-                        baseColor = '#B3B3B3'
-                        value = {this.state.charity_type.value}
-                        data={this.state.charity_list}
-                        onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
-                        onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
+                          ref = 'ThirdInput'
+                          label= {Label.t('10')}
+                          style = {styles.TextInputStyle}
+                          containerStyle ={{marginTop:-35}}
+                          baseColor = '#B3B3B3'
+                          value = {this.state.charity_type.value}
+                          data={this.state.charity_list}
+                          onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
+                          onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
                         />
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
@@ -498,7 +521,7 @@ render(){
                     <Dropdown
                           label={Label.t('11')}
                           style = {styles.TextInputStyle}
-                          containerStyle ={{marginTop:-30}}
+                          containerStyle ={{marginTop:-28}}
                           baseColor = '#B3B3B3'
                           value = {this.state.pre_amount.value}
                           data={this.state.donation_list}
@@ -542,10 +565,9 @@ render(){
                             </Text>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
-            </View>
-        </View>
-        );
-
+                  </View>
+            </ScrollView>
+          </View>
+        </Image>);
     }
 }

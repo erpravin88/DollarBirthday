@@ -36,10 +36,11 @@ export default class ForgetPassword extends Component {
      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
      if(this.state.email == ''){
      flag = '0';
-     error.emailMsg = 'Please enter email.';
-     }else if(!re.test(this.state.email)){
+     error.emailMsg = Label.t('75');
+     }
+     if(!re.test(this.state.email)){
        flag = '0';
-       error.emailMsg = 'Please enter valid email.';
+       error.emailMsg = Label.t('76');
      }
      if(flag != ''){
        this.setState({errorMsg: error});
@@ -81,57 +82,60 @@ export default class ForgetPassword extends Component {
   }
   render(){
   return(
-<View style={[styles.full]}>
-  <Image style = {styles.backgroundImage} source = {images.loginbackground} />
-  <MyActivityIndicator progress={this.state.showProgress} />
-  <View style = {styles.titleContainer}>
-    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-  </View>
-  <View style={{height:'56%',overflow:'hidden'}}>
-  <ScrollView  keyboardShouldPersistTaps="always">
-    <View style = {[styles.TextInputContainer]}>
-      <Text style = {[styles.heading1, styles.font8]}>{Label.t('69')}</Text>
-    </View>
-    <View style = {[styles.tempTextInputContainer]}>
-      <Text style = {[styles.subhead1, styles.font3]}>{Label.t('92')}</Text>
-      <Text style = {[styles.subhead1, styles.font3]}>{Label.t('93')}</Text>
-    </View>
-    <View style={[styles.marginFix1,]}>
-      <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
-        <TextInput
-        style = {[styles.TextInputStyle, styles.font2]}
-        keyboardType = 'default'
-        placeholderTextColor = "#b7b7b7"
-        placeholder = {Label.t('41')}
-        keyboardType = 'email-address'
-        underlineColorAndroid = 'transparent'
-        multiline = {false} maxLength = {100}
-        returnKeyType="send"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        onSubmitEditing={this.onSubmitClick}
-        onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
-        />
-        <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
-      </View>
-      <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
-    </View>
-    <View style = {styles.tempoTextInputContainer}>
-      <TouchableOpacity
-      style = {[styles.signInButtonContainer,{backgroundColor:'#6A4A9A'}]}
-      onPress = {this.onSubmitClick}>
-        <Text style = {styles.signInButton}>{Label.t('94')}</Text>
-      </TouchableOpacity>
-    </View>
-      <View style = {[styles.tempTextInputContainer,{marginBottom:'30%'}]}>
-        <TouchableOpacity>
-            <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
-      </TouchableOpacity>
-      </View>
-  </ScrollView>
-  </View>
-</View>);
+    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+      <View style={[styles.full]}>
+        <MyActivityIndicator progress={this.state.showProgress} />
+          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+            <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+              <View style = {styles.titleContainer}>
+                <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+              </View>
+            </Image>
+            <View style = {[styles.formgroup,styles.containerWidth]}>
+              <View style = {[styles.TextInputContainer]}>
+                <Text style = {[styles.heading1, styles.font8]}>{Label.t('69')}</Text>
+              </View>
+              <View style = {[styles.tempTextInputContainer]}>
+                <Text style = {[styles.subhead1, styles.font3]}>{Label.t('92')}</Text>
+                <Text style = {[styles.subhead1, styles.font3]}>{Label.t('93')}</Text>
+              </View>
+              <View style={[styles.marginFix1,]}>
+                <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
+                  <TextInput
+                  style = {[styles.TextInputStyle, styles.font2]}
+                  keyboardType = 'default'
+                  placeholderTextColor = "#b7b7b7"
+                  placeholder = {Label.t('41')}
+                  keyboardType = 'email-address'
+                  underlineColorAndroid = 'transparent'
+                  multiline = {false} maxLength = {100}
+                  returnKeyType="send"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  onSubmitEditing={this.onSubmitClick}
+                  onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
+                  />
+                  <Image style = {styles.TextInputIcon} source = {images.emailIcon}/>
+                </View>
+                <Text style = {styles.errorMsg}>{this.state.errorMsg['emailMsg']}</Text>
+              </View>
+              <View style = {styles.tempoTextInputContainer}>
+                <TouchableOpacity
+                style = {[styles.signInButtonContainer,{backgroundColor:'#6A4A9A'}]}
+                onPress = {this.onSubmitClick}>
+                  <Text style = {styles.signInButton}>{Label.t('94')}</Text>
+                </TouchableOpacity>
+              </View>
+                <View style = {[styles.tempTextInputContainer,{marginBottom:'30%'}]}>
+                  <TouchableOpacity>
+                      <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
+                </TouchableOpacity>
+                </View>
+            </View>
+          </ScrollView>
+        </View>
+      </Image>);
 
   }
 }

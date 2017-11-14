@@ -86,7 +86,7 @@ onCharityClick(){
 }
 render(){
 
-  return(<ScrollView  keyboardShouldPersistTaps="always">
+  return(<ScrollView  keyboardShouldPersistTaps="never">
   <View style = {[styles.TextInputContainer,{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}]}>
   <Text style={{flex:5,backgroundColor:'transparent'}}>{Label.t('56')}</Text>
   <Switch style={{flex:1,width:100}}
