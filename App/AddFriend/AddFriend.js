@@ -251,7 +251,7 @@ render(){
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
           <MyActivityIndicator progress={this.state.showProgress} />
-            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
               <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
             <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
                 <Image style={styles.img} source = {images.backIcon}></Image>
@@ -319,7 +319,7 @@ render(){
                     <View style = {[styles.SettingsTextInputContainer]}>
                         <Text style = {[styles.dob_label,styles.font3]}>Birthday</Text>
                         <DatePicker
-                            style = {[styles.date_picker,styles.font3]}
+                            style = {[styles.date_picker]}
                             date = {this.state.initialdob}
                             format = "YYYY-MM-DD"
                             maxDate = {this.state.maxdob}
@@ -333,12 +333,12 @@ render(){
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
                     <View style = {styles.SettingsTextInputContainer}>
-                    <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3, marginTop:10}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
-                      <Text style = {styles.signInButton}>
-                      {(this.state.newfriend == true) ? (<Image style = {styles.addBtn} source = {images.addBtn}/>):''}
-                      {(this.state.newfriend == true) ? Label.t('0') :Label.t('8')}
+                      <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3, marginTop:10}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
+                        <Text style = {styles.signInButton}>
+                          {(this.state.newfriend == true) ? (<Image style = {styles.addBtn} source = {images.addBtn}/>):''}
+                          {(this.state.newfriend == true) ? Label.t('0') :Label.t('8')}
                         </Text>
-                          </TouchableOpacity>
+                      </TouchableOpacity>
                     </View>
             </View>
           </ScrollView>

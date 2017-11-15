@@ -27,12 +27,11 @@ const style = {
       backgroundColor:'#5e4289',
       padding:6,
       width:'100%',
-      height:'100%'
     },
 
     modaldata:{
-      height:'60%',
-      width:'85%',
+      maxHeight:'60%',
+      width:'95%',
       backgroundColor:'#ffffff',
       alignItems: 'center',
     },

@@ -113,6 +113,7 @@ componentWillMount(){
     AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
        this.setState({auth_token: token,showProgress : true});
          callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
+
             if(response.status === 200){
               response.json().then((responseobject) => {
                 this.setState({ Friends: responseobject.data });
@@ -122,6 +123,9 @@ componentWillMount(){
             }else if (response.status === 401) {
                this.setState({showProgress : false});
                Toast.show(Label.t('64'));
+            }else if (response.status === 404) {
+               this.setState({showProgress : false});
+               Toast.show('No friends found');
             }else if (response.status === 500) {
                this.setState({showProgress : false});
                Toast.show(Label.t('64')+':500');

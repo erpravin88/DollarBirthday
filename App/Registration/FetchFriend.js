@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  TextInput,
-  Button,
   TouchableOpacity,
-  Alert,
-  Image,ScrollView, ImageBackground, ActivityIndicator
+  Platform,
+  Image,ScrollView,
 } from 'react-native';
 
 import images from '../Constant/Images';
@@ -18,6 +15,7 @@ import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import Toast from 'react-native-simple-toast';
 import { NavigationActions } from 'react-navigation';
+import SafariView from 'react-native-safari-view';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -26,6 +24,11 @@ const resetAction1 = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'IMPORTMANUALLY' })],
     });
+import FBSDK  from 'react-native-fbsdk';
+const {
+      LoginManager,
+      AccessToken
+} = FBSDK;
 export default class FetchFriend extends Component {
 
 
@@ -84,8 +87,44 @@ export default class FetchFriend extends Component {
 
 
     }
+    _fbAuth = () => {
+       LoginManager.logInWithReadPermissions(['public_profile','user_birthday']).then((result) => {
+           if(result.isCancelled){
+               Toast.show('Log In cancelled');
+           }
+           else {
+               /*AccessToken.getCurrentAccessToken().then(
+                   (data) => {
+                       console.log(data);
+                       fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
+                       .then((response) => response.json())
+                       .then((json) => {console.log("Profile fb",json)})
+                       .catch(() => {
+                         console.log('ERROR GETTING DATA FROM FACEBOOK');
+                       })
 
-
+                   }
+               );*/
+               this.openURL("https://www.facebook.com/events/birthdays/");
+           }
+       }, function(error){
+           console.log('An error occured: ' + error)
+       })
+    }
+    // Open URL in a browser
+     openURL = (url) => {
+       // Use SafariView on iOS
+       if (Platform.OS === 'ios') {
+         SafariView.show({
+           url: url,
+           fromBottom: true,
+         });
+       }
+       // Or Linking.openURL on Android
+       else {
+         Linking.openURL(url);
+       }
+     };
   render(){
 
   return(
@@ -107,7 +146,7 @@ export default class FetchFriend extends Component {
                 <Text style = {styles.subhead1}>{Label.t('87')}</Text>
               </View>
                 <View style = {styles.TextInputContainer}>
-                  <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]}>
+                  <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]} onPress={() => {this._fbAuth()}}>
                     <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
                   </TouchableOpacity>
                 </View>

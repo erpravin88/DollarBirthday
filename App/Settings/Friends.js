@@ -237,8 +237,7 @@ componentDidMount() {
 
   render(){
   return(
-    <ScrollView >
-    <View style = {[styles.TextInputContainer]}>
+    <View style = {[styles.SettingsTextInputContainer]}>
         {/* <Modal
             animationType="slide"
             transparent={true}
@@ -349,7 +348,6 @@ componentDidMount() {
 
         </View>
     </View>
-</ScrollView>
   );
   }
 }

@@ -4,29 +4,29 @@ import comman from '../../Constant/Style';
 
 const style = {
 
-        modalbackicon:{
-          marginTop:5,
-          height:18,
-          width:18,
-          marginRight:10,
-        },
-
-        modalfullnametext:{
-          fontSize:18,
-          fontFamily:'OpenSans-Semibold'
-        },
-
-        modalbirthdatetext:{
-          fontSize:12,
-          color:'#b7b7b7',
-          fontFamily:'OpenSans-Semibold'
-        },
-
-        modalemailtext:{
-          fontSize:12,
-          fontFamily:'OpenSans-Semibold',
-           color:'#6CB8FB'
-        },
+        // modalbackicon:{
+        //   marginTop:5,
+        //   height:18,
+        //   width:18,
+        //   marginRight:10,
+        // },
+        //
+        // modalfullnametext:{
+        //   fontSize:18,
+        //   fontFamily:'OpenSans-Semibold'
+        // },
+        //
+        // modalbirthdatetext:{
+        //   fontSize:12,
+        //   color:'#b7b7b7',
+        //   fontFamily:'OpenSans-Semibold'
+        // },
+        //
+        // modalemailtext:{
+        //   fontSize:12,
+        //   fontFamily:'OpenSans-Semibold',
+        //    color:'#6CB8FB'
+        // },
 
         checkboxicon:{
           marginTop:3,
@@ -39,31 +39,31 @@ const style = {
           paddingLeft:10
         },
 
-        modallistbox:{
-
-          flexDirection:'row',
-          shadowOpacity: 0.75,
-          shadowRadius: 5,
-          shadowColor: '#cccccc',
-          shadowOffset: { height: 0, width: 0 },
-          elevation:3,
-          borderWidth: 1,
-          borderRadius: 2,
-          borderColor: '#ddd',
-          marginBottom:5,
-          padding:8,
-        },
-
-        modalpicker:{
-          backgroundColor:'transparent',
-          marginBottom:1,
-          width:'50%',
-        },
-
-        modallist:{
-          padding:10,
-          marginTop:5,
-        },
+        // modallistbox:{
+        //
+        //   flexDirection:'row',
+        //   shadowOpacity: 0.75,
+        //   shadowRadius: 5,
+        //   shadowColor: '#cccccc',
+        //   shadowOffset: { height: 0, width: 0 },
+        //   elevation:3,
+        //   borderWidth: 1,
+        //   borderRadius: 2,
+        //   borderColor: '#ddd',
+        //   marginBottom:5,
+        //   padding:8,
+        // },
+        //
+        // modalpicker:{
+        //   backgroundColor:'transparent',
+        //   marginBottom:1,
+        //   width:'50%',
+        // },
+        //
+        // modallist:{
+        //   padding:10,
+        //   marginTop:5,
+        // },
 
         cross:{
           color:'#FFFFFF',
@@ -136,7 +136,7 @@ const style = {
 
           boxtextsmall:{
               color:'#ffffff',
-              fontSize:12,
+              fontSize:10,
               textAlign: 'center',
               fontFamily:'OpenSans-Semibold'
           },
@@ -206,16 +206,17 @@ const style = {
           },
 
           listbox:{
-            shadowOpacity: 0.75,
-            shadowRadius: 5,
+            shadowOpacity: 0.4,
+            shadowRadius: 2,
             shadowColor: '#cccccc',
             shadowOffset: { height: 0, width: 0 },
-            elevation:3,
+            elevation:1,
             borderWidth: 1,
             borderRadius: 2,
             borderColor: '#ddd',
             marginBottom:5,
-            padding:8,
+            padding:5,
+            backgroundColor:'#FFFFFF',
           },
 
           crossicon:{
@@ -226,7 +227,8 @@ const style = {
           crossiconposi:{
             position:'absolute',
             zIndex: 99,
-            right:8,
+            right:5,
+            padding:5,
             top:5,
           },
 
@@ -239,11 +241,13 @@ const style = {
             position:'absolute',
             zIndex: 99,
             right:35,
+            padding:5,
+            marginRight:5,
             top:5,
           },
 
           birthdatemailfield:{
-            flexDirection:'row',
+            flexDirection:'column',
           },
 
           fullnametext:{

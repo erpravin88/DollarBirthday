@@ -189,8 +189,8 @@ hideErrors(){
   render(){
 
   return(
-  <View style={{height:'100%'}}>
-      <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom,{marginTop:15}]}>
+  <View style={[styles.settingdetailwrap]}>
+      <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {[styles.TextInputStyle,styles.font3]}
           keyboardType = 'default'
           placeholderTextColor = "#b7b7b7"
@@ -230,7 +230,7 @@ hideErrors(){
       <View style = {styles.SettingsTextInputContainer}>
         <Text style = {[styles.dob_label,styles.font2]}>{Label.t('43')}</Text>
         <DatePicker
-          style = {[styles.date_picker,styles.font3]}
+          style = {[styles.date_picker]}
           date = {this.state.initialdob}
           format = "YYYY-MM-DD"
           maxDate = {this.state.maxdob}

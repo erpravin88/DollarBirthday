@@ -24,10 +24,11 @@ const style = {
         height: 220,
       },
     addBtn: {
-      width: 12,
-      height: 12,
+      width: (Platform.OS === 'ios')?  12 : 35,
+      height: (Platform.OS === 'ios')?  12 : 35,
       borderBottomWidth: 1,
-      resizeMode:'contain',
+      resizeMode:'stretch',
+
     },
     dob_label: {
 

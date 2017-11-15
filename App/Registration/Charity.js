@@ -13,8 +13,8 @@ import {
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import styles from './Style/CharityStyle';
+import settings from '../Constant/UrlConstant';
 import Label from '../Constant/Languages/LangConfig';
-import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
@@ -41,7 +41,7 @@ export default class Charity extends Component {
      auth_token:'',
      pre_amount:'',
      other_amount:'',
-     charity_type:'',
+     charity_type:{value:'',index:''},
      errorMsg:{charity_type:'',pre_amount:'',other_amount:''},
      user_details:'',
    }
@@ -115,20 +115,22 @@ if(this.state.charity_type == ''){
 flag = false;
 error.charity_type = Label.t('45');
 }
-if(this.state.pre_amount == ''){
-flag = false;
-error.pre_amount = Label.t('46');
-}
-if(this.state.pre_amount.index == 'specify'){
-
-  if(this.state.other_amount == ''){
+if(this.state.charity_type.index !== settings.DONOT_CHARITY_ID){
+  if(this.state.pre_amount == ''){
   flag = false;
-  error.other_amount = Label.t('47');
+  error.pre_amount = Label.t('46');
+  }
+  if(this.state.pre_amount.index == 'specify'){
+
+    if(this.state.other_amount == ''){
+    flag = false;
+    error.other_amount = Label.t('47');
+    }
   }
 }
 if(flag){
   let charity_id  =this.state.charity_type.index;
-  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.pre_amount.index;
+  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
     response.json().then((responseobject) => {
@@ -150,7 +152,11 @@ if(flag){
     Toast.show(Label.t('49'));
   }else if (response.status === 406) {
     this.setState({showProgress : false});
-    Toast.show(Label.t('50'));
+    response.json().then((responseobject) => {
+      if(responseobject.error_messages !== 'invalid data'){
+        Toast.show(Label.t('50'));
+      }
+    });
   }else if (response.status === 401) {
     this.setState({showProgress : false});
     Toast.show(Label.t('51'));
@@ -175,13 +181,14 @@ hideErrors(){
 }
 
   render(){
-    // let data = [{
-    //   value: 'Epilepsy Association of Central Florida',index:'1'
-    // }, {
-    //   value: 'Feeding America',index:'2'
-    // }, {
-    //   value: 'I Do Not Wish To Donate at This Time',index:'3'
-    // }];
+    let hide;
+    if(this.state.charity_type.index === settings.DONOT_CHARITY_ID){
+      this.state.pre_amount = { value: '',index:''};
+      this.state.other_amount = '0.00';
+      hide = true;
+    }else{
+       hide = false;
+    }
   return(
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <View style={[styles.full]}>
@@ -211,35 +218,38 @@ hideErrors(){
           />
           <Text style = {styles.errorMsg}>{this.state.errorMsg['charity_type']}</Text>
     </View>
-    <View style = {styles.SettingsTextInputContainer}>
+    <View style = {[ hide ? styles.hide : styles.show, styles.SettingsTextInputContainer]}>
     <Dropdown
-          label= {Label.t('11')}
-          style = {[styles.TextInputStyle,styles.font3]}
-          containerStyle ={{marginTop:-20}}
+          label={Label.t('11')}
+          style = {styles.TextInputStyle}
+          containerStyle ={{marginTop:-30}}
           baseColor = '#B3B3B3'
           data={this.state.donation_list}
-          onChangeText = {(value,index,data)=>{this.setState({pre_amount:data[index]});this.hideErrors();}}
+          onChangeText = {(value,index,data)=>{if(data[index].index === 'specify'){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
         />
-        <Text style = {styles.errorMsg}>{this.state.errorMsg['pre_amount']}</Text>
-    </View><View>
+        <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
+    </View>
+    <View style={[hide ? styles.hide : styles.show,]}>
     {(this.state.pre_amount.index == 'specify') ?
-            (<View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
+            (<View><View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
               <TextInput
-              style = {[styles.TextInputStyle,styles.font3]}
+              style = {styles.TextInputStyle}
               keyboardType = 'numeric'
               placeholderTextColor = "#b7b7b7"
               placeholder = {Label.t('11')}
               underlineColorAndroid = 'transparent'
-              multiline = {false} maxLength = {3}
+              multiline = {false} maxLength = {6}
               returnKeyType="send"
               autoCapitalize="none"
               autoCorrect={false}
+              value= {this.state.other_amount}
               onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
               />
               <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
-              </View>) : (<View></View>)}
-    <Text style = {styles.errorMsg}>{this.state.errorMsg['other_amount']}</Text>
-    </View>
+            </View>
+            <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
+      </View>
+  
     <View style = {[styles.SettingsTextInputContainer]}>
       <TouchableOpacity
       style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}

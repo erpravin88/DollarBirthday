@@ -102,7 +102,7 @@ const { width, height } = Dimensions.get('window');
     position:'absolute',
     width:25,
     height:24,
-    left:'5.5%',
+    left:'3%',
     top:'3.5%',
   },
 	 img:{
@@ -123,9 +123,13 @@ const { width, height } = Dimensions.get('window');
 			 alignSelf: 'center',
 			},
 			SettingsTextInputContainer: {
-			 width:'78%',
+			 width:'87%',
 			 alignSelf: 'center',
 			},
+      settingdetailwrap:{
+        marginTop:10,
+        height:'100%',
+      },
 			TabContainer: {
 			 width:'94%',
 			 alignSelf: 'center',
@@ -144,7 +148,7 @@ const { width, height } = Dimensions.get('window');
 	   errorMsg: {
        backgroundColor: 'transparent',
 	     color:'#ff0000',
-	     width:'78%',
+	     width:'87%',
 	     alignSelf:'center',
 	   },
 

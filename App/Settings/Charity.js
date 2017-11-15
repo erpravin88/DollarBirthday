@@ -247,7 +247,7 @@ hideErrors(){
     console.log(this.state.other_amount);
   return(
 <ScrollView  keyboardShouldPersistTaps="never">
-  <View style = {styles.TextInputContainer}>
+  <View style = {styles.SettingsTextInputContainer}>
     <Dropdown
           label={Label.t('10')}
           style = {styles.TextInputStyle}
@@ -257,9 +257,9 @@ hideErrors(){
           data = {this.state.charity_list}
           onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]}); console.log(data[index]);this.hideErrors();}}
         />
-        <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['charity_type']}</Text>
+        <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['charity_type']}</Text>
   </View>
-  <View style = {[ hide ? styles.hide : styles.show, styles.TextInputContainer]}>
+  <View style = {[ hide ? styles.hide : styles.show, styles.SettingsTextInputContainer]}>
   <Dropdown
         label={Label.t('11')}
         style = {styles.TextInputStyle}
@@ -269,11 +269,11 @@ hideErrors(){
         data={this.state.donation_list}
         onChangeText = {(value,index,data)=>{if(data[index].index === 'specify'){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
       />
-      <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
+      <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
   </View>
   <View style={[hide ? styles.hide : styles.show,]}>
   {(this.state.pre_amount.index == 'specify') ?
-          (<View><View style = {[styles.TextInputContainer,styles.inputBorderBottom]}>
+          (<View><View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
             <TextInput
             style = {styles.TextInputStyle}
             keyboardType = 'numeric'
@@ -289,22 +289,22 @@ hideErrors(){
             />
             <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
           </View>
-          <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
+          <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
     </View>
-  <View style = {[styles.TextInputContainer]}>
+  <View style = {[styles.SettingsTextInputContainer]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>
       <Text style = {styles.signInButton}>{Label.t('39')}</Text>
     </TouchableOpacity>
   </View>
-  <View style = {[styles.TextInputContainer,{flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop:'5%'}]}>
+  <View style = {[styles.SettingsTextInputContainer,{flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop:'5%'}]}>
     <Text style={[styles.linkColor,{backgroundColor:'transparent'}]}>{Label.t('53')}</Text>
     <TouchableOpacity style={styles.btn1} onPress={()=>{ConstantFunction.email(['ronnage@cfl.rr.com'],'','','Add%20My%20Charity%20to%20Dollar%20Birthday%20Club','')}}>
       <Text style={styles.text1}>{Label.t('54')}</Text>
     </TouchableOpacity>
   </View>
-  <View style = {[styles.TextInputContainer]}>
+  <View style = {[styles.SettingsTextInputContainer]}>
     <DirectiveMsg message={Label.t('114')} icon = {false} />
   </View>
 </ScrollView>);

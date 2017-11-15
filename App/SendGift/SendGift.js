@@ -246,49 +246,50 @@ sendgiftandcharity(){
         checkinternetconnectivity().then((response)=>{
           if(response.Internet == true){
             this.setState({showProgress : true});
-            // callApiWithAuth('save_gift','POST',this.state.auth_token, param ).then((response) => {
-            //   if(response.status === 200){
-            //     response.json().then((responseobject) => {
-            //       console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
-            //       if(responseobject.data.paymentExecStatus === 'CREATED'){
-            //         this.setState({payKey:responseobject.data.payKey,modalVisible:true,showProgress : false});
-            //       }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
-            //           this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
-            //       }
-            //
-            //     });
-            //     Toast.show('');
-            //   }else if (response.status === 401) {
-            //     response.json().then((responseobject) => {
-            //       console.log(responseobject);
-            //     });
-            //     this.setState({showProgress : false});
-            //     Toast.show('Unauthorized');
-            //   }else if (response.status === 406) {
-            //     response.json().then((responseobject) => {
-            //       this.setState({showProgress : false});
-            //     //  Toast.show(responseobject.error_messages);
-            //       Toast.show('Please Check Your Paypal Id and Currency.');
-            //     });
-            //   }else if (response.status === 500) {
-            //     this.setState({showProgress : false});
-            //     Toast.show('Unsuccessfull error:500');
-            //     }
-            // }).catch((error) => {console.log(error); });
+            callApiWithAuth('save_gift','POST',this.state.auth_token, param ).then((response) => {
+              if(response.status === 200){
+                response.json().then((responseobject) => {
+                  console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
+                  if(responseobject.data.paymentExecStatus === 'CREATED'){
+                    this.setState({payKey:responseobject.data.payKey,modalVisible:true,showProgress : false});
+                  }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
+                      this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
+                  }
 
-
-
-            callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
-              response.json().then((res)=>{ console.log(res);
-                if(res.responseEnvelope.ack === 'Failure'){
-                  console.log(res);
-                   Toast.show(res.error.message);this.setState({showProgress : false});
-                }else if(res.responseEnvelope.ack === 'Success'){
-
-                this.setState({payKey:res.payKey,modalVisible:true,showProgress : false});
+                });
+                Toast.show('');
+              }else if (response.status === 401) {
+                response.json().then((responseobject) => {
+                  console.log(responseobject);
+                });
+                this.setState({showProgress : false});
+                Toast.show('Unauthorized');
+              }else if (response.status === 406) {
+                response.json().then((responseobject) => {
+                  this.setState({showProgress : false});
+                  console.log(responseobject);
+                //  Toast.show(responseobject.error_messages);
+                  Toast.show('Please Check Your Paypal Id and Currency.');
+                });
+              }else if (response.status === 500) {
+                this.setState({showProgress : false});
+                Toast.show('Unsuccessfull error:500');
                 }
-              });
-            });
+            }).catch((error) => {console.log(error); });
+
+
+
+            // callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
+            //   response.json().then((res)=>{ console.log(res);
+            //     if(res.responseEnvelope.ack === 'Failure'){
+            //       console.log(res);
+            //        Toast.show(res.error.message);this.setState({showProgress : false});
+            //     }else if(res.responseEnvelope.ack === 'Success'){
+            //
+            //     this.setState({payKey:res.payKey,modalVisible:true,showProgress : false});
+            //     }
+            //   });
+            // });
           // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
           console.log(this.state);
         }else{

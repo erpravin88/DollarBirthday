@@ -5,10 +5,12 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  TouchableHighlight,
   Alert,
   Image,
   ScrollView,
   AsyncStorage,
+  Keyboard,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -73,15 +75,17 @@ export default class Settings extends Component {
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
         <MyActivityIndicator progress={this.state.showProgress} />
+        <TouchableOpacity style={[styles.fulls]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
           <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
-            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+            <TouchableHighlight style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
               <Image style={styles.img} source = {images.dashboardIcon}/>
-            </TouchableOpacity>
+            </TouchableHighlight>
             <View style = {styles.titleContainer}>
               <Text style = {styles.titleTextFirst}>{Label.t('33')}</Text>
               <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
           </Image>
+          </TouchableOpacity>
           <View style = {[styles.paddingBottomFive,styles.containerWidth,{backgroundColor:'#FFFFFF'}]}>
           <View style = {[styles.tabs]}>
             <MaterialTabs
@@ -100,7 +104,7 @@ export default class Settings extends Component {
             (this .state.selectedTab == 1? (<ScrollView keyboardShouldPersistTaps="never"><Paypal /></ScrollView>):
             (this .state.selectedTab == 2? (<ScrollView keyboardShouldPersistTaps="never"><Charity/></ScrollView>):
             (this .state.selectedTab == 3? (<ScrollView keyboardShouldPersistTaps="never"><Notification /></ScrollView>):
-            (<Friends nav={this.props}/>))))}
+            (<ScrollView keyboardShouldPersistTaps="never"><Friends nav={this.props}/></ScrollView>))))}
           </View>
         </View>
       </Image>);

@@ -87,7 +87,7 @@ onCharityClick(){
 render(){
 
   return(<ScrollView  keyboardShouldPersistTaps="never">
-  <View style = {[styles.TextInputContainer,{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}]}>
+  <View style = {[styles.SettingsTextInputContainer,{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}]}>
   <Text style={{flex:5,backgroundColor:'transparent'}}>{Label.t('56')}</Text>
   <Switch style={{flex:1,width:100}}
     onValueChange={()=>{
@@ -101,7 +101,7 @@ render(){
     value={this.state.email_notify ? true : false}
     />
   </View>
-  <View style = {styles.TextInputContainer}>
+  <View style = {styles.SettingsTextInputContainer}>
   <Dropdown
         label= {Label.t('57')}
         style = {styles.TextInputStyle}
@@ -112,7 +112,7 @@ render(){
         onChangeText = {(value,index,data)=>{this.setState({alert:data[index]});}}
       />
   </View>
-  <View style = {[styles.TextInputContainer]}>
+  <View style = {[styles.SettingsTextInputContainer]}>
     <TouchableOpacity
     style = {[styles.signInButtonContainer]}
     onPress = {this.onCharityClick}>

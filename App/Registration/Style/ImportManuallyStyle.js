@@ -25,9 +25,8 @@ const style = {
       },
         scrolllist:{
             backgroundColor:'transparent',
-            overflow:'hidden',
-            marginTop: '2%',
-            height:'76%',
+            height:'86%',
+            marginTop:'2%',
         },
           friendboxes:{
             flexDirection:'row',
@@ -99,18 +98,18 @@ const style = {
             fontFamily:'OpenSans-Semibold',
             fontSize:8
           },
-
           listbox:{
-            shadowOpacity: 0.75,
-            shadowRadius: 5,
+            shadowOpacity: 0.4,
+            shadowRadius: 2,
             shadowColor: '#cccccc',
             shadowOffset: { height: 0, width: 0 },
-            elevation:3,
+            elevation:1,
             borderWidth: 1,
             borderRadius: 2,
             borderColor: '#ddd',
             marginBottom:5,
-            padding:8,
+            padding:5,
+            backgroundColor:'#FFFFFF',
           },
 
           crossicon:{
@@ -121,7 +120,8 @@ const style = {
           crossiconposi:{
             position:'absolute',
             zIndex: 99,
-            right:8,
+            right:5,
+            padding:5,
             top:5,
           },
 
@@ -134,13 +134,14 @@ const style = {
             position:'absolute',
             zIndex: 99,
             right:35,
+            padding:5,
+            marginRight:5,
             top:5,
           },
 
           birthdatemailfield:{
-            flexDirection:'row',
+            flexDirection:'column',
           },
-
           fullnametext:{
             fontSize:14,
             fontFamily:'OpenSans-Semibold'

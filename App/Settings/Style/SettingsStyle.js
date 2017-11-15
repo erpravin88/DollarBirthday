@@ -11,6 +11,11 @@ const style = {
       marginTop:(Platform.OS === 'ios')?  20 : 10,
       marginBottom:10,
     },
+    fulls:{
+      width:width,
+      height:height,
+      flex:1,
+    },
     top:{resizeMode:'stretch',height:null,flex:1},
     containerWidth:{width:'94%',marginLeft:'3%',marginRight:'3%',},
     formgroup:{

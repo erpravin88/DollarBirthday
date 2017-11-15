@@ -216,7 +216,7 @@ hideErrors(){
       <View style = {styles.tempoTextInputContainer}>
         <Text style = {[styles.dob_label, styles.font1]}>{Label.t('43')}</Text>
         <DatePicker
-          style = {[styles.date_picker, styles.font3]}
+          style = {[styles.date_picker]}
           date = {this.state.initialdob}
           format = "YYYY-MM-DD"
           maxDate = {this.state.maxdob}

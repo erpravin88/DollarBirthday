@@ -56,7 +56,7 @@ constructor(props){
         shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',contentDescription: 'I just donated to this charity'},
         modalVisible:false,
         payUrl: settings.PAYPAL_ENV === 'live'? settings.PAYPAL_LIVE_AUTHURL : settings.PAYPAL_SANDBOX_AUTHURL,
-        payKey:'',
+        paymentData:'',
         statusmsg:'',
         modelstatusmsg: false,
         paymentalerthead: '',
@@ -95,25 +95,39 @@ componentWillMount(){
       callApiWithoutAuth('charityList','GET' ).then((response) => {
           if(response.status === 200){
             response.json().then((responseobject) => {
+              console.log(responseobject.data);
+              let removeoptionidotwantcharitythistime ='';
               let charityList = Object.keys(responseobject.data).map(function(key,data) {
-                return { value: responseobject.data[key].organization, index:responseobject.data[key].id, logo:responseobject.data[key].logo};
+                console.log(responseobject.data[key].id !== settings.DONOT_CHARITY_ID);
+                console.log(responseobject.data[key].id);
+                console.log(settings.DONOT_CHARITY_ID);
+                if(responseobject.data[key].id === settings.DONOT_CHARITY_ID){
+                  removeoptionidotwantcharitythistime = key;
+                }
+                  return { value: responseobject.data[key].organization, index:responseobject.data[key].id, logo:responseobject.data[key].logo};
 
                });
-               if(this.state.user_details.charity[0] !== undefined){
+               //console.log(removeoptionidotwantcharitythistime);
+               charityList.splice(removeoptionidotwantcharitythistime, 1);// to remove i don want charity at this time
+               //console.log(charityList);
+               if(this.state.user_details.charity[0] !== undefined && this.state.user_details.charity[0].charity_id !== settings.DONOT_CHARITY_ID){
 
                     let charity_type_label='';
+                    let logo='';
                     Object.keys(responseobject.data).map((key,data) => {
                        if(responseobject.data[key].id == this.state.user_details.charity[0].charity_id){
                          charity_type_label = responseobject.data[key].organization;
+                         logo = responseobject.data[key].logo;
                          return false;
                        }
-                     });
+                     });console.log(this.state.user_details.charity[0]);
                      this.setState({
                        showProgress : false,
                        charity_list : charityList,
                        charity_type:{
                    value:charity_type_label,
-                   index:this.state.user_details.charity[0].charity_id}
+                   index:this.state.user_details.charity[0].charity_id,
+                   logo:logo}
                      });
                    }else {
                      this.setState({
@@ -133,10 +147,9 @@ componentWillMount(){
             response.json().then((responseobject) => {
              console.log(responseobject);
              let donationList = Object.keys(responseobject.data).map(function(key,data) {
-               return { value: responseobject.data[key], index:key};
-
+                   return { value: responseobject.data[key], index:key};
               });
-              if(this.state.user_details.charity[0] !== undefined ){
+              if(this.state.user_details.charity[0] !== undefined && this.state.user_details.charity[0].charity_id !== settings.DONOT_CHARITY_ID){
                let donation_label ='';
                let donation_value = '';
                let donation_value1 = '';
@@ -212,47 +225,48 @@ senddonation(){
         checkinternetconnectivity().then((response)=>{
           if(response.Internet == true){
             this.setState({showProgress : true});
-            // callApiWithAuth('charitydonation','POST',this.state.auth_token, param ).then((response) => {
-            //   if(response.status === 200){
-            //     response.json().then((responseobject) => {
-            //       console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
-            //       if(responseobject.data.paymentExecStatus === 'CREATED'){
-            //         this.setState({payKey:responseobject.data.payKey,modalVisible:true,showProgress : false});
-            //       }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
-            //           this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
-            //       }
-            //
-            //     });
-            //     Toast.show('');
-            //   }else if (response.status === 401) {
-            //     response.json().then((responseobject) => {
-            //       console.log(responseobject);
-            //     });
-            //     this.setState({showProgress : false});
-            //     Toast.show('Unauthorized');
-            //   }else if (response.status === 406) {
-            //     response.json().then((responseobject) => {
-            //       this.setState({showProgress : false});
-            //     //  Toast.show(responseobject.error_messages);
-            //       Toast.show('Please Check Your Paypal Id and Currency.');
-            //     });
-            //   }else if (response.status === 500) {
-            //     this.setState({showProgress : false});
-            //     Toast.show('Unsuccessfull error:500');
-            //     }
-            // }).catch((error) => {console.log(error); });
+            callApiWithAuth('charitydonation','POST',this.state.auth_token, param ).then((response) => {
+              if(response.status === 200){
+                response.json().then((responseobject) => {
+                  console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
+                  if(responseobject.data.paymentExecStatus === 'CREATED'){
+                    this.setState({paymentData:responseobject.data,modalVisible:true,showProgress : false});
+                  }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
+                      this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true,showProgress : false,statusmsg :'complete'});
+                  }
 
-            callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
-              response.json().then((res)=>{ console.log(res);
-                if(res.responseEnvelope.ack === 'Failure'){
-                  console.log(res);
-                   Toast.show(res.error.message);this.setState({showProgress : false});
-                }else if(res.responseEnvelope.ack === 'Success'){
-
-                this.setState({payKey:res.payKey,modalVisible:true,showProgress : false});
+                });
+                Toast.show('');
+              }else if (response.status === 401) {
+                response.json().then((responseobject) => {
+                  console.log(responseobject);
+                });
+                this.setState({showProgress : false});
+                Toast.show('Unauthorized');
+              }else if (response.status === 406) {
+                response.json().then((responseobject) => {
+                  this.setState({showProgress : false});
+                  console.log(responseobject);
+                //  Toast.show(responseobject.error_messages);
+                  Toast.show('Please Check Your Paypal Id and Currency.');
+                });
+              }else if (response.status === 500) {
+                this.setState({showProgress : false});
+                Toast.show('Unsuccessfull error:500');
                 }
-              });
-            });
+            }).catch((error) => {console.log(error); });
+
+            // callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
+            //   response.json().then((res)=>{ console.log(res);
+            //     if(res.responseEnvelope.ack === 'Failure'){
+            //       console.log(res);
+            //        Toast.show(res.error.message);this.setState({showProgress : false});
+            //     }else if(res.responseEnvelope.ack === 'Success'){
+            //
+            //     this.setState({payKey:res.payKey,modalVisible:true,showProgress : false});
+            //     }
+            //   });
+            // });
             // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:res.payKey,modalVisible:true});}));});
             // console.log(this.state);
         }else{
@@ -280,27 +294,67 @@ renderImage() {
 
 
 _onNavigationStateChange (webViewState) { console.log(webViewState.url);
-  if(webViewState.title === 'Return to Merchant - PayPal'){
-    this.setState({ statusmsg: 'cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
-  }
+
   if(webViewState.url != undefined){
     substring = "?";
-if(webViewState.url.includes(substring)){
-  let url = webViewState.url.split("?");
-  let urlparam = url[1].split("&");
-  let result = {};
-  let temp = '';
-  Object.keys(urlparam).map((index) => {
-    temp = urlparam[index].split('=');
-    result[temp[0]] = temp[1];
-  });
-  if(result.hasOwnProperty('type') ){
-    this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
+    if(webViewState.url.includes(substring)){
+      let url = webViewState.url.split("?");
+      let urlparam = url[1].split("&");
+      let result = {};
+      let temp = '';
+      Object.keys(urlparam).map((index) => {
+        temp = urlparam[index].split('=');
+        result[temp[0]] = temp[1];
+      });
+      if(result.hasOwnProperty('type') ){
+          // check payment at paypal
+          checkinternetconnectivity().then((response)=>{
+            if(response.Internet == true){
+              this.setState({showProgress : true});
+console.log(this.state.paymentData);
+            callApiWithAuth('paymentdetails','POST',{payKey:this.state.paymentData.payKey,trackingid:this.state.paymentData.tracking_id}).then(
+              (response)=> {console.log(response);
+                var myReader = new FileReader();
+myReader.onload = function(event){
+    console.log(JSON.stringify(myReader.result));
+};
+let data = myReader.readAsText(response._bodyBlob);
+console.log(data);
+              response.json().then((res)=>{ console.log(res); });
+              }
+            )
+            // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
+            console.log(this.state);
+          }else{
+            Toast.show("No Internet Connection");
+          }
+        });
+        // this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
+      }
+    }
   }
 }
-}
-
-}
+// _onNavigationStateChange (webViewState) { console.log(webViewState.url);
+//   if(webViewState.title === 'Return to Merchant - PayPal'){
+//     this.setState({ statusmsg: 'cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
+//   }
+//   if(webViewState.url != undefined){
+//     substring = "?";
+//     if(webViewState.url.includes(substring)){
+//       let url = webViewState.url.split("?");
+//       let urlparam = url[1].split("&");
+//       let result = {};
+//       let temp = '';
+//       Object.keys(urlparam).map((index) => {
+//         temp = urlparam[index].split('=');
+//         result[temp[0]] = temp[1];
+//       });
+//       if(result.hasOwnProperty('type') ){
+//         this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
+//       }
+//     }
+//   }
+// }
 
 // to test fb share
 // fbshareposttest = () => {
@@ -373,8 +427,8 @@ render(){
   }else{
      hide = false;
   }
-  console.log(this.state.payUrl+this.state.payKey);
-
+  console.log(this.state.payUrl+this.state.paymentData.payKey);
+console.log(this.state.charity_type);
   return(
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
@@ -387,7 +441,7 @@ render(){
           >
             <View style={[styles.fulls]}>
                 <WebView
-                  source={{ uri: this.state.payUrl+this.state.payKey }}
+                  source={{ uri: this.state.payUrl+this.state.paymentData.payKey }}
                   scalesPageToFit
                   startInLoadingState
                   onNavigationStateChange={this._onNavigationStateChange.bind(this)}
