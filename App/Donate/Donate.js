@@ -27,7 +27,7 @@ import MyActivityIndicator from '../Component/MyActivityIndicator';
 import ModalAlert from '../Component/ModalAlert';
 import settings from '../Constant/UrlConstant';
 import { Dropdown } from 'react-native-material-dropdown';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import {callApiWithAuth,callApiWithoutAuth, callApiToPaypal} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -86,7 +86,7 @@ componentWillMount(){
         //     }
         //  }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
     }).catch((err)=>{
-      onSignOut;
+      onSignOut(this);
       Toast.show(err);
     });
     AsyncStorage.getItem(USER_DETAILS).then((details)=>{
@@ -135,8 +135,6 @@ componentWillMount(){
                        charity_list : charityList,});
                    }
             });
-          }else if (response.status === 401) {
-             this.setState({showProgress : false});
           }else if (response.status === 500) {
              this.setState({showProgress : false});
           }
@@ -161,8 +159,8 @@ componentWillMount(){
                   }
                 });
                if(donation_label == '' && this.state.user_details.charity[0].gift_amount !== '' ){
-                  donation_value = 'specify';
-                  donation_label = 'Speicify Amount';
+                  donation_value = Label.t('142');
+                  donation_label = Label.t('143');
                   donation_value1= this.state.user_details.charity[0].gift_amount+"";
                }
                this.setState({
@@ -179,8 +177,6 @@ componentWillMount(){
              }
                });
 
-          }else if (response.status === 401) {
-             this.setState({showProgress : false});
           }else if (response.status === 500) {
              this.setState({showProgress : false});
           }
@@ -238,11 +234,9 @@ senddonation(){
                 });
                 Toast.show('');
               }else if (response.status === 401) {
-                response.json().then((responseobject) => {
-                  console.log(responseobject);
-                });
+                onSignOut(this);
                 this.setState({showProgress : false});
-                Toast.show('Unauthorized');
+                Toast.show(Label.t('51'));
               }else if (response.status === 406) {
                 response.json().then((responseobject) => {
                   this.setState({showProgress : false});

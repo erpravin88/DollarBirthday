@@ -22,7 +22,7 @@ import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/InboxStyle';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -30,6 +30,7 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
+import settings from '../Constant/UrlConstant';
 export default class Calendars extends Component {
 
 constructor(props){
@@ -39,29 +40,30 @@ constructor(props){
         auth_token: '',
         showProgress: false,
         messagelist: true,
-        messages:[1]
+        messages:[10]
     };
 }
 
 fetchlist(item){
+  console.log(item);
     return(<View  style={styles.messagebox}>
         <View style={styles.imagecontainer}>
             <Image style = {styles.userimage} source = {images.placeholderImage}/>
             <View style={styles.userdetailscontainer}>
-                <Text style={styles.username}>Sarah Locket</Text>
+                <Text style={styles.username}>{item.sender_name}</Text>
                 <Text style={styles.datetime}>July 22 at 11:00 AM</Text>
             </View>
         </View>
         <Text style={styles.message}>This is a test message</Text>
         <Image style = {styles.greenbg} source = {images.greenpricetag}/>
         <View style = {styles.greenbg}>
-            <Text style={[styles.donationvalue]}>$10</Text>
-            <Text style={styles.currency}>USD</Text>
+            <Text style={[styles.donationvalue]}>{item.charity_amount}</Text>
+            <Text style={styles.currency}>{item.currency}</Text>
         </View>
         <Image style = {styles.redbg} source = {images.redpricetag}/>
         <View style = {styles.redbg}>
-            <Text style={styles.donationvalue}>$100</Text>
-            <Text style={styles.currency}>USD</Text>
+            <Text style={styles.donationvalue}>{item.gift_amount}</Text>
+            <Text style={styles.currency}>{item.currency}</Text>
         </View>
         <View style={styles.line}></View>
         <View style={styles.donationlisting}>
@@ -86,21 +88,24 @@ componentWillMount(){
              callApiWithAuth('user/inbox','GET', this.state.auth_token).then((response) => {
                 if(response.status === 201){
                   response.json().then((responseobject) => {
+                    console.log(responseobject);
                       //Remove quote from next line to update flatlist with dynamic data
-                    //  this.setState({messages: responseobject});
+                      //  this.setState({messages: responseobject});
+                      this.setState({messages: JSON.parse(JSON.stringify(settings.INBOX_DEMO_DATA)).data.list});
+                      console.log(this.state.messages);
                   });
                   this.setState({showProgress : false});
                   //Toast.show('Task fetched');
                 }else if (response.status === 401) {
                    this.setState({showProgress : false});
-                   Toast.show('Error fetching friends');
+                   onSignOut(this);
+                   Toast.show(Label.t('51'));
                 }else if (response.status === 500) {
                    this.setState({showProgress : false});
-                   Toast.show('Error fetching friends:500');
+                   Toast.show(Label.t('52'));
                 }
              }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
         }).catch((err)=>{
-          onSignOut;
           Toast.show(err);
         });
         AsyncStorage.getItem(USER_DETAILS).then((details)=>{
@@ -113,18 +118,21 @@ componentWillMount(){
 
 render(){
     return(
+      <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
-          <Image style = {styles.backgroundImage} source = {images.background} />
           <MyActivityIndicator progress={this.state.showProgress} />
-          <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
-            <Image style={styles.img} source = {images.dashboardIcon}/>
-          </TouchableOpacity>
+          <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+            <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+              <Image style={styles.img} source = {images.dashboardIcon}/>
+            </TouchableOpacity>
             <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextFirst}>{Label.t('16')}</Text>
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
-            <View style={styles.scrolllist}>
-                <ScrollView keyboardShouldPersistTaps="never">
+          </Image>
+          <View style={[styles.formgroup,styles.containerWidth]}>
+            <View>
+                <ScrollView keyboardShouldPersistTaps="always">
                     {(this.state.messagelist == true) ?
                     (<View><FlatList
                         data={this.state.messages}
@@ -133,7 +141,9 @@ render(){
                         /></View>) : (<View ></View>)}
                 </ScrollView>
             </View>
+          </View>
         </View>
+      </Image>
         );
 
     }

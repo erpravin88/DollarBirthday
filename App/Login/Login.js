@@ -13,6 +13,7 @@ import {
   AsyncStorage,
   ActivityIndicator,
   NetInfo,
+  Keyboard
 } from 'react-native';
 import CheckBox from 'react-native-checkbox';
 import Toast from 'react-native-simple-toast';
@@ -57,6 +58,7 @@ export default class Login extends Component {
       }
 
   onLoginClick(){
+    Keyboard.dismiss();
     let error = this.state.errorMsg;
     error.passwordMsg = '';
     error.emailMsg = '';
@@ -65,18 +67,20 @@ export default class Login extends Component {
     if(this.state.email == ''){
     flag = '0';
     error.emailMsg = Label.t('75');
-    }else if(!re.test(this.state.email)){
+    }
+    if(!re.test(this.state.email)){
       flag = '0';
       error.emailMsg = Label.t('76');
-    }else if(this.state.password == ''){
-      flag = '1';
-      error.passwordMsg = Label.t('77');
-    } else if(this.state.password == '')
-    {
+    }
+    if(this.state.password == ''){
       flag = '1';
       error.passwordMsg = Label.t('77');
     }
-    else if(this.state.password.length < 8)
+    if(this.state.password == '')
+    {
+      flag = '1';
+      error.passwordMsg = Label.t('77');
+    }else if(this.state.password.length < 8)
     {
       flag = '1';
       error.passwordMsg = Label.t('78');
@@ -133,13 +137,14 @@ render(){
 return(<Image style = {styles.backgroundImage} source = {images.loginbackground}>
 <View style={[styles.full]}>
 <MyActivityIndicator progress={this.state.showProgress} />
-<ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
-<Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
-  <View style = {[styles.titleContainer]}>
-    <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
-    <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
-  </View>
-  </Image>
+<ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="always">
+  <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
+    <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
+      <View style = {[styles.titleContainer]}>
+        <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
+        <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
+      </View>
+    </Image>
   <View style = {[styles.formgroup,styles.containerWidth]}>
         <View style = {[styles.tempTextInputContainer,styles.inputBorderBottom]}>
         <TextInput style = {[styles.TextInputStyle, styles.font3]}
@@ -206,6 +211,7 @@ return(<Image style = {styles.backgroundImage} source = {images.loginbackground}
         </TouchableOpacity>
       </View>
   </View>
+</TouchableOpacity>
   </ScrollView>
 </View>
 </Image>

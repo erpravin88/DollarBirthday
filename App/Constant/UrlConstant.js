@@ -29,6 +29,65 @@ export const settings = {
                             client_secret: 'VBDLE3277>_stkmaqaCY8]%',
                             scope: 'User.ReadBasic.All Mail.Read offline_access',
                         },
+  INBOX_DEMO_DATA: {
+                      "status_code": 201,
+                      "status_message": "Success",
+                      "data": {
+                          "total_sent": 0,
+                          "total_recieved": 0,
+                          "total_donation": 0,
+                          "list": [
+                              {
+                                  "sender_name": "Mark Asciutto",
+                                  "currency": "USD",
+                                  "gift_amount": "1.00",
+                                  "charity_amount": "0.05",
+                                  "gift_redeemed": "0001-01-01 00:00:00",
+                                  "gift_sent": "2017-05-14 18:01:14"
+                              },
+                              {
+                                  "sender_name": "Mark Asciutto",
+                                  "currency": "USD",
+                                  "gift_amount": "10.00",
+                                  "charity_amount": "0.05",
+                                  "gift_redeemed": "0001-01-01 00:00:00",
+                                  "gift_sent": "2017-05-09 17:19:12"
+                              },
+                              {
+                                  "sender_name": "Mark Asciutto",
+                                  "currency": "USD",
+                                  "gift_amount": "5.00",
+                                  "charity_amount": "0.05",
+                                  "gift_redeemed": "0001-01-01 00:00:00",
+                                  "gift_sent": "2017-05-08 15:12:19"
+                              },
+                              {
+                                  "sender_name": "Mark Asciutto",
+                                  "currency": "USD",
+                                  "gift_amount": "1.00",
+                                  "charity_amount": "0.05",
+                                  "gift_redeemed": "0001-01-01 00:00:00",
+                                  "gift_sent": "2017-05-14 18:01:14"
+                              },
+                              {
+                                  "sender_name": "Mark Asciutto",
+                                  "currency": "USD",
+                                  "gift_amount": "10.00",
+                                  "charity_amount": "0.05",
+                                  "gift_redeemed": "0001-01-01 00:00:00",
+                                  "gift_sent": "2017-05-09 17:19:12"
+                              },
+                              {
+                                  "sender_name": "Mark Asciutto",
+                                  "currency": "USD",
+                                  "gift_amount": "5.00",
+                                  "charity_amount": "0.05",
+                                  "gift_redeemed": "0001-01-01 00:00:00",
+                                  "gift_sent": "2017-05-08 15:12:19"
+                              }
+                          ]
+                        }
+                      }
 };
 export const alertData = [{
       value: 'No alert',index:'0'

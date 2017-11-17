@@ -18,7 +18,7 @@ import Label from '../Constant/Languages/LangConfig';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import ConstantFunction from '../Constant/Function';
 import DirectiveMsg from '../Component/DirectiveMsg';
 //import { NavigationActions } from 'react-navigation';
@@ -92,8 +92,6 @@ export default class Charity extends Component {
                   charity_list : charityList,});
               }
              });
-           }else if (response.status === 401) {
-              this.setState({showProgress : false});
            }else if (response.status === 500) {
               this.setState({showProgress : false});
            }
@@ -119,8 +117,8 @@ export default class Charity extends Component {
                   }
                 });
                if(donation_label == '' && this.state.user_details.charity[0].gift_amount !== '' ){
-                  donation_value = 'specify';
-                  donation_label = 'Speicify Amount';
+                  donation_value = Label.t('142');
+                  donation_label = Label.t('143');
                   donation_value1= this.state.user_details.charity[0].gift_amount+"";
                }
                this.setState({
@@ -137,8 +135,6 @@ export default class Charity extends Component {
              }
                 });
 
-           }else if (response.status === 401) {
-              this.setState({showProgress : false});
            }else if (response.status === 500) {
               this.setState({showProgress : false});
            }
@@ -168,7 +164,7 @@ if(this.state.charity_type.index !== settings.DONOT_CHARITY_ID){
   flag = false;
   error.pre_amount = Label.t('46');
   }
-  if(this.state.pre_amount.index == 'specify'){
+  if(this.state.pre_amount.index == Label.t('142')){
 
     if(this.state.other_amount == ''){
     flag = false;
@@ -178,7 +174,7 @@ if(this.state.charity_type.index !== settings.DONOT_CHARITY_ID){
 }
 if(flag){
   let charity_id  =this.state.charity_type.index;
-  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
+  let gift_amount = this.state.pre_amount.index == Label.t('142') ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
   console.log(charity_id);
   console.log(gift_amount);
   this.setState({showProgress : true});
@@ -198,7 +194,11 @@ if(flag){
        //this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     // });
-    Toast.show(Label.t('48'));
+    Toast.show(Label.t('144'));
+  }else if (response.status === 401) {
+    onSignOut(this);
+    this.setState({showProgress : false});
+    Toast.show(Label.t('51'));
   }else if (response.status === 404) {
     this.setState({showProgress : false});
     Toast.show(Label.t('49'));
@@ -267,12 +267,12 @@ hideErrors(){
         baseColor = '#B3B3B3'
         value = {this.state.pre_amount.value}
         data={this.state.donation_list}
-        onChangeText = {(value,index,data)=>{if(data[index].index === 'specify'){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
+        onChangeText = {(value,index,data)=>{if(data[index].index === Label.t('142')){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
       />
       <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
   </View>
   <View style={[hide ? styles.hide : styles.show,]}>
-  {(this.state.pre_amount.index == 'specify') ?
+  {(this.state.pre_amount.index == Label.t('142')) ?
           (<View><View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
             <TextInput
             style = {styles.TextInputStyle}

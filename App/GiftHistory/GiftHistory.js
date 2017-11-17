@@ -25,7 +25,7 @@ import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import settings from '../Constant/UrlConstant';
 import { Dropdown } from 'react-native-material-dropdown';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn, onSignOut} from '../Constant/Auth';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -78,7 +78,8 @@ componentWillMount(){
               //Toast.show('Task fetched');
             }else if (response.status === 401) {
                this.setState({showProgress : false});
-               Toast.show('Error fetching friends');
+               onSignOut(this);
+               Toast.show(Label.t('51'));
             }else if (response.status === 500) {
                this.setState({showProgress : false});
                Toast.show('Error fetching friends:500');
@@ -99,17 +100,20 @@ componentWillMount(){
 render(){
 
     return(
-      <View style={[styles.full]}>
-            <Image style = {styles.backgroundImage} source = {images.background} />
-            <MyActivityIndicator progress={this.state.showProgress} />
+      <Image style = {styles.backgroundImage} source = {images.loginbackground}>
+        <View style={[styles.full]}>
+          <MyActivityIndicator progress={this.state.showProgress} />
+          <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
             <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
                 <Image style = {styles.img} source = {images.dashboardIcon}></Image>
             </TouchableOpacity>
-            <View style = {styles.titleContainer}>
+            <View style = {[styles.titleContainer]}>
                 <Text style = {styles.titleTextFirst}>{Label.t('22')}</Text>
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
             </View>
-            <View style={styles.donationdetailsbox}>
+            </Image>
+            <View style={[styles.formgroup,styles.containerWidth]}>
+              <View style={styles.donationdetailsbox}>
                 <View style={styles.detailscontainer}>
                     <Image style = {styles.detaillogo} source = {images.giftrecieved}></Image>
                     <Text style={styles.detailsheading}>{Label.t('23')} {Label.t('25')}</Text>
@@ -136,7 +140,7 @@ render(){
                 </View>
             </View>
             <View style={styles.flatlistview}>
-                <ScrollView keyboardShouldPersistTaps='never'>
+                <ScrollView keyboardShouldPersistTaps='always'>
                     <View style={styles.flatlistdisplay}>
                         <View style={styles.listbox}>
                             <Image style = {styles.userimg} source ={images.placeholderImage}/>
@@ -187,7 +191,9 @@ render(){
                     </View>
                 </ScrollView>
             </View>
-        </View>
+            </View>
+          </View>
+        </Image>
         );
 
     }

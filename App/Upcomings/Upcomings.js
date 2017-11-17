@@ -61,13 +61,9 @@ export default class upcomings extends Component {
                });
                //Toast.show('Friend list fetched');
              }else if (response.status === 401) {
-               response.json().then((responseobject) => {
-                 //this.setState({ f_list: responseobject.data.recent,showProgress : false });
-                 console.log(responseobject);
-               });
-               console.log(this.state);
-                this.setState({showProgress : false});
-                Toast.show('Unauthorized');
+               onSignOut(this);
+               this.setState({showProgress : false});
+               Toast.show(Label.t('51'));
              }else if (response.status === 404) {
                 this.setState({showProgress : false});
                 Toast.show('No Friend found');

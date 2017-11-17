@@ -18,7 +18,7 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 import styles from './Style/InviteFriendStyle';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import ModalAlert from '../Component/ModalAlert';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 const resetAction = NavigationActions.reset({
@@ -103,37 +103,42 @@ componentWillMount(){
               let param = {};
               param['fname'] = this.state.firstName;
               param['lname'] = this.state.lastName;
-              param['cmail'] = this.state.email;
+              param['email'] = this.state.email;
                 console.log(param);
                 this.setState({ modelstatusmsg: true });
-              // callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
-              //   "first_name":this.state.firstName,
-              //   "last_name":this.state.lastName,}
-              // ).then((response) => {
-              //   // response.json().then((responseobject) => {
-              //   // console.log(responseobject);});
-              //   if(response.status === 201){
-              //     response.json().then((responseobject) => {
-              //       console.log(responseobject);
-              //       this.setState({showProgress : false});
-              //     });
-              //     Toast.show('Friend Added');
-              //     this.props.navigation.dispatch(resetAction);
-              //   }else if (response.status === 401) {
-              //     this.setState({showProgress : false});
-              //     Toast.show('Unauthorized');
-              //   }else if (response.status === 406) {
-              //     response.json().then((responseobject) => {
-              //       this.setState({showProgress : false});
-              //       Toast.show(responseobject.error_messages);
-              //     });
-              //   }else if (response.status === 500) {
-              //     this.setState({showProgress : false});
-              //     Toast.show('Unsuccessfull error:500');
-              //     }
-              // }).catch((error) => {console.log(error); });
+              callApiWithAuth('invitefriend','POST',this.state.auth_token, param
+              ).then((response) => {
+
+                if(response.status === 200){
+                  response.json().then((responseobject) => {
+                    console.log(responseobject);
+                    this.setState({showProgress : false});
+                  });
+                  Toast.show(Label.t('141'));
+                  this.props.navigation.dispatch(resetAction);
+                }if(response.status === 201){
+                  response.json().then((responseobject) => {
+                    console.log(responseobject);
+                    this.setState({showProgress : false});
+                  });
+                  Toast.show(Label.t('141'));
+                  this.props.navigation.dispatch(resetAction);
+                }else if (response.status === 401) {
+                  onSignOut(this);
+                  this.setState({showProgress : false});
+                  Toast.show(Label.t('51'));
+                }else if (response.status === 406) {
+                  response.json().then((responseobject) => {
+                    this.setState({showProgress : false});
+                    Toast.show(responseobject.error_messages);
+                  });
+                }else if (response.status === 500) {
+                  this.setState({showProgress : false});
+                  Toast.show(Label.t('52'));
+                  }
+              }).catch((error) => {console.log(error); });
             }else{
-              Toast.show("No Internet Connection");
+              Toast.show(Label.t('140'));
             }
             });
       }

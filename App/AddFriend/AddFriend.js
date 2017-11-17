@@ -18,7 +18,7 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 import styles from './Style/AddFriendStyle';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn,onSignOut } from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -141,7 +141,8 @@ componentWillMount(){
                   this.props.navigation.goBack();
                 }else if (response.status === 401) {
                   this.setState({showProgress : false});
-                  Toast.show('Unauthorized');
+                  onSignOut(this);
+                  Toast.show(Label.t('51'));
                 }else if (response.status === 406) {
                   response.json().then((responseobject) => {
                     this.setState({showProgress : false});
@@ -211,7 +212,7 @@ componentWillMount(){
             // console.log(responseobject);});
             if(response.status === 200){
               this.setState({showProgress : false});
-              Toast.show('Friend Updated');
+              Toast.show(Label.t('141'));
               if(this.props.navigation.state != undefined){
                 if(this.props.navigation.state.params != undefined){
                   if(this.props.navigation.state.params.callFrom != undefined){
@@ -227,7 +228,8 @@ componentWillMount(){
               this.props.navigation.goBack();
             }else if (response.status === 401) {
               this.setState({showProgress : false});
-              Toast.show('Unauthorized');
+              Toast.show(Label.t('51'));
+              onSignOut(this);
             }else if (response.status === 406) {
               response.json().then((responseobject) => {
                 this.setState({showProgress : false});
@@ -235,11 +237,11 @@ componentWillMount(){
               });
             }else if (response.status === 500) {
               this.setState({showProgress : false});
-              Toast.show('Unsuccessfull error:500');
+              Toast.show(Label.t('52'));
               }
           }).catch((error) => {console.log(error); });
         }else{
-          Toast.show("No Internet Connection");
+          Toast.show(Label.t('140'));
         }
         });
   }
@@ -251,7 +253,7 @@ render(){
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
           <MyActivityIndicator progress={this.state.showProgress} />
-            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
               <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
             <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
                 <Image style={styles.img} source = {images.backIcon}></Image>

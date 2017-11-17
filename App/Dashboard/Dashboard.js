@@ -49,7 +49,7 @@ export default class Dashboard extends Component {
       AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
          this.setState({auth_token: token,showProgress : false});
       }).catch((err)=>{
-        onSignOut;
+        onSignOut(this);
         Toast.show(err);
       });
       // AsyncStorage.getItem(USER_DETAILS).then((details)=>{

@@ -3,7 +3,25 @@ const { width, height } = Dimensions.get('window');
 import comman from '../../Constant/Style';
 
 const style = {
-
+  full:{
+      width:width,
+      height:height,
+      flex:1,
+      marginTop:(Platform.OS === 'ios')?  20 : 10,
+      marginBottom:10,
+    },
+    top:{resizeMode:'stretch',height:null},
+    containerWidth:{width:'94%',marginLeft:'3%',marginRight:'3%',},
+    formgroup:{
+        backgroundColor:'#FFFFFF',
+        flex:1,
+      },
+    titleContainer: {
+        marginTop: 40,
+        alignItems: 'center',
+        backgroundColor:'transparent',
+        height: 220,
+      },
       donatedamount:{
         fontSize:10,
         color:'#D96662',
@@ -30,9 +48,10 @@ const style = {
 
       flatlistview:{
         backgroundColor:'transparent',
-        height:'42%',
+        height:'67%',
         overflow:'hidden',
         width: '100%',
+        marginTop: '2%',
       },
 
       pendingamount:{
@@ -67,12 +86,6 @@ const style = {
         marginTop:20,
         elevation:2,
         borderRadius:2
-      },
-
-      flatlistdisplay:{
-        width:'80%',
-        marginLeft:'10%',
-        marginTop:10
       },
 
       detaillogo:{
@@ -119,12 +132,11 @@ const style = {
       },
 
       donationdetailsbox:{
-        width:'93.6%',
-        marginLeft:'3.2%',
         backgroundColor:'#E8F6FD',
         flexDirection:'row',
+        height:'30%',
         padding:10,
-        elevation:5
+        elevation:5,
       },
 
 

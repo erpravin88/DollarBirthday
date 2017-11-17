@@ -27,7 +27,7 @@ import DatePicker from 'react-native-datepicker';
 import createReactClass from 'create-react-class';
 import settings from '../Constant/UrlConstant';
 import functions from '../Constant/Function';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn,onSignOut} from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 import SafariView from 'react-native-safari-view';
@@ -74,18 +74,18 @@ export default class Friends extends Component {
             Toast.show('Log In cancelled');
         }
         else {
-            /*AccessToken.getCurrentAccessToken().then(
+            AccessToken.getCurrentAccessToken().then(
                 (data) => {
-                    console.log(data);
-                    fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
-                    .then((response) => response.json())
-                    .then((json) => {console.log("Profile fb",json)})
-                    .catch(() => {
-                      console.log('ERROR GETTING DATA FROM FACEBOOK');
-                    })
+                    console.log(JSON.stringify(data));
+                    // fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
+                    // .then((response) => response.json())
+                    // .then((json) => {console.log("Profile fb",json)})
+                    // .catch(() => {
+                    //   console.log('ERROR GETTING DATA FROM FACEBOOK');
+                    // })
 
                 }
-            );*/
+            );
             this.openURL("https://www.facebook.com/events/birthdays/");
         }
     }, function(error){
@@ -161,14 +161,14 @@ componentWillMount(){
               //Toast.show('Task fetched');
             }else if (response.status === 401) {
                this.setState({showProgress : false});
-               Toast.show(Label.t('64'));
+               onSignOut(this);
+               Toast.show(Label.t('51'));
             }else if (response.status === 500) {
                this.setState({showProgress : false});
                Toast.show(Label.t('64')+':500');
             }
          }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
     }).catch((err)=>{
-      onSignOut;
       Toast.show(err);
     });
     AsyncStorage.getItem(USER_DETAILS).then((details)=>{

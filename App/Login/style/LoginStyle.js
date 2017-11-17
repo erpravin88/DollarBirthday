@@ -22,7 +22,17 @@ const style = {
         alignItems: 'center',
         backgroundColor:'transparent',
         height: 220,
+      },fulls:{
+        width:width,
+        height:height,
+        flex:1,
       },
+      errorMsg: {
+        backgroundColor: 'transparent',
+ 	     color:'#ff0000',
+ 	     width:'78%',
+ 	     alignSelf:'center',
+ 	   },
   tempTextInputContainer: {
     marginTop:5,
    width:'78%',

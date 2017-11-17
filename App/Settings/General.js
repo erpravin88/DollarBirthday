@@ -22,7 +22,7 @@ import styles from './Style/GeneralStyle';
 import DatePicker from 'react-native-datepicker';
 import settings from '../Constant/UrlConstant';
 import {checkinternetconnectivity} from '../Constant/netinfo';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import {callApiWithoutAuth,callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 const date = new Date(Date.now());
@@ -94,13 +94,13 @@ onSignUpClick(userData){
   {
 console.log(this.state.date);
   flag = '0';
-  error.fullName = 'Please enter full name.';
+  error.fullName =  Label.t('103');
 
   }
   else if(this.state.email == '')
   {
   flag = '0';
-  error.emailMsg = 'Please enter email.';
+  error.emailMsg = Label.t('75');
 
   }
   else if(!re.test(this.state.email))
@@ -108,8 +108,7 @@ console.log(this.state.date);
 
   console.log('validdat')
     flag = '0';
-    error.emailMsg = 'Please enter valid email.';
-
+    error.emailMsg = Label.t('76');
   }
   // else if(this.state.password == '')
   // {
@@ -119,7 +118,7 @@ console.log(this.state.date);
   else if(this.state.password != '' && this.state.password.length < 8)
   {
     flag = '1';
-    error.passwordMsg = 'Minimum 8 character required.';
+    error.passwordMsg = Label.t('78');
   }
 
 
@@ -153,13 +152,18 @@ console.log(this.state.date);
         response.json().then((responseobject) => {
           console.log(responseobject);
            setUserDetails(ud);
-           Toast.show('Data Updated Successfully.');
+           Toast.show(Label.t('139'));
            this.setState({showProgress : false});
         });
 
+      }else if (response.status === 401) {
+
+        onSignOut(this);
+        this.setState({showProgress : false});
+        Toast.show(Label.t('51'));
       }else if (response.status === 404) {
         this.setState({showProgress : false});
-        Toast.show('Page not Found.');
+        Toast.show(Label.t('145'));
       }else if (response.status === 406) {
         response.json().then((responseobject) => {
           this.setState({showProgress : false,email:this.state.user_details.email});
@@ -167,11 +171,11 @@ console.log(this.state.date);
         });
       }else if (response.status === 500) {
         this.setState({showProgress : false});
-        Toast.show('Unsuccessfull error:500');
+        Toast.show(Label.t('52'));
         }
       }).catch((error) => {console.log(error); });
     }else{
-      Toast.show("No Internet Connection");
+      Toast.show(Label.t('140'));
     }
   });
   }

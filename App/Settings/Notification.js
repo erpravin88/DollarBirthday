@@ -73,12 +73,12 @@ onCharityClick(){
     this.state.user_details.notification = this.state.email_notify;
     setUserDetails(this.state.user_details);
     Toast.show(Label.t('55'));
+  }else if (response.status === 401) {
+    Toast.show(Label.t('51'));
   }else if (response.status === 404) {
     Toast.show(Label.t('49'));
   }else if (response.status === 406) {
     Toast.show(Label.t('50'));
-  }else if (response.status === 401) {
-    Toast.show(Label.t('51'));
   }else if (response.status === 500) {
     Toast.show(Label.t('52'));
     }

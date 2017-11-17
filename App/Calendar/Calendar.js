@@ -22,7 +22,7 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import DirectiveMsg from '../Component/DirectiveMsg';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn,onSignOut } from '../Constant/Auth';
 import {checkinternetconnectivity} from '../Constant/netinfo';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
@@ -175,14 +175,14 @@ componentWillMount(){
                    Toast.show('No friends found');
                 }else if (response.status === 401) {
                    this.setState({showProgress : false});
-                   Toast.show('Error fetching friends');
+                   onSignOut(this);
+                   Toast.show(Label.t('51'));
                 }else if (response.status === 500) {
                    this.setState({showProgress : false});
                    Toast.show('Error fetching friends:500');
                 }
              }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
         }).catch((err)=>{
-          onSignOut;
           Toast.show(err);
         });
         AsyncStorage.getItem(USER_DETAILS).then((details)=>{

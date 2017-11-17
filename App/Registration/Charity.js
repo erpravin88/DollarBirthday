@@ -71,8 +71,6 @@ export default class Charity extends Component {
               charity_list : charityList,
             });
          });
-       }else if (response.status === 401) {
-          this.setState({showProgress : false});
        }else if (response.status === 500) {
           this.setState({showProgress : false});
        }
@@ -92,8 +90,6 @@ export default class Charity extends Component {
            });
             });
 
-       }else if (response.status === 401) {
-          this.setState({showProgress : false});
        }else if (response.status === 500) {
           this.setState({showProgress : false});
        }
@@ -120,7 +116,7 @@ if(this.state.charity_type.index !== settings.DONOT_CHARITY_ID){
   flag = false;
   error.pre_amount = Label.t('46');
   }
-  if(this.state.pre_amount.index == 'specify'){
+  if(this.state.pre_amount.index == Label.t('142')){
 
     if(this.state.other_amount == ''){
     flag = false;
@@ -130,7 +126,7 @@ if(this.state.charity_type.index !== settings.DONOT_CHARITY_ID){
 }
 if(flag){
   let charity_id  =this.state.charity_type.index;
-  let gift_amount = this.state.pre_amount.index == 'specify' ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
+  let gift_amount = this.state.pre_amount.index == Label.t('142') ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
   this.setState({showProgress : true});
   callApiWithAuth('user/charity','PUT',this.state.auth_token, {"charity_id":charity_id,"gift_amount":gift_amount}).then((response) => {
     response.json().then((responseobject) => {
@@ -147,6 +143,9 @@ if(flag){
        this.setState({showProgress : false});
     // });
     Toast.show(Label.t('79'));
+  }else if (response.status === 401) {
+    this.setState({showProgress : false});
+    Toast.show(Label.t('51'));
   }else if (response.status === 404) {
     this.setState({showProgress : false});
     Toast.show(Label.t('49'));
@@ -157,9 +156,6 @@ if(flag){
         Toast.show(Label.t('50'));
       }
     });
-  }else if (response.status === 401) {
-    this.setState({showProgress : false});
-    Toast.show(Label.t('51'));
   }else if (response.status === 500) {
     this.setState({showProgress : false});
     Toast.show(Label.t('52'));
@@ -209,7 +205,7 @@ hideErrors(){
   </View>
     <View style = {[styles.SettingsTextInputContainer,styles.marginTopFive]}>
       <Dropdown
-            label='Choose a Charity'
+            label = {Label.t('10')}
             style = {[styles.TextInputStyle,styles.font3]}
             containerStyle ={{marginTop:-40}}
             baseColor = '#B3B3B3'
@@ -225,12 +221,12 @@ hideErrors(){
           containerStyle ={{marginTop:-30}}
           baseColor = '#B3B3B3'
           data={this.state.donation_list}
-          onChangeText = {(value,index,data)=>{if(data[index].index === 'specify'){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
+          onChangeText = {(value,index,data)=>{if(data[index].index === Label.t('142')){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
         />
         <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
     </View>
     <View style={[hide ? styles.hide : styles.show,]}>
-    {(this.state.pre_amount.index == 'specify') ?
+    {(this.state.pre_amount.index == Label.t('142')) ?
             (<View><View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
               <TextInput
               style = {styles.TextInputStyle}
@@ -249,7 +245,7 @@ hideErrors(){
             </View>
             <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
       </View>
-  
+
     <View style = {[styles.SettingsTextInputContainer]}>
       <TouchableOpacity
       style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966'}]}

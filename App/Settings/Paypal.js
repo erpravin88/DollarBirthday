@@ -20,7 +20,7 @@ import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import settings from '../Constant/UrlConstant';
 import {callApiWithAuth,callApiWithoutAuth} from '../Service/WebServiceHandler';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { NavigationActions } from 'react-navigation';
 const resetAction = NavigationActions.reset({
@@ -83,8 +83,6 @@ componentWillMount(){
                currency_list : currencyList,
              });
           });
-        }else if (response.status === 401) {
-           this.setState({showProgress : false});
         }else if (response.status === 500) {
            this.setState({showProgress : false});
         }
@@ -102,7 +100,7 @@ onPaypalClick()
   if(this.state.email == '')
   {
   flag = '0';
-  error.emailMsg = 'Please enter email.';
+  error.emailMsg = Label.t('75');
 
   }
   else if(!re.test(this.state.email))
@@ -110,7 +108,7 @@ onPaypalClick()
 
   console.log('validdat')
     flag = '0';
-    error.emailMsg = 'Please enter valid email.';
+    error.emailMsg =  Label.t('76');
 
   }
 
@@ -136,16 +134,20 @@ else
       // this.props.navigation.dispatch(resetAction);
        this.setState({showProgress : false});
     });
-    Toast.show('Details updated Successfully');
+    Toast.show(Label.t('139'));
+  }else if (response.status === 401) {
+    onSignOut(this);
+    this.setState({showProgress : false});
+    Toast.show(Label.t('51'));
   }else if (response.status === 404) {
     this.setState({showProgress : false});
-    Toast.show('Page not Found');
+    Toast.show(Label.t('49'));
   }else if (response.status === 406) {
     this.setState({showProgress : false});
-    Toast.show('Email is Invalid');
+    Toast.show(Label.t('91'));
   }else if (response.status === 500) {
     this.setState({showProgress : false});
-    Toast.show('Unsuccessfull error:500');
+    Toast.show(Label.t('52'));
     }
   }).catch((error) => {console.log(error); })
   //let userData = this.props.navigation.state.params.user_data;
