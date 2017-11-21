@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import images from '../Constant/Images';
+import settings from '../Constant/UrlConstant';
 import styles from './Style/FetchFriendStyle';
 import Label from '../Constant/Languages/LangConfig';
 import {onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
@@ -105,7 +106,7 @@ export default class FetchFriend extends Component {
 
                    }
                );*/
-               this.openURL("https://www.facebook.com/events/birthdays/");
+               this.openURL(settings.FBEVENT_URL);
            }
        }, function(error){
            console.log('An error occured: ' + error)

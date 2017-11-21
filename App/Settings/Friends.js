@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
   Linking,
   Platform,
-  Image,ScrollView,
-  ImageBackground,
-  ActivityIndicator,
-  KeyboardAvoidingView,
+  Image,
+  ScrollView,
   AsyncStorage,
   FlatList,
   Modal,
+  WebView,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/FriendStyle';
@@ -63,13 +61,15 @@ export default class Friends extends Component {
       friend_id:0,
       friend_id_edit:0,
       contactListModal:false,
+      modalVisible: false,
+      contacturl: 'http://dbc.demos.classicinformatics.com/login?action=token&type=complete&t=',
     };
 
 
  }
 
  _fbAuth = () => {
-    LoginManager.logInWithReadPermissions(['public_profile','user_birthday']).then((result) => {
+    LoginManager.logInWithReadPermissions(['public_profile','user_birthday','email']).then((result) => {
         if(result.isCancelled){
             Toast.show('Log In cancelled');
         }
@@ -86,7 +86,7 @@ export default class Friends extends Component {
 
                 }
             );
-            this.openURL("https://www.facebook.com/events/birthdays/");
+            this.openURL(settings.FBEVENT_URL);
         }
     }, function(error){
         console.log('An error occured: ' + error)
@@ -97,24 +97,34 @@ deleteFriend(item){
   let a = this.state.friend_id_del;
   let b = [this.state.Friends];
   console.log(a);
-  console.log(b);
+  console.log(b[0]);
   console.log(b[0].indexOf(a));
   this.state.Friends.splice(b[0].indexOf(a),1);
+  console.log(this.state.Friends);
   this.setState({Friends: this.state.Friends});
 
   //API Call
+  checkinternetconnectivity().then((response)=>{
+    if(response.Internet == true){
     callApiWithAuth('user/friend/'+item.id,'DELETE', this.state.auth_token).then((response) => {
         if(response.status === 200){
             Toast.show(Label.t('58'));
         //Toast.show('Task fetched');
         }else if (response.status === 401) {
-        Toast.show(Label.t('59'));
+          onSignOut(this);
+          this.setState({showProgress : false});
+          Toast.show(Label.t('51'));
         }else if (response.status === 500) {
-        Toast.show(Label.t('59')+':500');
+        Toast.show(Label.t('52'));
         }
     }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+  }else{
+    Toast.show(Label.t('140'));
+  }
+});
 }
  changedateformat(item){
+   if(item.friend !== 0){
     let temp = new Date(item.birth_date);
     let tempday = temp.getDate();
     if(tempday < 10){
@@ -124,14 +134,14 @@ deleteFriend(item){
     tempmonth = monthsLong[tempmonth];
     let tempyear = temp.getFullYear();
     let birth_date = tempmonth+" "+tempday+", "+tempyear;
-      return(<View style = {styles.listbox}>
+      return(<View key={`${item.id}`} style = {styles.listbox}>
         <View>
             <Text style={styles.fullnametext}>{item.first_name} {item.last_name}</Text>
         </View>
         <TouchableOpacity style={styles.crossiconposi} onPress={()=>{this.setState({friend_id_del: item}); Alert.alert( Label.t('60'), Label.t('61')+item.full_name+Label.t('62'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('63'), onPress: () => this.deleteFriend(item)}, ], { cancelable: false } )}}>
             <Image style={styles.crossicon} source={images.crossicon} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.props.nav.navigation.navigate('ADDFRIEND',{editdata:item, callFrom:'setting'});}}>
+        <TouchableOpacity style={styles.editiconposi} onPress={()=>{this.props.navigation.navigate('ADDFRIEND',{editdata:item, callFrom:'setting'});}}>
             <Image style={styles.editicon} source={images.editicon} />
         </TouchableOpacity>
         <View style={styles.birthdatemailfield}>
@@ -139,6 +149,13 @@ deleteFriend(item){
             <Text style={styles.emailtext}>{item.email}</Text>
         </View>
        </View>)
+     }else{
+       return(<View style = {styles.listbox}>
+         <View style={[styles.nodatabox]}>
+             { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
+         </View>
+        </View>)
+     }
 
  }
 
@@ -148,34 +165,52 @@ componentWillMount(){
     AsyncStorage.getItem(USER_KEY).then((key)=>{
       //this.setState({user_key: key});
     }).catch((err)=>{
-      Toast.show(err);
+      console.log(err);
+      //Toast.show(err);
     });
     AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-       this.setState({auth_token: token});
+       this.setState({auth_token: token,contacturl: this.state.contacturl+token,showProgress: true});
+       console.log(this.state.contacturl);
+       checkinternetconnectivity().then((response)=>{
+         if(response.Internet == true){
          callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
+          //  response.json().then((responseobject) => {
+          //    console.log(responseobject);
+          //    //this.setState({ Friends: responseobject.data });
+          //  });
+
             if(response.status === 200){
               response.json().then((responseobject) => {
                 this.setState({ Friends: responseobject.data });
               });
+              console.log(this.state.friends);
               this.setState({showProgress : false});
               //Toast.show('Task fetched');
+            }else if (response.status === 404) {// no friend in list
+               this.setState({showProgress : false});
+              //  Toast.show(Label.t('146'));
             }else if (response.status === 401) {
                this.setState({showProgress : false});
                onSignOut(this);
                Toast.show(Label.t('51'));
             }else if (response.status === 500) {
                this.setState({showProgress : false});
-               Toast.show(Label.t('64')+':500');
+               Toast.show(Label.t('52'));
             }
+            this.setState({showProgress : false});
          }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+       }else{
+         Toast.show(Label.t('140'));
+       }
+     });
     }).catch((err)=>{
-      Toast.show(err);
+      console.log(err);//Toast.show(err);
     });
     AsyncStorage.getItem(USER_DETAILS).then((details)=>{
       details = JSON.parse(details);
       //this.setState({user_details: details});
     }).catch((err)=>{
-      Toast.show(err);
+      console.log(err);// Toast.show(err);
     });
 }
 
@@ -233,11 +268,49 @@ componentDidMount() {
       );
   }
  /**/
-
-
+ _contactslisting = () => {
+  this.openURL(this.state.contacturl);
+  //this.openURL('https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Fdbc.demos.classicinformatics.com%2Fgcontacts&client_id=167305329007-1gl7jbvgg23vevkdhqhsomi4nnm243rs.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&access_type=online&approval_prompt=auto');
+ }
+//hide = () => {
+//  this.setState({ modalVisible: false });
+//}
+//show = () => {
+//   this.setState({ modalVisible: true });
+//}
+//_onNavigationStateChange =  (webViewState) => { console.log(webViewState);
+//console.log(this.state)
+//};
+//<Modal
+//            animationType={'slide'}
+//            visible={this.state.modalVisible}
+//            onRequestClose={this.hide.bind(this)}
+//            transparent
+//          >
+//            <View style={[styles.fulls]}>
+//                <WebView
+//                  source={{ uri: this.state.contacturl}}
+//                  scalesPageToFit
+//                  startInLoadingState
+//                  onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+//                  onError={this._onNavigationStateChange.bind(this)}
+//                  javaScriptEnabledAndroid={true}
+//                  domStorageEnabled={true}
+//                  onLoadEnd = {() => { this.setState({contacturl : 'https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Fdbc.demos.classicinformatics.com%2Fgcontacts&client_id=167305329007-1gl7jbvgg23vevkdhqhsomi4nnm243rs.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&access_type=online&approval_prompt=auto'})}}
+//                />
+//            </View>
+//            <View style={[{backgroundColor:'#ffffff'}]}>
+//            <TouchableOpacity style={[styles.btnyellow]} onPress={this.hide} >
+//              <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>
+//            </TouchableOpacity>
+//            </View>
+//          </Modal >
   render(){
   return(
+    <View>
     <View style = {[styles.SettingsTextInputContainer]}>
+
+
         {/* <Modal
             animationType="slide"
             transparent={true}
@@ -287,7 +360,7 @@ componentDidMount() {
         </Modal> */}
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
-              this.props.nav.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
+              this.props.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
               this.setState({friendlistvisible: true});
             }}>
                 <View style = {styles.addfriendbox}>
@@ -296,7 +369,7 @@ componentDidMount() {
                 </View>
             </TouchableOpacity>
             <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity onPress={() => {this.openURL("https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&include_granted_scopes=true&redirect_uri=com.googleusercontent.apps.963030470350-pb5sboa800vjrmbi9jq370d3er94foq0:/google&response_type=code&client_id=963030470350-pb5sboa800vjrmbi9jq370d3er94foq0.apps.googleusercontent.com");}}>
+                <TouchableOpacity onPress={this._contactslisting}>
                     <View style = {styles.googlesigninbox}>
                         <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
                     </View>
@@ -341,12 +414,13 @@ componentDidMount() {
 
                 {(this.state.friendlistvisible == true) ?
                 (<View style={{width:'98%'}}><FlatList
-                    data={this.state.Friends}
+                    data={this.state.Friends.length > 0 ? this.state.Friends :[{friend:0}]}
                     renderItem={({item}) => this.changedateformat(item)}
                     keyExtractor={item => item.id}
                     /></View>) : ''}
 
         </View>
+    </View>
     </View>
   );
   }

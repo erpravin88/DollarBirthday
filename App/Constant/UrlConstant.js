@@ -2,7 +2,9 @@ import DeviceInfo from "react-native-device-info";
 
 
 export const settings = {
+  login_type: {dbc:'abc',fb:'fb'},
   DONOT_CHARITY_ID: 24, //"I Do Not Wish To Donate at This Time" Charity id
+  FBEVENT_URL: "https://www.facebook.com/events/birthdays/",
   API_URL: "http://dbc.demos.classicinformatics.com/apiDbc/public/",
   BASE_URL: "http://dbc.demos.classicinformatics.com",
   DEVICE_ID: DeviceInfo.getUniqueID(),

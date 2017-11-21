@@ -25,7 +25,7 @@ const style = {
       },
  heading1:{
    alignSelf:'center',
-   fontSize:25,
+   fontSize:23,
    fontFamily:'Open Sans',
    color:'#336D96',
    backgroundColor:'transparent',
@@ -71,7 +71,8 @@ skipContainer:{
   marginTop:'4%',
   alignSelf:'center',
   justifyContent:'center',
-}
+},
+nodatabox:{minHeight: 40,justifyContent:'center',backgroundColor: 'transparent'},
 };
   const allRules = Object.assign(comman, style);
   const styles = StyleSheet.create(allRules);

@@ -35,31 +35,10 @@ export default class Dashboard extends Component {
       if(response.Internet == true){
         this.props.navigation.navigate(route);
       }else{
-        Toast.show("No Internet Connection");
+        Toast.show(Label.t('140'));
       }
     });
   }
-
-  componentWillMount(){
-      // AsyncStorage.getItem(USER_KEY).then((key)=>{
-      //   //this.setState({user_key: key});
-      // }).catch((err)=>{
-      //   Toast.show(err);
-      // });
-      AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-         this.setState({auth_token: token,showProgress : false});
-      }).catch((err)=>{
-        onSignOut(this);
-        Toast.show(err);
-      });
-      // AsyncStorage.getItem(USER_DETAILS).then((details)=>{
-      //   details = JSON.parse(details);
-      //   //this.setState({user_details: details});
-      // }).catch((err)=>{
-      //   Toast.show(err);
-      // });
-  }
-
 
   render(){
 

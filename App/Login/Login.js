@@ -17,8 +17,7 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-checkbox';
 import Toast from 'react-native-simple-toast';
-import settings from '../Constant/UrlConstant';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, onSignOutfromlogin, setUserDetails, afterSignIn } from '../Constant/Auth';
+import { PERSISTENT_LOGIN, USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, onSignOutfromlogin, setUserDetails, afterSignIn } from '../Constant/Auth';
 import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -26,10 +25,19 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 import styles from './style/LoginStyle';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
+import  Fblogin  from '../Component/Fblogin';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
+
+import settings from '../Constant/UrlConstant';
+import FBSDK  from 'react-native-fbsdk';
+const {
+      LoginManager,
+      AccessToken
+} = FBSDK;
+
 export default class Login extends Component {
 
   constructor(props){
@@ -40,7 +48,6 @@ export default class Login extends Component {
                 password:'',
                 device_id:settings.DEVICE_ID,
                 device_type:settings.DEVICE_NAME,
-                login_type:'dbc',
                 errorMsg:{"emailMsg":'', "passwordMsg":''},
                 showProgress: false,
                 Connected: false,
@@ -48,15 +55,63 @@ export default class Login extends Component {
               };
   }
   componentWillMount(){
-
-
-        AsyncStorage.getItem(USER_KEY).then((key) => {
-          if(key == 'true'){ console.log('login'); console.log(key);
-            this.props.navigation.navigate('DASHBOARD');
-          }
-        });
+        //
+        //
+        // AsyncStorage.getItem(USER_KEY).then((key) => {
+        //   if(key == 'true'){ console.log('login'); console.log(key);
+        //     this.props.navigation.navigate('DASHBOARD');
+        //   }
+        // });
       }
-
+_fblogin = ()=> { //fbAuth;
+ Fblogin().then((data)=> {console.log(data);
+   if(data.data.isCancelled){
+       Toast.show('Log In cancelled');
+   }else{
+     checkinternetconnectivity().then((response)=>{
+       if(response.Internet == true){
+         this.setState({showProgress : true});
+       callApiWithoutAuth('login','POST', {
+         "accessToken":data.data.accessToken,
+         "login_type":settings.login_type.fb,
+         "device_id":this.state.device_id,
+         "device_type":this.state.device_type}
+       ).then((response) => {
+         console.log(response);
+        //  response.json().then((responseobject) => {
+        //    console.log(responseobject);
+        //  });
+         if(response.status === 201){
+         response.json().then((responseobject) => {
+           console.log(responseobject);
+            onSignIn();
+            AsyncStorage.setItem("persistentlogin", this.state.persistentlogin.toString());
+            afterSignIn(responseobject.error_messages.authToken);
+            setUserDetails(responseobject.error_messages);
+            this.props.navigation.dispatch(resetAction);
+            this.setState({showProgress : false});
+         });
+         Toast.show(Label.t('73'));
+       }else if (response.status === 404) {
+         this.setState({showProgress : false});
+       }else if (response.status === 406) {
+         response.json().then((responseobject) => {
+           console.log(responseobject);
+         });
+         this.setState({showProgress : false});
+         Toast.show(Label.t('147'));
+       }else if (response.status === 500) {
+         this.setState({showProgress : false});
+         Toast.show(Label.t('52'));
+         }
+       }).catch((error) => {console.log(error); });
+     }else{
+       Toast.show(Label.t('140'));
+     }
+    });
+   }
+  });
+}
   onLoginClick(){
     Keyboard.dismiss();
     let error = this.state.errorMsg;
@@ -94,7 +149,7 @@ export default class Login extends Component {
           this.setState({showProgress : true});
         callApiWithoutAuth('login','POST', {"email":this.state.email,
           "password":this.state.password,
-          "login_type":this.state.login_type,
+          "login_type":settings.login_type.dbc,
           "device_id":this.state.device_id,
           "device_type":this.state.device_type}
         ).then((response) => { console.log(response);
@@ -102,7 +157,7 @@ export default class Login extends Component {
           response.json().then((responseobject) => {
             console.log(responseobject);
              onSignIn();
-             AsyncStorage.setItem("persistentlogin", this.state.persistentlogin.toString());
+             AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
              afterSignIn(responseobject.data.authToken);
              setUserDetails(responseobject.data);
              this.props.navigation.dispatch(resetAction);
@@ -120,7 +175,7 @@ export default class Login extends Component {
           }
         }).catch((error) => {console.log(error); });
       }else{
-        Toast.show("No Internet Connection");
+        Toast.show(Label.t('140'));
       }
       });
 
@@ -182,7 +237,8 @@ return(<Image style = {styles.backgroundImage} source = {images.loginbackground}
       <Text style = {[styles.errorMsg,styles.font3]}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {styles.tempTextInputContainer}>
         <CheckBox
-            style={[styles.singlecheckbox]}
+            labelStyle={[styles.checkboxlabel]}
+            checkboxStyle={[styles.singlecheckbox]}
             label="Keep me Signed In"
             onChange={(val) => {this.setState({persistentlogin: !val})}}
           />
@@ -206,7 +262,7 @@ return(<Image style = {styles.backgroundImage} source = {images.loginbackground}
         <Text style = {styles.orDivider}>{Label.t('72')}</Text>
       </View>
       <View style = {styles.tempTextInputContainer}>
-        <TouchableOpacity style = {styles.facebookButtonContainer}>
+        <TouchableOpacity style = {styles.facebookButtonContainer} onPress={this._fblogin}>
           <Image style = {styles.facebookButton} source = {images.facebookButton}/>
         </TouchableOpacity>
       </View>
@@ -217,3 +273,6 @@ return(<Image style = {styles.backgroundImage} source = {images.loginbackground}
 </Image>
  ); }
 }
+
+            //checkedImage={images.checkedcheckbox}
+            //uncheckedImage={images.uncheckedcheckbox}

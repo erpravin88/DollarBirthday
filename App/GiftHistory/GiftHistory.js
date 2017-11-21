@@ -82,7 +82,7 @@ componentWillMount(){
                Toast.show(Label.t('51'));
             }else if (response.status === 500) {
                this.setState({showProgress : false});
-               Toast.show('Error fetching friends:500');
+               Toast.show(Label.t('52'));
             }
          }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
     }).catch((err)=>{
@@ -138,8 +138,8 @@ render(){
                         <Text style={{fontSize:12,color:'#D96662'}}> USD</Text>
                     </View>
                 </View>
-            </View>
-            <View style={styles.flatlistview}>
+              </View>
+              <View style={[styles.flatlistview,styles.marginTopFive]}>
                 <ScrollView keyboardShouldPersistTaps='always'>
                     <View style={styles.flatlistdisplay}>
                         <View style={styles.listbox}>

@@ -165,7 +165,7 @@ hideErrors(){
     console.log(currencyobj);
   return(
 
-    <ScrollView  keyboardShouldPersistTaps="never">
+    <ScrollView  keyboardShouldPersistTaps="always">
     <View style = {[styles.SettingsTextInputContainer,styles.inputBorderBottom]}>
       <TextInput
       style = {styles.TextInputStyle}
@@ -174,10 +174,10 @@ hideErrors(){
       placeholder = {Label.t('5')}
       underlineColorAndroid = 'transparent'
       multiline = {false} maxLength = {100}
-      returnKeyType="send"
+      returnKeyType={Label.t('3')}
       autoCapitalize="none"
       autoCorrect={false}
-      onSubmitEditing={this.onPaypalClick}
+      onSubmitEditing={()=>{this.refs.secondInput.focus();}}
       value={this.state.email}
       onChangeText = {(val) => {this.setState({email: val});this.hideErrors();}}
       />
@@ -186,6 +186,7 @@ hideErrors(){
     <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['emailMsg']}</Text>
     <View style = {styles.SettingsTextInputContainer}>
       <Dropdown
+            ref= 'secondInput'
             label={Label.t('40')}
             style = {styles.TextInputStyle}
             containerStyle ={{marginTop:-10}}

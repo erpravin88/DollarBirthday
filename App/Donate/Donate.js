@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground,
-  ActivityIndicator,
+  Image,ScrollView,
   AsyncStorage,
   Modal,
-  TouchableHighlight,
   Picker,
   WebView,
+  Keyboard,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -186,6 +183,7 @@ componentWillMount(){
     });
   }
 senddonation(){
+    Keyboard.dismiss();
     let error = this.state.errorMsg;
     let shareonfb = !this.state.checkboximg;
     error.charity_type = '';
@@ -242,11 +240,11 @@ senddonation(){
                   this.setState({showProgress : false});
                   console.log(responseobject);
                 //  Toast.show(responseobject.error_messages);
-                  Toast.show('Please Check Your Paypal Id and Currency.');
+                  Toast.show(Label.t('137'));
                 });
               }else if (response.status === 500) {
                 this.setState({showProgress : false});
-                Toast.show('Unsuccessfull error:500');
+                Toast.show(Label.t('52'));
                 }
             }).catch((error) => {console.log(error); });
 
@@ -264,7 +262,7 @@ senddonation(){
             // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:res.payKey,modalVisible:true});}));});
             // console.log(this.state);
         }else{
-          Toast.show("No Internet Connection");
+          Toast.show(Label.t('140'));
         }
         });
 
@@ -280,6 +278,7 @@ hideErrors(){
 }
 
 renderImage() {
+
     var imgSource = this.state.checkboximg? images.uncheckedcheckbox : images.checkedcheckbox;
     return (
         <Image style={styles.shareonfacebookimg} source = {imgSource}/>
@@ -350,31 +349,31 @@ console.log(data);
 //   }
 // }
 
-// to test fb share
-// fbshareposttest = () => {
-//   console.log('hello');
-//   console.log(this.state);
-//   ShareDialog.canShow(this.state.shareLinkContent).then(
-//   (canShow) => { console.log(canShow);
-//       if (canShow) {console.log(this.state.shareLinkContent);
-//       return ShareDialog.show(this.state.shareLinkContent);
-//       }
-//   }
-//   ).then(
-//   (result) => { console.log(result);
-//       if (result.isCancelled) {
-//       console.log('Share cancelled');
-//       this.props.navigation.dispatch(resetAction);
-//       } else {
-//           console.log('Share success with postId: ' + result.postId);
-//           this.props.navigation.dispatch(resetAction);
-//       }
-//   },
-//   (error) => {
-//       console.log('Share fail with error: ' + error);
-//   }
-//   );
-// }
+//to test fb share
+fbshareposttest = () => {
+  console.log('hello');
+  console.log(this.state);
+  ShareDialog.canShow(this.state.shareLinkContent).then(
+  (canShow) => { console.log(canShow);
+      if (canShow) {console.log(this.state.shareLinkContent);
+      return ShareDialog.show(this.state.shareLinkContent);
+      }
+  }
+  ).then(
+  (result) => { console.log(result);
+      if (result.isCancelled) {
+      console.log('Share cancelled');
+      this.props.navigation.dispatch(resetAction);
+      } else {
+          console.log('Share success with postId: ' + result.postId);
+          this.props.navigation.dispatch(resetAction);
+      }
+  },
+  (error) => {
+      console.log('Share fail with error: ' + error);
+  }
+  );
+}
 hide = () => {
   this.setState({ modalVisible: false })
 }
@@ -451,9 +450,10 @@ console.log(this.state.charity_type);
             </View>
           </Modal >
         <MyActivityIndicator progress={this.state.showProgress} />
-          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
+          <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
             <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
-              <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction)}}>
+              <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.dispatch(resetAction);Keyboard.dismiss();}}>
                   <Image style = {styles.img} source = {images.dashboardIcon} />
               </TouchableOpacity>
               <View style = {styles.titleContainer}>
@@ -518,7 +518,9 @@ console.log(this.state.charity_type);
                       </View>
                     <View style={[styles.marginBottomFive]}>
                         <TouchableOpacity style={styles.sharefbcontainer}
-                        onPress={ () => {this.setState({ checkboximg: !this.state.checkboximg })} }
+                        onPress={ () => {this.setState({ checkboximg: !this.state.checkboximg });
+                        this.fbshareposttest();
+                      } }
                         >
                             {this.renderImage()}
                             <Text style={styles.sharefbtext}>{Label.t('12')}</Text>
@@ -533,6 +535,7 @@ console.log(this.state.charity_type);
                         </TouchableOpacity>
                     </View>
             </View>
+            </TouchableOpacity>
             </ScrollView>
           </View>
         </Image>);

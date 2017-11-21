@@ -85,7 +85,8 @@ viewStyle: {
     height:'100%',
     resizeMode:'contain',
   },
-
+  singlecheckbox:{borderRadius:4,borderWidth:1,borderColor:'#b7b7b7',width:20,height:20,resizeMode:'cover'},
+  checkboxlabel:{color:'#b7b7b7'},
 };
   const allRules = Object.assign(comman, style);
   const styles = StyleSheet.create(allRules);

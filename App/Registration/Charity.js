@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Alert,
   Image,ScrollView, ImageBackground,
-  AsyncStorage
+  AsyncStorage,
+  Keyboard,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
@@ -100,6 +101,7 @@ export default class Charity extends Component {
  }
 
 onCharityClick(){
+  Keyboard.dismiss();
 console.log(this.state);
 let error = this.state.errorMsg;
     error.charity_type = '';
@@ -189,7 +191,8 @@ hideErrors(){
 <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <View style={[styles.full]}>
     <MyActivityIndicator progress={this.state.showProgress} />
-      <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+      <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="always">
+      <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
         <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
           <View style = {styles.titleContainer}>
             <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
@@ -254,12 +257,13 @@ hideErrors(){
       </TouchableOpacity>
       <Text style = {[styles.term_service,styles.font1]}>{Label.t('84')}</Text>
     </View>
-    <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+    <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);Keyboard.dismiss();}}>
       <View style = {[styles.skipContainer]}>
             <Text style = {styles.skip}>{Label.t('85')}</Text>
       </View>
     </TouchableOpacity>
   </View>
+  </TouchableOpacity>
   </ScrollView>
   </View>
   </Image>);

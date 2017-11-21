@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView,
-  ImageBackground,
+  Image,
+  ScrollView,
   ActivityIndicator,
-  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -60,8 +58,8 @@ export default class SignUp extends Component {
  }
 
 
-onSignUpClick(userData){
-
+onSignUpClick(){
+  Keyboard.dismiss();
   let error = this.state.errorMsg;
   error.passwordMsg = '';
   error.emailMsg = '';
@@ -74,12 +72,11 @@ onSignUpClick(userData){
 
   if(this.state.fullName == '')
   {
-console.log(this.state.date);
   flag = '0';
   error.fullName = Label.t('103');
 
   }
-  else if(this.state.email == '')
+  if(this.state.email == '')
   {
   flag = '0';
   error.emailMsg = Label.t('75');
@@ -88,17 +85,15 @@ console.log(this.state.date);
   else if(!re.test(this.state.email))
   {
 
-  console.log('validdat')
     flag = '0';
     error.emailMsg = Label.t('76');
 
   }
-  else if(this.state.password == '')
+  if(this.state.password == '')
   {
     flag = '1';
     error.passwordMsg = Label.t('77');
-  }
-  else if(this.state.password.length < 8)
+  }else if(this.state.password.length < 8)
   {
     flag = '1';
     error.passwordMsg = Label.t('78');
@@ -170,7 +165,8 @@ hideErrors(){
   <Image style = {styles.backgroundImage} source = {images.loginbackground}>
   <View style={[styles.full]}>
   <MyActivityIndicator progress={this.state.showProgress} />
-  <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+  <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="always">
+  <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
   <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
   <View style = {styles.titleContainer}>
     <Text style = {styles.titleTextFirst}>{Label.t('68')}</Text>
@@ -267,6 +263,7 @@ hideErrors(){
         </TouchableOpacity>
       </View>
   </View>
+  </TouchableOpacity>
   </ScrollView>
   </View>
   </Image>);

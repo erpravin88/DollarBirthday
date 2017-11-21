@@ -22,36 +22,26 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb1898950367044636</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>google</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.963030470350-pb5sboa800vjrmbi9jq370d3er94foq0</string>
-			</array>
-		</dict>
+	  <dict>
+		  <key>CFBundleURLSchemes</key>
+		  <array>
+		    <string>fb536193216724160</string>
+		  </array>
+	  </dict>
+	</array>
+ <key>FacebookAppID</key>
+ <string>536193216724160</string>
+ <key>FacebookDisplayName</key>
+ <string>DollarBirthdayliveDebug</string>
+ <key>LSApplicationQueriesSchemes</key>
+	<array>
+	  <string>fbapi</string>
+	  <string>fb-messenger-api</string>
+	  <string>fbauth2</string>
+	  <string>fbshareextension</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FacebookAppID</key>
-	<string>1898950367044636</string>
-	<key>FacebookDisplayName</key>
-	<string>DollarBirthday</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

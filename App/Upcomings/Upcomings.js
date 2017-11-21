@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import Label from '../Constant/Languages/LangConfig';
 import images from '../Constant/Images';
 import styles from './Style/UpcomingsStyle';
@@ -51,6 +52,8 @@ export default class upcomings extends Component {
       });
       AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
         this.setState({auth_token: token,showProgress : true}); console.log(this.state);
+        checkinternetconnectivity().then((response)=>{
+          if(response.Internet == true){
           callApiWithAuth('user/upcoming','GET', this.state.auth_token).then((response) => {
 
              if(response.status === 201){
@@ -64,17 +67,21 @@ export default class upcomings extends Component {
                onSignOut(this);
                this.setState({showProgress : false});
                Toast.show(Label.t('51'));
-             }else if (response.status === 404) {
+             }else if (response.status === 404) {// no friend in list
                 this.setState({showProgress : false});
-                Toast.show('No Friend found');
+                Toast.show(Label.t('146'));
              }else if (response.status === 406) {
                 this.setState({showProgress : false});
-                Toast.show('Invalid Data found');
+                Toast.show(Label.t('50'));
              }else if (response.status === 500) {
-                this.setState({showProgress : false});
-                Toast.show('Task not fetched:500');
-             }
+               this.setState({showProgress : false});
+               Toast.show(Label.t('52'));
+              }
           }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+        }else{
+          Toast.show(Label.t('140'));
+        }
+      });
       }).catch((err)=>{
         onSignOut;
         console.log(err);

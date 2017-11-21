@@ -158,6 +158,14 @@ const style = {
             fontFamily:'OpenSans-Semibold',
             color:'#6CB8FB'
           },
+          heading1:{
+            alignSelf:'center',
+            fontSize:23,
+            fontFamily:'Open Sans',
+            color:'#336D96',
+            backgroundColor:'transparent',
+            fontFamily:'OpenSans-Semibold',
+          },
         };
           const allRules = Object.assign(comman, style);
           const styles = StyleSheet.create(allRules);

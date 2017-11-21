@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground,
-  ActivityIndicator,
+  Image,
+  ScrollView,
   AsyncStorage,
   Modal,
-  TouchableHighlight,
   Picker,
   WebView,
+  Keyboard,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -188,6 +186,7 @@ componentWillMount(){
      }).catch((error) => {console.log(error); });
 }
 sendgiftandcharity(){
+    Keyboard.dismiss();
     let error = this.state.errorMsg;
     let shareonfb = !this.state.checkboximg;
     error.Message = '';
@@ -266,11 +265,11 @@ sendgiftandcharity(){
                   this.setState({showProgress : false});
                   console.log(responseobject);
                 //  Toast.show(responseobject.error_messages);
-                  Toast.show('Please Check Your Paypal Id and Currency.');
+                  Toast.show(Label.t('137'));
                 });
               }else if (response.status === 500) {
                 this.setState({showProgress : false});
-                Toast.show('Unsuccessfull error:500');
+                Toast.show(Label.t('52'));
                 }
             }).catch((error) => {console.log(error); });
 
@@ -290,7 +289,7 @@ sendgiftandcharity(){
           // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
           console.log(this.state);
         }else{
-          Toast.show("No Internet Connection");
+          Toast.show(Label.t('140'));
         }
         });
 
@@ -444,9 +443,10 @@ render(){
               </View>
             </Modal >
           <MyActivityIndicator progress={this.state.showProgress} />
-            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
+            <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
               <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
-                <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.goBack()}}>
+                <TouchableOpacity style = {styles.dashboardIconw} onPress={()=>{this.props.navigation.goBack();Keyboard.dismiss();}}>
                     <Image style = {styles.img} source = {images.backIcon}></Image>
                 </TouchableOpacity>
                 <View style = {styles.titleContainer}>
@@ -564,6 +564,7 @@ render(){
                         </TouchableOpacity>
                     </View>
                   </View>
+            </TouchableOpacity>
             </ScrollView>
           </View>
         </Image>);

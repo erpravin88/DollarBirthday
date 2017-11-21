@@ -70,6 +70,7 @@ const { width, height } = Dimensions.get('window');
     flexDirectionRow:{
       flexDirection:'row',
     },
+    bothcenter:{justifyContent:'center',alignSelf:'center'},
 		backgroundImage: {
 		 flex:1,
 		 resizeMode:(Platform.OS === 'ios')?  'cover':'stretch',
@@ -112,8 +113,8 @@ const { width, height } = Dimensions.get('window');
 
 		TextInputStyle: {
 				width: '100%',
-				height: 30,
-        fontSize:18,
+				height: 35,
+                        fontSize:14,
 				paddingBottom:0,
 				marginBottom:0,
 				paddingRight:18,
@@ -122,37 +123,35 @@ const { width, height } = Dimensions.get('window');
 			 width:'89%',
 			 alignSelf: 'center',
 			},
-			SettingsTextInputContainer: {
-			 width:'87%',
-			 alignSelf: 'center',
-			},
+	SettingsTextInputContainer: {
+		width:'87%',
+		alignSelf: 'center',
+	},
+      errorMsg: {
+            backgroundColor: 'transparent',
+            color:'#ff0000',
+            width:'87%',
+            alignSelf:'center',
+	},
       settingdetailwrap:{
-        marginTop:10,
-        height:'100%',
+            marginTop:10,
+            height:'100%',
       },
-			TabContainer: {
-			 width:'94%',
-			 alignSelf: 'center',
-			},
-		TextInputIcon: {
-			 width: 18,
-			 height: 18,
-			 borderBottomWidth: 1,
-			 resizeMode:'contain',
-			 position:'absolute',
-			 zIndex: 99,
-			 right:0,
-			 top:6,
-		 },
-
-	   errorMsg: {
-       backgroundColor: 'transparent',
-	     color:'#ff0000',
-	     width:'87%',
-	     alignSelf:'center',
-	   },
-
-	  formgroup:{
+	TabContainer: {
+		width:'94%',
+		alignSelf: 'center',
+	},
+	TextInputIcon: {
+            width: 18,
+            height: 18,
+            borderBottomWidth: 1,
+            resizeMode:'contain',
+            position:'absolute',
+            zIndex: 99,
+            right:0,
+            top:6,
+	},
+	formgroup:{
 	       backgroundColor:'transparent',
 	       height:'100%',
 	       overflow:'hidden',

@@ -266,6 +266,7 @@ const style = {
             fontFamily:'OpenSans-Semibold',
             color:'#6CB8FB'
           },
+          nodatabox:{minHeight: 40,justifyContent:'center',backgroundColor: 'transparent'},
         };
           const allRules = Object.assign(comman, style);
           const styles = StyleSheet.create(allRules);

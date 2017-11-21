@@ -48,10 +48,14 @@ const style = {
 
       flatlistview:{
         backgroundColor:'transparent',
-        height:'67%',
-        overflow:'hidden',
+        height:'64%',
         width: '100%',
-        marginTop: '2%',
+        marginBottom: '3%',
+      },
+      flatlistdisplay:{
+        width: '90%',
+        justifyContent:'center',
+        alignSelf:'center',
       },
 
       pendingamount:{
@@ -83,7 +87,7 @@ const style = {
         borderColor:'#e7e7e7',
         flexDirection:'row',
         padding:5,
-        marginTop:20,
+        marginBottom:20,
         elevation:2,
         borderRadius:2
       },
@@ -116,19 +120,19 @@ const style = {
       },
 
       detailsheading:{
-        fontSize:12,
+        fontSize:10,
         fontWeight:'bold'
       },
 
       detailscontainersecond:{
         alignItems:'center',
-        width:'30%',
-        marginLeft:'5%'
+        width:'32%',
+        paddingLeft:'2%'
       },
 
       detailscontainer:{
         alignItems:'center',
-        width:'30%'
+        width:'32%'
       },
 
       donationdetailsbox:{

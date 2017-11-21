@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DollarBirthday</string>
-    <string name="facebook_app_id">1898950367044636</string>
+    <string name="facebook_app_id">536193216724160</string>
+    <string name="fb_login_protocol_scheme">fb536193216724160</string>
 </resources>

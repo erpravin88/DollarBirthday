@@ -12,7 +12,6 @@ import {
   View,
   AsyncStorage,
   NetInfo,
-  AppState,
 } from 'react-native';
 
 import SplashScreen from 'react-native-smart-splash-screen';
@@ -25,7 +24,7 @@ export default class DollarBirthday extends Component {
      super(props);
      this.state = {
                 SignIn: false,
-                appState: AppState.currentState
+                checkedSignIn: false,
                 };
     }
   componentWillMount () {
@@ -37,9 +36,9 @@ export default class DollarBirthday extends Component {
        AsyncStorage.getItem(USER_KEY).then(
        (res) => {
            if(res==null){
-            this.setState({ SignIn: false});
+            this.setState({ signedIn: false,checkedSignIn: true});
           }else{
-            this.setState({ SignIn: true });
+            this.setState({ signedIn: true ,checkedSignIn: true});
           }
         });
 // conectivity eventlistener added here
@@ -48,24 +47,19 @@ export default class DollarBirthday extends Component {
 NetInfo.isConnected.fetch().then().done(() => {
   NetInfo.isConnected.addEventListener('change', dispatchConnected);
 });
-AppState.addEventListener('change', this._handleAppStateChange);
   }
 componentWillUnmount(){
   NetInfo.isConnected.removeEventListener('change', dispatchConnected);
-  AppState.removeEventListener('change', this._handleAppStateChange);
 }
-_handleAppStateChange = (nextAppState) => { //console.log(nextAppState);
-    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      console.log('App has come to the foreground!')
-    }
-    if (this.state.appState === 'active' && nextAppState.match(/inactive|background/)) {
-      console.log('App has come to the Background of close!')
-    }
-    this.setState({appState: nextAppState});
-  }
   render() {
 // console.log('sign in check'+this.state.SignIn);
-   const T = screenRoute(this.state.SignIn);
+  const { checkedSignIn, signedIn } = this.state;
+  console.log(checkedSignIn+'---'+signedIn);
+      if (!checkedSignIn) {
+        // alert("here");
+        return null;
+      }
+   const T = screenRoute(signedIn);
 
     return (
       <T/>

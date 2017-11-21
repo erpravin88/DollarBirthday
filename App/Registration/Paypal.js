@@ -10,6 +10,7 @@ import {
   Image,ScrollView, ImageBackground,Linking,
   AsyncStorage,
   KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
@@ -68,7 +69,7 @@ componentWillMount(){
   }                      // to fetch task types
 onPaypalClick()
 {
-
+  Keyboard.dismiss();
   let error = this.state.errorMsg;
   error.emailMsg = '';
   let flag = '';
@@ -140,7 +141,8 @@ hideErrors(){
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
     <View style={[styles.full]}>
     <MyActivityIndicator progress={this.state.showProgress} />
-    <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+    <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="always">
+    <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
     <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
     <View style = {styles.titleContainer}>
       <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
@@ -183,12 +185,13 @@ hideErrors(){
           <Text style = {styles.term_service}>{Label.t('101')}<Text onPress={()=>{Function.web(settings.PAYPAL_URL);console.log('yes'); }} style={{color:'#449FD8',fontWeight:'600'}}>{Label.t('102')}</Text></Text>
     </View></TouchableOpacity>
 
-    <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
+    <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);Keyboard.dismiss();}}>
       <View style = {[styles.skipContainer]}>
             <Text style = {styles.skip}>{Label.t('85')}</Text>
       </View>
     </TouchableOpacity>
     </View>
+    </TouchableOpacity>
     </ScrollView>
     </View>
     </Image>

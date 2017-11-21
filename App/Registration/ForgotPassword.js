@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
   Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground
+  Image,
+  ScrollView,
+  Keyboard,
 } from 'react-native';
 
 import images from '../Constant/Images';
@@ -30,6 +31,7 @@ export default class ForgetPassword extends Component {
                   };
   }
   onSubmitClick(){
+      Keyboard.dismiss();
      let error = this.state.errorMsg;
      error.emailMsg = '';
      let flag = '';
@@ -85,7 +87,8 @@ export default class ForgetPassword extends Component {
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
         <MyActivityIndicator progress={this.state.showProgress} />
-          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
+          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="always">
+          <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
             <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
               <View style = {styles.titleContainer}>
                 <Text style = {styles.titleTextSecond}>{Label.t('1')}</Text>
@@ -129,10 +132,11 @@ export default class ForgetPassword extends Component {
               </View>
                 <View style = {[styles.tempTextInputContainer,{marginBottom:'30%'}]}>
                   <TouchableOpacity>
-                      <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); }} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
+                      <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); Keyboard.dismiss();}} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
                 </TouchableOpacity>
                 </View>
             </View>
+          </TouchableOpacity>
           </ScrollView>
         </View>
       </Image>);

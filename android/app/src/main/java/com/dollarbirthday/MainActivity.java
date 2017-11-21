@@ -1,11 +1,20 @@
 package com.dollarbirthday;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.facebook.react.ReactActivity;
 import com.reactnativecomponent.splashscreen.RCTSplashScreen;
 import android.content.Intent;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class MainActivity extends ReactActivity {
 
@@ -22,9 +31,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
       //  RCTSplashScreen.openSplashScreen(this);
         RCTSplashScreen.openSplashScreen(this, true, ImageView.ScaleType.FIT_XY);
         super.onCreate(savedInstanceState);
+       
     }
 
     @Override

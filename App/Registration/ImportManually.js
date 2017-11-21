@@ -75,6 +75,7 @@ deleteFriend(item){
     }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
 }
  changedateformat(item){
+   if(item.friend !== 0){
     let temp = new Date(item.birth_date);
     let tempday = temp.getDate();
     if(tempday < 10){
@@ -100,6 +101,13 @@ deleteFriend(item){
                 <Text style={styles.emailtext}>{item.email}</Text>
             </View>
           </View>)
+        }else{
+          return(<View style = {styles.listbox}>
+            <View style={[styles.nodatabox]}>
+                { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
+            </View>
+           </View>)
+        }
 
  }
 
@@ -181,7 +189,7 @@ componentWillMount(){
                   <ScrollView keyboardShouldPersistTaps="never">
                       {(this.state.friendlistvisible == true) ?
                       (<View style={{width:'98%'}}><FlatList
-                          data={this.state.Friends}
+                          data={this.state.Friends.length > 0 ? this.state.Friends :[{friend:0}]}
                           renderItem={({item}) => this.changedateformat(item)}
                           keyExtractor={item => item.id}
                           /></View>) : ''}

@@ -1,6 +1,7 @@
 
 import { AsyncStorage } from "react-native";
 import { NavigationActions } from 'react-navigation';
+import Toast from 'react-native-simple-toast';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'LOG_IN' })],
@@ -8,7 +9,8 @@ const resetAction = NavigationActions.reset({
 
 export const USER_KEY = "auth-key";
 export const AUTH_TOKEN = "auth-token";
-export const USER_DETAILS = "user-data"
+export const USER_DETAILS = "user-data";
+export const PERSISTENT_LOGIN = "persistent-login";
 
 
 export const onSignIn = () => {
@@ -19,8 +21,8 @@ export const onSignIn = () => {
 export const afterSignIn = (token) => {
     AsyncStorage.setItem(AUTH_TOKEN, token);
   }
-export const onSignOut = (that) => {
-    let keys = [USER_KEY,AUTH_TOKEN,USER_DETAILS,"persistentlogin"];
+export const onSignOut = (that) => { console.log('signout');console.log(that);console.log('wrap');
+    let keys = [USER_KEY,AUTH_TOKEN,USER_DETAILS,PERSISTENT_LOGIN];
     AsyncStorage.multiRemove(keys).then(()=>{
       that.props.navigation.dispatch(resetAction);
     }).catch((err)=>{

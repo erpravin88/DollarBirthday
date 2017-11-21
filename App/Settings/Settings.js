@@ -39,25 +39,7 @@ export default class Settings extends Component {
    };
   }
   componentDidMount(){
-  //this.setState({name: this.props.navigation.state.params.name});
-      AsyncStorage.getItem(USER_KEY).then((key)=>{
-        this.setState({user_key: key});
-      }).catch((err)=>{
-        Toast.show(err);
-      });
-      AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-         this.setState({auth_token: token,showProgress : false}); console.log(this.state);
-      }).catch((err)=>{
-        onSignOut;
-        console.log(err);
-        Toast.show(err);
-      });
-      AsyncStorage.getItem(USER_DETAILS).then((details)=>{
-        details = JSON.parse(details);
-        this.setState({user_details: details});
-      }).catch((err)=>{
-        Toast.show(err);
-      });
+
       if(this.props.navigation.state != undefined){
         if(this.props.navigation.state.params != undefined){
           if(this.props.navigation.state.params.tabName != undefined){
@@ -100,11 +82,11 @@ export default class Settings extends Component {
             </View>
           </View>
           <View style={[styles.formgroup,styles.containerWidth]}>
-            {this.state.selectedTab == 0 ? (<ScrollView keyboardShouldPersistTaps="never"><General /></ScrollView>):
-            (this .state.selectedTab == 1? (<ScrollView keyboardShouldPersistTaps="never"><Paypal /></ScrollView>):
-            (this .state.selectedTab == 2? (<ScrollView keyboardShouldPersistTaps="never"><Charity/></ScrollView>):
-            (this .state.selectedTab == 3? (<ScrollView keyboardShouldPersistTaps="never"><Notification /></ScrollView>):
-            (<ScrollView keyboardShouldPersistTaps="never"><Friends nav={this.props}/></ScrollView>))))}
+            {this.state.selectedTab == 0 ? (<ScrollView keyboardShouldPersistTaps="never"><General navigation={this.props.navigation}/></ScrollView>):
+            (this .state.selectedTab == 1? (<ScrollView keyboardShouldPersistTaps="never"><Paypal navigation={this.props.navigation}/></ScrollView>):
+            (this .state.selectedTab == 2? (<ScrollView keyboardShouldPersistTaps="never"><Charity navigation={this.props.navigation}/></ScrollView>):
+            (this .state.selectedTab == 3? (<ScrollView keyboardShouldPersistTaps="never"><Notification navigation={this.props.navigation}/></ScrollView>):
+            (<ScrollView keyboardShouldPersistTaps="never"><Friends navigation={this.props.navigation} /></ScrollView>))))}
           </View>
         </View>
       </Image>);

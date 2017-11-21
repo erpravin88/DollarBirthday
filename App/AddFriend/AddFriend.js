@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground,
-  ActivityIndicator,
-  AsyncStorage
+  Image,
+  ScrollView,
+  AsyncStorage,
+  Keyboard,
 } from 'react-native';
 import Label from '../Constant/Languages/LangConfig';
 import Toast from 'react-native-simple-toast';
@@ -36,7 +35,6 @@ export default class AddFriend extends Component {
 constructor(props){
     super(props);
     this.addfriend = this.addfriend.bind(this);
-    this.updatefriend = this.updatefriend.bind(this);
     this.hideErrors = this.hideErrors.bind(this);
     var month = (date.getMonth()+1).toString();
     month = month.length>1?month:'0'+month;
@@ -83,7 +81,8 @@ componentWillMount(){
         // });
     }
 
-    addfriend(userData){
+    addfriend = (action) => {
+          Keyboard.dismiss();
           let error = this.state.errorMsg;
           error.emailMsg = '';
           error.firstName = '';
@@ -103,8 +102,7 @@ componentWillMount(){
           if(this.state.email == ''){
             flag = '0';
             error.emailMsg = Label.t('75');
-          }
-          if(!re.test(this.state.email)){
+          }else if(!re.test(this.state.email)){
             flag = '0';
             error.emailMsg = Label.t('76');
           }
@@ -115,6 +113,7 @@ componentWillMount(){
             checkinternetconnectivity().then((response)=>{
               if(response.Internet == true){
               this.setState({showProgress : true});
+              if(action === 'add'){
               callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
                 "first_name":this.state.firstName,
                 "last_name":this.state.lastName,
@@ -125,7 +124,7 @@ componentWillMount(){
                     console.log(responseobject);
                     this.setState({showProgress : false});
                   });
-                  Toast.show('Friend Added');
+                  Toast.show(Label.t('131'));
                   if(this.props.navigation.state != undefined){
                     if(this.props.navigation.state.params != undefined){
                       if(this.props.navigation.state.params.callFrom != undefined){
@@ -150,11 +149,53 @@ componentWillMount(){
                   });
                 }else if (response.status === 500) {
                   this.setState({showProgress : false});
-                  Toast.show('Unsuccessfull error:500');
+                  Toast.show(Label.t('52'));
                   }
               }).catch((error) => {console.log(error); });
+
+              }else if(action === 'update'){
+                      callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
+                  "first_name":this.state.firstName,
+                  "last_name":this.state.lastName,
+                  "birth_date": this.state.initialdob }
+                ).then((response) => {
+                  // response.json().then((responseobject) => {
+                  // console.log(responseobject);});
+                  if(response.status === 200){
+                    this.setState({showProgress : false});
+                    Toast.show(Label.t('141'));
+                    if(this.props.navigation.state != undefined){
+                      if(this.props.navigation.state.params != undefined){
+                        if(this.props.navigation.state.params.callFrom != undefined){
+                          if(this.props.navigation.state.params.callFrom == 'setting'){
+                            this.props.navigation.dispatch(resetAction);
+                          }else if (this.props.navigation.state.params.callFrom == 'IMPORTMANUALLY') {
+                            this.props.navigation.dispatch(resetAction1);
+                          }
+                        }
+                      }
+                    }
+
+                    this.props.navigation.goBack();
+                  }else if (response.status === 401) {
+                    this.setState({showProgress : false});
+                    Toast.show(Label.t('51'));
+                    onSignOut(this);
+                  }else if (response.status === 406) {
+                    response.json().then((responseobject) => {
+                      this.setState({showProgress : false});
+                      Toast.show(responseobject.error_messages);
+                    });
+                  }else if (response.status === 500) {
+                    this.setState({showProgress : false});
+                    Toast.show(Label.t('52'));
+                    }
+                }).catch((error) => {console.log(error); });
+              }else{
+                console.log('Give Action');
+              }
             }else{
-              Toast.show("No Internet Connection");
+              Toast.show(Label.t('140'));
             }
             });
       }
@@ -169,93 +210,16 @@ componentWillMount(){
       this.setState({errorMsg: error});
     }
 
-    updatefriend(){
-      let error = this.state.errorMsg;
-      error.emailMsg = '';
-      error.firstName = '';
-      error.lastName = '';
-      error.initialdob = '';
-      let flag = '';
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-      if(this.state.firstName == ''){
-        flag = '0';
-        error.firstName = Label.t('132');
-      }
-      if(this.state.lastName == ''){
-        flag = '0';
-        error.lastName = Label.t('133');
-      }
-      if(this.state.email == ''){
-        flag = '0';
-        error.emailMsg = Label.t('75');
-      }
-      if(!re.test(this.state.email)){
-        flag = '0';
-        error.emailMsg = Label.t('76');
-      }
-      if(flag != ''){
-        this.setState({errorMsg: error});
-      }
-      else
-      {
-        //API Call
-        checkinternetconnectivity().then((response)=>{
-          if(response.Internet == true){
-          this.setState({showProgress : true});
-          callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
-            "first_name":this.state.firstName,
-            "last_name":this.state.lastName,
-            "birth_date": this.state.initialdob }
-          ).then((response) => {
-            // response.json().then((responseobject) => {
-            // console.log(responseobject);});
-            if(response.status === 200){
-              this.setState({showProgress : false});
-              Toast.show(Label.t('141'));
-              if(this.props.navigation.state != undefined){
-                if(this.props.navigation.state.params != undefined){
-                  if(this.props.navigation.state.params.callFrom != undefined){
-                    if(this.props.navigation.state.params.callFrom == 'setting'){
-                      this.props.navigation.dispatch(resetAction);
-                    }else if (this.props.navigation.state.params.callFrom == 'IMPORTMANUALLY') {
-                      this.props.navigation.dispatch(resetAction1);
-                    }
-                  }
-                }
-              }
-
-              this.props.navigation.goBack();
-            }else if (response.status === 401) {
-              this.setState({showProgress : false});
-              Toast.show(Label.t('51'));
-              onSignOut(this);
-            }else if (response.status === 406) {
-              response.json().then((responseobject) => {
-                this.setState({showProgress : false});
-                Toast.show(responseobject.error_messages);
-              });
-            }else if (response.status === 500) {
-              this.setState({showProgress : false});
-              Toast.show(Label.t('52'));
-              }
-          }).catch((error) => {console.log(error); });
-        }else{
-          Toast.show(Label.t('140'));
-        }
-        });
-  }
-    }
-
 render(){
 
     return(
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
           <MyActivityIndicator progress={this.state.showProgress} />
-            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='never'>
+            <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
+            <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
               <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
-            <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack()}}>
+            <TouchableOpacity style = {[styles.dashboardIconw]}  onPress={()=>{this.props.navigation.goBack();Keyboard.dismiss();}}>
                 <Image style={styles.img} source = {images.backIcon}></Image>
             </TouchableOpacity>
             <View style = {styles.titleContainer}>
@@ -304,7 +268,7 @@ render(){
                             style = {[styles.TextInputStyle,styles.font3]}
                             ref='thirdInput'
                             placeholderTextColor = "#b7b7b7"
-                            placeholder = {Label.t('5')}
+                            placeholder = {Label.t('41')}
                             value = {this.state.email}
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
@@ -335,7 +299,7 @@ render(){
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['initialdob']}</Text>
                     <View style = {styles.SettingsTextInputContainer}>
-                      <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3, marginTop:10}]}  onPress = {(this.state.newfriend == true) ? this.addfriend :this.updatefriend}>
+                      <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3, marginTop:10}]}  onPress = {() => {this.addfriend((this.state.newfriend == true) ? 'add' :'update');}}>
                         <Text style = {styles.signInButton}>
                           {(this.state.newfriend == true) ? (<Image style = {styles.addBtn} source = {images.addBtn}/>):''}
                           {(this.state.newfriend == true) ? Label.t('0') :Label.t('8')}
@@ -343,6 +307,7 @@ render(){
                       </TouchableOpacity>
                     </View>
             </View>
+          </TouchableOpacity>
           </ScrollView>
         </View>
       </Image>);

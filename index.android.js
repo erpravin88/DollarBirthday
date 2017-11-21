@@ -12,59 +12,59 @@ import {
   View,
   AsyncStorage,
   NetInfo,
-  AppState,
 } from 'react-native';
 
 import SplashScreen from 'react-native-smart-splash-screen';
-import { USER_KEY } from './App/Constant/Auth';
+import { PERSISTENT_LOGIN, USER_KEY } from './App/Constant/Auth';
 import {screenRoute} from './App/ScreenNavigation/Router';
-// conectivity eventlistener added here
 const dispatchConnected = isConnected => console.log('Internet connected' + isConnected);
 
 export default class DollarBirthday extends Component {
     constructor(props){
      super(props);
      this.state = {
-                SignIn: false,
-                appState: AppState.currentState
+                signedIn: false,
+                checkedSignIn: false,
                 };
     }
   componentWillMount () {
-       SplashScreen.close({
-          animationType: SplashScreen.animationType.scale,
-          duration: 2000,
-          delay: 500,
-       });
-       AsyncStorage.getItem(USER_KEY).then(
-       (res) => {
-           if(res==null){
-            this.setState({ SignIn: false});
-          }else{
-            this.setState({ SignIn: true });
-          }
-        });
-
-NetInfo.isConnected.fetch().then().done(() => {
-  NetInfo.isConnected.addEventListener('change', dispatchConnected);
-});
-AppState.addEventListener('change', this._handleAppStateChange);
+    SplashScreen.close({
+       animationType: SplashScreen.animationType.scale,
+       duration: 2000,
+       delay: 500,
+    });
+    AsyncStorage.getItem(PERSISTENT_LOGIN).then(
+     (resultpl) =>{ 
+       if(resultpl !== null && resultpl !== 'false'){
+         AsyncStorage.getItem(USER_KEY).then(
+         (res) => {
+             if(res==null){
+              this.setState({ signedIn: false,checkedSignIn: true});
+            }else{
+              this.setState({ signedIn: true ,checkedSignIn: true});
+            }
+          });
+       }else{
+         this.setState({ checkedSignIn: true});
+       }
+    });
+    // conectivity eventlistener added here
+    NetInfo.isConnected.fetch().then().done(() => {
+      NetInfo.isConnected.addEventListener('change', dispatchConnected);
+    });
   }
 componentWillUnmount(){
   NetInfo.isConnected.removeEventListener('change', dispatchConnected);
-  AppState.removeEventListener('change', this._handleAppStateChange);
 }
-_handleAppStateChange = (nextAppState) => { //console.log(nextAppState);
-    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      console.log('App has come to the foreground!')
-    }
-    if (this.state.appState === 'active' && nextAppState.match(/inactive|background/)) {
-      console.log('App has come to the Background of close!')
-    }
-    this.setState({appState: nextAppState});
-  }
   render() {
 // console.log('sign in check'+this.state.SignIn);
-   const T = screenRoute(this.state.SignIn);
+  const { checkedSignIn, signedIn } = this.state;
+  console.log(checkedSignIn+'---'+signedIn);
+      if (!checkedSignIn) {
+        // alert("here");
+        return null;
+      }
+   const T = screenRoute(signedIn);
 
     return (
       <T/>

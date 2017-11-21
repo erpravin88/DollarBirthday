@@ -30,14 +30,13 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'PAYPAL' })],
     });
-export default class SignUp extends Component {
+export default class General extends Component {
 
 
   constructor(props){
-
    super(props);
 
-   this.onSignUpClick = this.onSignUpClick.bind(this);
+   this.onUpdateClick = this.onUpdateClick.bind(this);
    var month = (date.getMonth()+1).toString();
    month = month.length>1?month:'0'+month;
    this.state = {
@@ -78,7 +77,7 @@ componentWillMount(){
  }
 
 
-onSignUpClick(userData){
+onUpdateClick = () => {
 
   let error = this.state.errorMsg;
   error.passwordMsg = '';
@@ -266,7 +265,7 @@ hideErrors(){
       </View>
       <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['passwordMsg']}</Text>
       <View style = {[styles.SettingsTextInputContainer,{marginTop:15}]}>
-        <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onSignUpClick}>
+        <TouchableOpacity style = {styles.signInButtonContainer}  onPress = {this.onUpdateClick}>
           <Text style = {styles.signInButton}>{Label.t('39')}</Text>
         </TouchableOpacity>
       </View>

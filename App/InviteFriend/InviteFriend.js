@@ -114,14 +114,14 @@ componentWillMount(){
                     console.log(responseobject);
                     this.setState({showProgress : false});
                   });
-                  Toast.show(Label.t('141'));
+                  Toast.show(Label.t('135'));
                   this.props.navigation.dispatch(resetAction);
                 }if(response.status === 201){
                   response.json().then((responseobject) => {
                     console.log(responseobject);
                     this.setState({showProgress : false});
                   });
-                  Toast.show(Label.t('141'));
+                  Toast.show(Label.t('135'));
                   this.props.navigation.dispatch(resetAction);
                 }else if (response.status === 401) {
                   onSignOut(this);
