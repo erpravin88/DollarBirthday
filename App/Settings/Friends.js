@@ -71,7 +71,8 @@ export default class Friends extends Component {
  _fbAuth = () => {
     LoginManager.logInWithReadPermissions(['public_profile','user_birthday','email']).then((result) => {
         if(result.isCancelled){
-            Toast.show('Log In cancelled');
+            //Toast.show('Log In cancelled');
+            this.openURL(settings.FBEVENT_URL);
         }
         else {
             AccessToken.getCurrentAccessToken().then(
@@ -150,7 +151,7 @@ deleteFriend(item){
         </View>
        </View>)
      }else{
-       return(<View style = {styles.listbox}>
+       return(<View key={`${item.id}`} style = {styles.listbox}>
          <View style={[styles.nodatabox]}>
              { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
          </View>
@@ -289,7 +290,7 @@ componentDidMount() {
 //          >
 //            <View style={[styles.fulls]}>
 //                <WebView
-//                  source={{ uri: this.state.contacturl}}
+//                  source={{ uri: settings.FBEVENT_URL}}
 //                  scalesPageToFit
 //                  startInLoadingState
 //                  onNavigationStateChange={this._onNavigationStateChange.bind(this)}
@@ -414,7 +415,7 @@ componentDidMount() {
 
                 {(this.state.friendlistvisible == true) ?
                 (<View style={{width:'98%'}}><FlatList
-                    data={this.state.Friends.length > 0 ? this.state.Friends :[{friend:0}]}
+                    data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
                     renderItem={({item}) => this.changedateformat(item)}
                     keyExtractor={item => item.id}
                     /></View>) : ''}

@@ -84,10 +84,13 @@ _fblogin = ()=> { //fbAuth;
          if(response.status === 201){
          response.json().then((responseobject) => {
            console.log(responseobject);
+           if(responseobject.status_message ==='Login Success' && responseobject.error_messages !== undefined){
+             responseobject.data = responseobject.error_messages;
+           }
             onSignIn();
             AsyncStorage.setItem("persistentlogin", this.state.persistentlogin.toString());
-            afterSignIn(responseobject.error_messages.authToken);
-            setUserDetails(responseobject.error_messages);
+            afterSignIn(responseobject.data.authToken);
+            setUserDetails(responseobject.data);
             this.props.navigation.dispatch(resetAction);
             this.setState({showProgress : false});
          });
