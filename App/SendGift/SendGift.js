@@ -295,7 +295,42 @@ sendgiftandcharity(){
 
       }
 }
+/*
+*
+*
+*/
+checkPaymentStatus = (payKey,trackingid) =>{
+  let param['payKey'] = payKey;
+  param['trackingid'] = trackingid;
+  checkinternetconnectivity().then((response)=>{
+    if(response.Internet == true){
+      this.setState({showProgress : true});
+      callApiWithAuth('paymentdetails','POST', param ).then((response) => {
+        if(response.status === 200){
+          response.json().then((responseobject) => {
+            console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
 
+
+          });
+          Toast.show('');
+        }else if (response.status === 406) {
+          response.json().then((responseobject) => {
+            this.setState({showProgress : false});
+            console.log(responseobject);
+          //  Toast.show(responseobject.error_messages);
+            Toast.show(Label.t('137'));
+          });
+        }else if (response.status === 500) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('52'));
+          }
+      }).catch((error) => {console.log(error); });
+    console.log(this.state);
+  }else{
+    Toast.show(Label.t('140'));
+  }
+  });
+}
 hideErrors(){
     let error = this.state.errorMsg;
     error.Message = '';
@@ -455,6 +490,7 @@ render(){
                 </View>
               </Image>
               <View style={[styles.formgroup,styles.containerWidth]}>
+              {settings.PAYPAL_ENV === 'sandbox' ? (<Text style = {styles.titleTextFirst}>{Label.t('148')}</Text>): null}
                 <View style = {styles.innerwidth}>
                     <View style = {[styles.formimage]}>
                         <View >

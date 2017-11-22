@@ -9,6 +9,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Keyboard,
+  AsyncStorage,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -17,15 +18,20 @@ import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/SignUpStyle';
 import DatePicker from 'react-native-datepicker';
-import settings from '../Constant/UrlConstant';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import {checkinternetconnectivity} from '../Constant/netinfo';
 import { NavigationActions } from 'react-navigation';
+import  Fblogin  from '../Component/Fblogin';
+import settings from '../Constant/UrlConstant';
 const date = new Date(Date.now());
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'PAYPAL' })],
+    });
+const resetActionD = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
 export default class SignUp extends Component {
 
@@ -46,9 +52,10 @@ export default class SignUp extends Component {
      fullName:'',
      device_id:settings.DEVICE_ID,
      device_type:settings.DEVICE_NAME,
-     paypal:'abc@gmail.com',
+     Connected: false,
+     persistentlogin: false,
      errorMsg:{"emailMsg":'', "passwordMsg":'', "fullName":'', "dob":''},
-     showProgress: false
+     showProgress: false,
 
  };
 
@@ -57,7 +64,58 @@ export default class SignUp extends Component {
  componentWillMount(){
  }
 
-
+ _fblogin = ()=> { //fbAuth;
+  Fblogin().then((data)=> {console.log(data);
+    if(data.data.isCancelled){
+        Toast.show('Log In cancelled');
+    }else{
+      checkinternetconnectivity().then((response)=>{
+        if(response.Internet == true){
+          this.setState({showProgress : true});
+        callApiWithoutAuth('login','POST', {
+          "accessToken":data.data.accessToken,
+          "login_type":settings.login_type.fb,
+          "device_id":this.state.device_id,
+          "device_type":this.state.device_type}
+        ).then((response) => {
+          console.log(response);
+         //  response.json().then((responseobject) => {
+         //    console.log(responseobject);
+         //  });
+          if(response.status === 201){
+          response.json().then((responseobject) => {
+            console.log(responseobject);
+            if(responseobject.status_message ==='Login Success' && responseobject.error_messages !== undefined){
+              responseobject.data = responseobject.error_messages;
+            }
+             onSignIn();
+             AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
+             afterSignIn(responseobject.data.authToken);
+             setUserDetails(responseobject.data);
+             this.props.navigation.dispatch(resetActionD);
+             this.setState({showProgress : false});
+          });
+          Toast.show(Label.t('73'));
+        }else if (response.status === 404) {
+          this.setState({showProgress : false});
+        }else if (response.status === 406) {
+          response.json().then((responseobject) => {
+            console.log(responseobject);
+          });
+          this.setState({showProgress : false});
+          Toast.show(Label.t('147'));
+        }else if (response.status === 500) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('52'));
+          }
+        }).catch((error) => {console.log(error); });
+      }else{
+        Toast.show(Label.t('140'));
+      }
+     });
+    }
+   });
+ }
 onSignUpClick(){
   Keyboard.dismiss();
   let error = this.state.errorMsg;
@@ -258,7 +316,7 @@ hideErrors(){
         <Text style = {[styles.orDivider, styles.font2]}>{Label.t('72')}</Text>
       </View>
       <View style = {styles.tempTextInputContainer}>
-        <TouchableOpacity style = {styles.facebookButtonContainer}>
+        <TouchableOpacity style = {styles.facebookButtonContainer} onPress={this._fblogin}>
           <Image style = {styles.facebookButton} source = {images.facebookButton}/>
         </TouchableOpacity>
       </View>

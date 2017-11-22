@@ -26,17 +26,13 @@ import styles from './style/LoginStyle';
 import {callApiWithoutAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 import  Fblogin  from '../Component/Fblogin';
+import settings from '../Constant/UrlConstant';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
 
-import settings from '../Constant/UrlConstant';
-import FBSDK  from 'react-native-fbsdk';
-const {
-      LoginManager,
-      AccessToken
-} = FBSDK;
+
 
 export default class Login extends Component {
 
@@ -65,6 +61,7 @@ export default class Login extends Component {
       }
 _fblogin = ()=> { //fbAuth;
  Fblogin().then((data)=> {console.log(data);
+   console.log(this.state);
    if(data.data.isCancelled){
        Toast.show('Log In cancelled');
    }else{
@@ -88,7 +85,7 @@ _fblogin = ()=> { //fbAuth;
              responseobject.data = responseobject.error_messages;
            }
             onSignIn();
-            AsyncStorage.setItem("persistentlogin", this.state.persistentlogin.toString());
+            AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
             afterSignIn(responseobject.data.authToken);
             setUserDetails(responseobject.data);
             this.props.navigation.dispatch(resetAction);

@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 import SplashScreen from 'react-native-smart-splash-screen';
-import { USER_KEY } from './App/Constant/Auth';
+import { PERSISTENT_LOGIN, USER_KEY } from './App/Constant/Auth';
 import {screenRoute} from './App/ScreenNavigation/Router';
 const dispatchConnected = isConnected => console.log('Internet connected' + isConnected);
 
@@ -23,30 +23,35 @@ export default class DollarBirthday extends Component {
     constructor(props){
      super(props);
      this.state = {
-                SignIn: false,
+                signedIn: false,
                 checkedSignIn: false,
                 };
     }
   componentWillMount () {
-       SplashScreen.close({
-          animationType: SplashScreen.animationType.scale,
-          duration: 2000,
-          delay: 500,
-       });
-       AsyncStorage.getItem(USER_KEY).then(
-       (res) => {
-           if(res==null){
-            this.setState({ signedIn: false,checkedSignIn: true});
-          }else{
-            this.setState({ signedIn: true ,checkedSignIn: true});
-          }
-        });
-// conectivity eventlistener added here
-
-
-NetInfo.isConnected.fetch().then().done(() => {
-  NetInfo.isConnected.addEventListener('change', dispatchConnected);
-});
+    SplashScreen.close({
+       animationType: SplashScreen.animationType.scale,
+       duration: 2000,
+       delay: 500,
+    });
+    AsyncStorage.getItem(PERSISTENT_LOGIN).then(
+     (resultpl) =>{console.log(resultpl);
+       if(resultpl !== null && resultpl !== 'false'){
+         AsyncStorage.getItem(USER_KEY).then(
+         (res) => { console.log('test');console.log("signcheck"+res);
+             if(res==null){
+              this.setState({ signedIn: false,checkedSignIn: true});
+            }else{
+              this.setState({ signedIn: true ,checkedSignIn: true});
+            }
+          });
+       }else{
+         this.setState({ checkedSignIn: true});
+       }
+    });
+    // conectivity eventlistener added here
+    NetInfo.isConnected.fetch().then().done(() => {
+      NetInfo.isConnected.addEventListener('change', dispatchConnected);
+    });
   }
 componentWillUnmount(){
   NetInfo.isConnected.removeEventListener('change', dispatchConnected);

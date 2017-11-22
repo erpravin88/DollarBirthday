@@ -462,6 +462,7 @@ console.log(this.state.charity_type);
               </View>
             </Image>
             <View style={[styles.formgroup,styles.containerWidth]}>
+            {settings.PAYPAL_ENV === 'sandbox' ? (<Text style = {styles.titleTextFirst}>{Label.t('148')}</Text>): null}
               <View style = {styles.innerwidth}>
                     <View style={styles.logoview}>
                     {(this.state.charity_type.logo) ? (<Image style = {styles.charitylogo} source = {{uri : settings.BASE_URL+this.state.charity_type.logo}}></Image>) : (<Image style = {styles.charitylogo} source ={images.placeholderImage}/>)}
