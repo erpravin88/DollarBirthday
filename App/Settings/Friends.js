@@ -62,7 +62,6 @@ export default class Friends extends Component {
       friend_id_edit:0,
       contactListModal:false,
       modalVisible: false,
-      contacturl: 'http://dbc.demos.classicinformatics.com/login?action=token&type=complete&t=',
     };
 
 
@@ -170,8 +169,7 @@ componentWillMount(){
       //Toast.show(err);
     });
     AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-       this.setState({auth_token: token,contacturl: this.state.contacturl+token,showProgress: true});
-       console.log(this.state.contacturl);
+       this.setState({auth_token: token,,showProgress: true});
        checkinternetconnectivity().then((response)=>{
          if(response.Internet == true){
          callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
