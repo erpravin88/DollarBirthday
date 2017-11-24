@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground,
+  Image,
+  ScrollView,
   ActivityIndicator,
   AsyncStorage,
   Modal,
-  TouchableHighlight,
-  List,
   FlatList
 } from 'react-native';
 
@@ -46,6 +43,8 @@ constructor(props){
 
 fetchlist(item){
   console.log(item);
+  console.log(item['Gift Sent']);
+   if(item.messages !== 0 && item.sender_name !== undefined ){
     return(<View  style={styles.messagebox}>
         <View style={styles.imagecontainer}>
             <Image style = {styles.userimage} source = {images.placeholderImage}/>
@@ -54,25 +53,32 @@ fetchlist(item){
                 <Text style={styles.datetime}>July 22 at 11:00 AM</Text>
             </View>
         </View>
-        <Text style={styles.message}>This is a test message</Text>
-        <Image style = {styles.greenbg} source = {images.greenpricetag}/>
-        <View style = {styles.greenbg}>
-            <Text style={[styles.donationvalue]}>{item.charity_amount}</Text>
+        <Text style={styles.message}>{`${item.Message}`}</Text>
+        <Image style = {[styles.greenbg,item.gift_amount*1 === 0 ? styles.hide : '']} source = {images.greenpricetag}/>
+        <View style = {[styles.greenbg,item.gift_amount*1 === 0 ? styles.hide : '']}>
+            <Text style={[styles.donationvalue]}>${item["gift Amount"]}</Text>
             <Text style={styles.currency}>{item.currency}</Text>
         </View>
-        <Image style = {styles.redbg} source = {images.redpricetag}/>
-        <View style = {styles.redbg}>
-            <Text style={styles.donationvalue}>{item.gift_amount}</Text>
+        <Image style = {[styles.redbg ,item.Charity_Amount*1 === 0 ? styles.hide : '']} source = {images.redpricetag}/>
+        <View style = {[styles.redbg ,item.Charity_Amount*1 === 0  ? styles.hide : '']}>
+            <Text style={[styles.donationvalue]}>${item.Charity_Amount}</Text>
             <Text style={styles.currency}>{item.currency}</Text>
         </View>
         <View style={styles.line}></View>
         <View style={styles.donationlisting}>
-            <View style = {styles.heartlogobox}>
+            <View style = {[styles.heartlogobox,item.Charity_Amount*1 === 0  ? styles.hide : '']}>
                 <Image style = {styles.heartlogo} source = {images.heartlogo}/>
-                <Text style = {styles.charitytext}>{Label.t('17')} Test Charity</Text>
+                <Text style = {styles.charitytext}>{Label.t('17')} {`${item.Charity_name}`}</Text>
             </View>
         </View>
     </View>)
+  }else{
+      return(<View key={`${item.id}`} style = {styles.listbox}>
+        <View style={[styles.nodatabox]}>
+            { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
+        </View>
+       </View>)
+    }
 }
 
 componentWillMount(){
@@ -91,7 +97,8 @@ componentWillMount(){
                     console.log(responseobject);
                       //Remove quote from next line to update flatlist with dynamic data
                       //  this.setState({messages: responseobject});
-                      this.setState({messages: JSON.parse(JSON.stringify(settings.INBOX_DEMO_DATA)).data.list});
+                      this.setState({messages: responseobject.data.list});
+                      //this.setState({messages: JSON.parse(JSON.stringify(settings.INBOX_DEMO_DATA)).data.list});
                       console.log(this.state.messages);
                   });
                   this.setState({showProgress : false});
@@ -135,7 +142,7 @@ render(){
                 <ScrollView keyboardShouldPersistTaps="always">
                     {(this.state.messagelist == true) ?
                     (<View><FlatList
-                        data={this.state.messages}
+                        data={this.state.messages.length > 0 ? this.state.messages :[{id:0,messages:0}]}
                         renderItem={({item}) => this.fetchlist(item)}
                         keyExtractor={item => item.email}
                         /></View>) : (<View ></View>)}

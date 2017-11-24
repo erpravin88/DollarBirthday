@@ -56,7 +56,7 @@ const style = {
  },
 marginFix2:{
   marginTop: '2%',
-  marginBottom:'12%',
+  marginBottom:'4%',
 },
 skip:{
   fontSize: 14,
@@ -73,6 +73,69 @@ skipContainer:{
   justifyContent:'center',
 },
 nodatabox:{minHeight: 40,justifyContent:'center',backgroundColor: 'transparent'},
+friendboxes:{
+  flexDirection:'row',
+},
+addfriendbox:{
+    backgroundColor:'#DE6963',
+    height:50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:2,
+
+},
+
+boxtext:{
+    color:'#ffffff',
+    textAlign: 'center',
+    fontFamily:'OpenSans-Semibold'
+},
+
+boxtextsmall:{
+    color:'#ffffff',
+    fontSize:10,
+    textAlign: 'center',
+    fontFamily:'OpenSans-Semibold'
+},
+
+addicon:{
+    width:13,
+    height:13,
+},
+yahoosigninbox:{
+  backgroundColor:'#6A479C',
+  height:50,
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius:2,
+},
+
+hotmailsigninbox:{
+  backgroundColor:'#6A479C',
+  height:50,
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius:2,
+},
+
+googlesigninbox:{
+  backgroundColor:'#6A479C',
+  height:50,
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius:2,
+},
+
+signinview:{
+  width:'30%',
+},
+
+googlefbtext:{
+  color:'#665b5b',
+  textAlign: 'center',
+  fontFamily:'OpenSans-Semibold',
+  fontSize:8
+},
 };
   const allRules = Object.assign(comman, style);
   const styles = StyleSheet.create(allRules);

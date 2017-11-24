@@ -2,8 +2,14 @@ import DeviceInfo from "react-native-device-info";
 
 
 export const settings = {
-  login_type: {dbc:'abc',fb:'fb'},
+  login_type: {dbc:'dbc',fb:'fb'},
+  CURRENCY:{dollar:'USD'},
+  CURRENCY_SYMBOL:{dollar:'$'},
   DONOT_CHARITY_ID: 24, //"I Do Not Wish To Donate at This Time" Charity id
+  CONTACT_LIST_URL: 'http://dbc.demos.classicinformatics.com/login?action=apitoken&t=',
+  GOOGLE: 'service_call=google',
+  YAHOO: 'service_call=yahoo',
+  HOTMAIL: 'service_call=hotmail',
   FBEVENT_URL: "https://www.facebook.com/events/birthdays/",
   API_URL: "http://dbc.demos.classicinformatics.com/apiDbc/public/",
   BASE_URL: "http://dbc.demos.classicinformatics.com",

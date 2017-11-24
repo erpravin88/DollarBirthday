@@ -58,6 +58,7 @@ constructor(props){
         modalVisible:false,
         payUrl: settings.PAYPAL_ENV === 'live'? settings.PAYPAL_LIVE_AUTHURL : settings.PAYPAL_SANDBOX_AUTHURL,
         payKey:'',
+        trackingid:'',
         statusmsg:'',
         modelstatusmsg: false,
         paymentalerthead: '',
@@ -246,9 +247,11 @@ sendgiftandcharity(){
                 response.json().then((responseobject) => {
                   console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
                   if(responseobject.data.paymentExecStatus === 'CREATED'){
-                    this.setState({payKey:responseobject.data.payKey,modalVisible:true,showProgress : false});
+                    this.setState({payKey:responseobject.data.payKey,trackingid:responseobject.data.tracking_id,modalVisible:true,showProgress : false});
                   }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
-                      this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
+                    let datapass ={param:{payKey:this.state.payKey,trackingid:this.state.trackingid},result:{type:'complete'}};
+                    this.checkPaymentStatus(datapass);
+                      //this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
                   }
 
                 });
@@ -295,24 +298,72 @@ sendgiftandcharity(){
 
       }
 }
-/*
-*
-*
-*/
-checkPaymentStatus = (payKey,trackingid) =>{
-  let param['payKey'] = payKey;
-  param['trackingid'] = trackingid;
+
+checkPaymentStatus = (inputdata) => {
+  console.log(inputdata);
+  let param = inputdata.param;
+  //let result = inputdata.result;
+  console.log(param);
+  //console.log(result);
   checkinternetconnectivity().then((response)=>{
+
     if(response.Internet == true){
+      let result = '';
+      let head = '';
+      let message = '';
       this.setState({showProgress : true});
-      callApiWithAuth('paymentdetails','POST', param ).then((response) => {
-        if(response.status === 200){
+      callApiWithoutAuth('paymentdetails','POST', param ).then((response) => {
+        if(response.status === 201){
           response.json().then((responseobject) => {
             console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
+            if(responseobject.data.responseEnvelope.ack == 'Success'){
+              switch(responseobject.data.status){
+                case 'COMPLETED':
+                  result ='complete';
+                  head = Label.t('120');
+                  message = Label.t('121');
+                break;
+                case 'CREATED':
+                  result ='cancel';
+                  head = Label.t('122');
+                  message = Label.t('123');
+                break;
+                case 'PROCESSING':
+                  result ='PROCESSING';
+                  head = 'Payment processing ...';
+                  message = '';
+                break;
+                case 'PENDING':
+                  result ='PENDING';
+                  head = 'Payment Pending.';
+                  message = '';
+                break;
+                case 'INCOMPLETE':
+                  result ='INCOMPLETE';
+                  head = 'Payment Incomplete.';//Label.t('120');
+                  message = '';
+                break;
+                case 'REVERSALERROR':
+                  result ='INCOMPLETE';
+                  head = 'Payment REVERSALERROR.';//Label.t('120');
+                  message = '';
+                break;
+                case 'ERROR':
+                  result ='INCOMPLETE';
+                  head = 'Payment Error';
+                  message = '';
+                break;
+                default:
+                result ='APICALLFAILED';
+                head = 'Payment chack failed.';
+                message = '';
+                break;
 
+              }
+              this.setState({ showProgress : false,statusmsg: result, modalVisible: false,paymentalerthead: head ,paymentalertmsg: message,modelstatusmsg: true});
+            }
 
           });
-          Toast.show('');
         }else if (response.status === 406) {
           response.json().then((responseobject) => {
             this.setState({showProgress : false});
@@ -352,7 +403,7 @@ _onNavigationStateChange (webViewState) { console.log(webViewState);
   if(webViewState.title === 'Return to Merchant - PayPal'){
     this.setState({ statusmsg: 'Cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
   }
-  if(webViewState.url != undefined){
+if(webViewState.url != undefined){
     substring = "?";
 if(webViewState.url.includes(substring)){
   let url = webViewState.url.split("?");
@@ -364,7 +415,12 @@ if(webViewState.url.includes(substring)){
     result[temp[0]] = temp[1];
   });
   if(result.hasOwnProperty('type') ){
-    this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
+    console.log(this.state);
+    console.log(result);
+    console.log(this.state.payKey);
+    console.log(this.state.trackingid);
+    let datapass ={param:{payKey:this.state.payKey,trackingid:this.state.trackingid},result:result};
+    this.checkPaymentStatus(datapass);
   }
 }
 }
@@ -531,7 +587,7 @@ render(){
                             maxLength = {100}
                             returnKeyType= {Label.t('3')}
                             autoCorrect={false}
-                            onSubmitEditing={(event) => {this.refs.ThirdInput.focus();}}
+                            /*onSubmitEditing={(event) => {this.refs.ThirdInput.focus();}}*/
                             onChangeText = {(val) => {this.setState({GiftValue: val});this.hideErrors();}}
                         />
                         <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
@@ -539,7 +595,7 @@ render(){
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['GiftValue']}</Text>
                     <View style={styles.dropdown}>
                         <Dropdown
-                          ref = 'ThirdInput'
+                        /*  ref = 'ThirdInput'*/
                           label= {Label.t('10')}
                           style = {styles.TextInputStyle}
                           containerStyle ={{marginTop:-35}}

@@ -53,13 +53,15 @@ constructor(props){
         shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',contentDescription: 'I just donated to this charity'},
         modalVisible:false,
         payUrl: settings.PAYPAL_ENV === 'live'? settings.PAYPAL_LIVE_AUTHURL : settings.PAYPAL_SANDBOX_AUTHURL,
-        paymentData:'',
+        payKey:'',
+        trackingid:'',
         statusmsg:'',
         modelstatusmsg: false,
         paymentalerthead: '',
         paymentalertmsg: '',
         auth_token:'',
         user_details:'',
+        loopbreak:0,
     };
 }
 
@@ -213,18 +215,25 @@ senddonation(){
       {
 
         let param = {charity_id: this.state.charity_type.index,donation_amount: this.state.pre_amount.index == 'specify' ? this.state.other_amount : this.state.pre_amount.index,facebook_share:this.state.checkboximg ? 0 : 1 ,facebook_message:""}
-        console.log(param);
+        console.log(JSON.stringify(param));
         //API Call
         //for test
         checkinternetconnectivity().then((response)=>{
           if(response.Internet == true){
             this.setState({showProgress : true});
             callApiWithAuth('charitydonation','POST',this.state.auth_token, param ).then((response) => {
-              if(response.status === 200){
+              if(response.error !== undefined){
+                response.json().then((responseobject) => {
+                  console.log(responseobject);
+
+                });
+                this.setState({showProgress : false});
+                Toast.show(Label.t('149'));
+              }else if(response.status === 201){
                 response.json().then((responseobject) => {
                   console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
                   if(responseobject.data.paymentExecStatus === 'CREATED'){
-                    this.setState({paymentData:responseobject.data,modalVisible:true,showProgress : false});
+                    this.setState({payKey:responseobject.data.payKey,trackingid:responseobject.data.trackingId,modalVisible:true,showProgress : false});
                   }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
                       this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true,showProgress : false,statusmsg :'complete'});
                   }
@@ -246,7 +255,7 @@ senddonation(){
                 this.setState({showProgress : false});
                 Toast.show(Label.t('52'));
                 }
-            }).catch((error) => {console.log(error); });
+            });
 
             // callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
             //   response.json().then((res)=>{ console.log(res);
@@ -286,10 +295,12 @@ renderImage() {
 }
 
 
-_onNavigationStateChange (webViewState) { console.log(webViewState.url);
-
-  if(webViewState.url != undefined){
-    substring = "?";
+_onNavigationStateChange (webViewState) { console.log(webViewState);
+  if(webViewState.title === 'Return to Merchant - PayPal'){
+    this.setState({ statusmsg: 'Cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
+  }
+    if(webViewState.url != undefined){
+      substring = "?";
     if(webViewState.url.includes(substring)){
       let url = webViewState.url.split("?");
       let urlparam = url[1].split("&");
@@ -300,81 +311,127 @@ _onNavigationStateChange (webViewState) { console.log(webViewState.url);
         result[temp[0]] = temp[1];
       });
       if(result.hasOwnProperty('type') ){
-          // check payment at paypal
-          checkinternetconnectivity().then((response)=>{
-            if(response.Internet == true){
-              this.setState({showProgress : true});
-console.log(this.state.paymentData);
-            callApiWithAuth('paymentdetails','POST',{payKey:this.state.paymentData.payKey,trackingid:this.state.paymentData.tracking_id}).then(
-              (response)=> {console.log(response);
-                var myReader = new FileReader();
-myReader.onload = function(event){
-    console.log(JSON.stringify(myReader.result));
-};
-let data = myReader.readAsText(response._bodyBlob);
-console.log(data);
-              response.json().then((res)=>{ console.log(res); });
-              }
-            )
-            // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
-            console.log(this.state);
-          }else{
-            Toast.show("No Internet Connection");
-          }
-        });
-        // this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
+        console.log(this.state);
+        console.log(result);
+        console.log(this.state.payKey);
+        console.log(this.state.trackingid);
+        this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
       }
     }
   }
 }
-// _onNavigationStateChange (webViewState) { console.log(webViewState.url);
-//   if(webViewState.title === 'Return to Merchant - PayPal'){
-//     this.setState({ statusmsg: 'cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
-//   }
-//   if(webViewState.url != undefined){
-//     substring = "?";
-//     if(webViewState.url.includes(substring)){
-//       let url = webViewState.url.split("?");
-//       let urlparam = url[1].split("&");
-//       let result = {};
-//       let temp = '';
-//       Object.keys(urlparam).map((index) => {
-//         temp = urlparam[index].split('=');
-//         result[temp[0]] = temp[1];
-//       });
-//       if(result.hasOwnProperty('type') ){
-//         this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
-//       }
-//     }
-//   }
-// }
 
-//to test fb share
-fbshareposttest = () => {
-  console.log('hello');
-  console.log(this.state);
-  ShareDialog.canShow(this.state.shareLinkContent).then(
-  (canShow) => { console.log(canShow);
-      if (canShow) {console.log(this.state.shareLinkContent);
-      return ShareDialog.show(this.state.shareLinkContent);
-      }
+checkPaymentStatus = (inputdata) => {
+  console.log(inputdata);
+  let param = inputdata.param;
+  //let result = inputdata.result;
+  console.log(param);
+  //console.log(result);
+  checkinternetconnectivity().then((response)=>{
+
+    if(response.Internet == true){
+      let result = '';
+      let head = '';
+      let message = '';
+      this.setState({showProgress : true});
+      callApiWithoutAuth('paymentdetails','POST', param ).then((response) => {
+        if(response.status === 201){
+          response.json().then((responseobject) => {
+            console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
+            if(responseobject.data.responseEnvelope.ack == 'Success'){
+              switch(responseobject.data.status){
+                case 'COMPLETED':
+                  result ='complete';
+                  head = Label.t('120');
+                  message = Label.t('121');
+                break;
+                case 'CREATED':
+                  result ='cancel';
+                  head = Label.t('122');
+                  message = Label.t('123');
+                break;
+                case 'PROCESSING':
+                  result ='PROCESSING';
+                  head = 'Payment processing ...';
+                  message = '';
+                break;
+                case 'PENDING':
+                  result ='PENDING';
+                  head = 'Payment Pending.';
+                  message = '';
+                break;
+                case 'INCOMPLETE':
+                  result ='INCOMPLETE';
+                  head = 'Payment Incomplete.';//Label.t('120');
+                  message = '';
+                break;
+                case 'REVERSALERROR':
+                  result ='INCOMPLETE';
+                  head = 'Payment REVERSALERROR.';//Label.t('120');
+                  message = '';
+                break;
+                case 'ERROR':
+                  result ='INCOMPLETE';
+                  head = 'Payment Error';
+                  message = '';
+                break;
+                default:
+                result ='APICALLFAILED';
+                head = 'Payment chack failed.';
+                message = '';
+                break;
+
+              }
+              this.setState({ showProgress : false,statusmsg: result, modalVisible: false,paymentalerthead: head ,paymentalertmsg: message,modelstatusmsg: true});
+            }
+
+          });
+        }else if (response.status === 406) {
+          response.json().then((responseobject) => {
+            this.setState({showProgress : false});
+            console.log(responseobject);
+          //  Toast.show(responseobject.error_messages);
+            Toast.show(Label.t('137'));
+          });
+        }else if (response.status === 500) {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('52'));
+          }
+      }).catch((error) => {console.log(error); });
+    console.log(this.state);
+  }else{
+    Toast.show(Label.t('140'));
   }
-  ).then(
-  (result) => { console.log(result);
-      if (result.isCancelled) {
-      console.log('Share cancelled');
-      this.props.navigation.dispatch(resetAction);
-      } else {
-          console.log('Share success with postId: ' + result.postId);
-          this.props.navigation.dispatch(resetAction);
-      }
-  },
-  (error) => {
-      console.log('Share fail with error: ' + error);
-  }
-  );
+  });
 }
+
+// //to test fb share
+// fbshareposttest = () => {
+//   console.log('hello');
+//   console.log(this.state);
+//   ShareDialog.canShow(this.state.shareLinkContent).then(
+//   (canShow) => { console.log(canShow);
+//       if (canShow) {console.log(this.state.shareLinkContent);
+//       return ShareDialog.show(this.state.shareLinkContent);
+//       }
+//   }
+//   ).then(
+//   (result) => { console.log(result);
+//       if (result.isCancelled) {
+//       console.log('Share cancelled');
+//       this.props.navigation.dispatch(resetAction);
+//       } else {
+//           console.log('Share success with postId: ' + result.postId);
+//           this.props.navigation.dispatch(resetAction);
+//       }
+//   },
+//   (error) => {
+//       console.log('Share fail with error: ' + error);
+//   }
+//   );
+// }
 hide = () => {
+  this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
   this.setState({ modalVisible: false })
 }
 hidestatusmsg = () => { //console.log('in');
@@ -420,7 +477,7 @@ render(){
   }else{
      hide = false;
   }
-  console.log(this.state.payUrl+this.state.paymentData.payKey);
+  console.log(this.state.payUrl+this.state.payKey);
 console.log(this.state.charity_type);
   return(
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
@@ -434,7 +491,7 @@ console.log(this.state.charity_type);
           >
             <View style={[styles.fulls]}>
                 <WebView
-                  source={{ uri: this.state.payUrl+this.state.paymentData.payKey }}
+                  source={{ uri: this.state.payUrl+this.state.payKey }}
                   scalesPageToFit
                   startInLoadingState
                   onNavigationStateChange={this._onNavigationStateChange.bind(this)}
@@ -520,7 +577,7 @@ console.log(this.state.charity_type);
                     <View style={[styles.marginBottomFive]}>
                         <TouchableOpacity style={styles.sharefbcontainer}
                         onPress={ () => {this.setState({ checkboximg: !this.state.checkboximg });
-                        this.fbshareposttest();
+                        //this.fbshareposttest();
                       } }
                         >
                             {this.renderImage()}

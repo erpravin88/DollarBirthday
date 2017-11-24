@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
-  Image,ScrollView, ImageBackground,
+  Image,ScrollView,
   ActivityIndicator,
   AsyncStorage,
   Modal,
-  TouchableHighlight,
   Picker,
   FlatList
 } from 'react-native';
@@ -42,20 +39,52 @@ constructor(props){
         showProgress: false,
         giftHistory: [],
         displaylist: true,
+        user_details:[],
     };
 }
 
 fetchlist(item){
+  console.log(item);
+console.log(settings.CURRENCY_SYMBOL);
+console.log(this.state);
+console.log(this.state.user_details.charity[0].user_id);
+console.log(item.giver_id );
+console.log( this.state.user_details.charity[0].user_id == item.giver_id);
     return(
-        <View style={styles.listbox}>
-            <Image style = {styles.userimg} source ={images.placeholderImage}/>
-            <View style={styles.userdetailtext}>
-                <View style={styles.usernametext}>
-                    <Text style={styles.username}>Sick Kids Hospital Toronto</Text>
-                    <Text style={styles.donatedamount}>  {Label.t('27')} $5.00</Text>
-                </View>
-                <Text style={styles.pendingamount}>August 11, 2016</Text>
-            </View>
+        <View >
+        {item["receiver email"] === "" ?
+         (<View style={styles.listbox}>
+           <Image style = {styles.userimg} source ={images.placeholderImage}/>
+           <View style={styles.userdetailtext}>
+               <View style={styles.usernametext}>
+                   <Text style={styles.username}>{item.Charity_name}</Text>
+                   <Text style={styles.donatedamount}> {item.gift_currency === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar:''}{item.Charity_Amount} </Text><Text style={styles.donatedamount}> {Label.t('27')} {item.gift_currency === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar:''}{item["gift Amount"]} </Text>
+               </View>
+               <Text style={styles.pendingamount}>August 11, 2016</Text>
+           </View>
+           </View>):
+         this.state.user_details.charity[0].user_id == item.giver_id ? (<View style={styles.listbox}>
+             <Image style = {styles.userimg} source ={images.placeholderImage}/>
+             <View style={styles.userdetailtext}>
+                 <View style={styles.usernametext}>
+                     <Text style={styles.username}>{item["receiver email"]}</Text>
+                     <Text style={styles.sentamount}>  {Label.t('24')} {item.gift_currency === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar:''}{item["gift Amount"]} </Text>
+                 </View>
+                 <Text style={styles.pendingamount}>July 1, 2016</Text>
+             </View>
+         </View>) :
+         item["receiver email"] ===  this.state.user_details.paypal ? (<View style={styles.listbox}>
+             <Image style = {styles.userimg} source ={images.placeholderImage}/>
+             <View style={styles.userdetailtext}>
+                 <View style={styles.usernametext}>
+                     <Text style={styles.username}>{item.sender_name}</Text>
+                     <Text style={styles.recievedamount}>  {Label.t('25')} {item.gift_currency === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar:''}{item["gift Amount"]}</Text>
+                 </View>
+                 <Text style={styles.pendingamount}>July 5, 2016</Text>
+             </View>
+         </View>) :
+          null}
+
         </View>
     )
 }
@@ -72,6 +101,7 @@ componentWillMount(){
          callApiWithAuth('user/giftHistory','GET', this.state.auth_token).then((response) => {
             if(response.status === 201){
               response.json().then((responseobject) => {
+                console.log(responseobject.data);
                 this.setState({giftHistory : responseobject.data});
               });
               this.setState({showProgress : false});
@@ -91,7 +121,7 @@ componentWillMount(){
     });
     AsyncStorage.getItem(USER_DETAILS).then((details)=>{
       details = JSON.parse(details);
-      //this.setState({user_details: details});
+      this.setState({user_details: details});
     }).catch((err)=>{
       Toast.show(err);
     });
@@ -142,51 +172,12 @@ render(){
               <View style={[styles.flatlistview,styles.marginTopFive]}>
                 <ScrollView keyboardShouldPersistTaps='always'>
                     <View style={styles.flatlistdisplay}>
-                        <View style={styles.listbox}>
-                            <Image style = {styles.userimg} source ={images.placeholderImage}/>
-                            <View style={styles.userdetailtext}>
-                                <View style={styles.usernametext}>
-                                    <Text style={styles.usernamepending}>Linda Jones</Text>
-                                    <Text style={styles.pendingamount}>  {Label.t('24')} $5.00({Label.t('28')})</Text>
-                                </View>
-                                <Text style={styles.pendingamount}>August 11, 2016</Text>
-                            </View>
-                        </View>
-                        <View style={styles.listbox}>
-                            <Image style = {styles.userimg} source ={images.placeholderImage}/>
-                            <View style={styles.userdetailtext}>
-                                <View style={styles.usernametext}>
-                                    <Text style={styles.username}>David Mathews</Text>
-                                    <Text style={styles.recievedamount}>  {Label.t('25')} $5.00</Text>
-                                </View>
-                                <Text style={styles.pendingamount}>July 5, 2016</Text>
-                            </View>
-                        </View>
-                        <View style={styles.listbox}>
-                            <Image style = {styles.userimg} source ={images.placeholderImage}/>
-                            <View style={styles.userdetailtext}>
-                                <View style={styles.usernametext}>
-                                    <Text style={styles.username}>Jane Dough</Text>
-                                    <Text style={styles.sentamount}>  {Label.t('24')} $5.00</Text>
-                                </View>
-                                <Text style={styles.pendingamount}>July 1, 2016</Text>
-                            </View>
-                        </View>
-                        <View style={styles.listbox}>
-                            <Image style = {styles.userimg} source ={images.placeholderImage}/>
-                            <View style={styles.userdetailtext}>
-                                <View style={styles.usernametext}>
-                                    <Text style={styles.username}>Sick Kids Hospital Toronto</Text>
-                                    <Text style={styles.donatedamount}>  {Label.t('27')} $5.00</Text>
-                                </View>
-                                <Text style={styles.pendingamount}>August 11, 2016</Text>
-                            </View>
-                        </View>
+
                         {(this.state.displaylist == true) ?
                         (<View><FlatList
                             data={this.state.giftHistory.list}
                             renderItem={({item}) => this.fetchlist(item)}
-                            keyExtractor={item => item.email}
+                            keyExtractor={item => item.Gift_id}
                             /></View>) : ''}
                     </View>
                 </ScrollView>
@@ -198,3 +189,44 @@ render(){
 
     }
 }
+
+// <View style={styles.listbox}>
+//     <Image style = {styles.userimg} source ={images.placeholderImage}/>
+//     <View style={styles.userdetailtext}>
+//         <View style={styles.usernametext}>
+//             <Text style={styles.usernamepending}>Linda Jones</Text>
+//             <Text style={styles.pendingamount}>  {Label.t('24')} $5.00({Label.t('28')})</Text>
+//         </View>
+//         <Text style={styles.pendingamount}>August 11, 2016</Text>
+//     </View>
+// </View>
+// <View style={styles.listbox}>
+//     <Image style = {styles.userimg} source ={images.placeholderImage}/>
+//     <View style={styles.userdetailtext}>
+//         <View style={styles.usernametext}>
+//             <Text style={styles.username}>David Mathews</Text>
+//             <Text style={styles.recievedamount}>  {Label.t('25')} $5.00</Text>
+//         </View>
+//         <Text style={styles.pendingamount}>July 5, 2016</Text>
+//     </View>
+// </View>
+// <View style={styles.listbox}>
+//     <Image style = {styles.userimg} source ={images.placeholderImage}/>
+//     <View style={styles.userdetailtext}>
+//         <View style={styles.usernametext}>
+//             <Text style={styles.username}>Jane Dough</Text>
+//             <Text style={styles.sentamount}>  {Label.t('24')} $5.00</Text>
+//         </View>
+//         <Text style={styles.pendingamount}>July 1, 2016</Text>
+//     </View>
+// </View>
+// <View style={styles.listbox}>
+//     <Image style = {styles.userimg} source ={images.placeholderImage}/>
+//     <View style={styles.userdetailtext}>
+//         <View style={styles.usernametext}>
+//             <Text style={styles.username}>Sick Kids Hospital Toronto</Text>
+//             <Text style={styles.donatedamount}>  {Label.t('27')} $5.00</Text>
+//         </View>
+//         <Text style={styles.pendingamount}>August 11, 2016</Text>
+//     </View>
+// </View>

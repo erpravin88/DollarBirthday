@@ -31,7 +31,7 @@ const style = {
         heartlogo:{
             height:16,
             width:18,
-            marginRight:5,
+            marginLeft:10,
             marginTop:1
         },
 
@@ -41,14 +41,14 @@ const style = {
         },
 
         charitytext:{
-            textAlign:'right',
+            textAlign:'left',
             color:'#DF7C78',
-            marginRight:5
+            width:'80%',
+            paddingLeft:'3%',
         },
 
         donationlisting:{
             paddingTop:4,
-            height:20,
             flex:1
         },
 
@@ -65,24 +65,24 @@ const style = {
 
         donationvalue:{
             color:'#ffffff',
-            fontSize:14
+            fontSize:12
         },
 
         greenbg:{
             position:'absolute',
             zIndex: 99,
             right:10,
-            height:40,
-            width:35,
+            height:48,
+            width:45,
             alignItems:'center'
         },
 
         redbg:{
             position:'absolute',
             zIndex: 99,
-            right:55,
-            height:40,
-            width:35,
+            right:60,
+            height:48,
+            width:45,
             alignItems:'center'
         },
 

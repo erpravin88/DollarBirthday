@@ -309,7 +309,7 @@ hideErrors(){
           <Text style = {styles.button_below}>{Label.t('106')}<Text style={styles.linkColor}>{Label.t('107')}</Text>{Label.t('108')}<Text style={styles.linkColor}>{Label.t('109')}</Text></Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text  onPress={()=>{this.props.navigation.goBack(null)}} style = {[styles.login_button, styles.font2]}>{Label.t('110')}<Text style={styles.linkColor}>{Label.t('111')}</Text></Text>
+          <Text  onPress={()=>{this.props.navigation.navigate('LOG_IN')}} style = {[styles.login_button, styles.font2]}>{Label.t('110')}<Text style={styles.linkColor}>{Label.t('111')}</Text></Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.tempTextInputContainer}>

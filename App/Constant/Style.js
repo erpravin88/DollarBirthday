@@ -61,11 +61,21 @@ const { width, height } = Dimensions.get('window');
     marginBottomFive:{
       marginBottom:'5%',
     },
+    marginLeftFive:{
+      marginLeft:'5%',
+    },
+    marginRightFive:{
+      marginRight:'5%',
+    },
     paddingTopFive:{
       paddingTop: '5%',
     },
     paddingBottomFive:{
       paddingBottom: '5%',
+    },
+    paddingTopDownTwo:{
+      paddingTop:'2%',
+      paddingBottom:'2%',
     },
     flexDirectionRow:{
       flexDirection:'row',

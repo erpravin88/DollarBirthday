@@ -81,9 +81,7 @@ _fblogin = ()=> { //fbAuth;
          if(response.status === 201){
          response.json().then((responseobject) => {
            console.log(responseobject);
-           if(responseobject.status_message ==='Login Success' && responseobject.error_messages !== undefined){
-             responseobject.data = responseobject.error_messages;
-           }
+          
             onSignIn();
             AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
             afterSignIn(responseobject.data.authToken);

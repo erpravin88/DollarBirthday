@@ -36,9 +36,15 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
                     body: JSON.stringify(params)
                 })
                 .then((response) => {
+                  // var myReader = new FileReader();
+                  // myReader.onload = function(event){
+                  //     console.log(JSON.stringify(myReader.result));
+                  // };
+                  // let data = myReader.readAsText(response._bodyBlob);
+                  // console.log(data);
                   return response;
                 })
-                .catch((error) => {console.log(error);Toast.show(JSON.stringify(error)); return error;});
+                .catch((error) => {console.log(error);Toast.show(JSON.stringify(error)); return JSON.stringify({error: error});});
 
 }
 

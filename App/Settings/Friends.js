@@ -23,12 +23,12 @@ import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/FriendStyle';
 import DatePicker from 'react-native-datepicker';
 import createReactClass from 'create-react-class';
-import settings from '../Constant/UrlConstant';
 import functions from '../Constant/Function';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn,onSignOut} from '../Constant/Auth';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 import SafariView from 'react-native-safari-view';
+import settings from '../Constant/UrlConstant';
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -231,9 +231,9 @@ componentDidMount() {
     Linking.removeEventListener('url', this.handleOpenURL);
   };
 
-  handleOpenURL = ({ url }) => {console.log(11);
+  handleOpenURL = ({ url }) => {console.log(url);
     // Extract stringified user string out of the URL
-    const [, user_string] = url.match(/user=([^#]+)/);
+    const [ user_string] = url.match(/user=([^#]+)/);
     this.setState({
       // Decode the user string and parse it into JSON
       user: JSON.parse(decodeURI(user_string))
@@ -243,20 +243,16 @@ componentDidMount() {
     }
   };
 
- // Handle Login with Facebook button tap
- loginWithFacebook = () => this.openURL('https://login.live.com/oauth20_authorize.srf?client_id=56f9576b-ab7b-4c44-bc4d-9ab7aa8d8913&scope=User.ReadBasic.All%20Mail.Read%20offline_access&response_type=token&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient');
- //loginWithFacebook = () => this.openURL('https://login.live.com/oauth20_authorize.srf?client_id=000000004C1F2910&scope=wl.signin%20wl.basic%20wl.emails%20wl.contacts_emails&response_type=code&redirect_uri=https://www.dollarbirthdayclub.com/gcontacts');
-
  // Open URL in a browser
   openURL = (url) => {
-    // Use SafariView on iOS
+
     if (Platform.OS === 'ios') {
       SafariView.show({
         url: url,
         fromBottom: true,
       });
     }
-    // Or Linking.openURL on Android
+
     else {
       Linking.openURL(url);
     }
@@ -268,11 +264,94 @@ componentDidMount() {
           <Image style={styles.checkboxicon} source = {imgSource}/>
       );
   }
- /**/
- _contactslisting = () => {
-  this.openURL(this.state.contacturl);
+
+ _contactslisting = (mode) => {
+   switch(mode){
+     case settings.GOOGLE :
+     console.log(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.GOOGLE);
+             this.openURL(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.GOOGLE);
+             break;
+     case settings.YAHOO :
+             this.openURL(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.YAHOO);
+             break;
+     case settings.HOTMAIL :
+             this.openURL(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.HOTMAIL);
+             break;
+   }
+
   //this.openURL('https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Fdbc.demos.classicinformatics.com%2Fgcontacts&client_id=167305329007-1gl7jbvgg23vevkdhqhsomi4nnm243rs.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&access_type=online&approval_prompt=auto');
  }
+
+  render(){
+  return(
+    <View>
+    <View style = {[styles.SettingsTextInputContainer]}>
+
+        <View style = {styles.friendboxes}>
+            <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
+              this.props.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
+              this.setState({friendlistvisible: true});
+            }}>
+                <View style = {styles.addfriendbox}>
+                    <Image style = {styles.addicon} source = {images.addBtn}></Image>
+                    <Text style= {styles.boxtextsmall}>{Label.t('0')}</Text>
+                </View>
+            </TouchableOpacity>
+            <View style = {[styles.googlesigninview]}>
+                <TouchableOpacity onPress={() => {this._contactslisting(settings.GOOGLE);}}>
+                    <View style = {styles.googlesigninbox}>
+                        <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
+                    </View>
+                 </TouchableOpacity>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
+            </View>
+            <View style = {styles.fbfriendsview}>
+                <TouchableOpacity onPress={() => {this._fbAuth()}}>
+                    <View style = {styles.fbfriendsbox}>
+                        <Image style = {styles.fbicon} source = {images.fbicon}></Image>
+                        <Text style= {styles.boxtextsmall}>{Label.t('38')}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('67')}</Text>
+            </View>
+        </View>
+        <View style = {styles.friendboxes}>
+            <View style = {[styles.yahoosigninview]}>
+                <TouchableOpacity onPress={() => {this._contactslisting(settings.YAHOO);}}>
+                    <View style = {styles.yahoosigninbox}>
+                        <Text style= {styles.boxtextsmall}>{Label.t('117')}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
+            </View>
+            <View style = {[styles.googlesigninview]}>
+                <TouchableOpacity onPress={() => {this._contactslisting(settings.HOTMAIL);}}>
+                    <View style = {styles.hotmailsigninbox}>
+                        <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('119')}</Text>
+            </View>
+        </View>
+        <View style={[styles.scrolllist]}>
+
+                {(this.state.friendlistvisible == true) ?
+                (<View style={{width:'98%'}}><FlatList
+                    data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
+                    renderItem={({item}) => this.changedateformat(item)}
+                    keyExtractor={item => item.id}
+                    /></View>) : ''}
+
+        </View>
+    </View>
+    </View>
+  );
+  }
+}
 //hide = () => {
 //  this.setState({ modalVisible: false });
 //}
@@ -306,13 +385,8 @@ componentDidMount() {
 //            </TouchableOpacity>
 //            </View>
 //          </Modal >
-  render(){
-  return(
-    <View>
-    <View style = {[styles.SettingsTextInputContainer]}>
-
-
-        {/* <Modal
+// modal for list
+/* <Modal
             animationType="slide"
             transparent={true}
             visible={this.state.contactListModal}
@@ -358,71 +432,4 @@ componentDidMount() {
                     </View>
                 </View>
             </View>
-        </Modal> */}
-        <View style = {styles.friendboxes}>
-            <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
-              this.props.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
-              this.setState({friendlistvisible: true});
-            }}>
-                <View style = {styles.addfriendbox}>
-                    <Image style = {styles.addicon} source = {images.addBtn}></Image>
-                    <Text style= {styles.boxtextsmall}>{Label.t('0')}</Text>
-                </View>
-            </TouchableOpacity>
-            <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity onPress={this._contactslisting}>
-                    <View style = {styles.googlesigninbox}>
-                        <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
-                    </View>
-                 </TouchableOpacity>
-
-                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
-            </View>
-            <View style = {styles.fbfriendsview}>
-                <TouchableOpacity onPress={() => {this._fbAuth()}}>
-                    <View style = {styles.fbfriendsbox}>
-                        <Image style = {styles.fbicon} source = {images.fbicon}></Image>
-                        <Text style= {styles.boxtextsmall}>{Label.t('38')}</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('67')}</Text>
-            </View>
-        </View>
-        <View style = {styles.friendboxes}>
-            <View style = {[styles.yahoosigninview]}>
-                <TouchableOpacity onPress={() => {this.setState({contactListModal:true})}}>
-                    <View style = {styles.yahoosigninbox}>
-                        <Text style= {styles.boxtextsmall}>{Label.t('117')}</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
-            </View>
-            <View style = {[styles.googlesigninview]}>
-                <TouchableOpacity onPress={() => {
-                  console.log('test');//this.loginWithFacebook()
-                }}>
-                    <View style = {styles.hotmailsigninbox}>
-                        <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('119')}</Text>
-            </View>
-        </View>
-        <View style={[styles.scrolllist]}>
-
-                {(this.state.friendlistvisible == true) ?
-                (<View style={{width:'98%'}}><FlatList
-                    data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
-                    renderItem={({item}) => this.changedateformat(item)}
-                    keyExtractor={item => item.id}
-                    /></View>) : ''}
-
-        </View>
-    </View>
-    </View>
-  );
-  }
-}
+        </Modal> */

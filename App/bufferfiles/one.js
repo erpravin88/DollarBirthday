@@ -181,18 +181,8 @@ export default class FetchFriend extends Component {
                     <Text style = {styles.signInButton}>{Label.t('88')}</Text>
                   </TouchableOpacity>
                 </View>
-
-                <View style = {styles.TextInputContainer}>
-                    <Text style = {styles.orDivider}>{Label.t('72')}</Text>
-                  </View>
-                <View style = {styles.TextInputContainer}>
-                  <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]} onPress={() => {this._fbAuth()}}>
-                    <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
-                  </TouchableOpacity>
-                  <Text style = {[styles.googlefbtext,styles.backgroundtrans,styles.font1,styles.paddingTopDownTwo]}>{Label.t('67')}</Text>
-                </View>
-                <View style = {[styles.TextInputContainer,styles.friendboxes]}>
-                  <View style = {[styles.signinview]}>
+                <View style = {styles.friendboxes}>
+                  <View style = {[styles.googlesigninview]}>
                       <TouchableOpacity onPress={() => {this._contactslisting(settings.GOOGLE);}}>
                           <View style = {styles.googlesigninbox}>
                               <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
@@ -201,7 +191,7 @@ export default class FetchFriend extends Component {
 
                       <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
                   </View>
-                  <View style = {[styles.signinview,styles.marginLeftFive,styles.marginRightFive]}>
+                  <View style = {[styles.yahoosigninview]}>
                       <TouchableOpacity onPress={() => {this._contactslisting(settings.YAHOO);}}>
                           <View style = {styles.yahoosigninbox}>
                               <Text style= {styles.boxtextsmall}>{Label.t('117')}</Text>
@@ -210,7 +200,7 @@ export default class FetchFriend extends Component {
 
                       <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
                   </View>
-                  <View style = {[styles.signinview]}>
+                  <View style = {[styles.googlesigninview]}>
                       <TouchableOpacity onPress={() => {this._contactslisting(settings.HOTMAIL);}}>
                           <View style = {styles.hotmailsigninbox}>
                               <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
@@ -218,6 +208,14 @@ export default class FetchFriend extends Component {
                       </TouchableOpacity>
                       <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('119')}</Text>
                   </View>
+                </View>
+                <View style = {styles.TextInputContainer}>
+                    <Text style = {styles.orDivider}>{Label.t('72')}</Text>
+                  </View>
+                <View style = {styles.TextInputContainer}>
+                  <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]} onPress={() => {this._fbAuth()}}>
+                    <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
+                  </TouchableOpacity>
                 </View>
 
                 <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>

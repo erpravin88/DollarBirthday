@@ -132,7 +132,7 @@ export default class ForgetPassword extends Component {
               </View>
                 <View style = {[styles.tempTextInputContainer,{marginBottom:'30%'}]}>
                   <TouchableOpacity>
-                      <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.goBack(null); Keyboard.dismiss();}} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
+                      <Text style = {[styles.term_service, styles.font2]}>{Label.t('95')}<Text onPress={()=>{this.props.navigation.navigate('LOG_IN'); Keyboard.dismiss();}} style={{color:'#6A4A9A',fontWeight:'600'}}>{Label.t('96')}</Text></Text>
                 </TouchableOpacity>
                 </View>
             </View>

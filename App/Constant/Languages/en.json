@@ -52,7 +52,7 @@
 "49": "Page not Found",
 "50": "Invalid data",
 "51": "Unauthroize",
-"52": "Unsuccessfull error:500",
+"52": "Unsuccessful error:500",
 "53": "Want to add your Charity?",
 "54": "Click Here",
 "55": "Notification updated",
@@ -73,7 +73,7 @@
 "70": "Sign In",
 "71": "Don't have account? Sign Up",
 "72": "- or -",
-"73": "Login Successfull",
+"73": "Login Successful",
 "74": "Email/Password is incorrect",
 "75": "Please enter email.",
 "76": "Please enter valid email.",
@@ -137,7 +137,7 @@
 "134": "Invite Successfully",
 "135": "Invition Send",
 "136": "Invition Fails",
-"137": "Please Check Paypal Id & Currency.",
+"137": "Paypal Email of friend/your & Currency Check.",
 "138": "Send a Gift",
 "139": "Details updated",
 "140": "No Internet Connection",
@@ -146,7 +146,8 @@
 "143": "Specify Amount",
 "144": "Charity Updated",
 "145": "Page not Found.",
-"146": "No Friend Found",
+"146": "No Record Found",
 "147": "Not received Email by Facebook",
-"148": "SandBox Mode"
+"148": "SandBox Mode",
+"149": "Network Error try Again"
 }

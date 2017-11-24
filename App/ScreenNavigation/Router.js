@@ -42,6 +42,6 @@ export const screenRoute = (SignIn) => {
     },{
     headerMode: 'none',
     mode:'card',
-    initialRouteName: (SignIn === true) ? 'DASHBOARD':'LOG_IN'
+    initialRouteName: (SignIn === true) ? 'FETCH_FRIEND':'LOG_IN'
   });
 };
