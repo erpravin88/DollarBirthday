@@ -18,6 +18,7 @@ import styles from './Style/AddFriendStyle';
 import DatePicker from 'react-native-datepicker';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn,onSignOut } from '../Constant/Auth';
+import Function from '../Constant/Function';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
@@ -29,6 +30,10 @@ const resetAction1 = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'IMPORTMANUALLY',params: {tabName:'friends'} })],
   });
+const resetAction2 = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'ADDFRIEND_MENU',params: {tabName:'friends'} })],
+    });
 
 export default class AddFriend extends Component {
 
@@ -39,8 +44,8 @@ constructor(props){
     var month = (date.getMonth()+1).toString();
     month = month.length>1?month:'0'+month;
     this.state = {
-        maxdob: date.getFullYear()+'-'+month+'-'+date.getDate(),
-        initialdob: (date.getFullYear() - 15)+'-'+month+'-'+date.getDate(),
+        maxdob: Function.Birthdayformat({datetime: date,slash: true}),
+        initialdob: month+'/'+date.getDate()+'/'+(date.getFullYear() - 15),
         email:'',
         firstName:'',
         lastName:'',
@@ -53,11 +58,11 @@ constructor(props){
 }
 
 componentWillMount(){
-
+console.log(this.props.navigation.state.params);
   if(this.props.navigation.state != undefined){
     if(this.props.navigation.state.params != undefined){
       if(this.props.navigation.state.params.editdata != undefined){
-        this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false, firstName: this.props.navigation.state.params.editdata.first_name,lastName: this.props.navigation.state.params.editdata.last_name, email: this.props.navigation.state.params.editdata.email, initialdob: this.props.navigation.state.params.editdata.birth_date});
+        this.setState({formdata: this.props.navigation.state.params.editdata, newfriend : false, firstName: this.props.navigation.state.params.editdata.first_name,lastName: this.props.navigation.state.params.editdata.last_name, email: this.props.navigation.state.params.editdata.email, initialdob: Function.Birthdayformat({datetime: this.props.navigation.state.params.editdata.birth_date,slash: true})});
       }
     }
   }
@@ -83,6 +88,7 @@ componentWillMount(){
 
     addfriend = (action) => {
           Keyboard.dismiss();
+          console.log(this.props.navigation.state.params);
           let error = this.state.errorMsg;
           error.emailMsg = '';
           error.firstName = '';
@@ -117,7 +123,7 @@ componentWillMount(){
               callApiWithAuth('user/friend','POST',this.state.auth_token, {"email":this.state.email,
                 "first_name":this.state.firstName,
                 "last_name":this.state.lastName,
-                "birth_date": this.state.initialdob }
+                "birth_date": Function.Birthdayformat({datetime: this.state.initialdob,slash: false}) }
               ).then((response) => {
                 if(response.status === 201){
                   response.json().then((responseobject) => {
@@ -132,6 +138,8 @@ componentWillMount(){
                           this.props.navigation.dispatch(resetAction);
                         }else if (this.props.navigation.state.params.callFrom == 'IMPORTMANUALLY') {
                           this.props.navigation.dispatch(resetAction1);
+                        }else if (this.props.navigation.state.params.callFrom == 'ADDFRIEND_MENU') {
+                          this.props.navigation.dispatch(resetAction2);
                         }
                       }
                     }
@@ -157,7 +165,7 @@ componentWillMount(){
                       callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
                   "first_name":this.state.firstName,
                   "last_name":this.state.lastName,
-                  "birth_date": this.state.initialdob }
+                  "birth_date": Function.Birthdayformat({datetime: this.state.initialdob,slash: false}) }
                 ).then((response) => {
                   // response.json().then((responseobject) => {
                   // console.log(responseobject);});
@@ -171,6 +179,8 @@ componentWillMount(){
                             this.props.navigation.dispatch(resetAction);
                           }else if (this.props.navigation.state.params.callFrom == 'IMPORTMANUALLY') {
                             this.props.navigation.dispatch(resetAction1);
+                          }else if (this.props.navigation.state.params.callFrom == 'ADDFRIEND_MENU') {
+                            this.props.navigation.dispatch(resetAction2);
                           }
                         }
                       }
@@ -287,7 +297,7 @@ render(){
                         <DatePicker
                             style = {[styles.date_picker]}
                             date = {this.state.initialdob}
-                            format = "YYYY-MM-DD"
+                            format = "MM/DD/YYYY"
                             maxDate = {this.state.maxdob}
                             confirmBtnText = {Label.t('6')}
                             cancelBtnText = {Label.t('7')}

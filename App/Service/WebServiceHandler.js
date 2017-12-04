@@ -26,6 +26,7 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
         console.log(params);
         console.log(auth_token);
         console.log(method);
+
             return fetch(settings.API_URL+urlStr, {
                     method: method,
                     headers: {
@@ -51,8 +52,9 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
 export function callApiToPaypal(urlStr='', method='POST' ,params) {
 
         //let sandbox_data = {actionType:'PAY',senderEmail:'syscom.pravinkumar-b1@classicinformatics.com',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'2.00',email:'pravinkumar-p1@classicinformatics.com',primary:true},{amount:'1.00',email:'pravinkumar-buyer@classicinformatics.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'};
-        //let live_data = {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'2.00',email:'syscom.pravinkumar@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}
-
+        let live_data = {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'2.00',email:'syscom.pravinkumar@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}
+        params= live_data;
+        settings.PAYPAL_ENV = 'live';
         let sandbox_url = settings.PAYPAL_SANDBOX_APIURL+urlStr;
         let live_url = settings.PAYPAL_LIVE_APIURL+urlStr;
         let sandbox_header =  {
@@ -84,12 +86,12 @@ export function callApiToPaypal(urlStr='', method='POST' ,params) {
                     body: JSON.stringify(params),
                 })
                 .then((response) => {
-                  // var myReader = new FileReader();
-                  // myReader.onload = function(event){
-                  //     console.log(JSON.stringify(myReader.result));
-                  // };
-                  // let data = myReader.readAsText(response._bodyBlob);
-                  // console.log(data);
+                  var myReader = new FileReader();
+                  myReader.onload = function(event){
+                      console.log(JSON.stringify(myReader.result));
+                  };
+                  let data = myReader.readAsText(response._bodyBlob);
+                  console.log(data);
                 	return response;
                 })
                 .catch((error) => Toast.show("error"));

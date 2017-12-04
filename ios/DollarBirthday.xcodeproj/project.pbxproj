@@ -21,6 +21,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		28AF2F8A1FCE6F6200121094 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AF2F891FCE6F6200121094 /* FBSDKMessengerShareKit.framework */; };
+		28AF2F8C1FCE6FF600121094 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AF2F8B1FCE6FF600121094 /* AccountKit.framework */; };
+		28AF2F8E1FCE701600121094 /* FBNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AF2F8D1FCE701600121094 /* FBNotifications.framework */; };
+		28AF2F901FCE704800121094 /* FBSDKPlacesKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AF2F8F1FCE704800121094 /* FBSDKPlacesKit.framework */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -344,6 +348,10 @@
 		2041393691234E88AD3E0AAD /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		287E19B127474A549D58020A /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
 		2899EC971FB6B63E003F4546 /* DollarBirthday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DollarBirthday.entitlements; path = DollarBirthday/DollarBirthday.entitlements; sourceTree = "<group>"; };
+		28AF2F891FCE6F6200121094 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKMessengerShareKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
+		28AF2F8B1FCE6FF600121094 /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AccountKit.framework; path = ../../../../Documents/FacebookSDK/AccountKit.framework; sourceTree = "<group>"; };
+		28AF2F8D1FCE701600121094 /* FBNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBNotifications.framework; path = ../../../../Documents/FacebookSDK/FBNotifications.framework; sourceTree = "<group>"; };
+		28AF2F8F1FCE704800121094 /* FBSDKPlacesKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKPlacesKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKPlacesKit.framework; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* DollarBirthday-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DollarBirthday-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DollarBirthday-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DollarBirthday-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469EDEF950F04C19920CD113 /* LRDRCTSimpleToast.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = LRDRCTSimpleToast.xcodeproj; path = "../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast.xcodeproj"; sourceTree = "<group>"; };
@@ -373,6 +381,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28AF2F901FCE704800121094 /* FBSDKPlacesKit.framework in Frameworks */,
+				28AF2F8E1FCE701600121094 /* FBNotifications.framework in Frameworks */,
+				28AF2F8C1FCE6FF600121094 /* AccountKit.framework in Frameworks */,
+				28AF2F8A1FCE6F6200121094 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -677,6 +689,10 @@
 		84D45CDA1F95DDB0005225CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28AF2F8F1FCE704800121094 /* FBSDKPlacesKit.framework */,
+				28AF2F8D1FCE701600121094 /* FBNotifications.framework */,
+				28AF2F8B1FCE6FF600121094 /* AccountKit.framework */,
+				28AF2F891FCE6F6200121094 /* FBSDKMessengerShareKit.framework */,
 				84D45CDD1F95DDE1005225CD /* Bolts.framework */,
 				84D45CDB1F95DDDF005225CD /* FBSDKCoreKit.framework */,
 				84D45CDC1F95DDE0005225CD /* FBSDKLoginKit.framework */,
@@ -1268,7 +1284,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 6GK6WF86SC;
-				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
+				FRAMEWORK_SEARCH_PATHS = (
+					"~/Documents/FacebookSDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen",
@@ -1308,7 +1327,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6GK6WF86SC;
-				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
+				FRAMEWORK_SEARCH_PATHS = (
+					"~/Documents/FacebookSDK",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen",

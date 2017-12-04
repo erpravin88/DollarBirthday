@@ -236,7 +236,7 @@ render(){
                     <View style = {[styles.SettingsTextInputContainer,{marginTop:10}]}>
                     <TouchableOpacity style = {[styles.signInButtonContainer,{backgroundColor:'#DC6966',borderRadius:3,}]}  onPress = {this.invitefriend}>
                       <Text style = {styles.signInButton}>
-                      { Label.t('131')}
+                      { Label.t('150')}
                       </Text>
                     </TouchableOpacity>
                     </View>

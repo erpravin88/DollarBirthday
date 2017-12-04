@@ -35,6 +35,7 @@ public class MainActivity extends ReactActivity {
       //  RCTSplashScreen.openSplashScreen(this);
         RCTSplashScreen.openSplashScreen(this, true, ImageView.ScaleType.FIT_XY);
         super.onCreate(savedInstanceState);
+        
 
     }
 

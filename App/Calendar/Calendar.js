@@ -95,7 +95,7 @@ formBorthdaytakemonthandday(indate){
   if(tempmonth < 10){
       tempmonth = "0"+tempmonth;
   }
-  return tempmonth+tempday+"";
+  return tempmonth+" "+tempday;
 }
 modalOpen(selectedDate){console.log(selectedDate, this.state.Friends);
     let bdayfound = false;
@@ -104,7 +104,7 @@ modalOpen(selectedDate){console.log(selectedDate, this.state.Friends);
       let birthmonthday = this.formBorthdaytakemonthandday(friend.birth_date);
 
         if(birthmonthday === currentmonthday){
-            bdayfound = true;console.log('in');
+            bdayfound = true;
             break;
         }
     }
@@ -231,7 +231,7 @@ render(){
                 <View style={styles.modalparentview}>
                     <View style={styles.modaldata}>
                       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{flex:0.9,paddingLeft:'3%',fontSize:18}}>{Label.t('15')} {this.state.dateSelected.day} {this.state.monthshort[this.state.dateSelected.month-1]}</Text>
+                        <Text style={{flex:0.9,paddingLeft:'3%',fontSize:18}}>{Label.t('15')} {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text>
                         <TouchableOpacity style={{flex:0.1,padding:10,alignSelf:'flex-end'}} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
                             <Image style={{width:15,height:15}} source={images.crossicon} />
                         </TouchableOpacity>

@@ -7,6 +7,8 @@ import {
   Image,
   ScrollView,
   AsyncStorage,
+  Modal,
+  WebView,
 } from 'react-native';
 
 import images from '../Constant/Images';
@@ -44,6 +46,9 @@ export default class FetchFriend extends Component {
                  date: new Date(Date.now()),
                   showProgress: false,
                   auth_token:'',
+                  modalVisible: false,
+                  url: '',
+                  webViewState:{},
                 };
                }
   componentDidMount(){
@@ -99,43 +104,26 @@ export default class FetchFriend extends Component {
 
     }
     _fbAuth = () => {
-       LoginManager.logInWithReadPermissions(['public_profile','user_birthday']).then((result) => {
-           if(result.isCancelled){
-               Toast.show('Log In cancelled');
-           }
-           else {
-               /*AccessToken.getCurrentAccessToken().then(
-                   (data) => {
-                       console.log(data);
-                       fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
-                       .then((response) => response.json())
-                       .then((json) => {console.log("Profile fb",json)})
-                       .catch(() => {
-                         console.log('ERROR GETTING DATA FROM FACEBOOK');
-                       })
-
-                   }
-               );*/
-               this.openURL(settings.FBEVENT_URL);
-           }
-       }, function(error){
-           console.log('An error occured: ' + error)
-       })
+       this.openURL(settings.FBEVENT_URL);
+   }
+    hide = () => {
+     this.setState({ modalVisible: false });
+     this._onNavigationStateChange(this.state.webViewState);
     }
-    // Open URL in a browser
-     openURL = (url) => {
-       // Use SafariView on iOS
-       if (Platform.OS === 'ios') {
-         SafariView.show({
-           url: url,
-           fromBottom: true,
-         });
-       }
-       // Or Linking.openURL on Android
-       else {
-         Linking.openURL(url);
-       }
-     };
+    _onNavigationStateChange (webViewState) { console.log(webViewState);
+console.log(this.state.webViewState);
+    }
+    openURL = (url) => {
+     //  if (Platform.OS === 'ios') {
+     //       SafariView.show({
+     //         url: url,
+     //         fromBottom: true,
+     //       });
+     //     }
+     //     else {
+           this.setState({url:url,modalVisible: true});
+     //  }
+    };
 
 
        _contactslisting = (mode) => {
@@ -159,6 +147,32 @@ export default class FetchFriend extends Component {
   return(
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
+      <Modal
+          animationType={'slide'}
+          visible={this.state.modalVisible}
+          onRequestClose={this.hide}
+          transparent
+        >
+          <View style={[styles.fulls,{flex:1,backgroundColor:"rgba(112, 79, 108, 0.5)"}]}>
+              <WebView
+                source={{ uri: this.state.url }}
+                scalesPageToFit={true}
+                startInLoadingState={true}
+                onNavigationStateChange={(webViewState)=>{this._onNavigationStateChange(webViewState);}}
+                onError={(webViewState)=>{this._onNavigationStateChange(webViewState);this.setState({webViewState:webViewState})}}
+                javaScriptEnabledAndroid={true}
+                domStorageEnabled={true}
+                thirdPartyCookiesEnabled= {true}
+                startInLoadingState={true}
+                userAgent={settings.USERAGENT}
+              />
+          </View>
+          <View style={[{backgroundColor:'#ffffff'}]}>
+          <TouchableOpacity style={[{width:'30%',backgroundColor:'#e34c4b',padding:6,margin:5,borderWidth:1,borderColor:'#aa5c5c',borderRadius:4,borderBottomWidth:null,justifyContent:'center',alignSelf:'center'}]} onPress={this.hide} >
+            <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>
+          </TouchableOpacity>
+          </View>
+        </Modal >
         <MyActivityIndicator progress={this.state.showProgress} />
           <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
             <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >

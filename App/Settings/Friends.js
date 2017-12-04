@@ -52,6 +52,7 @@ export default class Friends extends Component {
     this.deleteFriend = this.deleteFriend.bind(this);
     this._fbAuth = this._fbAuth.bind(this);
     this.openURL = this.openURL.bind(this);
+    this._onNavigationStateChange=this._onNavigationStateChange.bind(this);
     //this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this.state = {
       Friends:[],
@@ -62,35 +63,23 @@ export default class Friends extends Component {
       friend_id_edit:0,
       contactListModal:false,
       modalVisible: false,
+      url: '',
+      user_details:'',
     };
 
 
  }
-
+ componentWillMount(){
+ AsyncStorage.getItem(USER_DETAILS).then((details)=>{
+   details = JSON.parse(details);
+   this.setState({user_details: details});
+   console.log(this.state.user_details.currency);
+ }).catch((err)=>{
+   Toast.show(err);
+ });
+}
  _fbAuth = () => {
-    LoginManager.logInWithReadPermissions(['public_profile','user_birthday','email']).then((result) => {
-        if(result.isCancelled){
-            //Toast.show('Log In cancelled');
-            this.openURL(settings.FBEVENT_URL);
-        }
-        else {
-            AccessToken.getCurrentAccessToken().then(
-                (data) => {
-                    console.log(JSON.stringify(data));
-                    // fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
-                    // .then((response) => response.json())
-                    // .then((json) => {console.log("Profile fb",json)})
-                    // .catch(() => {
-                    //   console.log('ERROR GETTING DATA FROM FACEBOOK');
-                    // })
-
-                }
-            );
-            this.openURL(settings.FBEVENT_URL);
-        }
-    }, function(error){
-        console.log('An error occured: ' + error)
-    })
+    this.openURL(settings.FBEVENT_URL);
 }
 
 deleteFriend(item){
@@ -169,7 +158,7 @@ componentWillMount(){
       //Toast.show(err);
     });
     AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-       this.setState({auth_token: token,,showProgress: true});
+       this.setState({auth_token: token,showProgress: true});
        checkinternetconnectivity().then((response)=>{
          if(response.Internet == true){
          callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
@@ -213,49 +202,52 @@ componentWillMount(){
     });
 }
 
-componentDidMount() {
-    // Add event listener to handle OAuthLogin:// URLs
-    Linking.addEventListener('url', this.handleOpenURL);
-    // Launched from an external URL
-    Linking.getInitialURL().then((url) => {
-      if (url) {
-        this.handleOpenURL({ url });
-      }
-    });
-  };
+// componentDidMount() {
+//     // Add event listener to handle OAuthLogin:// URLs
+//     Linking.addEventListener('url', this.handleOpenURL);
+//     // Launched from an external URL
+//     Linking.getInitialURL().then((url) => {
+//       if (url) {
+//         this.handleOpenURL({ url });
+//       }
+//     });
+//   };
 
-  componentWillUnmount() {
-    // Remove event listener
-    Linking.removeEventListener('url', this.handleOpenURL);
-  };
+  // componentWillUnmount() {
+  //   // Remove event listener
+  //   Linking.removeEventListener('url', this.handleOpenURL);
+  // };
+  //
+  // handleOpenURL = ({ url }) => {console.log(url);
+  //   // Extract stringified user string out of the URL
+  //   const [ user_string] = url.match(/user=([^#]+)/);
+  //   this.setState({
+  //     // Decode the user string and parse it into JSON
+  //     user: JSON.parse(decodeURI(user_string))
+  //   });
+  //   if (Platform.OS === 'ios') {
+  //     SafariView.dismiss();
+  //   }
+  // };
 
-  handleOpenURL = ({ url }) => {console.log(url);
-    // Extract stringified user string out of the URL
-    const [ user_string] = url.match(/user=([^#]+)/);
-    this.setState({
-      // Decode the user string and parse it into JSON
-      user: JSON.parse(decodeURI(user_string))
-    });
-    if (Platform.OS === 'ios') {
-      SafariView.dismiss();
-    }
-  };
+  _onNavigationStateChange (webViewState) { console.log(webViewState);
 
+  }
  // Open URL in a browser
   openURL = (url) => {
-
-    if (Platform.OS === 'ios') {
-      SafariView.show({
-        url: url,
-        fromBottom: true,
-      });
-    }
-
-    else {
-      Linking.openURL(url);
-    }
+    // if (Platform.OS === 'ios') {
+    //      SafariView.show({
+    //        url: url,
+    //        fromBottom: true,
+    //      });
+    //    }
+    //    else {
+         this.setState({url:url,modalVisible: true});
+    // }
   };
-
+  hide = () => {
+   this.setState({ modalVisible: false });
+  }
   renderImage() {
       var imgSource = this.state.checkboximg? images.uncheckedcheckbox : images.checkedcheckbox;
       return (
@@ -284,7 +276,32 @@ componentDidMount() {
   return(
     <View>
     <View style = {[styles.SettingsTextInputContainer]}>
-
+      <Modal
+          animationType={'slide'}
+          visible={this.state.modalVisible}
+          onRequestClose={this.hide}
+          transparent
+        >
+          <View style={[styles.fulls,{flex:1,backgroundColor:"rgba(112, 79, 108, 0.5)"}]}>
+              <WebView
+                source={{ uri: this.state.url }}
+                scalesPageToFit={true}
+                startInLoadingState={true}
+                onNavigationStateChange={this._onNavigationStateChange}
+                onError={this._onNavigationStateChange}
+                javaScriptEnabledAndroid={true}
+                domStorageEnabled={true}
+                thirdPartyCookiesEnabled= {true}
+                startInLoadingState={true}
+                userAgent={ settings.USERAGENT}
+              />
+          </View>
+          <View style={[{backgroundColor:'#FFFFFF',borderTopWidth:1,borderColor:'#b7b7b7'}]}>
+          <TouchableOpacity style={[{width:'30%',backgroundColor:'#e34c4b',padding:6,margin:5,borderWidth:1,borderColor:'#aa5c5c',borderRadius:4,borderBottomWidth:null,justifyContent:'center',alignSelf:'center'}]} onPress={this.hide} >
+            <Text style={[{fontWeight:'bold',color:'#FFFFFF',justifyContent:'center',alignSelf:'center'}]}>close</Text>
+          </TouchableOpacity>
+          </View>
+        </Modal >
         <View style = {styles.friendboxes}>
             <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
               this.props.navigation.navigate('ADDFRIEND',{callFrom:'setting'});
@@ -338,10 +355,11 @@ componentDidMount() {
         <View style={[styles.scrolllist]}>
 
                 {(this.state.friendlistvisible == true) ?
-                (<View style={{width:'98%'}}><FlatList
+                (<View ><FlatList
                     data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
                     renderItem={({item}) => this.changedateformat(item)}
                     keyExtractor={item => item.id}
+                    style={[{height:'35%',paddingRight:'1%'}]}
                     /></View>) : ''}
 
         </View>
@@ -350,9 +368,7 @@ componentDidMount() {
   );
   }
 }
-//hide = () => {
-//  this.setState({ modalVisible: false });
-//}
+
 //show = () => {
 //   this.setState({ modalVisible: true });
 //}

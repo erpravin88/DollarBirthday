@@ -17,6 +17,7 @@ import Donate from '../Donate/Donate';
 import Inbox from '../Inbox/Inbox';
 import GiftHistory from '../GiftHistory/GiftHistory';
 import InviteFriend from '../InviteFriend/InviteFriend';
+import AddFriendMenu from '../AddFriend/AddFriendMenu';
 
 export const screenRoute = (SignIn) => {
   // console.log('route');
@@ -39,9 +40,10 @@ export const screenRoute = (SignIn) => {
     INBOX: {screen:Inbox},
     GIFTHISTORY: {screen:GiftHistory},
     INVITE_FRIEND: {screen:InviteFriend},
+    ADDFRIEND_MENU: {screen:AddFriendMenu},
     },{
     headerMode: 'none',
     mode:'card',
-    initialRouteName: (SignIn === true) ? 'FETCH_FRIEND':'LOG_IN'
+    initialRouteName: (SignIn === true) ? 'DASHBOARD':'LOG_IN'
   });
 };

@@ -5,6 +5,42 @@ import {
 	Platform,
 	NetInfo,
 } from 'react-native';
+import settings from './UrlConstant';
+export const Birthdayformat = (datetime) => {
+	if(datetime.datetime === undefined){
+		return null;
+	}
+	let date = new Date(datetime.datetime);
+	if(datetime.slash){
+		return (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+	}else{
+		return  date.getFullYear()+ '-' + (date.getMonth()+1) + '-' + date.getDate();
+	}
+	return
+}
+export const currencySymbol = (cdata) => {
+return cdata === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar : cdata === settings.CURRENCY.dollar1 ? settings.CURRENCY_SYMBOL.dollar1 : cdata === settings.CURRENCY.dollar2 ? settings.CURRENCY_SYMBOL.dollar2 : cdata === settings.CURRENCY.dollar3 ? settings.CURRENCY_SYMBOL.dollar3 : null;
+}
+export const dateformateMDY = (datetime)=>{
+	if(datetime.datetime === undefined){
+		return null;
+	}
+	let datetimenew = datetime.datetime.split(" ");
+	let date = new Date(datetimenew[0]+"T"+datetimenew[1]+"Z");
+	let month = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"][date.getMonth()];
+	let hours = date.getHours();
+	let minutes = date.getMinutes();
+	let ampm = hours >= 12 ? 'PM' : 'AM';
+	hours = hours % 12;
+	hours = hours ? hours : 12; // the hour '0' should be '12'
+	minutes = minutes < 10 ? '0'+minutes : minutes;
+
+	if(datetime.time){
+		return month + ' ' + date.getDate() + ' at ' + hours + ':' + minutes + ' ' + ampm;
+	}
+ return month + ' '+date.getDate() +', ' + date.getFullYear();
+}
 export const netinfo = function() {
 	NetInfo.isConnected.fetch().then(isConnected => {
   console.log('First, is ' + (isConnected ? 'online' : 'offline'));
@@ -236,4 +272,4 @@ const isCorrectType = function(expected, actual) {
 	return Object.prototype.toString.call(actual).slice(8, -1) === expected;
 };
 
-export default { phonecall, text, textWithoutEncoding, email, web, netinfo }
+export default { phonecall, text, textWithoutEncoding, email, web, netinfo, Birthdayformat, dateformateMDY }

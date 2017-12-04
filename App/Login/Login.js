@@ -81,7 +81,7 @@ _fblogin = ()=> { //fbAuth;
          if(response.status === 201){
          response.json().then((responseobject) => {
            console.log(responseobject);
-          
+
             onSignIn();
             AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
             afterSignIn(responseobject.data.authToken);
@@ -150,7 +150,9 @@ _fblogin = ()=> { //fbAuth;
           "login_type":settings.login_type.dbc,
           "device_id":this.state.device_id,
           "device_type":this.state.device_type}
-        ).then((response) => { console.log(response);
+        ).then((response) => {
+        
+
           if(response.status === 200){
           response.json().then((responseobject) => {
             console.log(responseobject);

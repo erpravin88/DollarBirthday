@@ -60,6 +60,16 @@ const style = {
             height: 12,
             marginLeft: 0
          },
+         TextInputIcon: {
+                    width: 18,
+                    height: 18,
+                    borderBottomWidth: 1,
+                    resizeMode:'contain',
+                    position:'absolute',
+                    zIndex: 99,
+                    right:0,
+                    top:6,
+         },
 
 
 

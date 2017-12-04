@@ -25,6 +25,7 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
 import {callApiWithoutAuth,callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
+import Function from '../Constant/Function';
 const date = new Date(Date.now());
 const resetAction = NavigationActions.reset({
       index: 0,
@@ -41,8 +42,8 @@ export default class General extends Component {
    month = month.length>1?month:'0'+month;
    this.state = {
 
-     maxdob: date.getFullYear()+'-'+month+'-'+date.getDate(),
-     initialdob: (date.getFullYear() - 15)+'-'+month+'-'+date.getDate(),
+     maxdob: Function.Birthdayformat({datetime: date,slash: true}),
+     initialdob: month+'/'+date.getDate()+'/'+(date.getFullYear() - 15),
      email:'',
      password:'',
      fullName:'',
@@ -67,7 +68,7 @@ componentWillMount(){
   AsyncStorage.getItem(USER_DETAILS).then((details)=>{
        details = JSON.parse(details);
        console.log(details);
-       this.setState({user_details:details,fullName: details.full_name,initialdob:details.birth_date,email:details.email,auth_token: details.authToken});
+       this.setState({user_details:details,fullName: details.full_name,initialdob: Function.Birthdayformat({datetime: details.birth_date, slash: true}),email:details.email,auth_token: details.authToken});
      }).catch((err)=>{
        Toast.show(err);
      });
@@ -133,7 +134,7 @@ console.log(this.state.date);
     //  "device_type":this.state.device_type,
       "paypal":this.state.email,
       "full_name":this.state.fullName,
-      "birth_date": this.state.initialdob };
+      "birth_date": Function.Birthdayformat({datetime: this.state.initialdob,slash: false}) };
       console.log(data);
       checkinternetconnectivity().then((response)=>{
         if(response.Internet == true){
@@ -235,7 +236,7 @@ hideErrors(){
         <DatePicker
           style = {[styles.date_picker]}
           date = {this.state.initialdob}
-          format = "YYYY-MM-DD"
+          format = "MM/DD/YYYY"
           maxDate = {this.state.maxdob}
           confirmBtnText = {Label.t('6')}
           cancelBtnText = {Label.t('7')}

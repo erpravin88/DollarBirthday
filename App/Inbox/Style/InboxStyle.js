@@ -100,7 +100,7 @@ const style = {
         },
 
         username:{
-            fontSize:18,
+            fontSize:14,
             fontWeight:'bold',
             backgroundColor:'transparent',
         },

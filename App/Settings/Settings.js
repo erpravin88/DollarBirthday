@@ -71,7 +71,7 @@ export default class Settings extends Component {
           <View style = {[styles.paddingBottomFive,styles.containerWidth,{backgroundColor:'#FFFFFF'}]}>
           <View style = {[styles.tabs]}>
             <MaterialTabs
-            items={[ Label.t('34'), Label.t('35'), Label.t('36'), Label.t('37'), Label.t('38')]}
+            items={[ Label.t('34'), Label.t('35'), Label.t('36'), Label.t('37'), Label.t('152')]}
             barColor="#FFFFFF"
             indicatorColor='#DC6865'
             activeTextColor='#DC6865'
@@ -83,10 +83,10 @@ export default class Settings extends Component {
           </View>
           <View style={[styles.formgroup,styles.containerWidth]}>
             {this.state.selectedTab == 0 ? (<ScrollView keyboardShouldPersistTaps="never"><General navigation={this.props.navigation}/></ScrollView>):
-            (this .state.selectedTab == 1? (<ScrollView keyboardShouldPersistTaps="never"><Paypal navigation={this.props.navigation}/></ScrollView>):
-            (this .state.selectedTab == 2? (<ScrollView keyboardShouldPersistTaps="never"><Charity navigation={this.props.navigation}/></ScrollView>):
-            (this .state.selectedTab == 3? (<ScrollView keyboardShouldPersistTaps="never"><Notification navigation={this.props.navigation}/></ScrollView>):
-            (<ScrollView keyboardShouldPersistTaps="never"><Friends navigation={this.props.navigation} /></ScrollView>))))}
+            (this.state.selectedTab == 1? (<ScrollView keyboardShouldPersistTaps="never"><Paypal navigation={this.props.navigation}/></ScrollView>):
+            (this.state.selectedTab == 2? (<ScrollView keyboardShouldPersistTaps="never"><Charity navigation={this.props.navigation}/></ScrollView>):
+            (this.state.selectedTab == 3? (<ScrollView keyboardShouldPersistTaps="never"><Notification navigation={this.props.navigation}/></ScrollView>):
+            (<Friends navigation={this.props.navigation} />))))}
           </View>
         </View>
       </Image>);

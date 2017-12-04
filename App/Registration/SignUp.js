@@ -7,7 +7,6 @@ import {
   Alert,
   Image,
   ScrollView,
-  ActivityIndicator,
   Keyboard,
   AsyncStorage,
 } from 'react-native';
@@ -24,6 +23,7 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 import { NavigationActions } from 'react-navigation';
 import  Fblogin  from '../Component/Fblogin';
 import settings from '../Constant/UrlConstant';
+import Function from '../Constant/Function';
 const date = new Date(Date.now());
 const resetAction = NavigationActions.reset({
       index: 0,
@@ -45,8 +45,8 @@ export default class SignUp extends Component {
    month = month.length>1?month:'0'+month;
    this.state = {
 
-     maxdob: date.getFullYear()+'-'+month+'-'+date.getDate(),
-     initialdob: (date.getFullYear() - 15)+'-'+month+'-'+date.getDate(),
+     maxdob: Function.Birthdayformat({datetime: date,slash: true}),
+     initialdob: month+'/'+date.getDate()+'/'+(date.getFullYear() - 15),
      email:'',
      password:'',
      fullName:'',
@@ -171,7 +171,7 @@ onSignUpClick(){
           device_id:this.state.device_id,
           device_type:this.state.device_type,
           full_name:this.state.fullName,
-          birth_date: this.state.initialdob,
+          birth_date: Function.Birthdayformat({datetime: this.state.initialdob,slash: false}),
           paypal:'' }
         ).then((response) => {
           // response.json().then((responseobject) => {
@@ -272,7 +272,7 @@ hideErrors(){
         <DatePicker
           style = {[styles.date_picker]}
           date = {this.state.initialdob}
-          format = "YYYY-MM-DD"
+          format = "MM/DD/YYYY"
           maxDate = {this.state.maxdob}
           confirmBtnText = {Label.t('6')}
           cancelBtnText = {Label.t('7')}

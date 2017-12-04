@@ -68,6 +68,23 @@ export default class Dashboard extends Component {
       </TouchableOpacity>
     </View>
     <View style={[styles.iconContainer,styles.iconContainerfix2]}>
+    <TouchableOpacity
+    style = {[styles.dbIcon]}
+    onPress={()=>{this.navfromdashboard('ADDFRIEND_MENU')}}>
+    <Image style = {styles.full} source = {images.addfriendIcon}/>
+    </TouchableOpacity>
+    <TouchableOpacity
+    style = {[styles.dbIcon]}
+    onPress={()=>{this.navfromdashboard('INVITE_FRIEND')}}>
+    <Image style = {styles.full} source = {images.invitefriendIcon}/>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style = {[styles.dbIcon]}
+      onPress={()=>{this.navfromdashboard('GIFTHISTORY')}}>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.gifthistoryIcon}/>
+      </TouchableOpacity>
+    </View>
+    <View style = {[styles.iconContainer,styles.iconContainerfix3]}>
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard('DONATE')}}>
@@ -75,26 +92,10 @@ export default class Dashboard extends Component {
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}
-      onPress={()=>{this.navfromdashboard('GIFTHISTORY')}}>
-      <Image style = {[styles.full,styles.resizeModec]} source = {images.gifthistoryIcon}/>
-      </TouchableOpacity>
-      <TouchableOpacity
-      style = {[styles.dbIcon]}
       onPress = {()=>{this.navfromdashboard('SETTING')}}>
       <Image style = {[styles.full,styles.resizeModec]} source = {images.settingsIcon}/>
       </TouchableOpacity>
-    </View>
-    <View style = {[styles.iconContainer,styles.iconContainerfix3]}>
-      <TouchableOpacity
-      style = {[styles.dbIcon]}
-      onPress={()=>{this.navfromdashboard('ADDFRIEND')}}>
-      <Image style = {styles.full} source = {images.addfriendIcon}/>
-      </TouchableOpacity>
-      <TouchableOpacity
-      style = {[styles.dbIcon]}
-      onPress={()=>{this.navfromdashboard('INVITE_FRIEND')}}>
-      <Image style = {styles.full} source = {images.invitefriendIcon}/>
-      </TouchableOpacity>
+
       <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress = {()=>{ Alert.alert( Label.t('30'), Label.t('31'), [ {text: Label.t('7'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, {text: Label.t('32'), onPress: () => onSignOut(this)}, ], { cancelable: false } )}}>

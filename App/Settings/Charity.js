@@ -234,6 +234,9 @@ hideErrors(){
 
   render(){
     //alert(JSON.stringify(this.state));
+    console.log(this.state.charity_type.index);
+    console.log(settings.DONOT_CHARITY_ID);
+    console.log(this.state.charity_type.index === settings.DONOT_CHARITY_ID);
     let hide;
     if(this.state.charity_type.index === settings.DONOT_CHARITY_ID){
       this.state.pre_amount = { value: '',index:''};
@@ -287,7 +290,7 @@ hideErrors(){
             value= {this.state.other_amount}
             onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
             />
-            <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+            <Text style = {styles.TextInputIcon}>{this.state.user_details.currency}</Text>
           </View>
           <Text style = {[styles.errorMsg ,styles.SettingsTextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
     </View>

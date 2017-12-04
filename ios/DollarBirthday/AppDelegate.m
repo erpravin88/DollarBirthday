@@ -16,6 +16,19 @@
 
 @implementation AppDelegate
 
+//- (void)webViewDidFinishLoad:(UIWebView *)webView {
+//  
+//  webView.scrollView.delegate = self;
+//  webView.scrollView.maximumZoomScale = 1.0;
+//  webView.scrollView.minimumZoomScale = 1.0;
+//  webView.scalesPageToFit = NO;
+//  webView.multipleTouchEnabled=NO;
+//}
+//- (UIView *) viewForZoomingInScrollView:(UIScrollView *) scrollView
+//{
+//  return nil;
+//}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
@@ -35,6 +48,10 @@
   [self.window makeKeyAndVisible];
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
+  NSString *newAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25";
+  NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
+  [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+  
   return YES;
 }
 

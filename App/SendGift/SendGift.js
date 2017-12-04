@@ -29,7 +29,14 @@ import settings from '../Constant/UrlConstant';
 import {callApiWithAuth,callApiWithoutAuth, callApiToPaypal} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
-import {ShareDialog} from 'react-native-fbsdk';
+import FBSDK  from 'react-native-fbsdk';
+const {
+  LoginManager,
+  AccessToken,
+  ShareApi,
+  ShareDialog,
+} = FBSDK;
+import DirectiveMsg from '../Component/DirectiveMsg';
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -56,7 +63,9 @@ constructor(props){
         errorMsg:{Message:'', GiftValue:'' , charity_type:'', pre_amount:'', other_amount:''},
         shareLinkContent: {contentType: 'link',contentUrl: 'https://www.dollarbirthdayclub.com/',message: 'I just donated to this charity'},
         modalVisible:false,
-        payUrl: settings.PAYPAL_ENV === 'live'? settings.PAYPAL_LIVE_AUTHURL : settings.PAYPAL_SANDBOX_AUTHURL,
+        fbshareModal:false,
+        fbMessage: '',
+        payment_env:'SANDBOX',
         payKey:'',
         trackingid:'',
         statusmsg:'',
@@ -100,6 +109,7 @@ componentWillMount(){
     AsyncStorage.getItem(USER_DETAILS).then((details)=>{
       details = JSON.parse(details);
       this.setState({user_details: details});
+      console.log(this.state.user_details.currency);
     }).catch((err)=>{
       Toast.show(err);
     });
@@ -230,51 +240,53 @@ sendgiftandcharity(){
       {
         let param = {};
         param['charity_id'] = this.state.charity_type.index;
-        param['donation_amount'] = this.state.pre_amount.index == Label.t('142') ? this.state.other_amount: this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index;
-        console.log(this.state.friend);
+        param['donation_amount'] = this.state.pre_amount.index == Label.t('142') ? this.state.other_amount*1.00 : this.state.charity_type.index=== settings.DONOT_CHARITY_ID ? 0.00 : this.state.pre_amount.index*1.00 ;
+        console.log(this.state);
+        console.log(settings.DONOT_CHARITY_ID);
         param['friend_id'] = this.state.friend.id;
-        param['gift_amount'] =  this.state.GiftValue;
+        param['gift_amount'] =  this.state.GiftValue*1.00;
         param['gift_message'] = this.state.Message;
         param['facebook_share'] = this.state.checkboximg ? 0 : 1;
-        param['facebook_message'] = '';
+        param['facebook_message'] = this.state.fbMessage;
 
         console.log(JSON.stringify(param));
         checkinternetconnectivity().then((response)=>{
           if(response.Internet == true){
             this.setState({showProgress : true});
-            callApiWithAuth('save_gift','POST',this.state.auth_token, param ).then((response) => {
-              if(response.status === 200){
-                response.json().then((responseobject) => {
-                  console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
-                  if(responseobject.data.paymentExecStatus === 'CREATED'){
-                    this.setState({payKey:responseobject.data.payKey,trackingid:responseobject.data.tracking_id,modalVisible:true,showProgress : false});
-                  }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
-                    let datapass ={param:{payKey:this.state.payKey,trackingid:this.state.trackingid},result:{type:'complete'}};
-                    this.checkPaymentStatus(datapass);
-                      //this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
-                  }
+            if(this.state.user_details.paypal !==null &&  this.state.user_details.paypal !== ''){
+              callApiWithAuth('save_gift','POST',this.state.auth_token, param ).then((response) => {
+                if(response.status === 200){
+                  response.json().then((responseobject) => {
+                    console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
+                    if(responseobject.data.paymentExecStatus === 'CREATED'){
+                      this.setState({payment_env: responseobject.data.payment_env, payKey:responseobject.data.payKey,trackingid:responseobject.data.tracking_id,modalVisible:true,showProgress : false});
+                    }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
+                      let datapass ={param:{payKey:this.state.payKey,trackingid:this.state.trackingid},result:{type:'complete'}};
+                      this.checkPaymentStatus(datapass);
+                        //this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true});
+                    }
 
-                });
-                Toast.show('');
-              }else if (response.status === 401) {
-                response.json().then((responseobject) => {
-                  console.log(responseobject);
-                });
-                onSignOut(this);
-                this.setState({showProgress : false});
-                Toast.show(Label.t('51'));
-              }else if (response.status === 406) {
-                response.json().then((responseobject) => {
+                  });
+                  Toast.show('');
+                }else if (response.status === 401) {
+                  response.json().then((responseobject) => {
+                    console.log(responseobject);
+                  });
+                  onSignOut(this);
                   this.setState({showProgress : false});
-                  console.log(responseobject);
-                //  Toast.show(responseobject.error_messages);
-                  Toast.show(Label.t('137'));
-                });
-              }else if (response.status === 500) {
-                this.setState({showProgress : false});
-                Toast.show(Label.t('52'));
-                }
-            }).catch((error) => {console.log(error); });
+                  Toast.show(Label.t('51'));
+                }else if (response.status === 406) {
+                  response.json().then((responseobject) => {
+                    this.setState({showProgress : false});
+                    console.log(responseobject);
+                  //  Toast.show(responseobject.error_messages);
+                    Toast.show(Label.t('137'));
+                  });
+                }else if (response.status === 500) {
+                  this.setState({showProgress : false});
+                  Toast.show(Label.t('52'));
+                  }
+              }).catch((error) => {console.log(error); });
 
 
 
@@ -291,6 +303,10 @@ sendgiftandcharity(){
             // });
           // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
           console.log(this.state);
+          }else{
+            this.setState({showProgress : false});
+            Toast.show(Label.t('153'));
+          }
         }else{
           Toast.show(Label.t('140'));
         }
@@ -312,6 +328,7 @@ checkPaymentStatus = (inputdata) => {
       let head = '';
       let message = '';
       this.setState({showProgress : true});
+      console.log(this.state);
       callApiWithoutAuth('paymentdetails','POST', param ).then((response) => {
         if(response.status === 201){
           response.json().then((responseobject) => {
@@ -402,63 +419,45 @@ renderImage() {
 _onNavigationStateChange (webViewState) { console.log(webViewState);
   if(webViewState.title === 'Return to Merchant - PayPal'){
     this.setState({ statusmsg: 'Cancel', modalVisible: false,paymentalerthead: Label.t('122') ,paymentalertmsg: Label.t('123'),modelstatusmsg: true});
+  }else if(webViewState.title === 'Thank you for using PayPal!'){
+    this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
+  }else{
+      if(webViewState.url != undefined){
+        substring = "?";
+      if(webViewState.url.includes(substring)){
+        let url = webViewState.url.split("?");
+        let urlparam = url[1].split("&");
+        let result = {};
+        let temp = '';
+        Object.keys(urlparam).map((index) => {
+          temp = urlparam[index].split('=');
+          result[temp[0]] = temp[1];
+        });
+        if(result.hasOwnProperty('type') ){
+          console.log(this.state);
+          console.log(result);
+          console.log(this.state.payKey);
+          console.log(this.state.trackingid);
+          this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
+        }
+      }
+    }
   }
-if(webViewState.url != undefined){
-    substring = "?";
-if(webViewState.url.includes(substring)){
-  let url = webViewState.url.split("?");
-  let urlparam = url[1].split("&");
-  let result = {};
-  let temp = '';
-  Object.keys(urlparam).map((index) => {
-    temp = urlparam[index].split('=');
-    result[temp[0]] = temp[1];
-  });
-  if(result.hasOwnProperty('type') ){
-    console.log(this.state);
-    console.log(result);
-    console.log(this.state.payKey);
-    console.log(this.state.trackingid);
-    let datapass ={param:{payKey:this.state.payKey,trackingid:this.state.trackingid},result:result};
-    this.checkPaymentStatus(datapass);
-  }
+
 }
-}
-  // console.log(webViewState);
-  // let url = webViewState.url.split("?");
-  // let urlparam = url[1].split("&");
-  // let result = {};
-  // let temp = '';
-  // Object.keys(urlparam).map((index) => {
-  //   temp = urlparam[index].split('=');
-  //   result[temp[0]] = temp[1];
-  // });
-  // if(result.hasOwnProperty('type') ){
-  //   // check payment at paypal
-  //   checkinternetconnectivity().then((response)=>{
-  //     if(response.Internet == true){
-  //       //this.setState({showProgress : true});
-  //
-  //     // callApiToPaypal('PaymentDetails','POST',{payKey:this.state.payKey,requestEnvelope:{errorLanguage: 'en_US'}}).then(
-  //     //   (response)=> {
-  //     //   response.json().then((res)=>{ console.log(res); });
-  //     //   }
-  //     // )
-  //     // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
-  //     console.log(this.state);
-  //   }else{
-  //     Toast.show("No Internet Connection");
-  //   }
-  // });
-  //   this.setState({ statusmsg: result.type, modalVisible: false,paymentalerthead: result.type ==='complete' ? Label.t('120') : result.type ==='cancel' ? Label.t('122') : '' ,paymentalertmsg: result.type ==='complete' ? Label.t('121') : result.type ==='cancel' ? Label.t('123') : '',modelstatusmsg: true});
-  // }
-}
+
 // show () {
 //   this.setState({ modalVisible: true })
 // }
 //
 hide = () => {
+  this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
   this.setState({ modalVisible: false })
+}
+hideModal = () => {
+  let shareData = this.state.shareLinkContent;
+  shareData.contentDescription = this.state.fbMessage;
+  this.setState({shareLinkContent:shareData,fbshareModal:false });
 }
 hidestatusmsg = () => { //console.log('in');
   this.setState({ modelstatusmsg: false });
@@ -504,10 +503,63 @@ render(){
      hide = false;
   }
   let bdate = new Date(this.state.friend.birth_date);
-  console.log(this.state.payUrl+this.state.payKey);
+  console.log(this.state.payment_env === 'LIVE'? settings.PAYPAL_LIVE_AUTHURL :  this.state.payment_env === 'SANDBOX'? settings.PAYPAL_SANDBOX_AUTHURL : ''+this.state.payKey);
+console.log(this.state.charity_type);
     return(
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
+        <Modal
+            animationType={'slide'}
+            visible={this.state.fbshareModal}
+            onRequestClose={this.hideModal}
+            transparent
+          ><View style={[{
+            flex: 1,
+            backgroundColor:'rgba(0,0,0,0.5)',
+            flexDirection: 'column',
+            paddingTop:'30%',
+            alignItems: 'center',
+
+          }]}>
+          <View style= {[ {  padding:10,
+            width:'85%',
+            backgroundColor:'#ffffff',
+            alignItems: 'flex-start',}]}>
+            <View style= {[ {  padding:10}]}><Text style={[{fontSize:20,fontWeight:'600',fontFamily:'Open Sans'}]}>Facebook Message</Text>
+            <Text style= {[ {  marginTop:5}]}>Enter the message you would like to post on your FaceBook wall about this gift</Text></View>
+            <View style={[{borderWidth: 1,
+            borderRadius: 1,borderBottomWidth:null,borderColor:'#b7b7b7',padding:1,width:'100%'}]}>
+                <TextInput style = {[{
+                height: 80,
+                padding:10,
+                alignItems: "flex-start",
+                textAlignVertical: "top",}]}
+                    keyboardType = 'default'
+                    placeholderTextColor = "#b7b7b7"
+                    placeholder = {Label.t('127')}
+                    underlineColorAndroid = 'transparent'
+                    multiline = {true}
+                    numberOfLines={2}
+                    maxLength = {300}
+                    returnKeyType= {Label.t('3')}
+                    autoCorrect={false}
+                    blurOnSubmit = {true}
+                    value= {this.state.fbMessage}
+                    onSubmitEditing={(event) => {this.hideModal();}}
+                    onChangeText = {(val) => {this.setState({fbMessage: val});}}
+                />
+            </View>
+            <View style= {[ styles.flexDirectionRow,styles.paddingTopFive]}>
+            <TouchableOpacity style={[{height:40,width:'30%',justifyContent:'center',alignSelf:'center',backgroundColor:'#e34c4b',borderWidth:1,borderColor:'gray',borderRadius:5}]} onPress={this.hideModal} >
+              <Text style={[{justifyContent:'center',color:'#FFFFFF',alignSelf:'center'}]}>Close</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.marginLeftFive,{height:40,width:'30%',justifyContent:'center',alignSelf:'center',backgroundColor:'#61aa6c',borderWidth:1,borderColor:'gray',borderRadius:5}]} onPress={this.hideModal} >
+              <Text style={[{justifyContent:'center',color:'#FFFFFF',alignSelf:'center'}]}>Save</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+          </View>
+        </Modal >
         <ModalAlert visible={this.state.modelstatusmsg} onRequestClose={this.hidestatusmsg} head={this.state.paymentalerthead} message={ this.state.paymentalertmsg }/>
             <Modal
               animationType={'slide'}
@@ -515,22 +567,24 @@ render(){
               onRequestClose={this.hide.bind(this)}
               transparent
             >
-              <View style={[styles.fulls]}>
-                  <WebView
-                    source={{ uri: this.state.payUrl+this.state.payKey }}
-                    scalesPageToFit={true}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    onError={this._onNavigationStateChange.bind(this)}
-                    javaScriptEnabledAndroid={true}
-                    domStorageEnabled={true}
-                    automaticallyAdjustContentInsets={false}
-                    startInLoadingState={true}
-                  />
-              </View>
-              <View style={[{backgroundColor:'#ffffff'}]}>
-              <TouchableOpacity style={[styles.btnyellow]} onPress={this.hide} >
-                <Text style={[{justifyContent:'center',alignSelf:'center'}]}>close</Text>
-              </TouchableOpacity>
+            <View style={[styles.fulls,{paddingTop:20,flex:1,backgroundColor:"rgba(112, 79, 108, 0.5)"}]}>
+              { this.state.payment_env === 'SANDBOX' ? (<Text style = {[{width:'100%',backgroundColor:'#ffffff',color:'blue'}]}>{Label.t('148')}</Text>): null}
+                <WebView
+                  source={{ uri: this.state.payment_env === 'LIVE'? settings.PAYPAL_LIVE_AUTHURL+this.state.payKey :  this.state.payment_env === 'SANDBOX'? settings.PAYPAL_SANDBOX_AUTHURL+this.state.payKey : '' }}
+                  scalesPageToFit={true}
+                  onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                  onError={this._onNavigationStateChange.bind(this)}
+                  javaScriptEnabledAndroid={true}
+                  domStorageEnabled={true}
+                  automaticallyAdjustContentInsets={false}
+                  startInLoadingState={true}
+                />
+
+                <View style={[{backgroundColor:'#FFFFFF',borderTopWidth:1,borderColor:'#b7b7b7'}]}>
+                <TouchableOpacity style={[{width:'30%',backgroundColor:'#e34c4b',padding:6,margin:5,borderWidth:1,borderColor:'#aa5c5c',borderRadius:4,borderBottomWidth:null,justifyContent:'center',alignSelf:'center'}]} onPress={this.hide} >
+                  <Text style={[{fontWeight:'bold',color:'#FFFFFF',justifyContent:'center',alignSelf:'center'}]}>close</Text>
+                </TouchableOpacity>
+                </View>
               </View>
             </Modal >
           <MyActivityIndicator progress={this.state.showProgress} />
@@ -546,7 +600,6 @@ render(){
                 </View>
               </Image>
               <View style={[styles.formgroup,styles.containerWidth]}>
-              {settings.PAYPAL_ENV === 'sandbox' ? (<Text style = {styles.titleTextFirst}>{Label.t('148')}</Text>): null}
                 <View style = {styles.innerwidth}>
                     <View style = {[styles.formimage]}>
                         <View >
@@ -590,7 +643,7 @@ render(){
                             /*onSubmitEditing={(event) => {this.refs.ThirdInput.focus();}}*/
                             onChangeText = {(val) => {this.setState({GiftValue: val});this.hideErrors();}}
                         />
-                        <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+                        <Text style = {styles.TextInputIcon}>{this.state.user_details.currency}</Text>
                     </View>
                     <Text style = {styles.errorMsg}>{this.state.errorMsg['GiftValue']}</Text>
                     <View style={styles.dropdown}>
@@ -602,7 +655,7 @@ render(){
                           baseColor = '#B3B3B3'
                           value = {this.state.charity_type.value}
                           data={this.state.charity_list}
-                          onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
+                          //onSubmitEditing={(event) => {this.refs.FourthInput.focus();}}
                           onChangeText = {(value,index,data)=>{this.setState({charity_type:data[index]});this.hideErrors();}}
                         />
                     </View>
@@ -617,6 +670,7 @@ render(){
                           data={this.state.donation_list}
                           onChangeText = {(value,index,data)=>{if(data[index].index === Label.t('142')){this.setState({ pre_amount:data[index],other_amount:''});}else{this.setState({ pre_amount:data[index]});} this.hideErrors();}}
                         />
+                        <Text style = {styles.TextInputIcon}>{this.state.user_details.currency}</Text>
                         <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['pre_amount']}</Text>
                     </View>
                     <View style={[hide ? styles.hide : styles.show,]}>
@@ -635,13 +689,16 @@ render(){
                               value= {this.state.other_amount}
                               onChangeText = {(val) => {this.setState({other_amount: val});this.hideErrors();}}
                               />
-                              <Image style = {styles.TextInputIcon} source = {images.dollarIcon}/>
+                              <Text style = {styles.TextInputIcon}>{this.state.user_details.currency}</Text>
                             </View>
                             <Text style = {[styles.errorMsg ,styles.TextInputContainer]}>{this.state.errorMsg['other_amount']}</Text></View>) : (<Text style={{height:0}}></Text>)}
                       </View>
                     <View style={styles.marginBottomFive}>
                         <TouchableOpacity style={styles.flexDirectionRow}
-                        onPress={ () => {        this.setState({ checkboximg: !this.state.checkboximg });} }
+                        onPress={ () => {this.setState({ checkboximg: !this.state.checkboximg
+                          //,fbshareModal: this.state.checkboximg ? true : false
+                        });}
+                      }
                         >
                             {this.renderImage()}
                             <Text style={styles.sharefbtext}>{Label.t('12')}</Text>
@@ -654,6 +711,7 @@ render(){
                                 {Label.t('13')}
                             </Text>
                         </TouchableOpacity>
+                        <DirectiveMsg message={Label.t('154')} icon = {false} />
                     </View>
                   </View>
             </TouchableOpacity>

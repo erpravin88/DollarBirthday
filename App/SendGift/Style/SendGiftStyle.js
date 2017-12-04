@@ -81,6 +81,14 @@ const style = {
         fontSize:22,
         fontWeight:'bold',
       },
+      TextInputIcon: {
+                width: 30,
+                height: 18,
+                position:'absolute',
+                zIndex: 99,
+                right:0,
+                top:6,
+      },
 
     };
       const allRules = Object.assign(comman, style);

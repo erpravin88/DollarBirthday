@@ -43,9 +43,15 @@ const style = {
       usernamepending:{
         fontSize:12,
         fontWeight:'bold',
-        color:'#b7b7b7'
+        color:'#b7b7b7',
+        width:130,
       },
 
+     username:{
+        fontSize:12,
+        fontWeight:'bold',
+        width:130,
+    },
       flatlistview:{
         backgroundColor:'transparent',
         height:'64%',
@@ -62,11 +68,6 @@ const style = {
         fontSize:10,
         color:'#b7b7b7',
         marginTop:2
-      },
-
-      username:{
-        fontSize:12,
-        fontWeight:'bold'
       },
 
       usernametext:{
@@ -142,6 +143,7 @@ const style = {
         padding:10,
         elevation:5,
       },
+
 
 
     };

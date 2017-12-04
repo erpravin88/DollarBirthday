@@ -17,6 +17,7 @@ import Toast from 'react-native-simple-toast';
 import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/InboxStyle';
+import {dateformateMDY, currencySymbol} from '../Constant/Function';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn ,onSignOut} from '../Constant/Auth';
@@ -37,41 +38,46 @@ constructor(props){
         auth_token: '',
         showProgress: false,
         messagelist: true,
-        messages:[10]
+        messages:[],
+        nodatacheck: true,
     };
 }
 
 fetchlist(item){
   console.log(item);
-  console.log(item['Gift Sent']);
-   if(item.messages !== 0 && item.sender_name !== undefined ){
-    return(<View  style={styles.messagebox}>
+   if(item.messages !== 0 && item != null){
+    // if(item.status == 'COMPLETED' ){
+    //   this.state.nodatacheck = false;
+    return(<View  key={`${item.gift_id}`} style={styles.messagebox}>
         <View style={styles.imagecontainer}>
             <Image style = {styles.userimage} source = {images.placeholderImage}/>
             <View style={styles.userdetailscontainer}>
                 <Text style={styles.username}>{item.sender_name}</Text>
-                <Text style={styles.datetime}>July 22 at 11:00 AM</Text>
+                <Text style={styles.datetime}>{dateformateMDY({datetime:item.gift_sent_time,time:true})}</Text>
             </View>
         </View>
-        <Text style={styles.message}>{`${item.Message}`}</Text>
+        <Text style={styles.message}>{`${item.message}`}</Text>
         <Image style = {[styles.greenbg,item.gift_amount*1 === 0 ? styles.hide : '']} source = {images.greenpricetag}/>
         <View style = {[styles.greenbg,item.gift_amount*1 === 0 ? styles.hide : '']}>
-            <Text style={[styles.donationvalue]}>${item["gift Amount"]}</Text>
-            <Text style={styles.currency}>{item.currency}</Text>
+            <Text style={[styles.donationvalue]}>${//currencySymbol(item.gift_currency)+
+              item.gift_amount}</Text>
+            <Text style={styles.currency}>{item.gift_currency != null ? item.gift_currency: 'USD'}</Text>
         </View>
-        <Image style = {[styles.redbg ,item.Charity_Amount*1 === 0 ? styles.hide : '']} source = {images.redpricetag}/>
-        <View style = {[styles.redbg ,item.Charity_Amount*1 === 0  ? styles.hide : '']}>
-            <Text style={[styles.donationvalue]}>${item.Charity_Amount}</Text>
-            <Text style={styles.currency}>{item.currency}</Text>
+        <Image style = {[styles.redbg ,item.charity_amount*1 === 0 ? styles.hide : '']} source = {images.redpricetag}/>
+        <View style = {[styles.redbg ,item.charity_amount*1 === 0  ? styles.hide : '']}>
+            <Text style={[styles.donationvalue]}>${//currencySymbol(item.gift_currency)+
+              item.charity_amount}</Text>
+            <Text style={styles.currency}>{item.gift_currency != null ? item.gift_currency: 'USD'}</Text>
         </View>
         <View style={styles.line}></View>
         <View style={styles.donationlisting}>
-            <View style = {[styles.heartlogobox,item.Charity_Amount*1 === 0  ? styles.hide : '']}>
+            <View style = {[styles.heartlogobox,item.charity_amount*1 === 0  ? styles.hide : '']}>
                 <Image style = {styles.heartlogo} source = {images.heartlogo}/>
-                <Text style = {styles.charitytext}>{Label.t('17')} {`${item.Charity_name}`}</Text>
+                <Text style = {styles.charitytext}>{Label.t('17')} {`${item.charity_name}`}</Text>
             </View>
         </View>
     </View>)
+ // }
   }else{
       return(<View key={`${item.id}`} style = {styles.listbox}>
         <View style={[styles.nodatabox]}>
@@ -124,6 +130,7 @@ componentWillMount(){
     }
 
 render(){
+  console.log(this.state.nodatacheck);
     return(
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
@@ -144,9 +151,11 @@ render(){
                     (<View><FlatList
                         data={this.state.messages.length > 0 ? this.state.messages :[{id:0,messages:0}]}
                         renderItem={({item}) => this.fetchlist(item)}
-                        keyExtractor={item => item.email}
+                        keyExtractor={item => item.gift_id}
                         /></View>) : (<View ></View>)}
+
                 </ScrollView>
+
             </View>
           </View>
         </View>
@@ -155,3 +164,8 @@ render(){
 
     }
 }
+// {this.state.nodatacheck ? (<View  style = {styles.listbox}>
+//   <View style={[styles.nodatabox]}>
+//       { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
+//   </View>
+//  </View>):''}
