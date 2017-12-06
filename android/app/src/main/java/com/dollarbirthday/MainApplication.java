@@ -3,6 +3,7 @@ package com.dollarbirthday;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.psykar.cookiemanager.CookieManagerPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -39,6 +40,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CookieManagerPackage(),
             new FBSDKPackage(mCallbackManager),
             new RNI18nPackage(),
             new RNDeviceInfo(),

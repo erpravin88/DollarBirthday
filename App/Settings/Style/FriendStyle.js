@@ -105,7 +105,7 @@ const style = {
             backgroundColor:'transparent',
             overflow:'hidden',
             marginTop: '2%',
-            height:'76%',
+            maxHeight:'100%',
         },
           friendboxes:{
             flexDirection:'row',
@@ -199,10 +199,11 @@ const style = {
           },
 
           googlefbtext:{
-            color:'#b7b7b7',
+            color:'#1a1b1a',
             textAlign: 'center',
-            fontFamily:'OpenSans-Semibold',
-            fontSize:8
+            fontSize:9.5,
+            fontStyle:'italic',
+            padding:.5,
           },
 
           listbox:{

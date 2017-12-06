@@ -276,11 +276,12 @@ sendgiftandcharity(){
                   this.setState({showProgress : false});
                   Toast.show(Label.t('51'));
                 }else if (response.status === 406) {
+                  Toast.show(Label.t('137'));
                   response.json().then((responseobject) => {
                     this.setState({showProgress : false});
                     console.log(responseobject);
-                  //  Toast.show(responseobject.error_messages);
-                    Toast.show(Label.t('137'));
+                   Toast.show(responseobject.data.error["0"].message);
+                  
                   });
                 }else if (response.status === 500) {
                   this.setState({showProgress : false});

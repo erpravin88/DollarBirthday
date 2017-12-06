@@ -51,6 +51,7 @@
 		B1A7C0063B9D472CB814D6ED /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9ED3384EC7C4024BBB90EC1 /* OpenSans-Semibold.ttf */; };
 		DB7FCCE01F625E2C003EB888 /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB7FCCDE1F625E2C003EB888 /* splash@2x.png */; };
 		DB7FCCE11F625E2C003EB888 /* splash@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB7FCCDF1F625E2C003EB888 /* splash@3x.png */; };
+		DFEA5794BBA041538F92E613 /* libRNCookieManagerIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D838769D834C5FB4189B5F /* libRNCookieManagerIOS.a */; };
 		EFF32AC23BEE4BF3A4AC64A8 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F64F0CD95A4E4D70851947FD /* libRCTSplashScreen.a */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		28959E721FD7B5D900FC4998 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5903439993B40CA8546350F /* RNCookieManagerIOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BD725DA1CF77A8B005DBD79;
+			remoteInfo = RNCookieManagerIOS;
 		};
 		289E54931F8E1C6B00A356A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -365,12 +373,14 @@
 		84D45CDE1F95DDE2005225CD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		99592F56204B49579BF67C99 /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		9EA4B06E88C7462D926FE5B4 /* Open Sans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Open Sans.ttf"; path = "../assets/fonts/Open Sans.ttf"; sourceTree = "<group>"; };
+		A5903439993B40CA8546350F /* RNCookieManagerIOS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCookieManagerIOS.xcodeproj; path = "../node_modules/react-native-cookies/ios/RNCookieManagerIOS.xcodeproj"; sourceTree = "<group>"; };
 		AA5C1F64A4A64862A718C70B /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		ADAFBFDFCBE44CDB9B3DCF17 /* RCTSplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTSplashScreen.xcodeproj; path = "../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		C5381996DECF4574835752EE /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		D12227D2A8624C0F82B7B690 /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
 		DB7FCCDE1F625E2C003EB888 /* splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash@2x.png"; path = "DollarBirthday/Images.xcassets/LaunchImage.launchimage/splash@2x.png"; sourceTree = "<group>"; };
 		DB7FCCDF1F625E2C003EB888 /* splash@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash@3x.png"; path = "DollarBirthday/Images.xcassets/LaunchImage.launchimage/splash@3x.png"; sourceTree = "<group>"; };
+		E9D838769D834C5FB4189B5F /* libRNCookieManagerIOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCookieManagerIOS.a; sourceTree = "<group>"; };
 		F64F0CD95A4E4D70851947FD /* libRCTSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTSplashScreen.a; sourceTree = "<group>"; };
 		F6A088656EAA4F9A9B89CEAA /* libSafariViewManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSafariViewManager.a; sourceTree = "<group>"; };
 		F9ED3384EC7C4024BBB90EC1 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Semibold.ttf"; path = "../assets/fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
@@ -406,6 +416,7 @@
 				2DC8CEF864C64B71B4EC934D /* libLRDRCTSimpleToast.a in Frameworks */,
 				06750EF2A6144404A083EE29 /* libRNI18n.a in Frameworks */,
 				A1ABA6249C8E417FBD5B8BF0 /* libSafariViewManager.a in Frameworks */,
+				DFEA5794BBA041538F92E613 /* libRNCookieManagerIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +558,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		28959E4F1FD7B5D900FC4998 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28959E731FD7B5D900FC4998 /* libRNCookieManagerIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		289E546F1F8E1C6B00A356A6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -618,6 +637,7 @@
 				010BBF8A56164B17955E19A8 /* RNI18n.xcodeproj */,
 				09D42E196F6C44D9A489A073 /* RCTFBSDK.xcodeproj */,
 				D12227D2A8624C0F82B7B690 /* SafariViewManager.xcodeproj */,
+				A5903439993B40CA8546350F /* RNCookieManagerIOS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -674,6 +694,7 @@
 				AA5C1F64A4A64862A718C70B /* libRCTFBSDK.a */,
 				F6A088656EAA4F9A9B89CEAA /* libSafariViewManager.a */,
 				0018379CF1E542D8AC272EBC /* libSafariViewManager.a */,
+				E9D838769D834C5FB4189B5F /* libRNCookieManagerIOS.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -874,6 +895,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 28959E4F1FD7B5D900FC4998 /* Products */;
+					ProjectRef = A5903439993B40CA8546350F /* RNCookieManagerIOS.xcodeproj */;
+				},
+				{
 					ProductGroup = 28C992671F848FAF00095684 /* Products */;
 					ProjectRef = 2041393691234E88AD3E0AAD /* RNDeviceInfo.xcodeproj */;
 				},
@@ -954,6 +979,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		28959E731FD7B5D900FC4998 /* libRNCookieManagerIOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCookieManagerIOS.a;
+			remoteRef = 28959E721FD7B5D900FC4998 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		289E54941F8E1C6B00A356A6 /* libRNI18n.a */ = {
@@ -1297,11 +1329,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/DollarBirthday\"",
 					"\"$(SRCROOT)/DollarBirthday\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1340,11 +1374,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = DollarBirthday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/DollarBirthday\"",
 					"\"$(SRCROOT)/DollarBirthday\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1382,6 +1418,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = "DollarBirthday-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1425,6 +1462,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-dismissable-numeric-keyboard/RCTDismissableNumericKeyboard/RCTDismissableNumericKeyboard",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = "DollarBirthday-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

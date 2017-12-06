@@ -48,7 +48,7 @@ fetchlist(item){
   console.log(item);
 console.log( this.state.user_details.charity[0].user_id == item.giver_id);
     return(
-        <View key={`${item.gift_id}`} >
+        <View  >
         {item.receiver_email === "" ?
          (<View style={styles.listbox}>
            <Image style = {styles.userimg} source ={images.placeholderImage}/>

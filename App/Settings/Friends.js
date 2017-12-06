@@ -48,7 +48,7 @@ export default class Friends extends Component {
 
   constructor(props){
     super(props);
-    this.changedateformat = this.changedateformat.bind(this);
+    this.rowRander = this.rowRander.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
     this._fbAuth = this._fbAuth.bind(this);
     this.openURL = this.openURL.bind(this);
@@ -112,7 +112,7 @@ deleteFriend(item){
   }
 });
 }
- changedateformat(item){
+rowRander(item){
    if(item.friend !== 0){
     let temp = new Date(item.birth_date);
     let tempday = temp.getDate();
@@ -357,9 +357,9 @@ componentWillMount(){
                 {(this.state.friendlistvisible == true) ?
                 (<View ><FlatList
                     data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
-                    renderItem={({item}) => this.changedateformat(item)}
+                    renderItem={({item}) => this.rowRander(item)}
                     keyExtractor={item => item.id}
-                    style={[{height:'35%',paddingRight:'1%'}]}
+                    style={[{height:'50%',paddingRight:'1%'}]}
                     /></View>) : ''}
 
         </View>

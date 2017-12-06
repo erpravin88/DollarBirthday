@@ -44,7 +44,7 @@ constructor(props){
     var month = (date.getMonth()+1).toString();
     month = month.length>1?month:'0'+month;
     this.state = {
-        maxdob: Function.Birthdayformat({datetime: date,slash: true}),
+        maxdob: month+'/'+date.getDate()+'/'+date.getFullYear(),//Function.Birthdayformat({datetime: date,slash: true}),
         initialdob: month+'/'+date.getDate()+'/'+(date.getFullYear() - 15),
         email:'',
         firstName:'',

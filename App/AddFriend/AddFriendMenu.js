@@ -39,7 +39,7 @@ export default class ImportManually extends Component {
 
   constructor(props){
     super(props);
-    this.changedateformat = this.changedateformat.bind(this);
+    this.rowRander = this.rowRander.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
     this._onNavigationStateChange=this._onNavigationStateChange.bind(this);
     this.state = {
@@ -76,7 +76,7 @@ deleteFriend(item){
         }
     }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
 }
- changedateformat(item){
+ rowRander(item){
    if(item.friend !== 0){
     let temp = new Date(item.birth_date);
     let tempday = temp.getDate();
@@ -88,7 +88,7 @@ deleteFriend(item){
     let tempyear = temp.getFullYear();
     let birth_date = tempmonth+" "+tempday+", "+tempyear;
       return(
-          <View key={`${item.id}`} style = {styles.listbox}>
+          <View key={`${item.id}`}  style = {styles.listbox}>
             <View>
                 <Text style={styles.fullnametext}>{item.first_name} {item.last_name}</Text>
             </View>
@@ -104,7 +104,7 @@ deleteFriend(item){
             </View>
           </View>)
         }else{
-          return(<View style = {styles.listbox}>
+          return(<View key={`${item.id}`} style = {styles.listbox}>
             <View style={[styles.nodatabox]}>
                 { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
             </View>
@@ -258,11 +258,12 @@ if(webViewState.url.includes(substring)){
                 <Text style = {styles.titleTextFirst}>{Label.t('151')}</Text>
                 <Text style = {[styles.titleTextSecond]}>{Label.t('1')}</Text>
               </View>
-            </Image>
-            <View style = {[styles.formgroup,styles.containerWidth]}>
-              <View style = {[styles.TextInputContainer]}>
+              <View style = {[styles.TextInputContainer,{position:'absolute',bottom:0}]}>
                 <Text style = {styles.heading1}>{Label.t('86')}</Text>
               </View>
+            </Image>
+            <View style = {[styles.formgroup,styles.containerWidth]}>
+              
               <View style = {[styles.TextInputContainer]}>
               <View style = {styles.friendboxes}>
                   <TouchableOpacity style = {styles.addfriendtouch} onPress={()=>{
@@ -318,11 +319,12 @@ if(webViewState.url.includes(substring)){
               <View style={[styles.scrolllist]}>
                       {(this.state.friendlistvisible == true) ?
                       (<View ><FlatList
-                          data={this.state.Friends.length > 0 ? this.state.Friends :[{friend:0}]}
-                          renderItem={({item}) => this.changedateformat(item)}
+                          data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
+                          renderItem={({item}) => this.rowRander(item)}
                           keyExtractor={item => item.id}
-                          style={[{height:'50%',paddingRight:'1.5%'}]}
+                          style={[{height:'55%',paddingRight:'1.5%'}]}
                           /></View>) : ''}
+                          
               </View>
             </View>
           </View>

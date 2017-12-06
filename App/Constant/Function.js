@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import {
 	Linking,
@@ -10,13 +9,36 @@ export const Birthdayformat = (datetime) => {
 	if(datetime.datetime === undefined){
 		return null;
 	}
-	let date = new Date(datetime.datetime);
+	console.log(datetime.datetime);
+	let string1 = '-'
+	let string2 = '/'
+	let Newdate= [];
+	if(datetime.datetime.includes(string1)){
+		let newdate1 = datetime.datetime.split("-");
+		
+		Newdate[0] = newdate1[0]*1;
+		Newdate[1] = newdate1[1]*1;
+		Newdate[2] = newdate1[2]*1;
+        
+      }else if(datetime.datetime.includes(string2)){
+		let newdate1 = datetime.datetime.split("/");
+		Newdate[0] = newdate1[2]*1;
+		Newdate[1] = newdate1[0]*1;
+		Newdate[2] = newdate1[1]*1;
+
+	  }
+	console.log(Newdate);
+	let date = new Date(Newdate[0],(Newdate[1]-1),Newdate[2],0,0,0,0);
 	if(datetime.slash){
+		console.log((date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear());
 		return (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+		
 	}else{
+	console.log(date.getFullYear()+ '-' + (date.getUTCMonth()+1) + '-' + date.getDate());
 		return  date.getFullYear()+ '-' + (date.getMonth()+1) + '-' + date.getDate();
+		
 	}
-	return
+	return null;
 }
 export const currencySymbol = (cdata) => {
 return cdata === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar : cdata === settings.CURRENCY.dollar1 ? settings.CURRENCY_SYMBOL.dollar1 : cdata === settings.CURRENCY.dollar2 ? settings.CURRENCY_SYMBOL.dollar2 : cdata === settings.CURRENCY.dollar3 ? settings.CURRENCY_SYMBOL.dollar3 : null;

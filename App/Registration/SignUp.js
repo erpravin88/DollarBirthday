@@ -45,7 +45,7 @@ export default class SignUp extends Component {
    month = month.length>1?month:'0'+month;
    this.state = {
 
-     maxdob: Function.Birthdayformat({datetime: date,slash: true}),
+     maxdob: month+'/'+date.getDate()+'/'+date.getFullYear(),
      initialdob: month+'/'+date.getDate()+'/'+(date.getFullYear() - 15),
      email:'',
      password:'',

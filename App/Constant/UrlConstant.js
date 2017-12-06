@@ -3,6 +3,7 @@ const Build = 'live'// demos/live
 const BASE_URL= Build == 'demos' ? "http://dbc.demos.classicinformatics.com" : "https://www.dollarbirthdayclub.com";
 
 export const settings = {
+  LOGOUT_FB:false,//true/false inner fb referance page logout when user logout from app.
   login_type: {dbc:'dbc',fb:'fb'},
   CURRENCY:{dollar:'USD',dollar1:'GBP',dollar2:'CAD',dollar3:'EUR'},
   CURRENCY_SYMBOL:{dollar:'$',dollar1:'£',dollar2:'C$',dollar3:'€'},
@@ -33,11 +34,11 @@ export const settings = {
                         'gv_paypal_password':'9YPPMCQQXKGGZ7WB',
                         'gv_paypal_signature':'AFcWxV21C7fd0v3bYYYRCpSSRl31AUSjdZagSGLZM6Q9dNTN4BiG7PwZ',
                         'gv_paypal_app_id':'APP-897100548E965904X'},
-  HOTMAIL_CREDENTIAILS : {
-                            client_id: '56f9576b-ab7b-4c44-bc4d-9ab7aa8d8913',
-                            client_secret: 'VBDLE3277>_stkmaqaCY8]%',
-                            scope: 'User.ReadBasic.All Mail.Read offline_access',
-                        },
+  // HOTMAIL_CREDENTIAILS : {
+  //                           client_id: '56f9576b-ab7b-4c44-bc4d-9ab7aa8d8913',
+  //                           client_secret: 'VBDLE3277>_stkmaqaCY8]%',
+  //                           scope: 'User.ReadBasic.All Mail.Read offline_access',
+  //                       },
   PAYMENT_STATUS:{created:"CREATED",completed:"COMPLETED",incomplete:"INCOMPLETE",error:"ERROR",reversalerror:"REVERSALERROR",processing:"PROCESSING",pending:"PENDING"},
 };
 export const alertData = [{

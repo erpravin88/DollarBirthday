@@ -131,10 +131,11 @@ signinview:{
 },
 
 googlefbtext:{
-  color:'#665b5b',
+  color:'#1a1b1a',
   textAlign: 'center',
-  fontFamily:'OpenSans-Semibold',
-  fontSize:8
+  fontSize:9.5,
+  fontStyle:'italic',
+  padding:.5,
 },
 };
   const allRules = Object.assign(comman, style);

@@ -10,7 +10,7 @@ const style = {
       marginTop:(Platform.OS === 'ios')?  20 : 10,
       marginBottom:10,
     },
-    top:{resizeMode:'stretch',height:null,flex:1},
+    top:{resizeMode:'stretch',maxHeight:290,flex:1},
     containerWidth:{width:'94%',marginLeft:'3%',marginRight:'3%',},
     formgroup:{
         backgroundColor:'#FFFFFF',
@@ -21,7 +21,6 @@ const style = {
         marginTop: 40,
         alignItems: 'center',
         backgroundColor:'transparent',
-        height: 220,
       },
         scrolllist:{
             backgroundColor:'transparent',
@@ -93,10 +92,11 @@ const style = {
           },
 
           googlefbtext:{
-            color:'#b7b7b7',
+            color:'#1a1b1a',
             textAlign: 'center',
-            fontFamily:'OpenSans-Semibold',
-            fontSize:8
+            fontSize:9.5,
+            fontStyle:'italic',
+            padding:.5,
           },
           listbox:{
             shadowOpacity: 0.4,
