@@ -47,6 +47,8 @@ constructor(props){
 fetchlist(item){
   console.log(item);
 console.log( this.state.user_details.charity[0].user_id == item.giver_id);
+let charity_status = (item.charity_status === settings.PAYMENT_STATUS.completed || item.charity_status === settings.PAYMENT_STATUS.completeds) ;
+let gift_status = (item.gift_status === settings.PAYMENT_STATUS.completed || item.gift_status === settings.PAYMENT_STATUS.completeds) ;
     return(
         <View  >
         {item.receiver_email === "" ?
@@ -54,8 +56,11 @@ console.log( this.state.user_details.charity[0].user_id == item.giver_id);
            <Image style = {styles.userimg} source ={images.placeholderImage}/>
            <View style={styles.userdetailtext}>
                <View style={styles.usernametext}>
-                   <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.username : styles.usernamepending]}>{item.charity_name}</Text>
-                    <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}> {item.status === settings.PAYMENT_STATUS.completed ? Label.t('27') : Label.t('28')} {currencySymbol(item.gift_currency) }{item.charity_amount} </Text>
+                   <Text style={[charity_status ? styles.username : styles.usernamepending]}>{item.charity_name}</Text>
+                   <View>
+                        <Text style={[charity_status ? styles.donatedamount : styles.pendingamount]}>{ Label.t('27')}  {currencySymbol(item.gift_currency) }{item.charity_amount} </Text>
+                        {charity_status ? null :(<Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}>{ Label.t('28')}</Text>)}
+                    </View>
                </View>
                <Text style={styles.pendingamount}>{dateformateMDY({datetime:item.gift_sent_time})}</Text>
            </View>
@@ -64,9 +69,13 @@ console.log( this.state.user_details.charity[0].user_id == item.giver_id);
              <Image style = {styles.userimg} source ={images.placeholderImage}/>
              <View style={styles.userdetailtext}>
                  <View style={styles.usernametext}>
-                     <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.username : styles.usernamepending]}>{item.sender_name}</Text>
-                     <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.sentamount : styles.pendingamount]}>  {item.status === settings.PAYMENT_STATUS.completed ? Label.t('24') : Label.t('28')} {currencySymbol(item.gift_currency) }{item.gift_amount} </Text>
+                     <Text style={[gift_status ? styles.username : styles.usernamepending]}>{item.sender_name}</Text>
+                     <View>
+                     <Text style={[gift_status ? styles.sentamount : styles.pendingamount]}>{Label.t('24')}  {currencySymbol(item.gift_currency) }{item.gift_amount} </Text>
+                     {gift_status ? null :(<Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}>{ Label.t('28')}</Text>)}
+                     </View>
                  </View>
+                 
                  <Text style={styles.pendingamount}>{dateformateMDY({datetime:item.gift_sent_time})}</Text>
              </View>
          </View>
@@ -74,8 +83,11 @@ console.log( this.state.user_details.charity[0].user_id == item.giver_id);
              <Image style = {styles.userimg} source ={images.placeholderImage}/>
               <View style={styles.userdetailtext}>
                   <View style={styles.usernametext}>
-                      <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.username : styles.usernamepending]}>{item.charity_name}</Text>
-                       <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}> {item.status === settings.PAYMENT_STATUS.completed ? Label.t('27') : Label.t('28')} {currencySymbol(item.gift_currency) }{item.charity_amount} </Text>
+                      <Text style={[charity_status ? styles.username : styles.usernamepending]}>{item.charity_name}</Text>
+                      <View>
+                       <Text style={[charity_status ? styles.donatedamount : styles.pendingamount]}> {Label.t('27')}{currencySymbol(item.gift_currency) }{item.charity_amount} </Text>
+                       {charity_status ? null :(<Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}>{ Label.t('28')}</Text>)}
+                       </View>
                   </View>
                   <Text style={styles.pendingamount}>{dateformateMDY({datetime:item.gift_sent_time})}</Text>
               </View>
@@ -85,9 +97,13 @@ console.log( this.state.user_details.charity[0].user_id == item.giver_id);
              <Image style = {styles.userimg} source ={images.placeholderImage}/>
              <View style={styles.userdetailtext}>
                  <View style={styles.usernametext}>
-                     <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.username : styles.usernamepending]}>{item.receiver_name}</Text>
-                     <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.recievedamount : styles.pendingamount]}>  {item.status === settings.PAYMENT_STATUS.completed ? Label.t('25') : Label.t('28')} {currencySymbol(item.gift_currency) }{item.gift_amount}</Text>
+                     <Text style={[gift_status ? styles.username : styles.usernamepending]}>{item.receiver_name}</Text>
+                     <View>
+                     <Text style={[gift_status ? styles.recievedamount : styles.pendingamount]}> {Label.t('25')} {currencySymbol(item.gift_currency) }{item.gift_amount}</Text>
+                     {gift_status ? null :(<Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}>{ Label.t('28')}</Text>)}
+                     </View>
                  </View>
+                 
                  <Text style={styles.pendingamount}>{dateformateMDY({datetime:item.gift_sent_time})}</Text>
              </View>
          </View>
@@ -95,9 +111,13 @@ console.log( this.state.user_details.charity[0].user_id == item.giver_id);
              <Image style = {styles.userimg} source ={images.placeholderImage}/>
               <View style={styles.userdetailtext}>
                   <View style={styles.usernametext}>
-                      <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.username : styles.usernamepending]}>{item.charity_name}</Text>
-                       <Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}> {item.status === settings.PAYMENT_STATUS.completed ? Label.t('27') : Label.t('28')} {currencySymbol(item.gift_currency) }{item.charity_amount} </Text>
+                      <Text style={[charity_status ? styles.username : styles.usernamepending]}>{item.charity_name}</Text>
+                      <View>
+                       <Text style={[charity_status ? styles.donatedamount : styles.pendingamount]}>{Label.t('27')} {currencySymbol(item.gift_currency) }{item.charity_amount} </Text>
+                       {charity_status ? null :(<Text style={[item.status === settings.PAYMENT_STATUS.completed ? styles.donatedamount : styles.pendingamount]}>{ Label.t('28')}</Text>)}
+                       </View>
                   </View>
+                  
                   <Text style={styles.pendingamount}>{dateformateMDY({datetime:item.gift_sent_time})}</Text>
               </View>
          </View>)}

@@ -68,10 +68,9 @@ setModalVisible(visible) {
 //friend.picture
 displaybirthdays(){
     return this.state.Friends.map((friend,key) => {
-        var date = new Date(friend.birth_date);
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        if(day == this.state.dateSelected.day && month == this.state.dateSelected.month){
+
+        var birth_date = friend.birth_date.split('-');// YYYY-MM-DD
+        if(birth_date[2] == this.state.dateSelected.day && birth_date[1] == this.state.dateSelected.month){
             return (<View key={key} style={styles.item}>
                <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
                <View style={styles.namew}><Text style={styles.name}>{friend.full_name}<Text style = {styles.userbirthdate}> | {this.state.monthshort[this.state.dateSelected.month-1]} {this.state.dateSelected.day}</Text></Text></View>
@@ -86,16 +85,9 @@ displaybirthdays(){
     });
 }
 formBorthdaytakemonthandday(indate){
-  let temp = new Date(indate);
-  let tempday = temp.getDate();
-  if(tempday < 10){
-      tempday = "0"+tempday;
-  }
-  let tempmonth = temp.getMonth() + 1;
-  if(tempmonth < 10){
-      tempmonth = "0"+tempmonth;
-  }
-  return tempmonth+" "+tempday;
+
+	let newdate1 = indate.split("-");// YYYY-MM-DD
+    return newdate1[1]+" "+newdate1[2];
 }
 modalOpen(selectedDate){console.log(selectedDate, this.state.Friends);
     let bdayfound = false;
@@ -117,20 +109,17 @@ modalOpen(selectedDate){console.log(selectedDate, this.state.Friends);
 checkyear(month){
     if(this.state.calendaryear != month.year){
         this.state.calendaryear = month.year;
-        friends_date:{};
+        console.log(month.year);
+        let friends_date={};
         for (let friend of this.state.Friends) {
-            let temp = new Date(friend.birth_date);
-            let tempday = temp.getDate();
-            if(tempday < 10){
-                tempday = "0"+tempday;
-            }
-            let tempmonth = temp.getMonth() + 1;
-            if(tempmonth < 10){
-                tempmonth = "0"+tempmonth;
-            }
-            let date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
-            this.state.friends_date[date]={marked: true};
+            let temp = friend.birth_date.split("-");
+            let date = this.state.calendaryear+'-'+temp[1]+'-'+temp[2];
+            console.log(date);
+            friends_date[date]={marked: true};
+           // console.log( this.state.friends_date);
         }
+        this.setState({friends_date:friends_date});
+        console.log( this.state.friends_date);
     }
 }
 
@@ -152,20 +141,16 @@ componentWillMount(){
                   response.json().then((responseobject) => {
                     this.setState({ Friends: responseobject.data });
                     this.state.calendaryear = (new Date()).getFullYear();
+                    console.log(this.state.calendaryear);
                     let friends_date = {};
                     for (let friend of this.state.Friends) {
-                        var temp = new Date(friend.birth_date);
-                        var tempday = temp.getDate();
-                        if(tempday < 10){
-                            tempday = "0"+tempday;
-                        }
-                        var tempmonth = temp.getMonth() + 1;
-                        if(tempmonth < 10){
-                            tempmonth = "0"+tempmonth;
-                        }
-                        var date = this.state.calendaryear+'-'+tempmonth+'-'+tempday;
+                        let temp = friend.birth_date.split("-");
+                        let date = this.state.calendaryear+'-'+temp[1]+'-'+temp[2];
+                        console.log(date);
                         friends_date[date]={marked: true};
+                        
                     }
+                    console.log( this.state.friends_date);
                     this.setState({friends_date: friends_date});
                   });
                   this.setState({showProgress : false});

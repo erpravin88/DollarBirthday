@@ -103,9 +103,8 @@ const style = {
 
         scrolllist:{
             backgroundColor:'transparent',
-            overflow:'hidden',
             marginTop: '2%',
-            maxHeight:'100%',
+            height:80,
         },
           friendboxes:{
             flexDirection:'row',

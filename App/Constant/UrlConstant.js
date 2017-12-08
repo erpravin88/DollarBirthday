@@ -39,7 +39,7 @@ export const settings = {
   //                           client_secret: 'VBDLE3277>_stkmaqaCY8]%',
   //                           scope: 'User.ReadBasic.All Mail.Read offline_access',
   //                       },
-  PAYMENT_STATUS:{created:"CREATED",completed:"COMPLETED",incomplete:"INCOMPLETE",error:"ERROR",reversalerror:"REVERSALERROR",processing:"PROCESSING",pending:"PENDING"},
+  PAYMENT_STATUS:{created:"CREATED",completed:"COMPLETED",completeds:"Completed",incomplete:"INCOMPLETE",error:"ERROR",reversalerror:"REVERSALERROR",processing:"PROCESSING",pending:"PENDING"},
 };
 export const alertData = [{
       value: 'No alert',index:'0'

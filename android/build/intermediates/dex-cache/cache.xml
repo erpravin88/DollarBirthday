@@ -3,21 +3,120 @@
 
     <item
         is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-i18n/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="89075ff9a907af843ffb29e0c882230eb331739d">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_c7673ca499b63c025f27c58e67b24688d46861b0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/448b7f0fa00d80c0d5e2b1da263449b2357aaafb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_efdf452e761c5b7a9c28eac65017475de4a47b93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/6081d0d2aaa434285b73aaff8670cfe89cfc97e2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_d075e3bd4e0a7287b4417729766e6720b56e1472.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/9420a532b11113d1b4b213466511840c428d5e99/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_d17ab2fb3e9d3e902bf8fd69c602a7da37a61c9a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-i18n/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="89075ff9a907af843ffb29e0c882230eb331739d">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/release/classes_c7673ca499b63c025f27c58e67b24688d46861b0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_f221d0ba15460e175333ef4ce74a7bfa97bebf5f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/3a9006d7723cecf08a399f88d1c02ec610580dd6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_a51ea987ebc6aa2193dae45ecc1347ca812abb7b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_610511359772579bc14d8e7818b041ba612deb8a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/4f56f7d5e517555df25dd708822e856863db89d0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_7cab02f5435b4361686e29643911f0c62a92e03f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/644c4cc9c0c97a1b6cf1385388389e563297453b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="70ffe00aaf049893f59d1dad57bd82992faa38ef">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_dfda6e6e4bbaaa843ea66ac1a95ab5f07de9f8a9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/d5e2223e86f7e976c96f1c0e372b364394664961/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2430e711762a749feb00b3d64858ca4768251b9d">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_73df197dcda9fda44dd0d4f6d05ec2cff95961e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/263666d98293b4a89866fe1ecba7d819857a5ac2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="dd282bdeaa904c59d77e57dedd7e0a241c9b679d">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_192e86e6a008a6c75c815225e32da47fec457067.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-smart-splash-screen/android/build/intermediates/bundles/default/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="65c5ddffe7b565ab1b933b842cf57b34971b02ba">
         <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/release/classes_6885f097aee419a680404fac3dfeec266c1bed06.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-fbsdk/android/build/intermediates/bundles/default/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ce2b293f217b5d6255c438847e083d4376367ad0">
-        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/release/classes_135b07e7f405a73a5f723e3cd6e05adda9cd84aa.jar" />
     </item>
     <item
         is-multidex="false"
@@ -30,12 +129,291 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-i18n/android/build/intermediates/bundles/default/classes.jar"
+        jar="/Users/amit/.android/build-cache/d7858a693e31dd4da570d07dfc8a203ca23ced94/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_0e107bc1cb81f132dc888bb408ad1579f995fca0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/1ebca78987bcc24c7729e7fde40be0ce2d2df605/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_a9638030ef1dacadcddc144ed3a1065ee4a5319a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/ee9c64b02eaea88715c6bbcb08a7f8033fbfef68/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_8f35999e014f0c470c8e37848a7d3276db17c8b9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_ec76166d7540859b9608761db43fafda0562687c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-smart-splash-screen/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="65c5ddffe7b565ab1b933b842cf57b34971b02ba">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_6885f097aee419a680404fac3dfeec266c1bed06.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/fba818cd412d8f0f3a02f9259f3a205e0410445d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d8942ee348aaa9341f08f7e2437063893fe27542">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_e79edcaff0cba7779442b2ae90c9f874776019a8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/c29c7c338da2a0bf30e15552664a093692bcbb84/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_0e10f9043b19fa3319069081dbc7fe8a8f3f3db2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/3145c0875d385bd5a9a528601bfef74416a386e6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_4e630730b12c7845e8aa9447c69aa52779c69e89.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/8a9695a7b5263db428a8e84642fb694fac0eb682/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="807751a24cf96566fd8675517c94d8463cf364db">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_e7d305a1c63ee88405d7ce6623cbd033d072e832.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-device-info/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2e4336ffc2b7653868134d7f6f8b28523ef54645">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_663b198ddb1e64a480653c8691135f6ab4f39235.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-fbsdk/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3ee27c3f6b4d2aff2e7df736674fdaef6b1cb82b">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_135b07e7f405a73a5f723e3cd6e05adda9cd84aa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.3.0/73c49077166faa4c3c0059c5f583d1d7bd1475fe/core-3.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="73c49077166faa4c3c0059c5f583d1d7bd1475fe">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/core-3.3.0_d39859d3ca07611af210a8e6b4d894467c36a9c2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_f57d7ec9064582499e104d1a63ca70e54a929bb5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/8e334502e7b143fe5cedfe1cf7f9262ab030a2db/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_ed812fbefdd85d0a122f25cd47e7c08f8c3ca773.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/1c89306f0d3e9f58228bb8339f0313d627fdd37d/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_9dd8ad8ded791a3816bbc0a511784b28ef3ae627.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/1c89306f0d3e9f58228bb8339f0313d627fdd37d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="576b5113887747a7592650ae14d980e1c57983c4">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_1c9c63225ec43f6abd1b58523ad979d9e2895d94.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-cookies/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f9748c4494f7cb726d3ce79e245277b6b74457ec">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_099055e3e56045f4a4a4e95e01fae855e1d4cf03.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/3054af3f6a43c793e87559f7966ad25e65ce4740/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e09663005d70dcedff0bb77211b9ac52d8b69421">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_0d700f670412a6ccd10f2b5910fe8e2e323c8ea0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/4880ebb375d84f8240506bfa7c512b7ab7ec9177/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_1e78f1ef9276a92a3dd2a18529f613d19909f650.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_406c314cc2a3814b6d15756ac46694e7249d1863.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/3d369689b18db411a153dc2657271faf818e73c3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="364364bf77b4a71afc5930fc3ae57b3f0eea637c">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_cc7ade50730cd1d3189271fd57f0957825eb51af.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/939c8ef11103813e746777064f3ea7cd0af7c3c3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_ecf56023bda12eecd0fea2d6da2e87583fd78397.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/SDK/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_bff5f02494c548b699f099663608d5134ba71306.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_24120663db7b1e726036f1cb495a1679c747fced.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_50d717ea85cca750bd75c1dc50fa85533f096c9f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/77272be5288f14446787c756b7d23428e397e20a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_4dc80a9c026f81936c458ce6c6db7d1e24600d3e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/Desktop/DollarBirthday/node_modules/react-native-fbsdk/android/build/intermediates/bundles/default/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="89075ff9a907af843ffb29e0c882230eb331739d">
-        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/release/classes_c7673ca499b63c025f27c58e67b24688d46861b0.jar" />
+        sha1="ce2b293f217b5d6255c438847e083d4376367ad0">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/release/classes_135b07e7f405a73a5f723e3cd6e05adda9cd84aa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/04b1fefda4f28eba5df2b3904655320aac9130f8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_76cdaa306409e3c44f73562058486768e900a9b9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/f0d0fff4f715141254e24e2673c40e13dc78d691/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_50b99539408b1c10bf118985d752e568ca85091c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/9b1fd22f84ec1bcd9793c45c478ecc64701756ad/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_70ab79128406552217eda941a9c70ca82f77fcec.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_7802eb14c26abbddfb85f6413cc39a2cd93f0dfa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/amit/.android/build-cache/ff01c42a38100d89bc05885948d3bd8a328df0d5/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/amit/Desktop/DollarBirthday/android/app/build/intermediates/pre-dexed/debug/classes_cde1701a951f03e81eed6bbd3f0ca7b0b5548a87.jar" />
     </item>
 
 </items>

@@ -27,8 +27,7 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
-const monthNames = [ "January", "February", "March", "April", "May", "June",
-"July", "August", "September", "October", "November", "December" ];
+
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class upcomings extends Component {
   constructor(props){
@@ -40,7 +39,6 @@ export default class upcomings extends Component {
      showProgress:false,
      user_details:[],
      selectedTab:0,
-     monthshort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
    };
   }
   componentDidMount(){
@@ -101,11 +99,20 @@ export default class upcomings extends Component {
   }
   renderRow(data) {
     console.log(data);
-    let date = new Date(data.birth_date)
+    //let date = new Date(data.birth_date)
+    const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    let temp = data.birth_date.split("-");// YYYY-MM-DD
+    let tempday = temp[2];
+    
+    let tempmonth = temp[1] -1;
+    tempmonth = monthsLong[tempmonth];
+    let tempyear = temp[0];
+    let birth_date = tempmonth+" "+tempday+", "+tempyear;
        return (
         <View style={styles.item}>
            <View style={styles.picw}><Image style = {styles.pic} source = {images.placeholderImage}/></View>
-           <View style={styles.namew}><Text style={styles.name}>{data.first_name+' '+data.last_name}</Text><Text style={{color:'#8F8F8F'}}>{monthNames[date.getMonth()]},{date.getDate()} {date.getFullYear()}</Text></View>
+           <View style={styles.namew}><Text style={styles.name}>{data.first_name+' '+data.last_name}</Text><Text style={{color:'#8F8F8F'}}>{birth_date}</Text></View>
            <View style={styles.btnw}>
               <TouchableOpacity style={styles.btn1} onPress={()=>{this.navigatetoSendGift(data);console.log(data.email);}}>
                 <Text style={styles.text1}>{Label.t('13')}</Text>

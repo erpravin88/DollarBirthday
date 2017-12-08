@@ -114,14 +114,12 @@ deleteFriend(item){
 }
 rowRander(item){
    if(item.friend !== 0){
-    let temp = new Date(item.birth_date);
-    let tempday = temp.getDate();
-    if(tempday < 10){
-        tempday = "0"+tempday;
-    }
-    let tempmonth = temp.getMonth();
+    let temp = item.birth_date.split("-");// YYYY-MM-DD
+    let tempday = temp[2];
+    
+    let tempmonth = temp[1] -1;
     tempmonth = monthsLong[tempmonth];
-    let tempyear = temp.getFullYear();
+    let tempyear = temp[0];
     let birth_date = tempmonth+" "+tempday+", "+tempyear;
       return(<View key={`${item.id}`} style = {styles.listbox}>
         <View>
@@ -359,7 +357,7 @@ componentWillMount(){
                     data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
                     renderItem={({item}) => this.rowRander(item)}
                     keyExtractor={item => item.id}
-                    style={[{height:'50%',paddingRight:'1%'}]}
+                    style={[{paddingRight:'1.5%'}]}
                     /></View>) : ''}
 
         </View>

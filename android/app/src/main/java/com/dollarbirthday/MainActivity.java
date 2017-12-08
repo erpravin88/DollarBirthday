@@ -35,11 +35,10 @@ public class MainActivity extends ReactActivity {
       //  RCTSplashScreen.openSplashScreen(this);
         RCTSplashScreen.openSplashScreen(this, true, ImageView.ScaleType.FIT_XY);
         super.onCreate(savedInstanceState);
-        
 
     }
 
-    @Override
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);

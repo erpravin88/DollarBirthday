@@ -1,232 +1,314 @@
 import React, { Component } from 'react';
 import {
-  Text,
-  View,
-  TouchableOpacity,
-  Platform,
-  Image,
-  ScrollView,
-  AsyncStorage,
+	Linking,
+	Platform,
+	NetInfo,
 } from 'react-native';
+import settings from './UrlConstant';
+export const Birthdayformat = (datetime) => {
+	if(datetime.datetime === undefined){
+		return null;
+	}
+	console.log(datetime.datetime);
+	let string1 = '-'
+	let string2 = '/'
+	let Newdate= [];
+	if(datetime.datetime.includes(string1)){
+		let newdate1 = datetime.datetime+"T00:00:00Z";
+		Newdate =newdate1;
+		// let newdate1 = datetime.datetime.split("-");
+		
+		// Newdate[0] = newdate1[0]*1;
+		// Newdate[1] = newdate1[1]*1;
+		// Newdate[2] = newdate1[2]*1;
+        
+      }else if(datetime.datetime.includes(string2)){
+		let newdate1 = datetime.datetime.split("/");
+		//Newdate[0] = newdate1[2]*1;
+		//Newdate[1] = newdate1[0]*1;
+		//Newdate[2] = newdate1[1]*1;
+		if(newdate1[0] < 10){
+			newdate1[0] = newdate1[0]*1;
+			newdate1[0] = "0"+newdate1[0];
+		}
+		Newdate = newdate1[2]+"-"+newdate1[0]+"-"+newdate1[1];
 
-import images from '../Constant/Images';
-import settings from '../Constant/UrlConstant';
-import styles from './Style/FetchFriendStyle';
-import Label from '../Constant/Languages/LangConfig';
-import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn } from '../Constant/Auth';
-import {callApiWithoutAuth} from '../Service/WebServiceHandler';
-import MyActivityIndicator from '../Component/MyActivityIndicator';
-import Toast from 'react-native-simple-toast';
-import { NavigationActions } from 'react-navigation';
-import SafariView from 'react-native-safari-view';
-const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
-    });
-const resetAction1 = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'IMPORTMANUALLY' })],
-    });
-import FBSDK  from 'react-native-fbsdk';
-const {
-      LoginManager,
-      AccessToken
-} = FBSDK;
-export default class FetchFriend extends Component {
-
-
-  constructor(props){
-
-   super(props);
-
-   this.onGetStartedClick = this.onGetStartedClick.bind(this);
-   this.state = {
-                 date: new Date(Date.now()),
-                  showProgress: false,
-                  auth_token:'',
-                };
-               }
-  componentDidMount(){
-
-        AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
-          this.setState({auth_token: token});
-        }).catch((err)=>{
-          Toast.show(err);
-        });
-      }
-
-    onGetStartedClick(){
-
-
-
- // let userData = this.props.navigation.state.params.user_data;
- //   console.log(userData);  // Add your logic for the transition
- //
- //    this.setState({showProgress : true});
- //    callApiWithoutAuth('register','POST', {"email":userData.email,
- //      "password":userData.password,
- //      "device_id":userData.device_id,
- //      "device_type":userData.device_type,
- //      "paypal":userData.paypal,
- //      "full_name":userData.fullName,
- //      "birth_date": userData.date }
- //    ).then((response) => {
- //      console.log(response);
- //      if(response.status === 201){
- //      response.json().then((responseobject) => {
- //        console.log(responseobject);
- //         onSignIn();
- //         afterSignIn(responseobject.data.authToken);
- //         setUserDetails(responseobject.data);
- //         this.props.navigation.navigate('DASHBOARD',{name: this.state.email});
- //         this.setState({showProgress : false});
- //      console.log(responseobject);
- //      });
- //
- //    }else if (response.status === 404) {
- //      this.setState({showProgress : false});
- //    }else if (response.status === 406) {
- //      console.log(responseobject);
- //      this.setState({showProgress : false});
- //      Toast.show('User email  already registered.');
- //    }else if (response.status === 500) {
- //      this.setState({showProgress : false});
- //      Toast.show('Unsuccessfull error:500');
- //      }
- //    }).catch((error) => {console.log(error); });
-
-
-
-    }
-    _fbAuth = () => {
-       LoginManager.logInWithReadPermissions(['public_profile','user_birthday']).then((result) => {
-           if(result.isCancelled){
-               Toast.show('Log In cancelled');
-           }
-           else {
-               /*AccessToken.getCurrentAccessToken().then(
-                   (data) => {
-                       console.log(data);
-                       fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
-                       .then((response) => response.json())
-                       .then((json) => {console.log("Profile fb",json)})
-                       .catch(() => {
-                         console.log('ERROR GETTING DATA FROM FACEBOOK');
-                       })
-
-                   }
-               );*/
-               this.openURL(settings.FBEVENT_URL);
-           }
-       }, function(error){
-           console.log('An error occured: ' + error)
-       })
-    }
-    // Open URL in a browser
-     openURL = (url) => {
-       // Use SafariView on iOS
-       if (Platform.OS === 'ios') {
-         SafariView.show({
-           url: url,
-           fromBottom: true,
-         });
-       }
-       // Or Linking.openURL on Android
-       else {
-         Linking.openURL(url);
-       }
-     };
-
-
-       _contactslisting = (mode) => {
-         switch(mode){
-           case settings.GOOGLE :
-           console.log(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.GOOGLE);
-                   this.openURL(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.GOOGLE);
-                   break;
-           case settings.YAHOO :
-                   this.openURL(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.YAHOO);
-                   break;
-           case settings.HOTMAIL :
-                   this.openURL(settings.CONTACT_LIST_URL+this.state.auth_token+'&'+settings.HOTMAIL);
-                   break;
-         }
-
-        //this.openURL('https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Fdbc.demos.classicinformatics.com%2Fgcontacts&client_id=167305329007-1gl7jbvgg23vevkdhqhsomi4nnm243rs.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&access_type=online&approval_prompt=auto');
-       }
-  render(){
-
-  return(
-    <Image style = {styles.backgroundImage} source = {images.loginbackground}>
-      <View style={[styles.full]}>
-        <MyActivityIndicator progress={this.state.showProgress} />
-          <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps="never">
-            <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
-              <View style = {styles.titleContainer}>
-                <Text style = {styles.titleTextFirst}></Text>
-                <Text style = {[styles.titleTextSecond,styles.marginTopFive]}>{Label.t('1')}</Text>
-              </View>
-            </Image>
-            <View style={[styles.formgroup,styles.containerWidth]}>
-              <View style = {[styles.TextInputContainer]}>
-                <Text style = {styles.heading1}>{Label.t('86')}</Text>
-              </View>
-              <View style = {[styles.TextInputContainer,styles.marginFix2]}>
-                <Text style = {styles.subhead1}>{Label.t('87')}</Text>
-              </View>
-
-                <View style = {[styles.TextInputContainer]}>
-                  <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction1);}}
-                  style = {[styles.signInButtonContainer,{borderRadius:3}]}>
-                    <Text style = {styles.signInButton}>{Label.t('88')}</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style = {styles.friendboxes}>
-                  <View style = {[styles.googlesigninview]}>
-                      <TouchableOpacity onPress={() => {this._contactslisting(settings.GOOGLE);}}>
-                          <View style = {styles.googlesigninbox}>
-                              <Text style= {styles.boxtextsmall}>{Label.t('65')}</Text>
-                          </View>
-                       </TouchableOpacity>
-
-                      <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('66')}</Text>
-                  </View>
-                  <View style = {[styles.yahoosigninview]}>
-                      <TouchableOpacity onPress={() => {this._contactslisting(settings.YAHOO);}}>
-                          <View style = {styles.yahoosigninbox}>
-                              <Text style= {styles.boxtextsmall}>{Label.t('117')}</Text>
-                          </View>
-                      </TouchableOpacity>
-
-                      <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('118')}</Text>
-                  </View>
-                  <View style = {[styles.googlesigninview]}>
-                      <TouchableOpacity onPress={() => {this._contactslisting(settings.HOTMAIL);}}>
-                          <View style = {styles.hotmailsigninbox}>
-                              <Text style= {styles.boxtextsmall}>{Label.t('116')}</Text>
-                          </View>
-                      </TouchableOpacity>
-                      <Text style = {[styles.googlefbtext,styles.backgroundtrans]}>{Label.t('119')}</Text>
-                  </View>
-                </View>
-                <View style = {styles.TextInputContainer}>
-                    <Text style = {styles.orDivider}>{Label.t('72')}</Text>
-                  </View>
-                <View style = {styles.TextInputContainer}>
-                  <TouchableOpacity style = {[styles.facebookButtonContainer,{borderRadius:3}]} onPress={() => {this._fbAuth()}}>
-                    <Image style = {styles.facebookButton} source = {images.importfbbutton}/>
-                  </TouchableOpacity>
-                </View>
-
-                <TouchableOpacity onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
-                  <View style = {[styles.skipContainer]}>
-                        <Text style = {styles.skip}>{Label.t('85')}</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
-          </View>
-        </Image>);
-  }
+	  }
+	//console.log("---"+Newdate);
+	let date = new Date(Newdate);
+	let month = date.getMonth();
+	month = month*1 +1;
+	if(month < 10){
+		month = "0"+month;
+	}
+	let UTCmonth = date.getUTCMonth();
+	UTCmonth = UTCmonth*1 +1;
+	if(UTCmonth < 10){
+		UTCmonth = "0"+UTCmonth;
+	}
+	if(datetime.slash){
+		//console.log(month + '/' + date.getDate() + '/' + date.getFullYear());
+		return month + '/' + date.getDate() + '/' + date.getFullYear();
+		
+	}else{
+	//console.log(date.getUTCFullYear()+ '-' + UTCmonth + '-' + date.getUTCDate());
+		return  date.getUTCFullYear()+ '-' + UTCmonth + '-' + date.getUTCDate();
+		
+	}
+	return null;
 }
-//onPress={()=>{this.props.navigation.dispatch(resetAction1);}}
+export const currencySymbol = (cdata) => {
+return cdata === settings.CURRENCY.dollar ? settings.CURRENCY_SYMBOL.dollar : cdata === settings.CURRENCY.dollar1 ? settings.CURRENCY_SYMBOL.dollar1 : cdata === settings.CURRENCY.dollar2 ? settings.CURRENCY_SYMBOL.dollar2 : cdata === settings.CURRENCY.dollar3 ? settings.CURRENCY_SYMBOL.dollar3 : null;
+}
+export const dateformateMDY = (datetime)=>{
+	if(datetime.datetime === undefined){
+		return null;
+	}
+	let datetimenew = datetime.datetime.split(" ");
+	let date = new Date(datetimenew[0]+"T"+datetimenew[1]+"Z");
+	let month = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"][date.getMonth()];
+	let hours = date.getHours();
+	let minutes = date.getMinutes();
+	let ampm = hours >= 12 ? 'PM' : 'AM';
+	hours = hours % 12;
+	hours = hours ? hours : 12; // the hour '0' should be '12'
+	minutes = minutes < 10 ? '0'+minutes : minutes;
+
+	if(datetime.time){
+		return month + ' ' + date.getDate() + ' at ' + hours + ':' + minutes + ' ' + ampm;
+	}
+ return month + ' '+date.getDate() +', ' + date.getFullYear();
+}
+export const netinfo = function() {
+	NetInfo.isConnected.fetch().then(isConnected => {
+  console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+});
+function handleFirstConnectivityChange(isConnected) {
+  console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
+
+  NetInfo.isConnected.removeEventListener(
+    'change',
+    handleFirstConnectivityChange
+  );
+	return isConnected;
+}
+NetInfo.isConnected.addEventListener(
+  'change',
+  handleFirstConnectivityChange
+);
+}
+export const phonecall = function(phoneNumber, prompt) {
+	if(arguments.length !== 2) {
+			console.log('you must supply exactly 2 arguments');
+			return;
+		}
+
+		if(!isCorrectType('String', phoneNumber)) {
+			console.log('the phone number must be provided as a String value');
+			return;
+		}
+
+		if(!isCorrectType('Boolean', prompt)) {
+			console.log('the prompt parameter must be a Boolean');
+			return;
+		}
+
+		let url;
+
+		if(Platform.OS !== 'android') {
+			url = prompt ? 'telprompt:' : 'tel:';
+		}
+		else {
+			url = 'tel:';
+		}
+
+		url += phoneNumber;
+
+		LaunchURL(url);
+}
+
+export const email = function(to, cc, bcc, subject, body) {
+	let url = 'mailto:';
+		let argLength = arguments.length;
+
+		switch(argLength) {
+			case 0:
+				LaunchURL(url);
+				return;
+			case 5:
+				break;
+			default:
+				console.log('you must supply either 0 or 5 arguments. You supplied ' + argLength);
+				return;
+		}
+
+		// we use this Boolean to keep track of when we add a new parameter to the querystring
+		// it helps us know when we need to add & to separate parameters
+		let valueAdded = false;
+
+		if(isCorrectType('Array', arguments[0])) {
+			let validAddresses = getValidArgumentsFromArray(arguments[0], 'String');
+
+			if(validAddresses.length > 0) {
+				url += encodeURIComponent(validAddresses.join(','));
+			}
+		}
+
+		url += '?';
+
+		if(isCorrectType('Array', arguments[1])) {
+			let validAddresses = getValidArgumentsFromArray(arguments[1], 'String');
+
+			if(validAddresses.length > 0) {
+				valueAdded = true;
+				url += 'cc=' + encodeURIComponent(validAddresses.join(','));
+			}
+		}
+
+		if(isCorrectType('Array', arguments[2])) {
+			if(valueAdded) {
+				url += '&';
+			}
+
+			let validAddresses = getValidArgumentsFromArray(arguments[2], 'String');
+
+			if(validAddresses.length > 0) {
+				valueAdded = true;
+				url += 'bcc=' + encodeURIComponent(validAddresses.join(','));
+			}
+		}
+
+		if(isCorrectType('String', arguments[3])) {
+			if(valueAdded) {
+				url += '&';
+			}
+
+			valueAdded = true;
+			url += 'subject=' + encodeURIComponent(arguments[3]);
+		}
+
+		if(isCorrectType('String', arguments[4])) {
+			if(valueAdded) {
+				url += '&';
+			}
+
+			url += 'body=' + encodeURIComponent(arguments[4]);
+		}
+
+		LaunchURL(url);
+}
+
+export const text = function(phoneNumber = null, body = null) {
+	if(arguments.length > 2) {
+			console.log('you supplied too many arguments. You can either supply 0 or 1 or 2');
+			return;
+		}
+
+		let url = 'sms:';
+
+		if(phoneNumber) {
+			if(isCorrectType('String', phoneNumber)) {
+				url += phoneNumber;
+			} else {
+				console.log('the phone number should be provided as a string. It was provided as '
+					+ Object.prototype.toString.call(phoneNumber).slice(8, -1)
+					+ ',ignoring the value provided');
+			}
+		}
+
+		if(body) {
+			if(isCorrectType('String', body)) {
+				// for some strange reason android seems to have issues with ampersands in the body unless it is encoded twice!
+				// iOS only needs encoding once
+				if(Platform.OS === 'android') body = encodeURIComponent(body);
+				url += Platform.OS === 'ios' ? `&body=${encodeURIComponent(body)}` : `?body=${encodeURIComponent(body)}`;
+			} else {
+				console.log('the body should be provided as a string. It was provided as '
+					+ Object.prototype.toString.call(body).slice(8, -1)
+					+ ',ignoring the value provided');
+			}
+		}
+
+		LaunchURL(url);
+}
+
+export const textWithoutEncoding = function(phoneNumber = null, body = null) {
+	if(arguments.length > 2) {
+			console.log('you supplied too many arguments. You can either supply 0 or 1 or 2');
+			return;
+		}
+
+		let url = 'sms:';
+
+		if(phoneNumber) {
+			if(isCorrectType('String', phoneNumber)) {
+				url += phoneNumber;
+			} else {
+				console.log('the phone number should be provided as a string. It was provided as '
+					+ Object.prototype.toString.call(phoneNumber).slice(8, -1)
+					+ ',ignoring the value provided');
+			}
+		}
+
+		if(body) {
+			if(isCorrectType('String', body)) {
+				url += Platform.OS === 'ios' ? `&body=${body}` : `?body=${body}`;
+			} else {
+				console.log('the body should be provided as a string. It was provided as '
+					+ Object.prototype.toString.call(body).slice(8, -1)
+					+ ',ignoring the value provided');
+			}
+		}
+
+		LaunchURL(url);
+}
+
+export const web = (address = null) => {
+	if(!address) {
+      console.log('Missing address argument');
+      return;
+    }
+    if(!isCorrectType('String', address)) {
+    	console.log('address was not provided as a string, it was provided as '
+    		+ Object.prototype.toString.call(address).slice(8, -1));
+    	return;
+    }
+    LaunchURL(address);
+}
+
+const LaunchURL = function(url) {
+	Linking.canOpenURL(url).then(supported => {
+		if(!supported) {
+			console.log('Can\'t handle url: ' + url);
+		} else {
+			Linking.openURL(url)
+			.catch(err => {
+				if(url.includes('telprompt')) {
+					// telprompt was cancelled and Linking openURL method sees this as an error
+					// it is not a true error so ignore it to prevent apps crashing
+					// see https://github.com/anarchicknight/react-native-communications/issues/39
+				} else {
+					console.warn('openURL error', err)
+				}
+			});
+		}
+	}).catch(err => console.warn('An unexpected error happened', err));
+};
+
+const getValidArgumentsFromArray = function(array, type) {
+	var validValues = [];
+	array.forEach(function(value) {
+		if(isCorrectType(type, value)) {
+			validValues.push(value);
+		}
+	});
+
+	return validValues;
+};
+
+const isCorrectType = function(expected, actual) {
+	return Object.prototype.toString.call(actual).slice(8, -1) === expected;
+};
+
+export default { phonecall, text, textWithoutEncoding, email, web, netinfo, Birthdayformat, dateformateMDY }

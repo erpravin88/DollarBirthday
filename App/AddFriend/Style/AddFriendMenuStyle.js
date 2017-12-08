@@ -24,7 +24,7 @@ const style = {
       },
         scrolllist:{
             backgroundColor:'transparent',
-            height:'86%',
+            height:(Platform.OS === 'ios')?  '58%' : '55%',
             marginTop:'2%',
         },
           friendboxes:{

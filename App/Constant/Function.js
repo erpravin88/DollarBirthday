@@ -9,33 +9,31 @@ export const Birthdayformat = (datetime) => {
 	if(datetime.datetime === undefined){
 		return null;
 	}
-	console.log(datetime.datetime);
 	let string1 = '-'
 	let string2 = '/'
 	let Newdate= [];
 	if(datetime.datetime.includes(string1)){
 		let newdate1 = datetime.datetime.split("-");
 		
-		Newdate[0] = newdate1[0]*1;
-		Newdate[1] = newdate1[1]*1;
-		Newdate[2] = newdate1[2]*1;
+		Newdate[0] = newdate1[0];
+		Newdate[1] = newdate1[1];
+		Newdate[2] = newdate1[2];
         
       }else if(datetime.datetime.includes(string2)){
 		let newdate1 = datetime.datetime.split("/");
-		Newdate[0] = newdate1[2]*1;
-		Newdate[1] = newdate1[0]*1;
-		Newdate[2] = newdate1[1]*1;
+		Newdate[0] = newdate1[2];
+		Newdate[1] = newdate1[0];
+		Newdate[2] = newdate1[1];
 
 	  }
-	console.log(Newdate);
-	let date = new Date(Newdate[0],(Newdate[1]-1),Newdate[2],0,0,0,0);
+	
 	if(datetime.slash){
-		console.log((date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear());
-		return (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+		console.log(Newdate[1] + '/' + Newdate[2] + '/' + Newdate[0]);
+		return Newdate[1] + '/' + Newdate[2] + '/' + Newdate[0];
 		
 	}else{
-	console.log(date.getFullYear()+ '-' + (date.getUTCMonth()+1) + '-' + date.getDate());
-		return  date.getFullYear()+ '-' + (date.getMonth()+1) + '-' + date.getDate();
+	console.log(Newdate[0]+ '-' + Newdate[1] + '-' + Newdate[2]);
+		return  Newdate[0]+ '-' + Newdate[1] + '-' + Newdate[2];
 		
 	}
 	return null;
@@ -58,10 +56,10 @@ export const dateformateMDY = (datetime)=>{
 	hours = hours ? hours : 12; // the hour '0' should be '12'
 	minutes = minutes < 10 ? '0'+minutes : minutes;
 
-	if(datetime.time){
+	//if(datetime.time){
 		return month + ' ' + date.getDate() + ' at ' + hours + ':' + minutes + ' ' + ampm;
-	}
- return month + ' '+date.getDate() +', ' + date.getFullYear();
+	//}
+ //return month + ' '+date.getDate() +', ' + date.getFullYear();
 }
 export const netinfo = function() {
 	NetInfo.isConnected.fetch().then(isConnected => {
