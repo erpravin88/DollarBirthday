@@ -492,6 +492,9 @@ render(){
   }else{
      hide = false;
   }
+  let jsCode = `
+  document.querySelector('ol.inline').style.display = 'none';document.querySelector('a.hpr').style.display = 'none';document.querySelector('a.hpl').style.display = 'none';
+`;
   var bdate = this.state.friend.birth_date.split('-');// YYYY-MM-DD
     return(
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
@@ -587,6 +590,7 @@ render(){
                   scalesPageToFit={true}
                   javaScriptEnabledAndroid={true}
                   domStorageEnabled={true}
+                  injectedJavaScript={jsCode}
                   automaticallyAdjustContentInsets={false}
                   startInLoadingState={true}
                   style={[{paddingTop:20}]}

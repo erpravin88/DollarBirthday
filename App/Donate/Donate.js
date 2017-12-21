@@ -503,6 +503,10 @@ render(){
   }else{
      hide = false;
   }
+  let jsCode = `
+  document.querySelector('ol.inline').style.display = 'none';document.querySelector('a.hpr').style.display = 'none';document.querySelector('').style.display = 'none';
+`;
+  
   console.log(this.state.payment_env === 'LIVE'? settings.PAYPAL_LIVE_AUTHURL :  this.state.payment_env === 'SANDBOX'? settings.PAYPAL_SANDBOX_AUTHURL : ''+this.state.payKey);
 console.log(this.state.charity_type);
   return(
@@ -598,6 +602,7 @@ console.log(this.state.charity_type);
                   source={{ uri:  settings.BASE_URL+"/faq"}}
                   scalesPageToFit={true}
                   javaScriptEnabledAndroid={true}
+                  injectedJavaScript={jsCode}
                   domStorageEnabled={true}
                   automaticallyAdjustContentInsets={false}
                   startInLoadingState={true}
