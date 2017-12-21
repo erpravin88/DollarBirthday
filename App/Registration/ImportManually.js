@@ -72,7 +72,11 @@ deleteFriend(item){
         }else if (response.status === 500) {
         Toast.show(Label.t('59')+':500');
         }
-    }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+    }).catch((error) => {
+      this.setState({showProgress : false});
+      Toast.show(Label.t('155'));
+      console.log(error); 
+      });
 }
  changedateformat(item){
    if(item.friend !== 0){
@@ -148,14 +152,7 @@ componentWillMount(){
       Toast.show(err);
     });
 }
- componentDidMount(){
-
- }
-
- /**/
-
-
-  render(){
+render(){
   return(
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>
       <View style={[styles.full]}>
@@ -190,6 +187,7 @@ componentWillMount(){
                           data={this.state.Friends.length > 0 ? this.state.Friends :[{friend:0}]}
                           renderItem={({item}) => this.changedateformat(item)}
                           keyExtractor={item => item.id}
+                          style={[{marginBottom:20,paddingRight:'1.5%'}]}
                           /></View>) : ''}
                   </ScrollView>
               </View>

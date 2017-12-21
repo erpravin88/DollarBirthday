@@ -159,7 +159,11 @@ console.log(this.props.navigation.state.params);
                   this.setState({showProgress : false});
                   Toast.show(Label.t('52'));
                   }
-              }).catch((error) => {console.log(error); });
+              }).catch((error) => {
+                this.setState({showProgress : false});
+                Toast.show(Label.t('155'));
+                console.log(error); 
+                });
 
               }else if(action === 'update'){
                       callApiWithAuth('user/friend/'+this.state.formdata.id,'PUT',this.state.auth_token, {"email":this.state.email,
@@ -200,7 +204,11 @@ console.log(this.props.navigation.state.params);
                     this.setState({showProgress : false});
                     Toast.show(Label.t('52'));
                     }
-                }).catch((error) => {console.log(error); });
+                }).catch((error) => {
+                  this.setState({showProgress : false});
+                  Toast.show(Label.t('155'));
+                  console.log(error); 
+                  });
               }else{
                 console.log('Give Action');
               }

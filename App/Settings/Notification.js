@@ -82,7 +82,11 @@ onCharityClick(){
   }else if (response.status === 500) {
     Toast.show(Label.t('52'));
     }
-  }).catch((error) => {console.log(error); })
+  }).catch((error) => {
+    this.setState({showProgress : false});
+    Toast.show(Label.t('155'));
+    console.log(error); 
+    });
 }
 render(){
 

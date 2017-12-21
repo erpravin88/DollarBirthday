@@ -95,7 +95,11 @@ export default class Charity extends Component {
            }else if (response.status === 500) {
               this.setState({showProgress : false});
            }
-        }).catch((error) => {console.log(error); });
+        }).catch((error) => {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('155'));
+          console.log(error); 
+          });
         //--fetch donation list
         callApiWithoutAuth('donationList','GET' ).then((response) => {
            if(response.status === 200){
@@ -138,7 +142,11 @@ export default class Charity extends Component {
            }else if (response.status === 500) {
               this.setState({showProgress : false});
            }
-        }).catch((error) => {console.log(error); });
+        }).catch((error) => {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('155'));
+          console.log(error); 
+          });
 
     }).catch((err)=>{
       Toast.show(err);
@@ -216,7 +224,11 @@ if(flag){
     this.setState({showProgress : false});
     Toast.show(Label.t('52'));
     }
-  }).catch((error) => {console.log(error); })
+  }).catch((error) => {
+    this.setState({showProgress : false});
+    Toast.show(Label.t('155'));
+    console.log(error); 
+    });
   }else {
     this.setState({errorMsg: error});
   }

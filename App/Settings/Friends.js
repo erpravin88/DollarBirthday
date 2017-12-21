@@ -17,7 +17,6 @@ import {
 
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
-import {checkinternetconnectivity} from '../Constant/netinfo';
 import images from '../Constant/Images';
 import Label from '../Constant/Languages/LangConfig';
 import styles from './Style/FriendStyle';
@@ -25,6 +24,7 @@ import DatePicker from 'react-native-datepicker';
 import createReactClass from 'create-react-class';
 import functions from '../Constant/Function';
 import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignIn, setUserDetails, afterSignIn,onSignOut} from '../Constant/Auth';
+import {checkinternetconnectivity} from '../Constant/netinfo';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import { NavigationActions } from 'react-navigation';
 import SafariView from 'react-native-safari-view';
@@ -106,7 +106,11 @@ deleteFriend(item){
         }else if (response.status === 500) {
         Toast.show(Label.t('52'));
         }
-    }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+    }).catch((error) => {
+        this.setState({showProgress : false});
+        Toast.show(Label.t('155'));
+        console.log(error); 
+        });
   }else{
     Toast.show(Label.t('140'));
   }
@@ -184,7 +188,11 @@ componentWillMount(){
                Toast.show(Label.t('52'));
             }
             this.setState({showProgress : false});
-         }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+         }).catch((error) => {
+            this.setState({showProgress : false});
+            Toast.show(Label.t('155'));
+            console.log(error); 
+            });
        }else{
          Toast.show(Label.t('140'));
        }
@@ -199,34 +207,6 @@ componentWillMount(){
       console.log(err);// Toast.show(err);
     });
 }
-
-// componentDidMount() {
-//     // Add event listener to handle OAuthLogin:// URLs
-//     Linking.addEventListener('url', this.handleOpenURL);
-//     // Launched from an external URL
-//     Linking.getInitialURL().then((url) => {
-//       if (url) {
-//         this.handleOpenURL({ url });
-//       }
-//     });
-//   };
-
-  // componentWillUnmount() {
-  //   // Remove event listener
-  //   Linking.removeEventListener('url', this.handleOpenURL);
-  // };
-  //
-  // handleOpenURL = ({ url }) => {console.log(url);
-  //   // Extract stringified user string out of the URL
-  //   const [ user_string] = url.match(/user=([^#]+)/);
-  //   this.setState({
-  //     // Decode the user string and parse it into JSON
-  //     user: JSON.parse(decodeURI(user_string))
-  //   });
-  //   if (Platform.OS === 'ios') {
-  //     SafariView.dismiss();
-  //   }
-  // };
 
   _onNavigationStateChange (webViewState) { console.log(webViewState);
 
@@ -267,7 +247,6 @@ componentWillMount(){
              break;
    }
 
-  //this.openURL('https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Fdbc.demos.classicinformatics.com%2Fgcontacts&client_id=167305329007-1gl7jbvgg23vevkdhqhsomi4nnm243rs.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&access_type=online&approval_prompt=auto');
  }
 
   render(){
@@ -357,7 +336,7 @@ componentWillMount(){
                     data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
                     renderItem={({item}) => this.rowRander(item)}
                     keyExtractor={item => item.id}
-                    style={[{paddingRight:'1.5%'}]}
+                    style={[{marginBottom:20,paddingRight:'1.5%'}]}
                     /></View>) : ''}
 
         </View>

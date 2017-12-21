@@ -153,7 +153,11 @@ componentWillMount(){
                this.setState({showProgress : false});
                Toast.show(Label.t('52'));
             }
-         }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+         }).catch((error) => {
+            this.setState({showProgress : false});
+            Toast.show(Label.t('155'));
+            console.log(error); 
+            });
     }).catch((err)=>{
       onSignOut;
       Toast.show(err);

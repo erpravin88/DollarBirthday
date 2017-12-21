@@ -1,11 +1,15 @@
 import settings from '../Constant/UrlConstant';
 import Toast from 'react-native-simple-toast';
+import fetch from 'react-native-fetch-polyfill';
+
 export function callApiWithoutAuth(urlStr, method, params) {
     //alert("paramss++"+JSON.stringify(params));
     console.log(settings.API_URL);
 console.log(urlStr);
 console.log(JSON.stringify(params));
-    return fetch(settings.API_URL+urlStr, {
+return new Promise((resolve, reject) => {
+    fetch(settings.API_URL+urlStr, {
+            timeout: 30*1000,
             method: method,
             headers: {
                 'Accept': 'application/json',
@@ -14,9 +18,15 @@ console.log(JSON.stringify(params));
             body: JSON.stringify(params)
         })
         .then((response) => {
-          return response;
+            console.log('without auth');
+            resolve(response);
         })
-        .catch((error) => Toast.show("error"));
+        .catch((error) => {
+            console.log('without auth error');
+            console.log(error);
+            reject( error );
+        });
+    });
 }
 
 export function callApiWithAuth(urlStr, method, auth_token, params) {
@@ -26,8 +36,9 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
         console.log(params);
         console.log(auth_token);
         console.log(method);
-
-            return fetch(settings.API_URL+urlStr, {
+        return new Promise((resolve, reject) => {
+            fetch(settings.API_URL+urlStr, {
+                    timeout: 30*1000,
                     method: method,
                     headers: {
                         'Accept': 'application/json',
@@ -37,15 +48,14 @@ export function callApiWithAuth(urlStr, method, auth_token, params) {
                     body: JSON.stringify(params)
                 })
                 .then((response) => {
-                  // var myReader = new FileReader();
-                  // myReader.onload = function(event){
-                  //     console.log(JSON.stringify(myReader.result));
-                  // };
-                  // let data = myReader.readAsText(response._bodyBlob);
-                  // console.log(data);
-                  return response;
+                    resolve(response);
                 })
-                .catch((error) => {console.log(error);Toast.show(JSON.stringify(error)); return JSON.stringify({error: error});});
+                .catch((error) => {
+                   // console.log(error);
+                    //reject({error: error});
+                    reject( error );
+                });
+            });
 
 }
 

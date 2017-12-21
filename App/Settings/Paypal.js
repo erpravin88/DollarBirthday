@@ -86,7 +86,11 @@ componentWillMount(){
         }else if (response.status === 500) {
            this.setState({showProgress : false});
         }
-     }).catch((error) => {console.log(error); });
+     }).catch((error) => {
+      this.setState({showProgress : false});
+      Toast.show(Label.t('155'));
+      console.log(error); 
+      });
   }                      // to fetch task types
 onPaypalClick()
 {
@@ -149,7 +153,11 @@ else
     this.setState({showProgress : false});
     Toast.show(Label.t('52'));
     }
-  }).catch((error) => {console.log(error); })
+  }).catch((error) => {
+    this.setState({showProgress : false});
+    Toast.show(Label.t('155'));
+    console.log(error); 
+    });
   //let userData = this.props.navigation.state.params.user_data;
   //userData.paypal = this.state.email;
 //  this.props.navigation.navigate('CHARITY',{user_data: userData});

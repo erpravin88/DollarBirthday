@@ -4,15 +4,10 @@ import {
   View,
   TextInput,
   Button,
-  KeyboardAvoidingView,
   TouchableOpacity,
-  Alert,
   Image,
   ScrollView,
-  ImageBackground,
   AsyncStorage,
-  ActivityIndicator,
-  NetInfo,
   Keyboard
 } from 'react-native';
 import CheckBox from 'react-native-checkbox';
@@ -31,9 +26,14 @@ const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
     });
-
-
-
+    /**
+     * Component: LoginContainer
+     * @author: Pravin Kumar
+     * @class: Login
+     * @description: use this for login by email/password and facebook login
+     * @version :1.0
+     *  
+     */
 export default class Login extends Component {
 
   constructor(props){
@@ -50,18 +50,13 @@ export default class Login extends Component {
                 persistentlogin: false
               };
   }
-  componentWillMount(){
-        //
-        //
-        // AsyncStorage.getItem(USER_KEY).then((key) => {
-        //   if(key == 'true'){ console.log('login'); console.log(key);
-        //     this.props.navigation.navigate('DASHBOARD');
-        //   }
-        // });
-      }
-_fblogin = ()=> { //fbAuth;
- Fblogin().then((data)=> {console.log(data);
-   console.log(this.state);
+    /**
+     *@function: _fblogin
+     * @author: Pravin Kumar
+     * @description: use for facebook login
+     */
+_fblogin = ()=> { 
+ Fblogin().then((data)=> {
    if(data.data.isCancelled){
        Toast.show('Log In cancelled');
    }else{
@@ -74,14 +69,9 @@ _fblogin = ()=> { //fbAuth;
          "device_id":this.state.device_id,
          "device_type":this.state.device_type}
        ).then((response) => {
-         console.log(response);
-        //  response.json().then((responseobject) => {
-        //    console.log(responseobject);
-        //  });
+
          if(response.status === 201){
          response.json().then((responseobject) => {
-           console.log(responseobject);
-
             onSignIn();
             AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
             afterSignIn(responseobject.data.authToken);
@@ -94,7 +84,6 @@ _fblogin = ()=> { //fbAuth;
          this.setState({showProgress : false});
        }else if (response.status === 406) {
          response.json().then((responseobject) => {
-           console.log(responseobject);
          });
          this.setState({showProgress : false});
          Toast.show(Label.t('147'));
@@ -102,7 +91,10 @@ _fblogin = ()=> { //fbAuth;
          this.setState({showProgress : false});
          Toast.show(Label.t('52'));
          }
-       }).catch((error) => {console.log(error); });
+       }).catch((error) => {
+        this.setState({showProgress : false});
+        Toast.show(Label.t('155'));
+        });
      }else{
        Toast.show(Label.t('140'));
      }
@@ -110,7 +102,12 @@ _fblogin = ()=> { //fbAuth;
    }
   });
 }
-  onLoginClick(){
+    /**
+     * @function: onLoginClick
+     * @author: Pravin Kumar
+     * @description: use for login by email/password
+     */
+  onLoginClick = () => {
     Keyboard.dismiss();
     let error = this.state.errorMsg;
     error.passwordMsg = '';
@@ -141,7 +138,6 @@ _fblogin = ()=> { //fbAuth;
     if(flag != ''){
       this.setState({errorMsg: error});
     }else{
-      console.log(this.state);  // Add your logic for the transition
       checkinternetconnectivity().then((response)=>{
         if(response.Internet == true){
           this.setState({showProgress : true});
@@ -155,7 +151,6 @@ _fblogin = ()=> { //fbAuth;
 
           if(response.status === 200){
           response.json().then((responseobject) => {
-            console.log(responseobject);
              onSignIn();
              AsyncStorage.setItem(PERSISTENT_LOGIN, this.state.persistentlogin.toString());
              afterSignIn(responseobject.data.authToken);
@@ -173,7 +168,10 @@ _fblogin = ()=> { //fbAuth;
           this.setState({showProgress : false});
           Toast.show(Label.t('52'));
           }
-        }).catch((error) => {console.log(error); });
+        }).catch((error) => {
+          this.setState({showProgress : false});
+          Toast.show(Label.t('155'));
+          });
       }else{
         Toast.show(Label.t('140'));
       }
@@ -181,6 +179,11 @@ _fblogin = ()=> { //fbAuth;
 
     }
   }
+  /**
+   * @function: hideErrors
+   * @author: Pravin Kumar
+   * @description: use for hiding error messages.
+   */
   hideErrors(){
     let error = this.state.errorMsg;
     error.passwordMsg = '';
@@ -273,6 +276,3 @@ return(<Image style = {styles.backgroundImage} source = {images.loginbackground}
 </Image>
  ); }
 }
-
-            //checkedImage={images.checkedcheckbox}
-            //uncheckedImage={images.uncheckedcheckbox}

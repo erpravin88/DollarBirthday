@@ -39,15 +39,16 @@ constructor(props){
         showProgress: false,
         messagelist: true,
         messages:[],
-        nodatacheck: true,
     };
+    
 }
 
 fetchlist(item){
   console.log(item);
    if(item.messages !== 0 && item != null){
-    // if(item.status == 'COMPLETED' ){
-    //   this.state.nodatacheck = false;
+     console.log(this.state.nodatacheck);
+      if(item.status == 'COMPLETED' ){
+      
     return(<View  key={`${item.gift_id}`} style={styles.messagebox}>
         <View style={styles.imagecontainer}>
             <Image style = {styles.userimage} source = {images.placeholderImage}/>
@@ -77,7 +78,7 @@ fetchlist(item){
             </View>
         </View>
     </View>)
- // }
+    }
   }else{
       return(<View key={`${item.id}`} style = {styles.listbox}>
         <View style={[styles.nodatabox]}>
@@ -117,7 +118,11 @@ componentWillMount(){
                    this.setState({showProgress : false});
                    Toast.show(Label.t('52'));
                 }
-             }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+             }).catch((error) => {
+              this.setState({showProgress : false});
+              Toast.show(Label.t('155'));
+              console.log(error); 
+              });
         }).catch((err)=>{
           Toast.show(err);
         });
@@ -134,7 +139,6 @@ render(){
     return(
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
-          <MyActivityIndicator progress={this.state.showProgress} />
           <Image style = {[styles.top,styles.containerWidth]} source = {images.topbackground} >
             <TouchableOpacity style = {[styles.dashboardIconw]} onPress={()=>{this.props.navigation.dispatch(resetAction);}}>
               <Image style={styles.img} source = {images.dashboardIcon}/>
@@ -145,10 +149,10 @@ render(){
             </View>
           </Image>
           <View style={[styles.formgroup,styles.containerWidth]}>
-            <View>
+            <View >
                 <ScrollView keyboardShouldPersistTaps="always">
                     {(this.state.messagelist == true) ?
-                    (<View><FlatList
+                    (<View ><FlatList
                         data={this.state.messages.length > 0 ? this.state.messages :[{id:0,messages:0}]}
                         renderItem={({item}) => this.fetchlist(item)}
                         keyExtractor={item => item.gift_id}
@@ -168,4 +172,5 @@ render(){
 //   <View style={[styles.nodatabox]}>
 //       { this.state.showProgress ? (<MyActivityIndicator progress={this.state.showProgress} />):(<Text style={[styles.fullnametext,styles.bothcenter]}>{Label.t('146')}</Text>)}
 //   </View>
-//  </View>):''}
+//  </View>):''} not found
+//<View style={[styles.messagebox,{flexDirection:'row',alignSelf:'center',justifyContent:'center',height:40,},styles.nodatabox]}><Text >{Label.t('146')}</Text></View>

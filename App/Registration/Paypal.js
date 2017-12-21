@@ -124,10 +124,11 @@ else
     this.setState({showProgress : false});
     Toast.show(Label.t('52'));
     }
-  }).catch((error) => {console.log(error); })
-  //let userData = this.props.navigation.state.params.user_data;
-  //userData.paypal = this.state.email;
-//  this.props.navigation.navigate('CHARITY',{user_data: userData});
+  }).catch((error) => {
+    this.setState({showProgress : false});
+    Toast.show(Label.t('155'));
+    console.log(error); 
+    });
 }
 
 }

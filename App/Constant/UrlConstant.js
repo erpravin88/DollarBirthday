@@ -28,7 +28,7 @@ export const settings = {
                         'gv_paypal_signature':'As73nrgcNlPNUmFI7LiaXizN2XJ7AaJx-wbNNxfW00xJORQFZkFUTD4u',
                         'gv_paypal_app_id':'APP-80W284485P519543T'},
   PAYPAL_LIVE_AUTHURL: 'https://www.paypal.com/webapps/adaptivepayment/flow/pay?&expType=mini&payKey=',
-  // PAYPAL_LIVE_AUTHURL: 'https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=AP-0LV13040VP2403905',
+ //  PAYPAL_LIVE_AUTHURL: 'https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=',
   PAYPAL_LIVE_APIURL: 'https://svcs.paypal.com/AdaptivePayments/',
   PAYPAL_LIVE_CREDENTIALS:{'gv_paypal_user_name':'ronnage123_api1.gmail.com',
                         'gv_paypal_password':'9YPPMCQQXKGGZ7WB',
@@ -40,6 +40,7 @@ export const settings = {
   //                           scope: 'User.ReadBasic.All Mail.Read offline_access',
   //                       },
   PAYMENT_STATUS:{created:"CREATED",completed:"COMPLETED",completeds:"Completed",incomplete:"INCOMPLETE",error:"ERROR",reversalerror:"REVERSALERROR",processing:"PROCESSING",pending:"PENDING"},
+  ROUTE_TYPE:{donate:'donate',send_gift:'send_gift',upcoming:'UPCOMINGS',calender:'CALENDAR'},
 };
 export const alertData = [{
       value: 'No alert',index:'0'

@@ -133,7 +133,14 @@ deleteFriend(item){
            this.setState({showProgress : false});
            Toast.show(Label.t('64')+':500');
         }
-     }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+     }).catch((error) => {
+      this.setState({showProgress : false});
+      Toast.show(Label.t('155'));
+      console.log(error); 
+      });
+      if(this.state.showProgress){
+        this.setState({showProgress : false});
+      }
    }else{
      Toast.show(Label.t('140'));
    }
@@ -169,10 +176,7 @@ componentWillMount(){
   this._onNavigationStateChange(this.state.webViewState);
  }
  _onNavigationStateChange (webViewState) { console.log(webViewState);
-   let jsCode = `
-        document.querySelector('#myContent').style.backgroundColor = 'red';
-    `;
-   console.log("hello");
+
    this.setState({webViewState:webViewState});
 console.log(this.state.webViewState);
 if(webViewState.url != undefined){
@@ -320,7 +324,7 @@ if(webViewState.url.includes(substring)){
                           data={this.state.Friends.length > 0 ? this.state.Friends :[{id:0,friend:0}]}
                           renderItem={({item}) => this.rowRander(item)}
                           keyExtractor={item => item.id}
-                          style={[{paddingRight:'1.5%'}]}
+                          style={[{marginBottom:20,paddingRight:'1.5%'}]}
                           /></View>) : ''}
                           
               </View>

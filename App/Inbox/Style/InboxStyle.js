@@ -129,6 +129,7 @@ const style = {
             marginBottom:20,
             backgroundColor:'transparent',
         },
+        
 
     };
       const allRules = Object.assign(comman, style);

@@ -11,7 +11,9 @@ import {
   ActivityIndicator,
   AsyncStorage,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  Platform,
+  Linking,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -27,6 +29,8 @@ import {checkinternetconnectivity} from '../Constant/netinfo';
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
+import settings from '../Constant/UrlConstant';
+
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -51,16 +55,30 @@ constructor(props){
     };
 }
 
-navigatetoSendGift(friend){
-    this.setModalVisible(false);
+    navigatetoSendGift(friend){
     checkinternetconnectivity().then((response)=>{
         if(response.Internet == true){
-            this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+            if (Platform.OS === 'android') {
+                this.setModalVisible(false);
+                this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+            }else{
+                this.openURL(settings.BASE_URL+'/mobileapp?type='+settings.ROUTE_TYPE.send_gift+'&from='+settings.ROUTE_TYPE.calender+'&fid='+friend.id+'&t='+this.state.auth_token);
+            }
+            
         }else{
-            Toast.show("No Internet Connection");
+            Toast.show(Label.t('140'));
         }
     });
-}
+  }
+  openURL = (url) => {
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+       console.log('Can\'t handle url: ' + url);
+     } else {
+       return Linking.openURL(url);
+     }
+   }).catch(err => console.error('An error occurred', err));
+ }
 
 setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -166,7 +184,11 @@ componentWillMount(){
                    this.setState({showProgress : false});
                    Toast.show('Error fetching friends:500');
                 }
-             }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+             }).catch((error) => {
+                this.setState({showProgress : false});
+                Toast.show(Label.t('155'));
+                console.log(error); 
+                });
         }).catch((err)=>{
           Toast.show(err);
         });

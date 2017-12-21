@@ -74,6 +74,7 @@ constructor(props){
         paymentalertmsg: '',
         auth_token:'',
         user_details:'',
+        modalinfo: false,
     };
 }
 
@@ -87,31 +88,18 @@ componentWillMount(){
     }
     AsyncStorage.getItem(AUTH_TOKEN).then((token)=>{
        this.setState({auth_token: token});
-        //  callApiWithAuth('user/friends','GET', this.state.auth_token).then((response) => {
-        //     if(response.status === 200){
-        //       response.json().then((responseobject) => {
-        //         this.setState({ Friends: responseobject.data });
-        //       });
-        //       this.setState({showProgress : false});
-        //       //Toast.show('Task fetched');
-        //     }else if (response.status === 401) {
-        //        this.setState({showProgress : false});
-        //        Toast.show(Label.t('64'));
-        //     }else if (response.status === 500) {
-        //        this.setState({showProgress : false});
-        //        Toast.show(Label.t('64')+':500');
-        //     }
-        //  }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
     }).catch((err)=>{
       onSignOut;
-      Toast.show(err);
+      console.log(err);
+      //Toast.show(err);
     });
     AsyncStorage.getItem(USER_DETAILS).then((details)=>{
       details = JSON.parse(details);
       this.setState({user_details: details});
       console.log(this.state.user_details.currency);
     }).catch((err)=>{
-      Toast.show(err);
+      console.log(err);
+      //Toast.show(err);
     });
   }
   //  this.state.friend = this.props.navigation.state.params.friend;
@@ -151,7 +139,11 @@ componentWillMount(){
         }else if (response.status === 500) {
            this.setState({showProgress : false});
         }
-     }).catch((error) => {console.log(error); });
+     }).catch((error) => {
+      this.setState({showProgress : false});
+      Toast.show(Label.t('155'));
+      console.log(error); 
+      });
      //--fetch donation list
      callApiWithoutAuth('donationList','GET' ).then((response) => {
         if(response.status === 200){
@@ -194,7 +186,10 @@ componentWillMount(){
         }else if (response.status === 500) {
            this.setState({showProgress : false});
         }
-     }).catch((error) => {console.log(error); });
+     }).catch((error) => {
+      this.setState({showProgress : false});
+      Toast.show(Label.t('155'));
+      });
 }
 sendgiftandcharity(){
     Keyboard.dismiss();
@@ -287,23 +282,11 @@ sendgiftandcharity(){
                   this.setState({showProgress : false});
                   Toast.show(Label.t('52'));
                   }
-              }).catch((error) => {console.log(error); });
-
-
-
-            // callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
-            //   response.json().then((res)=>{ console.log(res);
-            //     if(res.responseEnvelope.ack === 'Failure'){
-            //       console.log(res);
-            //        Toast.show(res.error.message);this.setState({showProgress : false});
-            //     }else if(res.responseEnvelope.ack === 'Success'){
-            //
-            //     this.setState({payKey:res.payKey,modalVisible:true,showProgress : false});
-            //     }
-            //   });
-            // });
-          // callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ this.setState({payKey:'AP-7GD85145B93427227',modalVisible:true});}));});
-          console.log(this.state);
+              }).catch((error) => {
+                this.setState({showProgress : false});
+                Toast.show(Label.t('155'));
+                console.log(error); 
+                });
           }else{
             this.setState({showProgress : false});
             Toast.show(Label.t('153'));
@@ -393,8 +376,11 @@ checkPaymentStatus = (inputdata) => {
           this.setState({showProgress : false});
           Toast.show(Label.t('52'));
           }
-      }).catch((error) => {console.log(error); });
-    console.log(this.state);
+      }).catch((error) => {
+        this.setState({showProgress : false});
+        Toast.show(Label.t('155'));
+        console.log(error); 
+        });
   }else{
     Toast.show(Label.t('140'));
   }
@@ -455,6 +441,9 @@ hide = () => {
   this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
   this.setState({ modalVisible: false })
 }
+hideinfo = () => {
+  this.setState({ modalinfo: false });
+}
 hideModal = () => {
   let shareData = this.state.shareLinkContent;
   shareData.contentDescription = this.state.fbMessage;
@@ -503,9 +492,7 @@ render(){
   }else{
      hide = false;
   }
-  let bdate = new Date(this.state.friend.birth_date);
-  console.log(this.state.payment_env === 'LIVE'? settings.PAYPAL_LIVE_AUTHURL :  this.state.payment_env === 'SANDBOX'? settings.PAYPAL_SANDBOX_AUTHURL : ''+this.state.payKey);
-console.log(this.state.charity_type);
+  var bdate = this.state.friend.birth_date.split('-');// YYYY-MM-DD
     return(
       <Image style = {styles.backgroundImage} source = {images.loginbackground}>
         <View style={[styles.full]}>
@@ -588,6 +575,29 @@ console.log(this.state.charity_type);
                 </View>
               </View>
             </Modal >
+            <Modal
+            animationType={'slide'}
+            visible={this.state.modalinfo}
+            onRequestClose={this.hideinfo}
+            transparent
+          >
+            <View style={[styles.fulls,{flex:1,backgroundColor:"rgba(112, 79, 108, 0.5)"}]}>
+              <WebView
+                  source={{ uri:  settings.BASE_URL+"/faq"}}
+                  scalesPageToFit={true}
+                  javaScriptEnabledAndroid={true}
+                  domStorageEnabled={true}
+                  automaticallyAdjustContentInsets={false}
+                  startInLoadingState={true}
+                  style={[{paddingTop:20}]}
+                />
+            </View>
+            <View style={[{backgroundColor:'#FFFFFF',borderTopWidth:1,borderColor:'#b7b7b7'}]}>
+            <TouchableOpacity style={[{width:'30%',backgroundColor:'#e34c4b',padding:6,margin:5,borderWidth:1,borderColor:'#aa5c5c',borderRadius:4,borderBottomWidth:null,justifyContent:'center',alignSelf:'center'}]} onPress={this.hideinfo} >
+              <Text style={[{fontWeight:'bold',color:'#FFFFFF',justifyContent:'center',alignSelf:'center'}]}>close</Text>
+            </TouchableOpacity>
+            </View>
+          </Modal >
           <MyActivityIndicator progress={this.state.showProgress} />
             <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
             <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
@@ -608,7 +618,7 @@ console.log(this.state.charity_type);
                         </View>
                         <View style = {styles.textcontainer}>
                             <Text style = {styles.usertext}>{this.state.friend.first_name+' '+this.state.friend.last_name}</Text>
-                            <Text style = {styles.userdesc}>{this.state.friend.first_name+Label.t('126')+` `+monthshort[bdate.getMonth()]} {bdate.getDate()}</Text>
+                            <Text style = {styles.userdesc}>{this.state.friend.first_name+Label.t('126')+` `+monthshort[bdate[1] - 1]} {bdate[2]}</Text>
                         </View>
                     </View>
                     <View style={[{marginTop:'3%'},{borderWidth: 1,
@@ -713,6 +723,13 @@ console.log(this.state.charity_type);
                             </Text>
                         </TouchableOpacity>
                         <DirectiveMsg message={Label.t('154')} icon = {false} />
+                        <TouchableOpacity
+                          style={[{flex:1,alignSelf:'flex-end',justifyContent:'center',height:25,width:25,backgroundColor:'#7a4d97',padding:5,borderRadius:100,}]}
+                            onPress = {()=> { this.setState({modalinfo:true})}}>
+                          <Text style = {[{flex:1,alignSelf:'center',color:'#FFFFFF'}]}>
+                              ?
+                          </Text>
+                        </TouchableOpacity>
                     </View>
                   </View>
             </TouchableOpacity>

@@ -136,7 +136,11 @@ componentWillMount(){
                   this.setState({showProgress : false});
                   Toast.show(Label.t('52'));
                   }
-              }).catch((error) => {console.log(error); });
+              }).catch((error) => {
+                this.setState({showProgress : false});
+                Toast.show(Label.t('155'));
+                console.log(error); 
+                });
             }else{
               Toast.show(Label.t('140'));
             }

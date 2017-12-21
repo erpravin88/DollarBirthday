@@ -12,6 +12,8 @@ import {
   ImageBackground,
   AsyncStorage,
   ListView,
+  Linking,
+  Platform,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import MyActivityIndicator from '../Component/MyActivityIndicator';
@@ -23,6 +25,8 @@ import { USER_KEY, AUTH_TOKEN, USER_DETAILS, onSignOut } from '../Constant/Auth'
 import {callApiWithAuth} from '../Service/WebServiceHandler';
 import MaterialTabs from 'react-native-material-tabs';
 import { NavigationActions } from 'react-navigation';
+import settings from '../Constant/UrlConstant';
+
 const resetAction = NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
@@ -75,7 +79,11 @@ export default class upcomings extends Component {
                this.setState({showProgress : false});
                Toast.show(Label.t('52'));
               }
-          }).catch((error) => { this.setState({showProgress : false}); console.log(error); });
+          }).catch((error) => {
+            this.setState({showProgress : false});
+            Toast.show(Label.t('155'));
+            console.log(error); 
+            });
         }else{
           Toast.show(Label.t('140'));
         }
@@ -93,10 +101,29 @@ export default class upcomings extends Component {
       });
   }
   navigatetoSendGift(friend){
-    //console.log(friend);
-    //let date = new Date(friend.birth_date)
-      this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+    checkinternetconnectivity().then((response)=>{
+      if(response.Internet == true){
+          if (Platform.OS === 'android') {
+              this.props.navigation.navigate('SEND_GIFT',{"friend":friend});
+          }else{
+            this.openURL(settings.BASE_URL+'/mobileapp?type='+settings.ROUTE_TYPE.send_gift+'&from='+settings.ROUTE_TYPE.upcoming+'&fid='+friend.id+'&t='+this.state.auth_token);
+          }
+          
+      }else{
+          Toast.show(Label.t('140'));
+      }
+    });
   }
+  openURL = (url) => {
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+       console.log('Can\'t handle url: ' + url);
+     } else {
+       return Linking.openURL(url);
+     }
+   }).catch(err => console.error('An error occurred', err));
+ }
+
   renderRow(data) {
     console.log(data);
     //let date = new Date(data.birth_date)
@@ -121,6 +148,9 @@ export default class upcomings extends Component {
         </View>
        );
      }
+
+
+
   render(){
   return(
     <Image style = {styles.backgroundImage} source = {images.loginbackground}>

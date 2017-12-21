@@ -11,6 +11,7 @@ import {
   Picker,
   WebView,
   Keyboard,
+  Platform,
 } from 'react-native';
 
 import Toast from 'react-native-simple-toast';
@@ -30,6 +31,8 @@ const date = new Date(Date.now());
 import { NavigationActions } from 'react-navigation';
 import  {fbAuthpublish}  from '../Component/Fblogin';
 import FBSDK  from 'react-native-fbsdk';
+import { Linking } from 'react-native';
+import SafariView from 'react-native-safari-view';
 const {
   LoginManager,
   AccessToken,
@@ -41,6 +44,7 @@ const resetAction = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'DASHBOARD' })],
   });
+
 export default class Donate extends Component {
 
 constructor(props){
@@ -48,6 +52,7 @@ constructor(props){
     this.senddonation = this.senddonation.bind(this);
     this.hideErrors = this.hideErrors.bind(this);
     this.hidestatusmsg = this.hidestatusmsg.bind(this);
+    this.openURL = this.openURL.bind(this);
     //this.fbshareposttest = this.fbshareposttest.bind(this);
     this.state = {
         showProgress: false,
@@ -72,6 +77,7 @@ constructor(props){
         auth_token:'',
         user_details:'',
         loopbreak:0,
+        modalinfo: false,
     };
 }
 
@@ -147,7 +153,11 @@ componentWillMount(){
           }else if (response.status === 500) {
              this.setState({showProgress : false});
           }
-       }).catch((error) => {console.log(error); });
+       }).catch((error) => {
+        this.setState({showProgress : false});
+        Toast.show(Label.t('155'));
+        console.log(error); 
+        });
        //--fetch donation list
        callApiWithoutAuth('donationList','GET' ).then((response) => {
           if(response.status === 200){
@@ -189,7 +199,11 @@ componentWillMount(){
           }else if (response.status === 500) {
              this.setState({showProgress : false});
           }
-       }).catch((error) => {console.log(error); });
+       }).catch((error) => {
+        this.setState({showProgress : false});
+        Toast.show(Label.t('155'));
+        console.log(error); 
+        });
     }).catch((err)=>{
       Toast.show(err);
     });
@@ -223,7 +237,6 @@ senddonation(){
       }
       else
       {
-
         let param = {charity_id: this.state.charity_type.index,donation_amount: this.state.pre_amount.index == Label.t('142') ? this.state.other_amount : this.state.pre_amount.index,facebook_share:this.state.checkboximg ? 0 : 1 ,facebook_message:this.state.fbMessage}
         console.log(JSON.stringify(param));
         //API Call
@@ -233,24 +246,21 @@ senddonation(){
             this.setState({showProgress : true});
             if(this.state.user_details.paypal !==null &&  this.state.user_details.paypal !== ''){
               callApiWithAuth('charitydonation','POST',this.state.auth_token, param ).then((response) => {
-               if(response.error !== undefined){
-                 response.json().then((responseobject) => {
-                   console.log(responseobject);
-
-                 });
-                 this.setState({showProgress : false});
-                 Toast.show(Label.t('149'));
-               }else if(response.status === 201){
+                if(response.status === 201){
                  response.json().then((responseobject) => {
                    console.log(responseobject);//CREATED/COMPLETED/INCOMPLETE/ERROR/REVERSALERROR/PROCESSING/PENDING
                    if(responseobject.data.paymentExecStatus === 'CREATED'){
-                     this.setState({payment_env: responseobject.data.payment_env, payKey:responseobject.data.payKey,trackingid:responseobject.data.trackingId,modalVisible:true,showProgress : false});
+                  
+                    this.setState({payment_env: responseobject.data.payment_env, payKey:responseobject.data.payKey,trackingid:responseobject.data.trackingId,showProgress : false});
+                    const url = "http://dbc.demos.classicinformatics.com/authtopayfrommobileapp.php?payKey="+responseobject.data.payKey+"&trackingId="+responseobject.data.trackingId+"auth_token"+this.state.auth_token; //this.state.payment_env === 'LIVE'? settings.PAYPAL_LIVE_AUTHURL+this.state.payKey :  this.state.payment_env === 'SANDBOX'? settings.PAYPAL_SANDBOX_AUTHURL+this.state.payKey : '';
+                  
+                        return this.openURL(url);
+                     //this.setState({payment_env: responseobject.data.payment_env, payKey:responseobject.data.payKey,trackingid:responseobject.data.trackingId,modalVisible:true,showProgress : false});
                    }else if(responseobject.data.paymentExecStatus === 'COMPLETED'){
                        this.setState({ modalVisible: false,paymentalerthead:  Label.t('120')  ,paymentalertmsg:  Label.t('121'),modelstatusmsg: true,showProgress : false,statusmsg :'complete'});
                    }
 
                  });
-                 Toast.show('');
                }else if (response.status === 401) {
                  onSignOut(this);
                  this.setState({showProgress : false});
@@ -266,26 +276,11 @@ senddonation(){
                  this.setState({showProgress : false});
                  Toast.show(Label.t('52'));
                  }
-              });
-
-              //  callApiToPaypal('Pay','POST', {actionType:'PAY',currencyCode:'USD',feesPayer:'EACHRECEIVER',receiverList:{receiver:[{amount:'0.01',email:'ronnage123@gmail.com',primary:false}]},requestEnvelope:{errorLanguage:'en_US'},returnUrl:'http://dbc.demos.classicinformatics.com?type=complete',cancelUrl:'http://dbc.demos.classicinformatics.com?type=cancel'}).then((response)=> {
-              //    response.json().then((res)=>{ console.log(res);
-              //      if(res.responseEnvelope.ack === 'Failure'){
-              //        console.log(res);
-              //         Toast.show(res.error.message);this.setState({showProgress : false});
-              //      }else if(res.responseEnvelope.ack === 'Success'){
-              //
-              //      this.setState({payment_env: 'LIVE',payKey:res.payKey,modalVisible:true,showProgress : false});
-              //      }
-              //    });
-              //  });
- //               callApiToPaypal('Pay','POST',{}).then((response)=> {console.log(response.json().then((res)=>{ //this.setState({payKey:res.payKey,modalVisible:true});
- // console.log(res);
- //             }));
- //             });
-
-
-
+              }).catch((error) => {
+                this.setState({showProgress : false});
+                console.log(error); 
+                Toast.show(Label.t('155'));
+                });
           }else{
             this.setState({showProgress : false});
             Toast.show(Label.t('153'));
@@ -421,8 +416,11 @@ checkPaymentStatus = (inputdata) => {
           this.setState({showProgress : false});
           Toast.show(Label.t('52'));
           }
-      }).catch((error) => {console.log(error); });
-    console.log(this.state);
+      }).catch((error) => {
+        this.setState({showProgress : false});
+        Toast.show(JSON.stringify(error));
+        console.log(error); 
+        });
   }else{
     Toast.show(Label.t('140'));
   }
@@ -433,6 +431,9 @@ checkPaymentStatus = (inputdata) => {
 hide = () => {
   this.checkPaymentStatus({param:{payKey:this.state.payKey,trackingid:this.state.trackingid}});
   this.setState({ modalVisible: false });
+}
+hideinfo = () => {
+  this.setState({ modalinfo: false });
 }
 hideModal = () => {
   let shareData = this.state.shareLinkContent;
@@ -473,6 +474,26 @@ hidestatusmsg = () => { //console.log('in');
 
   }
 }
+openURL = (url) => {
+   if (Platform.OS === 'ios') {
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+       console.log('Can\'t handle url: ' + url);
+     } else {
+       return Linking.openURL(url);
+        // return SafariView.show({
+        //   url: url,
+        //   fromBottom: true,
+        // });
+     }
+   }).catch(err => console.error('An error occurred', err));
+        
+      }
+      else {
+        this.setState({url:url,modalVisible: true});
+    }
+  }
+
 render(){
   let hide;
   if(this.state.charity_type.index === settings.DONOT_CHARITY_ID){
@@ -566,6 +587,29 @@ console.log(this.state.charity_type);
             </TouchableOpacity>
             </View>
           </Modal >
+          <Modal
+            animationType={'slide'}
+            visible={this.state.modalinfo}
+            onRequestClose={this.hideinfo}
+            transparent
+          >
+            <View style={[styles.fulls,{flex:1,backgroundColor:"rgba(112, 79, 108, 0.5)"}]}>
+              <WebView
+                  source={{ uri:  settings.BASE_URL+"/faq"}}
+                  scalesPageToFit={true}
+                  javaScriptEnabledAndroid={true}
+                  domStorageEnabled={true}
+                  automaticallyAdjustContentInsets={false}
+                  startInLoadingState={true}
+                  style={[{paddingTop:20}]}
+                />
+            </View>
+            <View style={[{backgroundColor:'#FFFFFF',borderTopWidth:1,borderColor:'#b7b7b7'}]}>
+            <TouchableOpacity style={[{width:'30%',backgroundColor:'#e34c4b',padding:6,margin:5,borderWidth:1,borderColor:'#aa5c5c',borderRadius:4,borderBottomWidth:null,justifyContent:'center',alignSelf:'center'}]} onPress={this.hideinfo} >
+              <Text style={[{fontWeight:'bold',color:'#FFFFFF',justifyContent:'center',alignSelf:'center'}]}>close</Text>
+            </TouchableOpacity>
+            </View>
+          </Modal >
         <MyActivityIndicator progress={this.state.showProgress} />
           <ScrollView  style={styles.scrollviewheight} keyboardShouldPersistTaps='always'>
           <TouchableOpacity style={[{flex:1}]} activeOpacity = { 1 } onPress={ Keyboard.dismiss } >
@@ -655,6 +699,13 @@ console.log(this.state.charity_type);
                           </Text>
                         </TouchableOpacity>
                           <DirectiveMsg message={Label.t('154')} icon = {false} />
+                          <TouchableOpacity
+                          style={[{flex:1,alignSelf:'flex-end',justifyContent:'center',height:25,width:25,backgroundColor:'#7a4d97',padding:5,borderRadius:100,}]}
+                            onPress = {()=> { this.setState({modalinfo:true})}}>
+                          <Text style = {[{flex:1,alignSelf:'center',color:'#FFFFFF'}]}>
+                              ?
+                          </Text>
+                        </TouchableOpacity>
                     </View>
             </View>
             </TouchableOpacity>

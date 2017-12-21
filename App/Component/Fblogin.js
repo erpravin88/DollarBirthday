@@ -6,14 +6,18 @@ const {
   ShareDialog
 } = FBSDK;
 import Toast from 'react-native-simple-toast';
-
+/**
+ * @function: function fblogin.
+ * @augments : resolve, reject
+ * @author: Pravin Kumar
+ * @description: this function is used for getting access tokan of facebook api
+ */
 export default fbAuth = () => {
     return new Promise((resolve, reject) => {
       LoginManager.logInWithReadPermissions(['public_profile','email','user_birthday']).then((result) => {
 
           if(result.isCancelled){
             resolve({status:'cancel', data:result});
-              //Toast.show('Log In cancelled');
           }
           else {
               AccessToken.getCurrentAccessToken().then(
@@ -22,13 +26,6 @@ export default fbAuth = () => {
                       console.log(JSON.stringify(fdata));
                       LoginManager.logOut();
                       resolve({status:'success', data:fdata});
-                      // fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
-                      // .then((response) => response.json())
-                      // .then((json) => {console.log("Profile fb",json)})
-                      // .catch(() => {
-                      //   console.log('ERROR GETTING DATA FROM FACEBOOK');
-                      // })
-
                   }
               );
           }
@@ -38,6 +35,12 @@ export default fbAuth = () => {
       })
   });
 }
+/**
+ * @function: function fbAuthpublish.
+ * @augments : resolve, reject
+ * @author: Pravin Kumar
+ * @description: this function is used for pulish post at facebook wall.
+ */
 export const fbAuthpublish = () => {
     return new Promise((resolve, reject) => {
       LoginManager.logInWithPublishPermissions(["publish_actions"]).then((result) => {
@@ -53,13 +56,6 @@ export const fbAuthpublish = () => {
                       console.log(JSON.stringify(fdata));
                       LoginManager.logOut();
                       resolve({status:'success', data:fdata});
-                      // fetch('https://graph.facebook.com/v2.5/me?fields=email,name,birthday&access_token=' + data.accessToken)
-                      // .then((response) => response.json())
-                      // .then((json) => {console.log("Profile fb",json)})
-                      // .catch(() => {
-                      //   console.log('ERROR GETTING DATA FROM FACEBOOK');
-                      // })
-
                   }
               );
           }

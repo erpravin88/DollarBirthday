@@ -1555,8 +1555,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ronald Feingold (RET3MR6DBJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ronald Feingold (RET3MR6DBJ)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6GK6WF86SC;
 				ENABLE_BITCODE = NO;
@@ -1580,8 +1580,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "435982c8-6b6b-4168-92ad-0b66f38d2d01";
-				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
+				PROVISIONING_PROFILE = "1f0885de-e35f-4717-ab39-62f6a2a55d44";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1605,8 +1605,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rachit Singh Classic Informatics (78V77YZXGT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ronald Feingold (RET3MR6DBJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ronald Feingold (RET3MR6DBJ)";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6GK6WF86SC;
 				ENABLE_BITCODE = NO;
@@ -1622,8 +1622,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "435982c8-6b6b-4168-92ad-0b66f38d2d01";
-				PROVISIONING_PROFILE_SPECIFIER = DollarBirthday;
+				PROVISIONING_PROFILE = "1f0885de-e35f-4717-ab39-62f6a2a55d44";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
