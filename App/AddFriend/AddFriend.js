@@ -286,7 +286,7 @@ render(){
                             style = {[styles.TextInputStyle,styles.font3]}
                             ref='thirdInput'
                             placeholderTextColor = "#b7b7b7"
-                            placeholder = {Label.t('41')}
+                            placeholder = {Label.t('160')}
                             value = {this.state.email}
                             underlineColorAndroid = 'transparent'
                             multiline = {false}
