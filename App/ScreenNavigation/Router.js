@@ -18,6 +18,7 @@ import Inbox from '../Inbox/Inbox';
 import GiftHistory from '../GiftHistory/GiftHistory';
 import InviteFriend from '../InviteFriend/InviteFriend';
 import AddFriendMenu from '../AddFriend/AddFriendMenu';
+import BirthdayCampaign from '../BirthdayCampaign/BirthdayCampaign';
 
 export const screenRoute = (SignIn) => {
   // console.log('route');
@@ -41,6 +42,7 @@ export const screenRoute = (SignIn) => {
     GIFTHISTORY: {screen:GiftHistory},
     INVITE_FRIEND: {screen:InviteFriend},
     ADDFRIEND_MENU: {screen:AddFriendMenu},
+    BIRTHDAY_CAMPAIGN: {screen: BirthdayCampaign},
     },{
     headerMode: 'none',
     mode:'card',

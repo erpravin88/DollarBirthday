@@ -285,10 +285,15 @@ export default class Dashboard extends Component {
       </TouchableOpacity>
     </View>
     <View style = {[styles.iconContainer,styles.iconContainerfix3]}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
       style = {[styles.dbIcon]}
       onPress={()=>{this.navfromdashboard(settings.ROUTE_TYPE.donate)}}>
       <Image style = {[styles.full,styles.resizeModec]} source = {images.donateIcon}/>
+      </TouchableOpacity> */}
+      <TouchableOpacity
+      style = {[styles.dbIcon]}
+      onPress={()=>{this.navfromdashboard('BIRTHDAY_CAMPAIGN')}}>
+      <Image style = {[styles.full,styles.resizeModec]} source = {images.startcampaignIcon}/>
       </TouchableOpacity>
       <TouchableOpacity
       style = {[styles.dbIcon]}

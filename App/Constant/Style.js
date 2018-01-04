@@ -49,6 +49,9 @@ const { width, height } = Dimensions.get('window');
 		backgroundtrans:{
 			backgroundColor:'transparent',
 		},
+		backgroundwhite:{
+			backgroundColor:'#ffffff',
+		},
 		hide:{
 			display:'none',
 		},
@@ -170,7 +173,12 @@ const { width, height } = Dimensions.get('window');
 	  inputBorderBottom: {
 	       borderBottomWidth: 1,
 	       borderBottomColor: '#e0e0e0'
-	  },
+		},
+		inputBorder: {
+			borderWidth: 1,
+			borderColor: '#e0e0e0'
+ 		},
+		
 		signInButtonContainer: {
 
 	    width: '100%',
